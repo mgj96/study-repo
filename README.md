@@ -30,6 +30,7 @@ study-repo/
 | 문서 | 내용 |
 |------|------|
 | [Reusable Workflows](github-actions/reusable-workflows.md) | 워크플로우를 함수처럼 재사용 — caller/called 구조, 실제 리팩토링 사례 |
+| [PR 자동 리뷰 봇](github-actions/pr-review-bot.md) | LLM이 PR diff를 자동 리뷰 — 모델/빈도/체크기준, 보안, hallucination 실전 사례 |
 
 ## Obsidian & 지식 관리
 
