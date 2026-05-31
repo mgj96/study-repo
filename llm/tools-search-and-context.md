@@ -105,6 +105,69 @@ find . -name "*.ts" | xargs cat > all.txt → 그냥 다 넣어
 
 ---
 
+## 잠깐 — `rg`(ripgrep)가 뭔가
+
+- **ripgrep** = Rust로 만든 **초고속 텍스트 검색기**(grep의 현대판). 명령어가 `rg`.
+- grep 대비 **5~13배 빠름** ([벤치마크](https://www.codeant.ai/blogs/ripgrep-vs-grep-performance)).
+- `.gitignore`를 **자동 존중** → `node_modules`·빌드산출물·`.git`을 알아서 건너뜀.
+- 그래서 거의 모든 AI 코딩 에이전트(Claude Code, Codex, Cursor, Aider 등)의 **기본 검색 엔진**.
+```bash
+rg "함수이름"          # 코드에서 패턴 찾기 (grep과 사용법 거의 동일)
+rg --files             # 파일 목록 (find 대용)
+```
+
+---
+
+## 핵심 질문 — 둘 다 grep인데 왜 분석 차이가 나나
+
+당신의 통찰이 정확하다: **검색 방식(grep)은 같으므로 그게 차이의 원인이 아니다.**
+차이는 **(1) 모델의 추론 성향 + (2) 에이전트 하네스 설계 + (3) 컨텍스트 티어**에서 나온다.
+
+### "Codex가 더 잘한다"는 반만 맞다 (작업별로 갈림)
+
+| 작업 유형 | 우세 | 근거(벤치/특성) |
+|-----------|------|----------------|
+| 터미널·장기 자율 실행, 도구 연계 | **Codex (GPT-5.5)** | Terminal-Bench 2.0 82.7%, 서브에이전트 최대 8개 병렬 |
+| 깊은 코드 리뷰, 레포 전체 추론, "진짜 망가진 버그" | **Claude Code (Opus)** | 공유 벤치 10개 중 6개 우세, 추론·리뷰급에서 강함 |
+
+→ **"분석을 더 잘한다"가 한 방향이 아니다.** 터미널 자율작업·장기 실행은 Codex,
+깊은 추론·코드리뷰·레포 단위 이해는 Claude가 우세. (2026-05 기준)
+
+### 왜 이런 강·단점이 나오나 (근본 원인)
+
+**1. 모델의 추론 성향**
+- **GPT-5.5(Codex)**: 한 스텝마다 **더 오래 추론**하고, 긴 터미널 작업을 **끝까지 밀어붙이는 지속성**.
+  → 장기 자율 작업에서 강함. 대신 사람이 중간에 **개입해 조종(steer)** 하는 협업형.
+- **Opus(Claude)**: 추론에 쓰는 시간 대비 **출력이 빠르고**, **레포 단위 맥락 유지·자율 판단**이 강함.
+  → "이 기능 흐름 추적", "여러 파일 걸친 버그"에서 강함.
+
+**2. 에이전트 하네스 설계 (모델 밖의 구조)**
+- Codex: **터미널 우선 + 서브에이전트 병렬(최대 8) + goals/memories**로 장기 프로젝트 지속.
+- Claude Code: **드라이버(planner)** 성향 — 깊은 컨텍스트 보존, 무엇을 할지 계획·위임.
+
+**3. 컨텍스트 티어**
+- Claude: 200K 기본 + **1M 베타**.
+- Codex: 기본 272K~400K + **1M 롱컨텍스트는 옵트인**.
+- → 큰 레포를 한 세션에 통째로 들고 추론하는 데는 Claude의 큰 기본 컨텍스트가 유리한 편.
+
+### 그래서 현업의 결론 — "드라이버/워커" 분업
+
+2026년 들어 굳어진 패턴:
+```
+Claude Code(Opus) = 드라이버: 계획하고, 무엇을 넘길지 결정
+        │ 위임
+        ▼
+Codex(GPT-5.5)   = 워커: 위임받은 긴 터미널 작업을 끝까지 실행
+```
+→ 둘은 **경쟁이 아니라 역할 분담**으로 같이 쓰는 게 현재의 best practice.
+
+출처: [Codex vs Claude Code (builder.io)](https://www.builder.io/blog/codex-vs-claude-code),
+[Driver/Worker 가이드](https://fountaincity.tech/resources/blog/codex-claude-code-harness-together/),
+[Codex vs Claude Code (morphllm, 2026-05)](https://www.morphllm.com/comparisons/codex-vs-claude-code),
+[DataCamp 벤치 비교](https://www.datacamp.com/blog/gpt-5-5-vs-claude-opus-4-7)
+
+---
+
 ## 컨텍스트량 한눈에 (2026-05-31 기준 검증)
 
 | 도구/모델 | Context | 들어가는 양(대략) | 함의 |
