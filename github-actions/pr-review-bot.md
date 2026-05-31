@@ -18,22 +18,40 @@ PR 생성/업데이트 → diff 추출 → LLM에 리뷰 요청 → PR에 코멘
 
 ---
 
-## 언제, 몇 번 도나 (빈도)
+## 언제, 몇 번 도나 (빈도) — 무료 키 할당량 절약이 핵심
+
+무료 Gemini 키는 **하루 호출 횟수 제한(예: 10회)** 이 있다.
+→ push마다 도는 `synchronize`를 켜두면 커밋 몇 번에 할당량이 바닥난다.
+→ **최소 호출** 설계가 필수.
 
 ```yaml
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened]   # ⚠️ synchronize 일부러 제외
+
+concurrency:                    # 같은 PR 새 실행 시 이전 실행 취소
+  group: pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  ai-review:
+    if: github.event.pull_request.draft == false   # 초안 PR 스킵
 ```
 
-| 이벤트 | 의미 | 리뷰 |
-|--------|------|------|
-| `opened` | PR 처음 열림 | 1회 |
-| `synchronize` | PR에 새 커밋 push | push마다 1회 |
-| `reopened` | 닫힌 PR 다시 열림 | 1회 |
+| 이벤트 | 사용? | 이유 |
+|--------|-------|------|
+| `opened` | ✅ | PR 처음 열릴 때 1회 |
+| `reopened` | ✅ | 다시 열릴 때 1회 |
+| `synchronize` | ❌ | push마다 호출 → 무료 할당량 폭증, 제외 |
 
-→ **PR 1건당 고정 횟수가 아니라, 위 이벤트가 일어날 때마다** 돈다.
-→ 커밋을 5번 push하면 리뷰도 5번. (비용 주의)
+→ 사실상 **PR 1건당 1회**로 최소화.
+
+### 깊은 디테일 — 트리거는 어느 파일 버전으로 판단되나
+
+`pull_request` 워크플로우는 **PR 브랜치(head)의 워크플로우 파일**을 기준으로
+트리거 여부를 정한다. 그래서 새 파일에서 `synchronize`를 빼면,
+**그 변경을 push하는 순간부터** push로는 봇이 돌지 않는다.
+(검증: synchronize 제거 후 push → 새 run 0건 = 할당량 0 소비)
 
 ---
 
@@ -105,11 +123,15 @@ jobs:
    Gemini의 학습 데이터는 자기보다 나중에 나온 모델을 모른다.
    그래서 "최신 모델 = 1.5-flash"라고 자신있게 헛소리를 했다.
 
-반면 같은 리뷰에서:
-> "`resp.text`가 안전 필터 차단 시 예외를 던질 수 있다"
-는 **유효한 지적이었고, 실제로 방어 코드를 추가**했다.
+반면 같은 봇이 던진 **유효한 지적 2개는 실제로 코드에 반영**했다:
+- `resp.text`가 안전 필터 차단 시 예외 → 방어 코드 추가
+- `REVIEW_PROMPT.format(diff=diff)`는 diff에 중괄호 `{ }`가 있으면 KeyError
+  → `.replace("{diff}", diff)` 치환으로 변경
 
 **결론:** LLM 리뷰는 "유효한 지적 + 그럴듯한 헛소리"가 섞여 나온다.
+- 헛소리: 모델명 (knowledge cutoff로 최신 모델을 모름)
+- 유효: 예외 처리, format 버그 (코드 패턴은 정확히 읽음)
+
 사람이 옥석을 가려야 한다. → [LLM이란 무엇인가](../llm/what-is-llm.md)의 한계 참고.
 
 ---
