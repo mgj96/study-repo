@@ -9,8 +9,9 @@ Claude Code와 함께 학습하고, 논의한 내용을 정리한다.
 
 ```
 study-repo/
-  llm/          LLM 이해와 활용
-  obsidian/     지식 관리 방법론
+  llm/             LLM 이해와 활용
+  obsidian/        지식 관리 방법론
+  github-actions/  GitHub Actions 심화
 ```
 
 ---
@@ -23,6 +24,12 @@ study-repo/
 | [모델별 비교](llm/model-comparison.md) | Copilot, Claude Code, Gemini, Codex — context 크기 & 코드베이스 읽기 방식 |
 | [카파시 접근법](llm/karpathy-approach.md) | 밑바닥부터 이해하는 학습 철학 |
 | [코드베이스 분석 방법](llm/codebase-analysis.md) | Claude Code와 작업할 때 알려줘야 할 것들, 실전 프롬프트 패턴 |
+
+## GitHub Actions 심화
+
+| 문서 | 내용 |
+|------|------|
+| [Reusable Workflows](github-actions/reusable-workflows.md) | 워크플로우를 함수처럼 재사용 — caller/called 구조, 실제 리팩토링 사례 |
 
 ## Obsidian & 지식 관리
 
