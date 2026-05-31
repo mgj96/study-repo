@@ -78,7 +78,38 @@ Claude Code 쓸 때:
 
 > 도구를 잘 쓰는 것과 도구에 의존하는 것은 다르다.
 
+## 최근 근황 (2026, 검증됨)
+
+> ⚠️ 흔한 오해 정정: "카파시가 Codex(OpenAI)에 갔다"가 아니라 **Anthropic**(Claude 제작사)에 합류.
+
+- **2026-05-19 Anthropic 합류** — pre-training 팀(팀리드 Nick Joseph).
+  **Claude로 사전학습 연구를 가속**하는 새 팀을 맡는다. (Tesla→OpenAI→Eureka Labs→Anthropic)
+  출처: [TechCrunch](https://techcrunch.com/2026/05/19/openai-co-founder-andrej-karpathy-joins-anthropics-pre-training-team/),
+  [본인 X](https://x.com/karpathy/status/2056753169888334312)
+
+### 화제가 된 마크다운 문서 2가지
+
+**1. CLAUDE.md — 4가지 행동 원칙 (10만+ 스타)**
+2026-01-26 카파시가 Claude Code를 집중적으로 쓴 뒤 X에 올린 관찰을
+개발자 Forrest Chang이 70줄짜리 `CLAUDE.md`로 정리 → GitHub 트렌딩 28일 연속 1위.
+- Think Before Coding (코딩 전에 생각)
+- Simplicity First (단순함 우선)
+- Surgical Changes (수술적·최소 변경)
+- Goal-Driven Execution (목표 주도 실행)
+출처: [miraflow](https://miraflow.ai/blog/karpathy-claude-md-100k-github-stars-ai-coding-2026)
+
+**2. LLM Wiki — 이 study-repo가 바로 이 패턴! (1600만 뷰)**
+2026-04-03 카파시가 Gist 공개: **RAG 대신, LLM이 관리하는 "구조화된 마크다운 지식베이스"**.
+- 핵심 주장: 벡터DB·임베딩 없이도, 잘 구조화된 md 문서 모음이 더 투명하고 유지보수 쉽다
+- → **우리가 만든 study-repo(md 지식 창고)가 정확히 이 아이디어의 실천**이다
+출처: [Karpathy Gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f),
+[remio 해설](https://www.remio.ai/post/andrej-karpathy-published-an-llm-wiki-pattern-16-million-views-for-a-folder-structure)
+
+> 정리: 카파시는 "밑바닥 이해"뿐 아니라 **"md로 지식을 구조화해 LLM과 협업"** 까지 밀고 있고,
+> 이 레포는 그 두 철학을 동시에 따르는 셈이다.
+
 ## 관련 문서
 
 - [LLM이란 무엇인가](what-is-llm.md)
 - [모델별 비교](model-comparison.md)
+- [LLM으로 지식 유지하기](../obsidian/llm-knowledge-management.md) — LLM Wiki 패턴의 실천
