@@ -19,7 +19,7 @@ rm -rf "$OUT"
 mkdir -p "$OUT"
 
 # 묶을 카테고리 폴더들 (여기 한 줄 추가하면 새 카테고리도 자동 포함 → 확장 지점)
-CATEGORIES=(llm concepts papers cs-fundamentals conventions github-actions obsidian)
+CATEGORIES=(llm concepts papers cs-fundamentals conventions tradeoffs github-actions obsidian)
 
 echo "== NotebookLM 번들 생성 =="
 for cat in "${CATEGORIES[@]}"; do

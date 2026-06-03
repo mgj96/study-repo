@@ -14,6 +14,7 @@ study-repo/
   papers/          검증된 논문 리스트 (인용·발췌)
   cs-fundamentals/ CS 기초 — 하드웨어를 의식하는 사고
   conventions/     찾기 좋은 코드 = 좋은 아키텍처·명명
+  tradeoffs/       정답은 없다 — 실무 경험담·대체 방식
   github-actions/  GitHub Actions 심화
   obsidian/        지식 관리 방법론
 ```
@@ -59,6 +60,13 @@ study-repo/
 | 문서 | 내용 |
 |------|------|
 | [Findability-Driven Design](conventions/findability-driven-design.md) | 찾기 좋은 코드 = 좋은 아키텍처(FSD·DDD)·명명 → CLAUDE.md |
+
+## 실무 트레이드오프 (tradeoffs/)
+
+| 문서 | 내용 |
+|------|------|
+| [정답은 없다 — 경험담·대체 방식](tradeoffs/no-single-right-answer.md) | Redis→DB 행락, MSA→모놀리스, 인덱스·캐시·UUID 등 10가지 통념 점검 |
+| [트레이드오프 읽는 법 + 지표](tradeoffs/reading-tradeoffs-and-metrics.md) | 무엇을 얻고 잃나, 지표는 수단(Goodhart)·측정 먼저(Knuth) |
 
 ## GitHub Actions 심화
 
