@@ -109,6 +109,22 @@
 - **단서**: 측정 없는 최적화는 시간 낭비 + 코드만 복잡. "느린 것 같다"가 아니라 **재서 결정**.
   출처: [Knuth 원문 맥락](https://probablydance.com/2025/06/19/revisiting-knuths-premature-optimization-paper/)
 
+### 11. "비동기(async)가 동기보다 빠르다"
+- **항상은 아니다**: async/await는 상태머신·컨텍스트 캡처 오버헤드가 있다. await 1회 ≈ 수 µs +
+  수백 바이트 할당. **아주 짧은 작업**이나 **타이트한 루프**에선 동기보다 느리고 복잡하기만 하다.
+- **단서**: 오버헤드는 **작업이 오래 걸릴수록 상대적으로 무의미** → 긴 I/O엔 async가 이득,
+  짧고 빠른 작업엔 동기가 단순·빠름. "무조건 async"는 틀린 습관.
+  출처: [async 오버헤드(InfoQ)](https://www.infoq.com/news/2013/07/async-await-pitfalls/),
+  [동기 I/O 안티패턴(MS)](https://learn.microsoft.com/en-us/azure/architecture/antipatterns/synchronous-io/)
+
+### 12. "서버리스(Lambda)가 더 싸다"
+- **규모에 따라 역전**: 한 팀 Lambda 청구서 월 $12,247 → EC2 $315로 전환(약 39배 절감).
+  요청당 단가가 광고의 22배였던 사례. PrimeVideo도 같은 맥락(서버리스 → ECS).
+- **단서**: **트래픽 모양**이 정답을 가른다. 일정한 고트래픽 = 컨테이너/EC2 유리,
+  드문드문 스파이크 = Lambda 유리. break-even을 넘으면 서버리스가 급격히 비싸진다.
+  출처: [Lambda→EC2 비용 사례](https://medium.com/engineering-playbook/our-serverless-lambda-bill-hit-12-000-we-switched-back-to-ec2-for-400-heres-what-changed-9939039071e8),
+  [서버리스 과금 분석](https://theburningmonk.com/2023/05/is-serverless-overpriced-what-can-we-learn-from-the-primevideo-team/)
+
 ## 메타 교훈 — 어떻게 판단할까
 
 ```
