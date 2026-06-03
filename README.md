@@ -10,8 +10,12 @@ Claude Code와 함께 학습하고, 논의한 내용을 정리한다.
 ```
 study-repo/
   llm/             LLM 이해와 활용
-  obsidian/        지식 관리 방법론
+  concepts/        LLM 핵심 개념 학습문서 (정렬·MoE 등)
+  papers/          검증된 논문 리스트 (인용·발췌)
+  cs-fundamentals/ CS 기초 — 하드웨어를 의식하는 사고
+  conventions/     찾기 좋은 코드 = 좋은 아키텍처·명명
   github-actions/  GitHub Actions 심화
+  obsidian/        지식 관리 방법론
 ```
 
 ---
@@ -25,6 +29,32 @@ study-repo/
 | [도구 검색·컨텍스트·용도](llm/tools-search-and-context.md) | 도구별 검색 방식(근접/에이전트/RAG/통째), 컨텍스트량, 용도별 선택 가이드 |
 | [카파시 접근법](llm/karpathy-approach.md) | 밑바닥부터 이해하는 학습 철학 |
 | [코드베이스 분석 방법](llm/codebase-analysis.md) | Claude Code와 작업할 때 알려줘야 할 것들, 실전 프롬프트 패턴 |
+
+## LLM 핵심 개념 (concepts/)
+
+| 문서 | 내용 |
+|------|------|
+| [RLHF / RLAIF 정렬](concepts/rlhf-rlaif-alignment.md) | 모델을 '말 잘 듣게' 만드는 정렬 — SFT→RM→PPO, Constitutional AI, DPO |
+| [MoE (Mixture-of-Experts)](concepts/mixture-of-experts.md) | 적게 켜서 크게 쓰는 구조 — 희소 활성화, 셀프호스팅 메모리 |
+
+## 논문 리스트 (papers/)
+
+| 문서 | 내용 |
+|------|------|
+| [환각·추론·창발](papers/hallucination-reasoning-emergence.md) | 검증된 arXiv 논문 — 왜 환각이 불가피하고 창의와 연결되는지, 추론·창발 |
+
+## CS 기초 (cs-fundamentals/)
+
+| 문서 | 내용 |
+|------|------|
+| [메모리 계층과 지연시간](cs-fundamentals/memory-hierarchy-and-latency.md) | L1~네트워크 지연 직관, 캐시·지역성 |
+| [Scale-up vs Scale-out](cs-fundamentals/scaling-up-vs-out.md) | 수직/수평 확장 트레이드오프, 병목 찾기 |
+
+## 아키텍처·규칙 (conventions/)
+
+| 문서 | 내용 |
+|------|------|
+| [Findability-Driven Design](conventions/findability-driven-design.md) | 찾기 좋은 코드 = 좋은 아키텍처(FSD·DDD)·명명 → CLAUDE.md |
 
 ## GitHub Actions 심화
 
