@@ -87,4 +87,22 @@ study-repo/
 
 ---
 
+## NotebookLM에 넣어 학습하기
+
+이 레포의 .md를 Google **NotebookLM**(마크다운 공식 지원)에 올려 질문·요약·오디오 학습에 쓴다.
+
+**분리 단위 = 카테고리.** 폴더 1개 → 번들 .md 1개 → NotebookLM 소스 1개.
+(NotebookLM 제한: 소스 50개 / 소스당 50만 단어. 카테고리로 묶으면 관련 지식이 한 소스에
+모이고, 문서를 추가해도 그 번들만 커진다 → 확장성 좋음.)
+
+```bash
+bash scripts/bundle-for-notebooklm.sh   # dist/notebooklm/<카테고리>.md 생성
+# → dist/notebooklm/ 의 .md들을 NotebookLM에 업로드
+```
+
+> study-repo(.md, git 버전관리)가 **진실의 원천**, NotebookLM은 소비·학습용.
+> 새 작업은 요약해서 해당 카테고리 .md에 추가 → 스크립트 재실행 → 재업로드.
+
+---
+
 > Claude Code와 논의하며 내용을 결정하고, 합의된 내용을 이 레포에 저장하는 방식으로 운영.
