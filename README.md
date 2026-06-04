@@ -75,6 +75,13 @@ study-repo/
 | 문서 | 내용 |
 |------|------|
 | [Findability-Driven Design](conventions/findability-driven-design.md) | 찾기 좋은 코드 = 좋은 아키텍처(FSD·DDD)·명명 → CLAUDE.md |
+| [단순함 원칙 (YAGNI 등)](conventions/simplicity-principles.md) | YAGNI·KISS·Gall's Law — 단순하게, 판단은 사람이 |
+
+## 사고법 (thinking/)
+
+| 문서 | 내용 |
+|------|------|
+| [추론 기법](thinking/reasoning-methods.md) | 연역·귀납·가추·first-principles + LLM 시대 사고력 유지(검증 중심) |
 
 ## 실무 트레이드오프 (tradeoffs/)
 
