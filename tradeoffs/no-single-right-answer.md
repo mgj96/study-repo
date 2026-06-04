@@ -23,6 +23,11 @@
 - DB 락은 **열린 트랜잭션을 잡고** 기다리게 한다 → 경합이 극심하거나 트랜잭션이 길면
   커넥션 고갈·데드락 위험. 이때는 Redis 분산락이나 큐 직렬화가 더 나을 수 있다.
 - 여러 DB 노드(샤딩/멀티마스터)로 흩어지면 단일 DB 락만으론 부족 → 외부 락 필요.
+- **부하 이관 관점(중요)**: DB 기반(행락·`UPDATE WHERE`)은 빠르고 단순하지만, 그 부하가
+  **전부 DB로 집중**된다. DB는 보통 **수평 확장이 가장 어려운 공유 자원**(단일 프라이머리) →
+  핫로우 쓰기가 몰리면 **다른 모든 쿼리까지 느려진다**. Redis를 쓰는 핵심 이유 중 하나가
+  바로 이 **조율 부하를 DB 밖(싸게 확장되는 메모리)으로 분리**하는 것.
+  → "이 작업만 빠르냐"가 아니라 "**공유 자원(DB)에 얼마나 부담을 주느냐**"까지 봐야 한다.
 출처: [Pessimistic vs distributed lock 논의](https://dev.to/tyroopam9599/beyond-setnx-implementing-a-production-grade-distributed-lock-with-nodejs-and-redis-lua-scripts-2p1b)
 
 > ▶ **직접 돌려보기**: 이 사례를 Docker로 측정하는 벤치마크 →
