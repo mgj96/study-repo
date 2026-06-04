@@ -35,6 +35,13 @@ study-repo/
 |------|------|
 | [Big-O 표기](algorithms/big-o-notation.md) | 정의·단순화 규칙·분석법·함정 + **직접 풀어보기 문제** |
 
+## 언어 (languages/)
+
+| 문서 | 내용 |
+|------|------|
+| [언어 불문 공통](languages/language-agnostic-fundamentals.md) | 패턴·원칙은 옮겨가고 관용구만 다르다 |
+| [Java ↔ C# + C# 개발 가이드](languages/java-vs-csharp.md) | 개념→Java→C# 툴팁 비교, 명명·관례, 패턴의 C# 관용구 |
+
 ## LLM 이해와 활용
 
 | 문서 | 내용 |
