@@ -83,6 +83,12 @@ study-repo/
 |------|------|
 | [추론 기법](thinking/reasoning-methods.md) | 연역·귀납·가추·first-principles + LLM 시대 사고력 유지(검증 중심) |
 
+## 퀴즈 (quizzes/)
+
+| 문서 | 내용 |
+|------|------|
+| [동시성·락·네트워크](quizzes/concurrency-locking-network.md) | 오늘치 정리 + 팁/함정 + 추가예제 + 퀴즈10문항(정답 포함). NotebookLM 자가테스트용 |
+
 ## 실무 트레이드오프 (tradeoffs/)
 
 | 문서 | 내용 |
