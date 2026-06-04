@@ -40,7 +40,7 @@ study-repo/
 | 문서 | 내용 |
 |------|------|
 | [언어 불문 공통](languages/language-agnostic-fundamentals.md) | 패턴·원칙은 옮겨가고 관용구만 다르다 |
-| [Java ↔ C# + C# 개발 가이드](languages/java-vs-csharp.md) | 개념→Java→C# 툴팁 비교, 명명·관례, 패턴의 C# 관용구 |
+| [Java ↔ C# ↔ Python + 개발 가이드](languages/java-vs-csharp.md) | 개념→Java→C#→Python 툴팁 비교, 명명·관례, 패턴의 언어별 관용구 |
 
 ## LLM 이해와 활용
 
