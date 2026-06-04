@@ -25,6 +25,10 @@
 - 여러 DB 노드(샤딩/멀티마스터)로 흩어지면 단일 DB 락만으론 부족 → 외부 락 필요.
 출처: [Pessimistic vs distributed lock 논의](https://dev.to/tyroopam9599/beyond-setnx-implementing-a-production-grade-distributed-lock-with-nodejs-and-redis-lua-scripts-2p1b)
 
+> ▶ **직접 돌려보기**: 이 사례를 Docker로 측정하는 벤치마크 →
+> [mgj96/lab-benchmarks](https://github.com/mgj96/lab-benchmarks)
+> (none/redis-lock/db-row-lock/db-atomic/db-split-lock 5전략 처리량·정합성 비교)
+
 ## 사례 2. Prime Video: 마이크로서비스/서버리스 → 모놀리스 (비용 90%↓)
 
 **통념**: "확장성 있게 가려면 마이크로서비스·서버리스."

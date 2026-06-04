@@ -19,12 +19,13 @@ rm -rf "$OUT"
 mkdir -p "$OUT"
 
 # 묶을 카테고리 폴더들 (여기 한 줄 추가하면 새 카테고리도 자동 포함 → 확장 지점)
-CATEGORIES=(llm concepts papers cs-fundamentals conventions tradeoffs github-actions obsidian)
+CATEGORIES=(algorithms llm concepts papers cs-fundamentals conventions tradeoffs github-actions obsidian)
 
 # 카테고리별 한 줄 소개 — NotebookLM 소스 첫머리에 들어가 '이게 뭔지'를 알려준다.
 # (bash 3.2 호환 위해 associative array 대신 case 사용)
 desc() {
   case "$1" in
+    algorithms)     echo "알고리즘 정석 — Big-O부터 단계별. 각 문서에 직접 풀 문제 포함." ;;
     llm)            echo "LLM이 어떻게 동작하는지(토큰·attention·환각)와 도구별 비교·활용법." ;;
     concepts)       echo "LLM 핵심 개념 심화 — 정렬(RLHF/RLAIF)과 MoE 구조." ;;
     papers)         echo "검증된 arXiv 논문 요약 — 환각의 불가피성·창의성, 추론, 창발 논쟁." ;;

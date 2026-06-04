@@ -9,6 +9,8 @@ Claude Code와 함께 학습하고, 논의한 내용을 정리한다.
 
 ```
 study-repo/
+  learning-path.md 바닥(Big-O)부터 LLM까지 학습 순서 지도 ★시작점
+  algorithms/      알고리즘 정석 (Big-O부터, 직접 풀 문제 포함)
   llm/             LLM 이해와 활용
   concepts/        LLM 핵심 개념 학습문서 (정렬·MoE 등)
   papers/          검증된 논문 리스트 (인용·발췌)
@@ -20,6 +22,18 @@ study-repo/
 ```
 
 ---
+
+## 🧭 시작점 — 학습 로드맵
+
+| 문서 | 내용 |
+|------|------|
+| [learning-path.md](learning-path.md) | 바닥(수학·Big-O)부터 LLM 내부까지 단계별 순서. **여기부터 보세요** |
+
+## 알고리즘 정석 (algorithms/)
+
+| 문서 | 내용 |
+|------|------|
+| [Big-O 표기](algorithms/big-o-notation.md) | 정의·단순화 규칙·분석법·함정 + **직접 풀어보기 문제** |
 
 ## LLM 이해와 활용
 
