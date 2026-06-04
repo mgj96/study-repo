@@ -64,6 +64,7 @@ study-repo/
 |------|------|
 | [메모리 계층과 지연시간](cs-fundamentals/memory-hierarchy-and-latency.md) | L1~네트워크 지연 직관, 캐시·지역성 |
 | [Scale-up vs Scale-out](cs-fundamentals/scaling-up-vs-out.md) | 수직/수평 확장 트레이드오프, 병목 찾기 |
+| [스케일의 현실 — 중소 4개 회사](cs-fundamentals/scale-reality-small-medium.md) | StackOverflow·37signals·Instagram·PrimeVideo로 보는 "복붙 금지" |
 | [동시성 vs 병렬성](cs-fundamentals/concurrency-vs-parallelism.md) | 구조 vs 실행, 이벤트루프, I/O·CPU 바운드 |
 | [시간복잡도·자료구조](cs-fundamentals/time-complexity-and-data-structures.md) | Big-O 직관, 자료구조 선택, 캐시 친화성 |
 | [프로세스/스레드·OS 기초](cs-fundamentals/process-thread-os-basics.md) | 컨텍스트 스위치 비용, 가상메모리·스왑 |
