@@ -1,2 +1,5 @@
 # NotebookLM 업로드용 생성물 (스크립트로 언제든 재생성 → 버전관리 안 함)
 dist/
+
+# macOS Finder 잡파일
+.DS_Store
