@@ -11,6 +11,25 @@
 **실제 선택**: Redis를 제거하고 **DB의 행 단위 락**(`SELECT ... FOR UPDATE`, 비관적 락)으로
 전환. 나아가 **핫 로우(hot row)를 여러 행으로 쪼개** 락 경합을 분산 → 처리량 증가.
 
+```mermaid
+sequenceDiagram
+    participant App as 앱
+    participant DB
+    participant Redis
+    Note over App,DB: db-atomic — 왕복 1회 (가볍고 빠름, 부하는 DB로)
+    App->>DB: UPDATE ... WHERE stock>0
+    DB-->>App: 성공/실패
+    Note over App,Redis: redis-lock — 왕복 4회 (2개 시스템, 부하 분리)
+    App->>Redis: SET lock NX
+    Redis-->>App: ok
+    App->>DB: SELECT stock
+    DB-->>App: stock
+    App->>DB: UPDATE stock-1
+    DB-->>App: ok
+    App->>Redis: DEL lock
+    Redis-->>App: ok
+```
+
 **왜 통했나**
 - 모든 앱 인스턴스가 **같은 DB를 공유**하면, 락을 DB 한 곳에서 잡아도 정합성이 보장된다.
   → Redis라는 **별도 인프라 + 네트워크 왕복 + 장애 지점**을 통째로 제거.

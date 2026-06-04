@@ -25,6 +25,16 @@ SSD(랜덤 4K)  ~150µs   수백 GB~TB
 [Latency Numbers (Jeff Dean) gist](https://gist.github.com/jboner/2841832),
 [인터랙티브 버전](https://colin-scott.github.io/personal_website/research/interactive_latency.html)
 
+```mermaid
+flowchart TD
+    R["레지스터 / L1 ~0.5ns<br/>가장 빠름·가장 작음"] --> L2["L2~L3 캐시 ~7~30ns"]
+    L2 --> RAM["주 메모리 RAM ~100ns"]
+    RAM --> SSD["SSD ~150µs"]
+    SSD --> DISK["디스크 seek ~10ms"]
+    DISK --> NET["네트워크 왕복 수십~수백ms<br/>가장 느림·가장 큼"]
+```
+> 위로 갈수록 빠르고 작고 비싸다. 한 칸 내려갈 때마다 **수십~수만 배** 느려진다.
+
 ### 2. 직관 — 스케일을 사람 시간으로 환산
 L1을 1초로 치면: RAM ≈ 약 3-4분, SSD ≈ 며칠, 디스크 seek ≈ 1년, 네트워크 ≈ 수년.
 → "RAM에서 읽기 vs 디스크에서 읽기"는 **수만 배** 차이. 알고리즘 빅오보다
