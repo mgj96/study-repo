@@ -3,3 +3,20 @@ dist/
 
 # macOS Finder 잡파일
 .DS_Store
+
+# APK reverse-engineering artifacts (not for upload)
+*.apk
+*.dex
+*.jar
+*.keystore
+apk_raw/
+cfr_out/
+mod_raw/
+rebuild_dex/
+stage/
+tools/
+jadxlog.txt
+classes3.jar
+
+# IDE
+.idea/
