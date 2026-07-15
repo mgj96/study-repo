@@ -66,3 +66,68 @@
 .vp-doc :not(pre) > code {
   font-size: 0.86em;
 }
+
+/* ───────────────────────────────────────────
+   📱 모바일 최적화 (폰·갤럭시 폴드 커버화면 등 좁은 폭)
+   가장 큰 문제였던 "표 가로 넘침"을 화면 폭에 맞춰 줄바꿈으로 해결
+   ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* 본문 좌우 여백 축소 → 표·내용 폭 확보 */
+  .VPDoc {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .vp-doc {
+    font-size: 15px;
+  }
+
+  /* 표: 가로 스크롤 대신 화면 폭에 맞춰 셀을 줄바꿈 */
+  .vp-doc table {
+    display: table;
+    width: 100%;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  .vp-doc th,
+  .vp-doc td {
+    padding: 6px 8px;
+    word-break: normal;        /* 표 셀은 자유롭게 줄바꿈해 폭에 맞춤 */
+    overflow-wrap: break-word;
+  }
+  /* 헤더 셀은 한 줄로 보기 좋게 최소한만 줄바꿈 */
+  .vp-doc thead th {
+    white-space: normal;
+  }
+
+  /* 히어로 크기 축소 (좁은 폭에서 넘치지 않게) */
+  .VPHero .name {
+    font-size: clamp(1.9rem, 10vw, 2.4rem) !important;
+  }
+  .VPHero .text {
+    font-size: clamp(1.25rem, 6.2vw, 1.7rem) !important;
+  }
+
+  /* 코드블록: 가로 스크롤 유지 + 폰트 축소 */
+  .vp-doc div[class*='language-'] code {
+    font-size: 12.5px;
+  }
+
+  /* 수식이 넘칠 때 가로 스크롤 허용 */
+  .vp-doc mjx-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+}
+
+/* 초협폭(폴드 커버화면 ~344px) 추가 조임 */
+@media (max-width: 400px) {
+  .vp-doc table {
+    font-size: 11.5px;
+  }
+  .vp-doc th,
+  .vp-doc td {
+    padding: 5px 6px;
+  }
+}
