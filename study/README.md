@@ -12,8 +12,14 @@ NotebookLM 업로드 및 복습용 상세 학습 노트. 각 폴더에 **학습 
 - [graphics-study-note.md](graphics/graphics-study-note.md) — 렌더링 → 파이프라인 → 조명 → 레이트레이싱 (13단원)
 - [research-log.md](graphics/research-log.md) — 검색·출처 기록
 
+### 🗺️ 학습 계획
+- [roadmap.md](roadmap.md) — 개념 중심 학습 로드맵 (ML=Python, 그래픽스=브라우저→C++, 트랙별 도구 포함)
+
 ### 🔗 두 주제 잇기
 - [graphics-vs-ml.md](graphics-vs-ml.md) — 컴퓨터 그래픽스 ↔ 머신러닝 비교와 융합
+
+### 💬 lang/ — 언어를 개념으로 이해
+- [lang/java-oop.md](lang/java-oop.md) — Java의 OOP·상속: 개념 → 어원(Simula·Smalltalk) → 철학(WORA)
 
 ## 두 주제의 연결 고리
 AI와 그래픽스는 모두 **GPU의 대량 병렬 연산**에 의존한다. 그래픽스용으로 발전한 GPU가 딥러닝 붐을 이끌었고, 반대로 AI가 렌더링(디노이징·DLSS)에 다시 쓰인다. 자세한 비교는 [graphics-vs-ml.md](graphics-vs-ml.md) 참고.
