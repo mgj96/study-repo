@@ -1,89 +1,128 @@
-# 📚 NotebookLM 소스 모음 (한 곳)
+# 📚 NotebookLM 붙여넣기용 — 소스 링크 모음
 
-> NotebookLM에 넣을 **문서 경로**와 **외부 링크**를 한 곳에 모았다.
-> 사용법: (1) 아래 `.md` 파일들을 소스로 업로드 → (2) 관련 외부 링크도 URL 소스로 추가하면 교차검증돼 요약·퀴즈 품질↑.
-
----
-
-## 1. 저장소 문서 (소스로 업로드)
-
-### 상위·계획
-- `study/roadmap.md` — 학습 로드맵
-- `study/engineering-concepts-map.md` — 6렌즈 개념 지도
-- `study/graphics-vs-ml.md` — 그래픽스↔ML 비교
-- `study/CONVENTIONS.md` — 형식 표준
-
-### AI · 머신러닝
-- `study/ai-ml/concept.md` — ML→신경망→어텐션→트랜스포머
-- `study/ai-ml/qna.md` · `study/ai-ml/research-log.md`
-- 🔬 딥다이브: `study/ai-ml/deep-attention.md` (어텐션 논문) · `study/ai-ml/deep-neural-backprop.md` (역전파 수학)
-
-### 컴퓨터 그래픽스
-- `study/graphics/concept.md` — 렌더링→파이프라인→레이트레이싱
-- `study/graphics/qna.md` · `study/graphics/research-log.md`
-- 🔬 딥다이브: `study/graphics/deep-rendering-math.md` (좌표변환·래스터화·레이트레이싱 수학)
-
-### CS 핵심
-- `study/cs/concept.md` — Big-O·자료구조·추상화
-- `study/cs/qna/os.md · network.md · database.md · ds-algorithm.md` — 암기 Q&A 40문항
-
-### 언어
-- `study/lang/java/concept.md` · `types-boxing.md` · `qna.md` — Java
-- `study/lang/csharp/concept.md` · `qna.md` — C# (Java의 사촌)
-
-### Unity
-- `study/unity/concept.md` · `qna.md` — Unity GC 등
-- 🔬 딥다이브: `study/unity/deep-gc.md` (Boehm GC·Incremental·Write Barrier 내부)
-
-> 각 주제 `qna.md`는 3단 암기용. `concept.md`는 서술형 학습용.
-
-### 면접
-- `study/interview/explain-your-code.md` — WHAT·HOW·TRADE-OFF
+> **사용법**: NotebookLM → **소스 추가 → 웹사이트(링크)** 에 아래 URL을 붙여넣기.
+> 두 종류를 제공: **① 사이트 링크**(읽기 좋게 렌더된 페이지) · **② Raw 링크**(순수 마크다운 텍스트, NotebookLM 추출이 가장 깔끔).
+> 팁: **Raw 링크를 우선 추천** — 사이트 메뉴/디자인 없이 본문 텍스트만 들어가서 요약·퀴즈 품질이 좋아요.
 
 ---
 
-## 2. 외부 링크 (URL 소스로 추가)
+## ⭐ 한 번에 복사 — 사이트 링크 (전체)
 
-### 머신러닝
+```
+https://mgj96.github.io/study-repo/roadmap
+https://mgj96.github.io/study-repo/engineering-concepts-map
+https://mgj96.github.io/study-repo/graphics-vs-ml
+https://mgj96.github.io/study-repo/ai-ml/concept
+https://mgj96.github.io/study-repo/ai-ml/qna
+https://mgj96.github.io/study-repo/ai-ml/deep-attention
+https://mgj96.github.io/study-repo/ai-ml/deep-neural-backprop
+https://mgj96.github.io/study-repo/graphics/concept
+https://mgj96.github.io/study-repo/graphics/qna
+https://mgj96.github.io/study-repo/graphics/deep-rendering-math
+https://mgj96.github.io/study-repo/cs/concept
+https://mgj96.github.io/study-repo/cs/qna/os
+https://mgj96.github.io/study-repo/cs/qna/network
+https://mgj96.github.io/study-repo/cs/qna/database
+https://mgj96.github.io/study-repo/cs/qna/ds-algorithm
+https://mgj96.github.io/study-repo/lang/java/concept
+https://mgj96.github.io/study-repo/lang/java/types-boxing
+https://mgj96.github.io/study-repo/lang/java/qna
+https://mgj96.github.io/study-repo/lang/csharp/concept
+https://mgj96.github.io/study-repo/lang/csharp/qna
+https://mgj96.github.io/study-repo/unity/concept
+https://mgj96.github.io/study-repo/unity/qna
+https://mgj96.github.io/study-repo/unity/deep-gc
+https://mgj96.github.io/study-repo/interview/explain-your-code
+```
+
+## ⭐ 한 번에 복사 — Raw 마크다운 링크 (추천)
+
+```
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/roadmap.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/engineering-concepts-map.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics-vs-ml.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/concept.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/qna.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-attention.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-neural-backprop.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/concept.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/qna.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/deep-rendering-math.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/concept.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/os.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/network.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/database.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/ds-algorithm.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/concept.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/types-boxing.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/qna.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/csharp/concept.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/csharp/qna.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/unity/concept.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/unity/qna.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/unity/deep-gc.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/interview/explain-your-code.md
+```
+
+---
+
+## 주제별 링크 (원하는 것만 골라 담기)
+
+| 주제 | 사이트 링크 |
+|------|-------------|
+| 학습 로드맵 | [열기](https://mgj96.github.io/study-repo/roadmap) |
+| 개념 지도(6렌즈) | [열기](https://mgj96.github.io/study-repo/engineering-concepts-map) |
+| 그래픽스↔ML | [열기](https://mgj96.github.io/study-repo/graphics-vs-ml) |
+| ML 개념 | [열기](https://mgj96.github.io/study-repo/ai-ml/concept) |
+| ML Q&A | [열기](https://mgj96.github.io/study-repo/ai-ml/qna) |
+| 🔬 어텐션·트랜스포머 | [열기](https://mgj96.github.io/study-repo/ai-ml/deep-attention) |
+| 🔬 역전파 수학 | [열기](https://mgj96.github.io/study-repo/ai-ml/deep-neural-backprop) |
+| 그래픽스 개념 | [열기](https://mgj96.github.io/study-repo/graphics/concept) |
+| 그래픽스 Q&A | [열기](https://mgj96.github.io/study-repo/graphics/qna) |
+| 🔬 렌더링 수학 | [열기](https://mgj96.github.io/study-repo/graphics/deep-rendering-math) |
+| CS 개념 | [열기](https://mgj96.github.io/study-repo/cs/concept) |
+| CS Q&A · OS | [열기](https://mgj96.github.io/study-repo/cs/qna/os) |
+| CS Q&A · 네트워크 | [열기](https://mgj96.github.io/study-repo/cs/qna/network) |
+| CS Q&A · DB | [열기](https://mgj96.github.io/study-repo/cs/qna/database) |
+| CS Q&A · 자료구조 | [열기](https://mgj96.github.io/study-repo/cs/qna/ds-algorithm) |
+| Java 개념 | [열기](https://mgj96.github.io/study-repo/lang/java/concept) |
+| Java 타입/박싱 | [열기](https://mgj96.github.io/study-repo/lang/java/types-boxing) |
+| Java Q&A | [열기](https://mgj96.github.io/study-repo/lang/java/qna) |
+| C# 개념 | [열기](https://mgj96.github.io/study-repo/lang/csharp/concept) |
+| C# Q&A | [열기](https://mgj96.github.io/study-repo/lang/csharp/qna) |
+| Unity 개념 | [열기](https://mgj96.github.io/study-repo/unity/concept) |
+| Unity Q&A | [열기](https://mgj96.github.io/study-repo/unity/qna) |
+| 🔬 Unity GC 내부 | [열기](https://mgj96.github.io/study-repo/unity/deep-gc) |
+| 면접 · 코드 설명 | [열기](https://mgj96.github.io/study-repo/interview/explain-your-code) |
+
+---
+
+## 외부 원문 링크 (같이 넣으면 교차검증 ↑)
+
 ```
 https://developers.google.com/machine-learning/crash-course
-https://www.3blue1brown.com/topics/neural-networks
-http://neuralnetworksanddeeplearning.com/
-https://d2l.ai/
 https://arxiv.org/abs/1706.03762
 https://jalammar.github.io/illustrated-transformer/
-https://huggingface.co/learn/nlp-course/
-```
-
-### 컴퓨터 그래픽스
-```
+http://neuralnetworksanddeeplearning.com/chap2.html
+https://cs231n.github.io/optimization-2/
 https://learnopengl.com/
 https://www.scratchapixel.com/
-https://thebookofshaders.com/
 https://raytracing.github.io/
-https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview
-```
-
-### CS·소프트웨어 개념
-```
 https://www.bigocheatsheet.com/
 https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/
-https://martinfowler.com/bliki/Yagni.html
-https://en.wikipedia.org/wiki/Object-oriented_programming
-```
-
-### Java / Unity
-```
-https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html
 https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collector.html
 ```
 
 ---
 
-## 3. NotebookLM에 시킬 것 (프롬프트 예시)
-- "이 소스들로 CS 면접 예상질문 20개와 3단(결론·원리·확장) 모범답안을 만들어줘"
+## NotebookLM에 시킬 것 (예시 프롬프트)
+- "이 소스들로 CS 면접 예상질문 20개와 3단(결론·원리·확장) 모범답안"
 - "머신러닝→트랜스포머 발전 타임라인을 표로"
 - "그래픽스와 ML이 GPU를 공유하는 이유를 중학생 눈높이로"
-- "오디오 개요(팟캐스트)로 만들어줘"
+- "어텐션 논문(1706.03762)의 핵심 수식을 단계별로 설명"
+- 오디오 개요(팟캐스트)로 만들어 듣기
 
-_이 파일이 'NotebookLM 준비물'의 단일 출발점. 새 노트가 생기면 여기에 경로만 추가._
+_이 페이지 자체 URL도 넣으면 '전체 목차' 역할을 해요:_
+`https://mgj96.github.io/study-repo/notebooklm-sources`
+
+_새 노트가 생기면 위 두 복사 블록에 한 줄씩만 추가하면 끝._
