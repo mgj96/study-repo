@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // GitHub Pages(project site)용 base. Vercel로 배포하면 '/'로 바꾸세요.
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: '개발 학습 노트',
   description: 'CS · ML · 그래픽스 · 언어 · 면접 학습 정리 (쉽게 시작 → 논문까지)',
   lang: 'ko-KR',
@@ -129,4 +130,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/mgj96/study-repo' },
     ],
   },
-})
+  mermaid: {
+    // 다이어그램 테마는 라이트/다크 자동
+  },
+}))
