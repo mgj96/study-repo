@@ -1,7 +1,7 @@
 # CS 암기 Q&A — 자료구조 · 알고리즘
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 외우기용.
-> 개념 심화는 [../algorithms-and-abstraction.md](../algorithms-and-abstraction.md) 참고.
+> 개념 심화는 [../concept.md](../concept.md) 참고.
 
 ---
 

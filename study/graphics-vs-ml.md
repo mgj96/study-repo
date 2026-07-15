@@ -1,7 +1,7 @@
 # 컴퓨터 그래픽스 ↔ 머신러닝: 비교와 융합
 
 > **용도**: NotebookLM 소스 및 복습용. 두 학습 노트를 잇는 다리.
-> **연결**: [ai-ml/ml-attention-study-note.md](ai-ml/ml-attention-study-note.md) · [graphics/graphics-study-note.md](graphics/graphics-study-note.md)
+> **연결**: [ai-ml/concept.md](ai-ml/concept.md) · [graphics/concept.md](graphics/concept.md)
 > **한 줄**: 전통적으로는 정반대(규칙을 알고 그림 vs 규칙을 모르니 배움)지만, 수학·GPU를 공유하며 요즘은 융합 중.
 
 ---
@@ -88,6 +88,6 @@
 - Neural Rendering, NeRF (Neural Radiance Fields), 3D Gaussian Splatting
 - Diffusion Models, Stable Diffusion, Latent Diffusion
 - NVIDIA DLSS, AI Denoising, Differentiable Rendering
-- 기반 노트: [ml-attention-study-note.md](ai-ml/ml-attention-study-note.md), [graphics-study-note.md](graphics/graphics-study-note.md)
+- 기반 노트: [ai-ml/concept.md](ai-ml/concept.md), [graphics/concept.md](graphics/concept.md)
 
 _작성: 2026-07 · 개념 비교용 요약. 융합 분야는 빠르게 바뀌므로 최신 자료는 검색 확인._

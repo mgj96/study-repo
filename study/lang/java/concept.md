@@ -2,7 +2,7 @@
 
 > **용도**: NotebookLM 소스 및 복습용. 이미 쓰는 Java를 "문법"이 아니라 **개념·역사·철학**으로 이해.
 > **관점**: 언어는 도구지만, 그 도구가 *왜 그렇게 설계됐는지*를 알면 훨씬 잘 쓴다.
-> **연결**: [../roadmap.md](../roadmap.md) · 게임엔진(Unity C#/Unreal C++)도 OOP 기반이라 그래픽스 트랙과도 연결.
+> **연결**: [../../roadmap.md](../../roadmap.md) · [types-boxing.md](types-boxing.md) · 게임엔진(Unity C#/Unreal C++)도 OOP 기반이라 그래픽스 트랙과도 연결.
 
 ---
 

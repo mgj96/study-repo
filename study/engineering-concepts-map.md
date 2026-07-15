@@ -2,7 +2,7 @@
 
 > **아이디어**: 어떤 분야든 "핵심 이론"만으로는 못 쓴다. 그 분야를 **실제로 구축·운영하려면** 알아야 하는 주변 개념(설계 원칙·개발 실천·도구·배포)이 따로 있다.
 > **방법**: 아래 **6개 카테고리 렌즈**를 정하고 → 잘 아는 **Java로 채운 뒤** → 같은 렌즈를 **ML·그래픽스에 대입**해 대응 개념을 찾는다.
-> **관련**: [roadmap.md](roadmap.md) · [lang/java-oop.md](lang/java-oop.md)(패러다임 심화) · [ai-ml/](ai-ml/) · [graphics/](graphics/)
+> **관련**: [roadmap.md](roadmap.md) · [lang/java/concept.md](lang/java/concept.md)(패러다임 심화) · [ai-ml/](ai-ml/) · [graphics/](graphics/)
 
 ---
 
@@ -25,7 +25,7 @@
 
 ### ① 어원·역사
 - Simula(1967, 객체·상속) → Smalltalk(Alan Kay, "OOP" 용어) → C++ → **Java(1991 Oak→1995)**.
-- 목적: "복잡·위험한 C++"의 대안 — 단순·안전·이식성. → 상세: [lang/java-oop.md](lang/java-oop.md)
+- 목적: "복잡·위험한 C++"의 대안 — 단순·안전·이식성. → 상세: [lang/java/concept.md](lang/java/concept.md)
 
 ### ② 핵심 패러다임
 - **객체지향(OOP)**: 캡슐화·상속·다형성·추상화. 현실을 객체로 모델링해 복잡도 관리.

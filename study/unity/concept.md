@@ -2,7 +2,7 @@
 
 > **출발점**: 넥슨 컨퍼런스 슬라이드 "힙은 한 번 커지면 반환되지 않음(Mono)" vs "유니티는 반환한다"는 얘기 — **어느 쪽이 맞나?**
 > **결론(먼저)**: 둘 다 부분적으로 맞다. 유니티 힙은 **커지긴 쉽고 줄어들긴 어렵다.** 빈 페이지를 OS에 **돌려주기도 하지만 "보장 안 됨"**, 주소공간은 **절대 반환 안 함**, WebGL은 **아예 반환 안 함**. → 실무에선 **피크 사용량 = 상주 메모리**로 잡아야 안전.
-> **관련**: [algorithms-and-abstraction.md](algorithms-and-abstraction.md)(Q3 메모리 단편화·OOM) · [../graphics/](../graphics/)
+> **관련**: [../cs/concept.md](../cs/concept.md)(Q3 메모리 단편화·OOM) · [../graphics/](../graphics/)
 
 ---
 
