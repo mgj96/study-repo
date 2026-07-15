@@ -30,4 +30,4 @@
 - **② 원리** IL2CPP는 성능·플랫폼 이점. 단 **GC는 둘 다 Boehm**으로 같다.
 - **③ 확장** 그래서 힙 반환 특성·최적화 원칙은 두 방식이 동일하다.
 
-_더 깊이: 생명주기(Update/Start), 컴포넌트·ECS, 프로파일링(RenderDoc/Profiler) 등은 물어보면 파봄._
+_더 깊이(공식 문서 기반): **[deep-gc.md](deep-gc.md)** — Boehm GC·Mark&Sweep·Incremental·Write Barrier·할당 줄이기. 생명주기·ECS는 다음에._

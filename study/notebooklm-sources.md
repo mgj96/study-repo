@@ -15,11 +15,13 @@
 
 ### AI · 머신러닝
 - `study/ai-ml/concept.md` — ML→신경망→어텐션→트랜스포머
-- `study/ai-ml/research-log.md`
+- `study/ai-ml/qna.md` · `study/ai-ml/research-log.md`
+- 🔬 딥다이브: `study/ai-ml/deep-attention.md` (어텐션 논문) · `study/ai-ml/deep-neural-backprop.md` (역전파 수학)
 
 ### 컴퓨터 그래픽스
 - `study/graphics/concept.md` — 렌더링→파이프라인→레이트레이싱
-- `study/graphics/research-log.md`
+- `study/graphics/qna.md` · `study/graphics/research-log.md`
+- 🔬 딥다이브: `study/graphics/deep-rendering-math.md` (좌표변환·래스터화·레이트레이싱 수학)
 
 ### CS 핵심
 - `study/cs/concept.md` — Big-O·자료구조·추상화
@@ -31,6 +33,7 @@
 
 ### Unity
 - `study/unity/concept.md` · `qna.md` — Unity GC 등
+- 🔬 딥다이브: `study/unity/deep-gc.md` (Boehm GC·Incremental·Write Barrier 내부)
 
 > 각 주제 `qna.md`는 3단 암기용. `concept.md`는 서술형 학습용.
 

@@ -30,4 +30,4 @@
 - **② 원리** 지금까지 문장을 보고 다음 단어 확률을 계산 → 하나 골라 붙이고 → 반복(자기회귀).
 - **③ 확장** 온도(temperature)로 창의성 조절. 사실을 "그럴듯하게" 지어낼 수도 있어 검증이 필요.
 
-_더 깊이: **어텐션·트랜스포머 논문 딥다이브 → [deep-attention.md](deep-attention.md)**. 역전파 수식은 다음 딥다이브 예정._
+_더 깊이(논문 기반): **[deep-attention.md](deep-attention.md)** (어텐션·트랜스포머) · **[deep-neural-backprop.md](deep-neural-backprop.md)** (신경망·역전파 수학)._
