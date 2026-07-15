@@ -26,12 +26,13 @@
 - `study/cs/qna/os.md · network.md · database.md · ds-algorithm.md` — 암기 Q&A 40문항
 
 ### 언어
-- `study/lang/java/concept.md` — Java OOP·어원·철학
-- `study/lang/java/types-boxing.md` — 정수타입·박싱·래퍼
-- `study/lang/csharp/concept.md` — C# _(작성 예정)_
+- `study/lang/java/concept.md` · `types-boxing.md` · `qna.md` — Java
+- `study/lang/csharp/concept.md` · `qna.md` — C# (Java의 사촌)
 
 ### Unity
-- `study/unity/concept.md` — Unity GC 등
+- `study/unity/concept.md` · `qna.md` — Unity GC 등
+
+> 각 주제 `qna.md`는 3단 암기용. `concept.md`는 서술형 학습용.
 
 ### 면접
 - `study/interview/explain-your-code.md` — WHAT·HOW·TRADE-OFF
