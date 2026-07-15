@@ -18,5 +18,11 @@ tools/
 jadxlog.txt
 classes3.jar
 
+# Node / VitePress
+node_modules/
+study/.vitepress/dist/
+study/.vitepress/cache/
+*.log
+
 # IDE
 .idea/

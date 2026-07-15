@@ -1,0 +1,14 @@
+{
+  "name": "study-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "개발 학습 노트 (CS·ML·그래픽스·면접) VitePress 사이트",
+  "scripts": {
+    "docs:dev": "vitepress dev study",
+    "docs:build": "vitepress build study",
+    "docs:preview": "vitepress preview study"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
