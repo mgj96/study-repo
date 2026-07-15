@@ -1,0 +1,68 @@
+/* 한글 웹폰트 Pretendard (가변) */
+@import url('https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable.css');
+
+:root {
+  --vp-font-family-base: 'Pretendard Variable', 'Pretendard', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+
+  /* Claude 코럴/클레이 브랜드 */
+  --vp-c-brand-1: #C25333; /* 링크·강조 (라이트에서 대비 확보) */
+  --vp-c-brand-2: #D97757; /* Claude 시그니처 코럴 */
+  --vp-c-brand-3: #E0885F; /* hover */
+  --vp-c-brand-soft: rgba(217, 119, 87, 0.14);
+
+  /* 홈 히어로 제목 그라데이션 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #D97757 20%, #BD4B2B);
+  --vp-home-hero-image-background-image: linear-gradient(120deg, rgba(217,119,87,0.25), rgba(189,75,43,0.12));
+  --vp-home-hero-image-filter: blur(48px);
+}
+
+.dark {
+  --vp-c-brand-1: #E8956F; /* 다크에서 밝게 */
+  --vp-c-brand-2: #D97757;
+  --vp-c-brand-3: #C25333;
+  --vp-c-brand-soft: rgba(217, 119, 87, 0.18);
+}
+
+/* ── 한글 줄바꿈: 단어(어절) 중간에서 끊기지 않게 ── */
+.VPHero .name,
+.VPHero .text,
+.VPHero .tagline,
+.VPFeature .title,
+.VPFeature .details,
+.vp-doc h1, .vp-doc h2, .vp-doc h3, .vp-doc h4,
+.vp-doc p, .vp-doc li,
+.VPSidebarItem .text {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* 히어로 제목 균형있게 줄바꿈 + 크기 살짝 조정 */
+.VPHero .name,
+.VPHero .text {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+.VPHero .text {
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+.VPHero .tagline {
+  line-height: 1.6;
+}
+
+/* 피처 카드: 살짝 더 부드럽고 hover 강조 */
+.VPFeature {
+  border-radius: 14px;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-2);
+  transform: translateY(-2px);
+}
+
+/* 코드/수식 가독성 */
+.vp-doc :not(pre) > code {
+  font-size: 0.86em;
+}
