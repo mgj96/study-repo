@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS 암기 Q&A — 3단 구조</title>
+<style>
+  :root{
+    --ground:#F1F4F8; --paper:#FFFFFF; --ink:#17293B; --ink-soft:#4A5D70;
+    --line:#D7DFE8; --accent:#F0562E; --accent-soft:#FDE7DF; --teal:#0E9E8E;
+    --teal-soft:#DBF1EE; --marker:#E8912A; --marker-soft:#FFF3CE; --shadow:0 14px 34px -20px rgba(23,41,59,.32);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ground:#0C141D; --paper:#17232F; --ink:#E7EEF5; --ink-soft:#9DB0C2;
+    --line:#28394A; --accent:#FF7551; --accent-soft:#3A2019; --teal:#2BC3B0;
+    --teal-soft:#123230; --marker:#F0A94B; --marker-soft:#33290C; --shadow:0 14px 34px -20px rgba(0,0,0,.6);
+  }}
+  :root[data-theme="light"]{--ground:#F1F4F8;--paper:#FFFFFF;--ink:#17293B;--ink-soft:#4A5D70;--line:#D7DFE8;--accent:#F0562E;--accent-soft:#FDE7DF;--teal:#0E9E8E;--teal-soft:#DBF1EE;--marker:#E8912A;--marker-soft:#FFF3CE;--shadow:0 14px 34px -20px rgba(23,41,59,.32);}
+  :root[data-theme="dark"]{--ground:#0C141D;--paper:#17232F;--ink:#E7EEF5;--ink-soft:#9DB0C2;--line:#28394A;--accent:#FF7551;--accent-soft:#3A2019;--teal:#2BC3B0;--teal-soft:#123230;--marker:#F0A94B;--marker-soft:#33290C;--shadow:0 14px 34px -20px rgba(0,0,0,.6);}
+
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--ground);
+    color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; padding:0 18px 80px;}
+  h1,h2,.tab,summary,.brand{font-family:ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;}
+  .col{max-width:760px; margin:0 auto;}
+
+  header{padding:52px 0 8px;}
+  .kick{display:inline-block; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800;
+    color:var(--accent); background:var(--accent-soft); padding:6px 13px; border-radius:100px;}
+  h1{font-size:clamp(1.9rem,5vw,2.6rem); margin:18px 0 8px; letter-spacing:-.02em;}
+  h1 em{color:var(--accent); font-style:normal;}
+  .desc{color:var(--ink-soft); margin:0; font-size:1.02rem;}
+  .legend{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
+  .lg{font-size:.78rem; font-weight:700; padding:4px 10px; border-radius:100px;}
+  .lg.w{background:var(--accent-soft); color:var(--accent);}
+  .lg.h{background:var(--teal-soft); color:var(--teal);}
+  .lg.t{background:var(--marker-soft); color:var(--marker);}
+
+  .tabs{position:sticky; top:0; z-index:5; display:flex; gap:7px; flex-wrap:wrap; padding:12px 0;
+    background:color-mix(in srgb,var(--ground) 90%, transparent); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); margin-top:22px;}
+  .tab{font-size:.85rem; font-weight:700; color:var(--ink-soft); background:var(--paper); border:1px solid var(--line);
+    padding:7px 14px; border-radius:100px; cursor:pointer;}
+  .tab.on{color:#fff; background:var(--accent); border-color:var(--accent);}
+  .tools{display:flex; justify-content:flex-end; margin:14px 0 4px;}
+  .tools button{font-size:.8rem; font-weight:600; color:var(--ink-soft); background:none; border:1px solid var(--line);
+    padding:5px 12px; border-radius:100px; cursor:pointer;}
+
+  section{padding-top:16px;}
+  section h2{font-size:1.15rem; margin:14px 0 12px; display:flex; align-items:center; gap:9px;}
+  section h2 .ic{font-size:1.2rem;}
+  details{background:var(--paper); border:1px solid var(--line); border-radius:14px; margin-bottom:10px;
+    box-shadow:var(--shadow); overflow:hidden;}
+  summary{cursor:pointer; padding:15px 18px; font-weight:700; font-size:1rem; list-style:none;
+    display:flex; align-items:center; gap:11px;}
+  summary::-webkit-details-marker{display:none;}
+  summary .qnum{flex:none; font-size:.78rem; font-weight:800; color:var(--teal); background:var(--teal-soft);
+    width:30px; height:30px; border-radius:8px; display:grid; place-items:center;}
+  summary .plus{margin-left:auto; color:var(--ink-soft); font-size:1.3rem; transition:transform .2s;}
+  details[open] summary .plus{transform:rotate(45deg);}
+  .ans{padding:2px 18px 18px; border-top:1px solid var(--line);}
+  .ans p{margin:12px 0 0;}
+  .s{display:inline-block; font-size:.68rem; font-weight:800; letter-spacing:.03em; padding:2px 9px;
+    border-radius:100px; margin-right:8px; vertical-align:middle;}
+  .s.w{color:var(--accent); background:var(--accent-soft);}
+  .s.h{color:var(--teal); background:var(--teal-soft);}
+  .s.t{color:var(--marker); background:var(--marker-soft);}
+
+  footer{text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:40px; padding-top:22px; border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="col">
+  <header>
+    <span class="kick">CS 면접 · 암기</span>
+    <h1>CS 암기 Q&A · <em>3단 구조</em></h1>
+    <p class="desc">질문만 보고 세 단계로 소리 내어 답해보고, 눌러서 확인하세요. 40문항 · 4영역.</p>
+    <div class="legend">
+      <span class="lg w">① 결론 · WHAT</span>
+      <span class="lg h">② 원리 · HOW</span>
+      <span class="lg t">③ 확장 · TRADE-OFF</span>
+    </div>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-t="os">💻 운영체제</button>
+    <button class="tab" data-t="net">🌐 네트워크</button>
+    <button class="tab" data-t="db">🗄️ 데이터베이스</button>
+    <button class="tab" data-t="ds">🧩 자료구조·알고리즘</button>
+  </div>
+  <div class="tools"><button id="toggleAll">모두 펼치기</button></div>
+
+  <!-- OS -->
+  <section data-sec="os">
+    <h2><span class="ic">💻</span>운영체제 (OS)</h2>
+    <details><summary><span class="qnum">1</span>프로세스 vs 스레드 차이는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>프로세스는 실행 중인 프로그램(독립 메모리), 스레드는 그 안의 실행 흐름(메모리 공유).</p>
+      <p><span class="s h">② 원리</span>프로세스는 코드·데이터·힙·스택을 각자 가짐. 스레드는 코드·데이터·힙을 공유하고 스택만 따로.</p>
+      <p><span class="s t">③ 확장</span>스레드는 통신·전환이 가볍지만 공유 자원 <b>동기화</b>가 필요. 프로세스는 안전하나 무겁다.</p>
+    </div></details>
+    <details><summary><span class="qnum">2</span>컨텍스트 스위칭이란? 비용은?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>CPU가 실행 중인 작업을 바꾸며 상태를 저장·복원하는 것.</p>
+      <p><span class="s h">② 원리</span>현재 레지스터·PC를 PCB에 저장하고 다음 작업 상태를 복원.</p>
+      <p><span class="s t">③ 확장</span>그 자체가 순수 오버헤드. 스레드가 코어보다 너무 많으면 스위칭만 늘어 느려진다.</p>
+    </div></details>
+    <details><summary><span class="qnum">3</span>교착상태(deadlock) 4조건과 해결은?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>서로 자원을 쥔 채 상대 걸 기다려 멈춘 상태. 4조건: 상호배제·점유대기·비선점·순환대기.</p>
+      <p><span class="s h">② 원리</span>네 조건이 동시에 성립해야 발생.</p>
+      <p><span class="s t">③ 확장</span>하나라도 깨면 예방(자원 순서로 순환대기 제거). 또는 회피(은행원)·탐지 후 복구.</p>
+    </div></details>
+    <details><summary><span class="qnum">4</span>가상 메모리와 페이징이란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>물리 메모리보다 큰 주소공간을 쓰게 해주는 기법. 메모리를 페이지 단위로 관리.</p>
+      <p><span class="s h">② 원리</span>가상 주소를 페이지 테이블로 물리 주소에 매핑. 안 쓰는 페이지는 디스크로(스왑).</p>
+      <p><span class="s t">③ 확장</span>프로세스별 독립 주소공간·격리 제공. 단 페이지 폴트 시 느림, TLB로 완화.</p>
+    </div></details>
+    <details><summary><span class="qnum">5</span>뮤텍스 vs 세마포어?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>뮤텍스는 1개 자원의 잠금(소유), 세마포어는 N개 자원 카운트.</p>
+      <p><span class="s h">② 원리</span>뮤텍스는 잠근 스레드만 해제. 세마포어는 카운터로 동시 접근 수 제한.</p>
+      <p><span class="s t">③ 확장</span>뮤텍스는 임계구역에, 세마포어는 리소스 풀·순서 제어에.</p>
+    </div></details>
+    <details><summary><span class="qnum">6</span>사용자 모드 vs 커널 모드?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>실행 권한 수준. 커널 모드는 하드웨어 전권, 사용자 모드는 제한적.</p>
+      <p><span class="s h">② 원리</span>위험한 작업(I/O·메모리)은 시스템 콜로 커널 모드에 진입해 수행.</p>
+      <p><span class="s t">③ 확장</span>이 분리로 앱 오류가 시스템 전체를 망가뜨리지 않음. 단 모드 전환 비용.</p>
+    </div></details>
+    <details><summary><span class="qnum">7</span>스레드 안전(thread-safe)이란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>여러 스레드가 동시에 접근해도 결과가 올바른 상태.</p>
+      <p><span class="s h">② 원리</span>공유 자원을 동기화(락·원자연산)하거나 아예 공유하지 않게(불변) 만들어 보장.</p>
+      <p><span class="s t">③ 확장</span>락이 많으면 안전하나 성능·교착 위험. 불변·동시성 컬렉션으로 락을 줄이는 게 방향.</p>
+    </div></details>
+    <details><summary><span class="qnum">8</span>CPU 스케줄링 알고리즘 종류는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>CPU 배분 순서 규칙. FCFS·SJF·RR·우선순위 등.</p>
+      <p><span class="s h">② 원리</span>FCFS(먼저 온 순), SJF(짧은 것 먼저), RR(시간 할당량 순환), 우선순위(중요도 순).</p>
+      <p><span class="s t">③ 확장</span>처리량·응답시간·공정성은 trade-off. RR은 응답 좋으나 스위칭↑, SJF는 기아 위험.</p>
+    </div></details>
+    <details><summary><span class="qnum">9</span>페이지 교체 알고리즘(LRU)이란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>메모리가 꽉 찼을 때 내보낼 페이지를 정하는 규칙. 대표는 LRU.</p>
+      <p><span class="s h">② 원리</span>"최근 안 쓴 건 앞으로도 안 쓴다"고 가정해 가장 오래 안 쓴 것을 교체.</p>
+      <p><span class="s t">③ 확장</span>이상적 최적(OPT)엔 못 미치나 현실적. 완벽 LRU는 비싸 근사(clock)로 구현.</p>
+    </div></details>
+    <details><summary><span class="qnum">10</span>동기 vs 비동기 / 블로킹 vs 논블로킹?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>동기/비동기는 "결과를 기다리느냐", 블로킹/논블로킹은 "제어권을 넘기느냐".</p>
+      <p><span class="s h">② 원리</span>동기는 결과를 기다려 순서대로, 비동기는 완료를 콜백·이벤트로 나중에 받음.</p>
+      <p><span class="s t">③ 확장</span>비동기·논블로킹은 I/O 대기 중 다른 일을 해 처리량↑. 대신 흐름이 복잡해 디버깅 어렵다.</p>
+    </div></details>
+  </section>
+
+  <!-- NETWORK -->
+  <section data-sec="net" hidden>
+    <h2><span class="ic">🌐</span>네트워크</h2>
+    <details><summary><span class="qnum">1</span>TCP vs UDP 차이는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>TCP는 신뢰성 있는 연결형, UDP는 빠른 비연결형.</p>
+      <p><span class="s h">② 원리</span>TCP는 연결·순서 보장·재전송·흐름제어. UDP는 그런 보장 없이 그냥 보냄.</p>
+      <p><span class="s t">③ 확장</span>TCP는 웹·파일 등 정확성, UDP는 실시간 게임·스트리밍·DNS 등 속도. 신뢰성 vs 지연.</p>
+    </div></details>
+    <details><summary><span class="qnum">2</span>TCP 3-way handshake란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>연결을 맺기 위해 3번 주고받는 과정(SYN→SYN-ACK→ACK).</p>
+      <p><span class="s h">② 원리</span>서로의 송·수신 능력과 초기 순서번호를 확인·합의.</p>
+      <p><span class="s t">③ 확장</span>그래서 TCP는 연결에 왕복 지연이 든다. 종료는 4-way handshake.</p>
+    </div></details>
+    <details><summary><span class="qnum">3</span>HTTP vs HTTPS 차이는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>HTTPS는 HTTP에 TLS 암호화를 더한 것.</p>
+      <p><span class="s h">② 원리</span>TLS 핸드셰이크로 대칭키를 안전히 교환 후 통신 암호화, 인증서로 서버 신원 검증.</p>
+      <p><span class="s t">③ 확장</span>도청·변조·위장 방지. 약간의 핸드셰이크 비용이 있으나 현대 웹 필수.</p>
+    </div></details>
+    <details><summary><span class="qnum">4</span>GET vs POST 차이는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>GET은 조회(데이터가 URL), POST는 생성·전송(데이터가 본문).</p>
+      <p><span class="s h">② 원리</span>GET은 캐시·북마크 가능·멱등. POST는 본문에 데이터를 실어 상태를 바꿈.</p>
+      <p><span class="s t">③ 확장</span>민감 정보는 URL(GET)에 담지 말 것. 큰 데이터는 POST.</p>
+    </div></details>
+    <details><summary><span class="qnum">5</span>DNS는 어떻게 동작하나?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>도메인 이름을 IP로 바꿔주는 시스템(인터넷 전화번호부).</p>
+      <p><span class="s h">② 원리</span>리졸버가 루트→TLD(.com)→권한 서버 순으로 계층 질의해 IP를 찾음.</p>
+      <p><span class="s t">③ 확장</span>결과는 TTL 동안 캐싱돼 빠름. 분산·계층 구조라 확장성이 크다.</p>
+    </div></details>
+    <details><summary><span class="qnum">6</span>흐름제어 vs 혼잡제어?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>흐름제어는 수신자 보호, 혼잡제어는 네트워크 보호.</p>
+      <p><span class="s h">② 원리</span>흐름제어는 수신 버퍼(window)로, 혼잡제어는 네트워크 상태로 전송량 조절(slow start).</p>
+      <p><span class="s t">③ 확장</span>둘 다 과전송 손실을 막지만 대상이 다름. 재전송 잦으면 성능이 요동친다.</p>
+    </div></details>
+    <details><summary><span class="qnum">7</span>OSI 7계층 / TCP-IP 계층이란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>통신을 역할별로 나눈 계층 모델. OSI 7계층, TCP/IP 4계층.</p>
+      <p><span class="s h">② 원리</span>각 계층이 정해진 역할만 담당하고 위아래로 캡슐화해 전달.</p>
+      <p><span class="s t">③ 확장</span>계층 분리로 한 부분을 바꿔도 영향이 적다(모듈성). 실무는 TCP/IP 모델.</p>
+    </div></details>
+    <details><summary><span class="qnum">8</span>HTTP 상태 코드 분류는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>응답 결과 3자리 숫자. 2xx 성공·3xx 리다이렉트·4xx 클라 오류·5xx 서버 오류.</p>
+      <p><span class="s h">② 원리</span>첫 자리로 대분류. 200 OK, 301 이동, 404 없음, 500 서버 에러.</p>
+      <p><span class="s t">③ 확장</span>4xx는 요청 잘못, 5xx는 서버 잘못. 정확한 코드는 API 사용성·디버깅에 중요.</p>
+    </div></details>
+    <details><summary><span class="qnum">9</span>쿠키 vs 세션 vs 토큰(JWT)?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>인증 상태 유지 방식. 쿠키(브라우저 저장)·세션(서버 저장)·토큰(자체 포함).</p>
+      <p><span class="s h">② 원리</span>세션은 서버가 상태 기억(쿠키에 세션ID). JWT는 서명된 토큰에 정보가 담겨 무상태.</p>
+      <p><span class="s t">③ 확장</span>세션은 서버 부담·확장 어려움, JWT는 확장 쉬우나 강제 만료 어렵다.</p>
+    </div></details>
+    <details><summary><span class="qnum">10</span>REST API란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>자원을 URL로 표현하고 HTTP 메서드로 다루는 API 설계 원칙.</p>
+      <p><span class="s h">② 원리</span>자원(명사)을 URI로, 행위는 GET·POST·PUT·DELETE로. 무상태 통신.</p>
+      <p><span class="s t">③ 확장</span>직관·표준적이나 복잡 조회엔 과다/과소 요청 → GraphQL 등 대안도.</p>
+    </div></details>
+  </section>
+
+  <!-- DB -->
+  <section data-sec="db" hidden>
+    <h2><span class="ic">🗄️</span>데이터베이스</h2>
+    <details><summary><span class="qnum">1</span>인덱스란? 왜 빨라지나? 단점은?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>조회를 빠르게 하는 자료구조(책의 색인). 보통 B-Tree.</p>
+      <p><span class="s h">② 원리</span>정렬된 구조라 전체 스캔(O(n)) 대신 O(log n)으로 찾음.</p>
+      <p><span class="s t">③ 확장</span>조회는 빠르나 쓰기 시 인덱스도 갱신해 느려지고 공간을 더 씀. 필요한 컬럼에만.</p>
+    </div></details>
+    <details><summary><span class="qnum">2</span>트랜잭션의 ACID란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>트랜잭션이 지킬 4가지: 원자성·일관성·격리성·지속성.</p>
+      <p><span class="s h">② 원리</span>전부 또는 전무, 규칙 유지, 동시 실행 간섭 차단, 커밋되면 영구 저장.</p>
+      <p><span class="s t">③ 확장</span>이체처럼 부분 성공이 위험한 작업에 필수. 격리를 높이면 안전하나 동시성↓.</p>
+    </div></details>
+    <details><summary><span class="qnum">3</span>정규화란? 장단점은?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>중복을 없애도록 테이블을 나누는 설계.</p>
+      <p><span class="s h">② 원리</span>데이터를 관계로 쪼개 한 사실을 한 곳에만 저장(이상현상 방지).</p>
+      <p><span class="s t">③ 확장</span>중복·갱신 이상은 줄지만 조인이 많아져 느려질 수 있음 → 역정규화도.</p>
+    </div></details>
+    <details><summary><span class="qnum">4</span>낙관적 락 vs 비관적 락?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>낙관적은 "충돌 드물다"(버전 체크), 비관적은 "충돌 잦다"(미리 잠금).</p>
+      <p><span class="s h">② 원리</span>낙관적은 커밋 시 버전 변경 확인 후 충돌 시 롤백. 비관적은 읽을 때부터 락.</p>
+      <p><span class="s t">③ 확장</span>낙관적은 동시성 좋으나 재시도 비용, 비관적은 안전하나 대기·교착 위험.</p>
+    </div></details>
+    <details><summary><span class="qnum">5</span>N+1 문제란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>목록 1번 조회 후 각 항목마다 N번 더 조회해 쿼리가 폭증하는 문제.</p>
+      <p><span class="s h">② 원리</span>ORM이 지연 로딩으로 연관 엔티티를 항목별로 따로 쿼리하기 때문.</p>
+      <p><span class="s t">③ 확장</span>fetch join·IN 배치 조회로 해결. ORM(추상화)이 SQL을 감춰 생기는 "새는 추상화" 사례.</p>
+    </div></details>
+    <details><summary><span class="qnum">6</span>클러스터형 vs 비클러스터형 인덱스?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>클러스터형은 데이터 자체를 정렬 저장(1개), 비클러스터형은 별도 포인터(여러 개).</p>
+      <p><span class="s h">② 원리</span>클러스터형은 리프에 실제 행이 있어 범위 검색 빠름. 비클러스터형은 리프가 행을 가리킴.</p>
+      <p><span class="s t">③ 확장</span>보통 기본키가 클러스터형. 비클러스터형 많으면 조회 유연하나 쓰기·용량 비용↑.</p>
+    </div></details>
+    <details><summary><span class="qnum">7</span>SQL vs NoSQL?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>SQL은 정형 스키마 관계형, NoSQL은 유연한 비관계형.</p>
+      <p><span class="s h">② 원리</span>SQL은 테이블·조인·ACID로 일관성 강함. NoSQL은 문서·키값으로 유연·수평확장.</p>
+      <p><span class="s t">③ 확장</span>정합성·복잡 조회는 SQL, 대용량·유연성은 NoSQL. 혼용도 흔함.</p>
+    </div></details>
+    <details><summary><span class="qnum">8</span>트랜잭션 격리 수준과 이상현상은?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>동시 트랜잭션 간섭을 어디까지 막을지 4단계.</p>
+      <p><span class="s h">② 원리</span>낮을수록 이상현상(Dirty/Non-repeatable/Phantom read) 허용, 높을수록 락↑.</p>
+      <p><span class="s t">③ 확장</span>높은 격리는 안전하나 동시성↓. 보통 Read Committed~Repeatable Read로 균형.</p>
+    </div></details>
+    <details><summary><span class="qnum">9</span>조인(JOIN) 종류는?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>여러 테이블을 연결해 조회. INNER·LEFT/RIGHT OUTER·FULL 등.</p>
+      <p><span class="s h">② 원리</span>INNER는 양쪽 매칭만, OUTER는 한쪽 기준으로 매칭 없는 행도 NULL로 포함.</p>
+      <p><span class="s t">③ 확장</span>조인 많으면 데이터를 합칠 수 있으나 성능 비용 → 인덱스·실행계획 확인.</p>
+    </div></details>
+    <details><summary><span class="qnum">10</span>샤딩 vs 레플리케이션?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>샤딩은 데이터를 쪼개 분산, 레플리케이션은 복제해 여러 벌 유지.</p>
+      <p><span class="s h">② 원리</span>샤딩은 쓰기·용량 분산, 레플리케이션은 읽기 분산·가용성.</p>
+      <p><span class="s t">③ 확장</span>샤딩은 확장성↑이나 조인·트랜잭션 복잡, 레플리케이션은 읽기↑이나 복제 지연.</p>
+    </div></details>
+  </section>
+
+  <!-- DS -->
+  <section data-sec="ds" hidden>
+    <h2><span class="ic">🧩</span>자료구조 · 알고리즘</h2>
+    <details><summary><span class="qnum">1</span>배열 vs 연결 리스트?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>배열은 인덱스 접근이 빠르고, 연결 리스트는 삽입·삭제가 빠르다.</p>
+      <p><span class="s h">② 원리</span>배열은 연속 메모리라 O(1) 접근. 연결 리스트는 포인터로 이어져 삽입 O(1)·조회 O(n).</p>
+      <p><span class="s t">③ 확장</span>배열은 캐시 효율↑·크기 고정, 연결 리스트는 유연하나 포인터·캐시 비효율.</p>
+    </div></details>
+    <details><summary><span class="qnum">2</span>해시맵은 어떻게 동작? 충돌 해결은?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>키를 해시 함수로 인덱스로 바꿔 평균 O(1) 조회.</p>
+      <p><span class="s h">② 원리</span>해시값으로 버킷 결정. 다른 키가 같은 버킷이면 충돌.</p>
+      <p><span class="s t">③ 확장</span>충돌은 체이닝·개방주소법으로 해결. 많으면 최악 O(n) → 부하율 넘으면 리사이즈.</p>
+    </div></details>
+    <details><summary><span class="qnum">3</span>스택 vs 큐?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>스택은 LIFO(후입선출), 큐는 FIFO(선입선출).</p>
+      <p><span class="s h">② 원리</span>스택은 한쪽에서 push/pop, 큐는 뒤로 넣고 앞에서 뺌.</p>
+      <p><span class="s t">③ 확장</span>스택: 되돌리기·함수호출·DFS. 큐: 대기열·BFS. 둘 다 임의 접근 불가.</p>
+    </div></details>
+    <details><summary><span class="qnum">4</span>이진탐색트리(BST) vs 해시테이블?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>BST는 정렬·범위 검색에, 해시테이블은 단순 키 조회에 강하다.</p>
+      <p><span class="s h">② 원리</span>BST는 정렬 유지로 O(log n) 탐색·범위 질의, 해시는 O(1)이나 순서 없음.</p>
+      <p><span class="s t">③ 확장</span>정렬·범위면 트리, 빠른 단건이면 해시. BST 편향 시 O(n)이라 균형 트리 사용.</p>
+    </div></details>
+    <details><summary><span class="qnum">5</span>퀵 vs 병합 vs 힙 정렬?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>셋 다 평균 O(n log n)이지만 성격이 다르다.</p>
+      <p><span class="s h">② 원리</span>퀵: 평균 빠름·제자리, 최악 O(n²). 병합: 안정·항상 O(n log n)이나 추가 메모리. 힙: 제자리·최악에도 O(n log n).</p>
+      <p><span class="s t">③ 확장</span>일반은 퀵, 안정성 필요하면 병합, 메모리·최악 보장이면 힙.</p>
+    </div></details>
+    <details><summary><span class="qnum">6</span>BFS vs DFS?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>BFS는 너비 우선(가까운 곳부터), DFS는 깊이 우선(끝까지 갔다 돌아옴).</p>
+      <p><span class="s h">② 원리</span>BFS는 큐로 레벨 단위, DFS는 스택(재귀)으로 한 방향 깊게.</p>
+      <p><span class="s t">③ 확장</span>BFS는 최단 경로(무가중치)에, DFS는 경로 존재·백트래킹·사이클 탐지에.</p>
+    </div></details>
+    <details><summary><span class="qnum">7</span>시간복잡도(Big-O)란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>입력이 커질 때 연산 횟수의 증가율. 최악 기준.</p>
+      <p><span class="s h">② 원리</span>상수·계수를 무시하고 지배 항만 봄. O(1)<O(log n)<O(n)<O(n log n)<O(n²).</p>
+      <p><span class="s t">③ 확장</span>실제 시간이 아니라 규모 비교. 공간복잡도와 trade-off도 함께 본다.</p>
+    </div></details>
+    <details><summary><span class="qnum">8</span>동적계획법(DP) vs 분할정복?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>둘 다 문제를 쪼개지만, DP는 겹치는 부분문제를 저장해 재사용.</p>
+      <p><span class="s h">② 원리</span>분할정복은 독립 하위문제로 나눠 합침. DP는 중복 계산을 메모이제이션·테이블로 캐싱.</p>
+      <p><span class="s t">③ 확장</span>DP는 겹치는 부분문제(피보나치·최단경로)에서 지수→다항으로 줄임. 메모리를 더 씀.</p>
+    </div></details>
+    <details><summary><span class="qnum">9</span>그리디(greedy) 알고리즘이란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>매 순간 가장 좋아 보이는 선택을 하는 방법.</p>
+      <p><span class="s h">② 원리</span>지역 최적을 반복해 전체를 구성. 빠르고 단순.</p>
+      <p><span class="s t">③ 확장</span>항상 최적은 아님 — "탐욕 선택이 전체 최적"임이 증명될 때만 유효(거스름돈·MST).</p>
+    </div></details>
+    <details><summary><span class="qnum">10</span>트리 순회(전위/중위/후위)란?<span class="plus">+</span></summary><div class="ans">
+      <p><span class="s w">① 결론</span>트리 노드를 방문하는 순서. 루트를 언제 방문하냐로 구분.</p>
+      <p><span class="s h">② 원리</span>전위(루트→좌→우), 중위(좌→루트→우), 후위(좌→우→루트).</p>
+      <p><span class="s t">③ 확장</span>중위는 BST에서 정렬 순서로 나옴. 후위는 삭제·계산, 전위는 복제·직렬화에.</p>
+    </div></details>
+  </section>
+
+  <footer>CS 암기 Q&A · 40문항 · ① 결론 · ② 원리 · ③ 확장 · 2026</footer>
+</div>
+
+<script>
+  var tabs=document.querySelectorAll('.tab');
+  var secs=document.querySelectorAll('section[data-sec]');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.remove('on');});
+      t.classList.add('on');
+      var key=t.getAttribute('data-t');
+      secs.forEach(function(s){s.hidden=(s.getAttribute('data-sec')!==key);});
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  var toggle=document.getElementById('toggleAll'); var open=false;
+  toggle.addEventListener('click',function(){
+    open=!open;
+    var vis=document.querySelector('section[data-sec]:not([hidden])');
+    if(vis){vis.querySelectorAll('details').forEach(function(d){d.open=open;});}
+    toggle.textContent=open?'모두 접기':'모두 펼치기';
+  });
+</script>
+</body>
+</html>

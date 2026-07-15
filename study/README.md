@@ -21,6 +21,15 @@ NotebookLM 업로드 및 복습용 상세 학습 노트. 각 폴더에 **학습 
 
 ### 💬 lang/ — 언어를 개념으로 이해
 - [lang/java-oop.md](lang/java-oop.md) — Java의 OOP·상속: 개념 → 어원(Simula·Smalltalk) → 철학(WORA)
+- [lang/types-and-boxing.md](lang/types-and-boxing.md) — 정수 타입(비트≠자릿수)·원시vs래퍼·박싱→힙
+
+### 🧮 cs/ — CS 핵심 & 면접 암기
+- [cs/algorithms-and-abstraction.md](cs/algorithms-and-abstraction.md) — Big-O·자료구조 선택·추상화 강점과 약점 + CS 응용 Q&A
+- [cs/unity-garbage-collection.md](cs/unity-garbage-collection.md) — Unity GC: 힙 반환 여부·Incremental·할당 줄이기
+- [cs/qna/](cs/qna/) — **CS 암기 Q&A 40문항** (OS·네트워크·DB·자료구조), 3단 구조 · 📄 [cs-qna.html](cs/qna/cs-qna.html)
+
+### 🎯 interview/ — 면접 준비
+- [interview/explain-your-code.md](interview/explain-your-code.md) — 내 코드를 WHAT·HOW·TRADE-OFF 3단으로 설명하기
 
 ## 두 주제의 연결 고리
 AI와 그래픽스는 모두 **GPU의 대량 병렬 연산**에 의존한다. 그래픽스용으로 발전한 GPU가 딥러닝 붐을 이끌었고, 반대로 AI가 렌더링(디노이징·DLSS)에 다시 쓰인다. 자세한 비교는 [graphics-vs-ml.md](graphics-vs-ml.md) 참고.
