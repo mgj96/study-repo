@@ -14,6 +14,7 @@ NotebookLM 업로드 및 복습용 상세 학습 노트. 각 폴더에 **학습 
 
 ### 🗺️ 학습 계획
 - [roadmap.md](roadmap.md) — 개념 중심 학습 로드맵 (ML=Python, 그래픽스=브라우저→C++, 트랙별 도구 포함)
+- [engineering-concepts-map.md](engineering-concepts-map.md) — "알아야 할 개념 지도" 재사용 렌즈(6카테고리): Java로 채우고 ML·그래픽스에 대입 (YAGNI·CI/CD·MLOps 등)
 
 ### 🔗 두 주제 잇기
 - [graphics-vs-ml.md](graphics-vs-ml.md) — 컴퓨터 그래픽스 ↔ 머신러닝 비교와 융합
