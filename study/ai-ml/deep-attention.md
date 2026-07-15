@@ -58,9 +58,9 @@
 
 논문의 핵심 공식:
 
-```
-Attention(Q, K, V) = softmax( (Q · Kᵀ) / √d_k ) · V
-```
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^{\top}}{\sqrt{d_k}}\right)V
+$$
 
 - `Q·Kᵀ` : 모든 (질문, 열쇠) 쌍의 유사도 행렬 (n×n).
 - `/ √d_k` : **스케일링**. d_k=64이면 √64=8로 나눔.
@@ -84,10 +84,12 @@ Attention(Q, K, V) = softmax( (Q · Kᵀ) / √d_k ) · V
 - `d_k = d_v = d_model / h = 64` (헤드당 차원)
 
 **공식**
-```
-MultiHead(Q, K, V) = Concat(head₁, …, head₈) · W^O
-  where  headᵢ = Attention(Q·Wᵢ^Q, K·Wᵢ^K, V·Wᵢ^V)
-```
+$$
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,\dots,\text{head}_8)\,W^O
+$$
+$$
+\text{head}_i = \text{Attention}(QW_i^Q,\ KW_i^K,\ VW_i^V)
+$$
 - `Wᵢ^Q, Wᵢ^K, Wᵢ^V ∈ ℝ^(512×64)`, `W^O ∈ ℝ^(512×512)`.
 
 **왜 여러 헤드?** 각 헤드가 **서로 다른 "표현 부분공간(representation subspace)"**에서 관계를 본다 — 하나는 문법 관계, 하나는 지시 대상, 하나는 의미 유사성… 논문은 단일 헤드로는 이런 다양성이 **평균으로 뭉개진다(averaging inhibits)**고 지적. 8개 결과를 이어붙여(Concat) `W^O`로 합친다.
@@ -99,10 +101,10 @@ MultiHead(Q, K, V) = Concat(head₁, …, head₈) · W^O
 셀프 어텐션은 모든 단어를 동시에 봐서 **순서 정보가 없다.** ("개가 사람을 물다" ≠ "사람이 개를 물다"를 구분 못 함) → 각 단어 임베딩에 **위치 벡터를 더해** 순서를 알려준다.
 
 논문은 **사인·코사인** 함수를 사용:
-```
-PE(pos, 2i)   = sin( pos / 10000^(2i/d_model) )
-PE(pos, 2i+1) = cos( pos / 10000^(2i/d_model) )
-```
+$$
+PE_{(pos,\,2i)} = \sin\!\left(\frac{pos}{10000^{2i/d_{model}}}\right),\qquad
+PE_{(pos,\,2i+1)} = \cos\!\left(\frac{pos}{10000^{2i/d_{model}}}\right)
+$$
 - `pos` = 단어 위치, `i` = 차원 인덱스.
 - 파장이 위치마다 다른 파동을 각 차원에 넣어, 상대적 위치를 표현. 문장 길이에 제한이 없다는 장점.
 - (후속 모델들은 학습형 위치 임베딩·RoPE 등 다른 방식도 사용.)
@@ -118,16 +120,16 @@ PE(pos, 2i+1) = cos( pos / 10000^(2i/d_model) )
 2. **피드포워드 신경망(FFN)**
 
 각 서브층은 **잔차 연결 + 층 정규화**로 감싼다:
-```
-LayerNorm( x + Sublayer(x) )
-```
+$$
+\text{LayerNorm}(x + \text{Sublayer}(x))
+$$
 - **잔차 연결(residual)**: 입력 x를 출력에 그대로 더함 → 깊은 층에서도 기울기가 잘 흐름.
 - **층 정규화(LayerNorm)**: 값 분포를 안정화.
 
 **FFN 공식** (위치마다 독립 적용):
-```
-FFN(x) = max(0, x·W₁ + b₁) · W₂ + b₂
-```
+$$
+\text{FFN}(x) = \max(0,\ xW_1 + b_1)\,W_2 + b_2
+$$
 - 내부 차원 `d_ff = 2048` (512 → 2048 → 512), 활성화는 ReLU(`max(0, ·)`).
 
 ### 디코더 (한 층 = 서브층 3개)

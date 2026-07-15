@@ -9,6 +9,9 @@ export default defineConfig({
   cleanUrls: true,
   ignoreDeadLinks: true,
   lastUpdated: true,
+  markdown: {
+    math: true,
+  },
   themeConfig: {
     search: { provider: 'local' },
     nav: [

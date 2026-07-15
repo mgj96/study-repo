@@ -18,9 +18,9 @@
 Local → World → View → Clip → Screen
 ```
 행렬 곱으로 (오른쪽→왼쪽 순서로 적용):
-```
-V_clip = M_projection · M_view · M_model · V_local
-```
+$$
+V_{clip} = M_{proj}\,M_{view}\,M_{model}\,V_{local}
+$$
 - **Model 행렬**: 물체를 로컬 원점에서 월드로 배치(이동·회전·크기).
 - **View 행렬**: 씬 전체를 카메라 시점으로 옮김.
 - **Projection 행렬**: 3D를 클립 공간으로 눌러 담아 원근을 준비.
@@ -46,9 +46,9 @@ V_clip = M_projection · M_view · M_model · V_local
 
 ### 무게중심 좌표(barycentric coordinates)
 삼각형 정점 A,B,C에 대해 내부 점 P를:
-```
-P = α·A + β·B + γ·C,   α+β+γ = 1,   α,β,γ ≥ 0
-```
+$$
+P = \alpha A + \beta B + \gamma C,\quad \alpha+\beta+\gamma = 1,\quad \alpha,\beta,\gamma \ge 0
+$$
 - α,β,γ가 모두 0 이상이면 **P는 삼각형 내부** → 그 픽셀은 삼각형에 속함.
 - 같은 α,β,γ로 정점의 색·깊이·UV를 **보간(interpolation)**해 픽셀 값을 만든다.
 
@@ -64,9 +64,9 @@ P = α·A + β·B + γ·C,   α+β+γ = 1,   α,β,γ ≥ 0
 카메라(눈)에서 픽셀로 광선을 쏴, 부딪힌 물체의 색을 계산.
 
 ### 광선(ray) 정의
-```
-P(t) = O + t·D      (O=원점/카메라, D=방향, t≥0)
-```
+$$
+P(t) = O + tD, \quad t \ge 0 \qquad (O=\text{카메라}, \ D=\text{방향})
+$$
 
 ### 카메라 광선 생성 (Scratchapixel 단계)
 픽셀 좌표 → 월드 방향으로 변환:
@@ -91,9 +91,9 @@ P(t) = O + t·D      (O=원점/카메라, D=방향, t≥0)
 ## 5. 조명 모델 — 퐁(Phong) 수식
 
 한 점의 밝기 = 세 성분의 합:
-```
-I = k_a·I_a  +  k_d·(N·L)·I_d  +  k_s·(R·V)^n·I_s
-```
+$$
+I = k_a I_a + k_d\,(N\cdot L)\,I_d + k_s\,(R\cdot V)^n\,I_s
+$$
 - **앰비언트** `k_a·I_a`: 사방의 은은한 기본 밝기.
 - **디퓨즈** `k_d·(N·L)`: 표면 법선 N과 빛 방향 L의 내적. 정면일수록(N·L 큼) 밝음.
 - **스페큘러** `k_s·(R·V)^n`: 반사 방향 R과 시선 V의 내적을 n제곱. n(광택)이 클수록 하이라이트가 좁고 날카로움.
