@@ -13,7 +13,32 @@ export default defineConfig({
     math: true,
   },
   themeConfig: {
-    search: { provider: 'local' },
+    search: {
+      provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '검색',
+            buttonAriaLabel: '검색',
+          },
+          modal: {
+            displayDetails: '상세 보기',
+            resetButtonTitle: '검색어 지우기',
+            backButtonTitle: '뒤로',
+            noResultsText: '검색 결과가 없습니다',
+            footer: {
+              selectText: '선택',
+              selectKeyAriaLabel: '선택',
+              navigateText: '이동',
+              navigateUpKeyAriaLabel: '위로',
+              navigateDownKeyAriaLabel: '아래로',
+              closeText: '닫기',
+              closeKeyAriaLabel: '닫기',
+            },
+          },
+        },
+      },
+    },
     nav: [
       { text: '홈', link: '/' },
       { text: '로드맵', link: '/roadmap' },
@@ -94,7 +119,11 @@ export default defineConfig({
     outline: { level: [2, 3], label: '이 문서 목차' },
     docFooter: { prev: '이전', next: '다음' },
     darkModeSwitchLabel: '테마',
+    lightModeSwitchTitle: '라이트 모드로',
+    darkModeSwitchTitle: '다크 모드로',
+    sidebarMenuLabel: '메뉴',
     returnToTopLabel: '맨 위로',
+    skipToContentLabel: '본문으로 건너뛰기',
     lastUpdatedText: '마지막 수정',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/mgj96/study-repo' },
