@@ -4,6 +4,7 @@
 
 > ✍️ 작성 원칙: **쉽게(12살 눈높이) · 얕게 시작해 물어보며 딥다이브 · Q&A는 3단(결론·원리·확장)**
 > 📚 NotebookLM에 넣을 문서·링크는 [notebooklm-sources.md](notebooklm-sources.md) 한 곳에.
+> ⚙️ **소스 수정 전 필독** — GitHub Actions 빌드가 안 깨지게: [../CONTRIBUTING.md](../CONTRIBUTING.md) (`<`는 백틱, 수식은 `$$`, 새 문서는 sidebar 등록)
 
 ## 목차
 
