@@ -54,6 +54,7 @@ export default withMermaid(defineConfig({
           { text: '개념 지도 (6렌즈)', link: '/engineering-concepts-map' },
           { text: '그래픽스 ↔ ML', link: '/graphics-vs-ml' },
           { text: '형식 표준 (CONVENTIONS)', link: '/CONVENTIONS' },
+          { text: '✍️ 글쓰기 가이드', link: '/writing-guide' },
           { text: 'NotebookLM 소스', link: '/notebooklm-sources' },
         ],
       },
