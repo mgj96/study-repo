@@ -56,6 +56,7 @@ const bookmarks = ref([])
 const isBookmarked = ref(false)
 const lastVisit = ref(null)
 const showPanel = ref(false)
+const toolsOpen = ref(false)
 let scrollSaveTimer = 0
 
 function lsGet(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch (e) { return d } }
@@ -78,7 +79,8 @@ function removeBookmark(path) {
   lsSet('study:bookmarks', bm)
   refreshBookmarks()
 }
-function go(path) { showPanel.value = false; router.go(path) }
+function go(path) { showPanel.value = false; toolsOpen.value = false; router.go(path) }
+function toggleTools() { toolsOpen.value = !toolsOpen.value; if (!toolsOpen.value) showPanel.value = false }
 
 function saveVisit() { lsSet('study:lastVisit', { path: route.path, title: pageTitle(), ts: Date.now() }) }
 function saveScroll() {
@@ -128,7 +130,8 @@ watch(() => route.path, () => {
   </Layout>
 
   <!-- 읽기 도우미 (플로팅) -->
-  <div class="read-tools">
+  <div class="read-tools" :class="{ open: toolsOpen }">
+    <template v-if="toolsOpen">
     <!-- 북마크/이어보기 패널 -->
     <div v-if="showPanel" class="rt-panel">
       <div class="rt-panel-h">
@@ -163,6 +166,12 @@ watch(() => route.path, () => {
       </button>
       <button class="rt-pill" @click="showPanel = !showPanel" :aria-expanded="showPanel">📑 목록</button>
     </div>
+    </template>
+
+    <!-- 작은 토글 버튼 (기본: 이것만 보임) -->
+    <button class="rt-fab" @click="toggleTools" :aria-expanded="toolsOpen" aria-label="읽기 도구 열기/닫기">
+      <span v-if="toolsOpen">✕</span><span v-else>📖</span>
+    </button>
   </div>
 </template>
 
@@ -218,8 +227,23 @@ watch(() => route.path, () => {
 .rt-x:hover { background: var(--vp-c-default-soft, rgba(142,150,170,.14)); }
 .rt-empty { color: var(--vp-c-text-2); margin: 6px 0 0; font-size: 0.82rem; }
 
+.read-tools button.rt-fab {
+  width: 50px; height: 50px; border-radius: 50%;
+  font-size: 1.3rem; display: grid; place-items: center;
+  background: #D97757; color: #fff; border: 0;
+  box-shadow: 0 6px 18px -4px rgba(217, 119, 87, 0.6);
+}
+.read-tools button.rt-fab:hover { background: #C25333; }
+.read-tools.open button.rt-fab {
+  width: 40px; height: 40px; font-size: 1rem; align-self: flex-end;
+  background: var(--vp-c-bg-soft, #f6f6f7); color: var(--vp-c-text-2);
+  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.3);
+}
+.read-tools.open button.rt-fab:hover { background: var(--vp-c-default-soft, rgba(142,150,170,.14)); }
+
 @media (max-width: 640px) {
   .read-tools { right: 12px; bottom: 12px; gap: 6px; }
   .rt-main, .rt-pill { padding: 7px 11px; font-size: 0.78rem; }
+  .read-tools button.rt-fab { width: 46px; height: 46px; }
 }
 </style>
