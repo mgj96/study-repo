@@ -17,34 +17,23 @@ function updateProgress() {
 /* ── 자동(스르륵) 스크롤 ── */
 const autoScrolling = ref(false)
 const speed = ref(45) // px/초 (천천히)
-let rafId = null
-let lastTs = null
-let acc = 0
+const TICK = 40 // ms (25Hz)
+let timer = null
 
-function step(ts) {
-  if (!autoScrolling.value) return
-  if (lastTs == null) lastTs = ts
-  const dt = Math.min((ts - lastTs) / 1000, 0.1)
-  lastTs = ts
-  acc += speed.value * dt
-  if (acc >= 1) {
-    const px = Math.floor(acc)
-    window.scrollBy(0, px)
-    acc -= px
-  }
+function tick() {
+  const per = Math.max(1, Math.round((speed.value * TICK) / 1000))
   const el = document.documentElement
-  if (el.scrollTop + el.clientHeight >= el.scrollHeight - 2) {
-    stopAuto() // 맨 아래 도달
-    return
+  const before = el.scrollTop
+  window.scrollBy(0, per)
+  // 더 못 내려가면(맨 아래) 정지
+  if (el.scrollTop === before || el.scrollTop + el.clientHeight >= el.scrollHeight - 2) {
+    stopAuto()
   }
-  rafId = requestAnimationFrame(step)
 }
 function startAuto() {
   if (autoScrolling.value) return
   autoScrolling.value = true
-  lastTs = null
-  acc = 0
-  rafId = requestAnimationFrame(step)
+  timer = setInterval(tick, TICK)
   window.addEventListener('wheel', stopAuto, { passive: true })
   window.addEventListener('touchstart', stopAuto, { passive: true })
   window.addEventListener('keydown', onKey, { passive: true })
@@ -52,8 +41,8 @@ function startAuto() {
 function stopAuto() {
   if (!autoScrolling.value) return
   autoScrolling.value = false
-  if (rafId) cancelAnimationFrame(rafId)
-  rafId = null
+  if (timer) clearInterval(timer)
+  timer = null
   window.removeEventListener('wheel', stopAuto)
   window.removeEventListener('touchstart', stopAuto)
   window.removeEventListener('keydown', onKey)
