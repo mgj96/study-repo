@@ -131,6 +131,18 @@ export default withMermaid(defineConfig({
     ],
   },
   mermaid: {
-    // 다이어그램 테마는 라이트/다크 자동
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FDE7DF',
+      primaryTextColor: '#3A2016',
+      primaryBorderColor: '#D97757',
+      lineColor: '#C25333',
+      secondaryColor: '#DBF1EE',
+      secondaryBorderColor: '#0E9E8E',
+      tertiaryColor: '#FFF3CE',
+      tertiaryBorderColor: '#E8912A',
+      fontFamily: 'Pretendard Variable, Pretendard, sans-serif',
+      fontSize: '15px',
+    },
   },
 }))
