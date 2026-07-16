@@ -196,6 +196,8 @@ flowchart LR
 
 **왜 깊게 쌓나**: 층이 깊어질수록 점점 추상적인 특징을 잡는다. (이미지: 1층=선/모서리 → 중간층=눈·코 → 깊은층=얼굴 전체) 이를 **표현 학습(representation learning)**이라 한다.
 
+> 🔎 **더 깊이 →** [표현 학습은 왜 잘 될까](deep-representation) — 계층적 특징의 실제 시각화, 깊이가 유리한 이유, 트랜스포머와의 연결.
+
 **핵심 요약**: 신경망 = 뉴런 층을 쌓은 것. 깊게 쌓으면 추상적 개념까지 학습.
 
 `참조`: [Dive into Deep Learning (d2l.ai)](https://d2l.ai/) · [CS231n: Neural Networks](https://cs231n.github.io/neural-networks-1/)

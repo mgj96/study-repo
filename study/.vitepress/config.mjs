@@ -63,10 +63,16 @@ export default withMermaid(defineConfig({
         items: [
           { text: '개념 노트', link: '/ai-ml/concept' },
           { text: '암기 Q&A', link: '/ai-ml/qna' },
-          { text: '🔬 어텐션·트랜스포머 (논문)', link: '/ai-ml/deep-attention' },
-          { text: '🔬 역전파 수학', link: '/ai-ml/deep-neural-backprop' },
-          { text: '🔬 RNN·LSTM (어텐션 이전)', link: '/ai-ml/deep-rnn' },
-          { text: '🔬 토큰화·임베딩', link: '/ai-ml/deep-embedding' },
+          {
+            text: '🔬 심화 (딥다이브)',
+            collapsed: true,
+            items: [
+              { text: '어텐션·트랜스포머 (논문)', link: '/ai-ml/deep-attention' },
+              { text: '역전파 수학', link: '/ai-ml/deep-neural-backprop' },
+              { text: 'RNN·LSTM (어텐션 이전)', link: '/ai-ml/deep-rnn' },
+              { text: '토큰화·임베딩', link: '/ai-ml/deep-embedding' },
+            ],
+          },
           { text: '검색 기록', link: '/ai-ml/research-log' },
         ],
       },
