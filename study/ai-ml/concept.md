@@ -141,7 +141,32 @@ flowchart LR
 - **입력층(input)** → **은닉층(hidden)** (여러 개 가능) → **출력층(output)**.
 - 은닉층이 많을수록 "깊다" → **딥러닝(deep learning)**.
 
-**순전파(forward propagation)**: 입력이 층을 차례로 통과하며 계산되어 최종 출력이 나오는 과정.
+```mermaid
+flowchart LR
+  subgraph 입력층
+    I1["x1"]
+    I2["x2"]
+  end
+  subgraph 은닉층
+    H1["h1"]
+    H2["h2"]
+    H3["h3"]
+  end
+  subgraph 출력층
+    O1["y"]
+  end
+  I1 --> H1
+  I1 --> H2
+  I1 --> H3
+  I2 --> H1
+  I2 --> H2
+  I2 --> H3
+  H1 --> O1
+  H2 --> O1
+  H3 --> O1
+```
+
+**순전파(forward propagation)**: 입력이 층을 차례로 통과하며 계산되어 최종 출력이 나오는 과정. 정보가 왼쪽(입력)에서 오른쪽(출력)으로 **한 방향으로 흐르며** 각 뉴런에서 계산된다.
 
 **왜 깊게 쌓나**: 층이 깊어질수록 점점 추상적인 특징을 잡는다. (이미지: 1층=선/모서리 → 중간층=눈·코 → 깊은층=얼굴 전체) 이를 **표현 학습(representation learning)**이라 한다.
 
