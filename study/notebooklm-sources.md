@@ -16,6 +16,8 @@ https://mgj96.github.io/study-repo/ai-ml/concept
 https://mgj96.github.io/study-repo/ai-ml/qna
 https://mgj96.github.io/study-repo/ai-ml/deep-attention
 https://mgj96.github.io/study-repo/ai-ml/deep-neural-backprop
+https://mgj96.github.io/study-repo/ai-ml/deep-rnn
+https://mgj96.github.io/study-repo/ai-ml/deep-embedding
 https://mgj96.github.io/study-repo/graphics/concept
 https://mgj96.github.io/study-repo/graphics/qna
 https://mgj96.github.io/study-repo/graphics/deep-rendering-math
@@ -108,6 +110,8 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/qna.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-attention.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-neural-backprop.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-rnn.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-embedding.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/qna.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/deep-rendering-math.md

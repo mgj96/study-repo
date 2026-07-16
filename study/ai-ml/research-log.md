@@ -30,7 +30,7 @@
 - Hugging Face, *NLP/LLM Course* — https://huggingface.co/learn/nlp-course/
 
 ## 다음에 더 파볼 것 (TODO)
-- [ ] RNN/LSTM 자체를 더 깊게 (게이트 구조)
-- [ ] 임베딩·토크나이저 실제 동작 (BPE)
+- [x] RNN/LSTM 자체를 더 깊게 (게이트 구조) → [deep-rnn.md](deep-rnn.md)
+- [x] 임베딩·토크나이저 실제 동작 (BPE) → [deep-embedding.md](deep-embedding.md)
 - [ ] RLHF / 파인튜닝 과정 상세
 - [ ] 실제 파이썬 예제 코드로 미니 신경망 구현
