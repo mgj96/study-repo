@@ -29,7 +29,6 @@ function tick() {
 }
 function startAuto() {
   if (autoScrolling.value) return
-  stopSpeak()
   autoScrolling.value = true
   timer = setInterval(tick, TICK)
   window.addEventListener('wheel', stopAuto, { passive: true })
@@ -51,46 +50,6 @@ function onKey(e) {
 function toggleAuto() { autoScrolling.value ? stopAuto() : startAuto() }
 function slower() { speed.value = Math.max(15, speed.value - 20) }
 function faster() { speed.value = Math.min(160, speed.value + 20) }
-
-/* ── 소리로 읽기 (TTS) ── */
-const speaking = ref(false)
-const ttsSupported = ref(true)
-const rate = ref(1)
-let queueEls = []
-function collectReadable() {
-  const doc = document.querySelector('.vp-doc')
-  if (!doc) return []
-  return [...doc.querySelectorAll('h1, h2, h3, h4, p, li')].filter(
-    (el) => !el.closest('pre, .mermaid, [class*="language-"], mjx-container') && el.innerText.trim().length > 0
-  )
-}
-function speakFrom(i) {
-  if (!speaking.value) return
-  if (i >= queueEls.length) { stopSpeak(); return }
-  const el = queueEls[i]
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  const u = new SpeechSynthesisUtterance(el.innerText.trim())
-  u.lang = 'ko-KR'
-  u.rate = rate.value
-  u.onend = () => { if (speaking.value) speakFrom(i + 1) }
-  u.onerror = () => { if (speaking.value) speakFrom(i + 1) }
-  window.speechSynthesis.speak(u)
-}
-function startSpeak() {
-  if (!('speechSynthesis' in window)) { ttsSupported.value = false; return }
-  stopAuto()
-  queueEls = collectReadable()
-  if (!queueEls.length) return
-  speaking.value = true
-  window.speechSynthesis.cancel()
-  speakFrom(0)
-}
-function stopSpeak() {
-  if (!speaking.value) return
-  speaking.value = false
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel()
-}
-function toggleSpeak() { speaking.value ? stopSpeak() : startSpeak() }
 
 /* ── 북마크 + 보던 위치 기억 (localStorage) ── */
 const bookmarks = ref([])
@@ -142,7 +101,6 @@ onMounted(() => {
   window.addEventListener('resize', updateProgress, { passive: true })
   window.addEventListener('scroll', onScrollSave, { passive: true })
   updateProgress()
-  ttsSupported.value = 'speechSynthesis' in window
   refreshBookmarks()
   lastVisit.value = lsGet('study:lastVisit', null)
   restoreScroll() // 새로고침/재방문 시 보던 위치 복원
@@ -153,10 +111,9 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateProgress)
   window.removeEventListener('scroll', onScrollSave)
   stopAuto()
-  stopSpeak()
 })
 watch(() => route.path, () => {
-  stopAuto(); stopSpeak()
+  stopAuto()
   refreshBookmarks()
   lastVisit.value = lsGet('study:lastVisit', null)
   saveVisit()
@@ -199,10 +156,6 @@ watch(() => route.path, () => {
       </button>
       <button class="rt-step" @click="faster" title="빠르게" aria-label="빠르게">+</button>
     </div>
-
-    <button v-if="ttsSupported" class="rt-pill" :class="{ 'teal-active': speaking }" @click="toggleSpeak" :aria-pressed="speaking">
-      <span v-if="speaking">⏹ 소리 멈춤</span><span v-else>🔊 소리로 읽기</span>
-    </button>
 
     <div class="rt-bmrow">
       <button class="rt-pill" :class="{ 'teal-active': isBookmarked }" @click="toggleBookmark" :aria-pressed="isBookmarked">
