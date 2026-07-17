@@ -72,6 +72,7 @@ export default withMermaid(defineConfig({
               { text: '역전파 수학', link: '/ai-ml/deep-neural-backprop' },
               { text: 'RNN·LSTM (어텐션 이전)', link: '/ai-ml/deep-rnn' },
               { text: '토큰화·임베딩', link: '/ai-ml/deep-embedding' },
+              { text: '깊이·층별 특화·제어·YOLO', link: '/ai-ml/deep-layers-and-yolo' },
             ],
           },
           { text: '검색 기록', link: '/ai-ml/research-log' },

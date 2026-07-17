@@ -29,8 +29,24 @@
 - Lilian Weng, *Attention? Attention!* — https://lilianweng.github.io/posts/2018-06-24-attention/
 - Hugging Face, *NLP/LLM Course* — https://huggingface.co/learn/nlp-course/
 
+## 2026-07-17
+
+### 검색 3 — 층별 특화 검증 · 해석 가능성
+- **쿼리**: `feature visualization Distill circuits Network Dissection linear probe BERT rediscovers NLP pipeline`
+- **찾은 핵심 소스**:
+  - Olah 외, *Feature Visualization* / *Zoom In: Circuits* (Distill) — https://distill.pub/2020/circuits/zoom-in/
+  - Cammarata 외, *Curve Detectors* (Distill, 2020) — https://distill.pub/2020/circuits/curve-detectors/
+  - Zeiler & Fergus (2014), *Visualizing and Understanding CNNs* — https://arxiv.org/abs/1311.2901
+  - Bau 외, *Network Dissection* (2017) — https://arxiv.org/abs/1704.05796
+  - Alain & Bengio, *Linear Classifier Probes* (2016) — https://arxiv.org/abs/1610.01644
+  - Tenney 외, *BERT Rediscovers the Classical NLP Pipeline* (2019) — https://arxiv.org/abs/1905.05950
+  - Ultralytics YOLO Docs — https://docs.ultralytics.com/
+- **노트 반영**: [deep-layers-and-yolo.md](deep-layers-and-yolo.md) (깊이 트레이드오프 · 층별 특화 · 검증 3층위 · 레이어 제어 · YOLO 학습/사용 시점).
+
 ## 다음에 더 파볼 것 (TODO)
 - [x] RNN/LSTM 자체를 더 깊게 (게이트 구조) → [deep-rnn.md](deep-rnn.md)
 - [x] 임베딩·토크나이저 실제 동작 (BPE) → [deep-embedding.md](deep-embedding.md)
+- [x] 깊이·층별 특화·레이어 제어·YOLO → [deep-layers-and-yolo.md](deep-layers-and-yolo.md)
 - [ ] RLHF / 파인튜닝 과정 상세
 - [ ] 실제 파이썬 예제 코드로 미니 신경망 구현
+- [ ] superposition / Sparse Autoencoder (겹친 특징 풀기)
