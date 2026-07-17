@@ -50,4 +50,14 @@
 - **② 원리** **학습 시점** = 라벨 데이터로 backbone·head 가중치를 경사하강으로 맞춤. **사용 시점** = 그 가중치 로드 후 forward만 (경사하강 없음).
 - **③ 확장** 내 전용 클래스면 **head만 교체해 파인튜닝**(전이학습). from scratch는 데이터·GPU가 많이 들어 드묾.
 
-_더 깊이(논문 기반): **[deep-layers-and-yolo.md](deep-layers-and-yolo.md)** (깊이·층별 특화·레이어 제어·YOLO) · **[deep-attention.md](deep-attention.md)** (어텐션·트랜스포머) · **[deep-neural-backprop.md](deep-neural-backprop.md)** (신경망·역전파 수학)._
+### Q10. 이미지는 사람이 라벨 다는데, 글씨는 정답을 어떻게 얻어?
+- **① 결론** 글은 대부분 **데이터가 스스로 정답을 만든다(자기지도학습)**. 사람이 라벨 안 달아도 됨.
+- **② 원리** "나는 밥을 ___ → 먹었다"처럼 **다음 단어를 가리고 맞히기.** 정답이 이미 글 안에 있어, 인터넷 글 전체가 공짜 문제집.
+- **③ 확장** 음성·영상·그림도 "일부 가리고 맞히기" 또는 이미지-캡션 짝(CLIP)으로 배움. 라벨 비용 0 → LLM 폭발의 원동력. (→ [learning-signal.md](learning-signal.md))
+
+### Q11. 계속 자기 결과로 학습하면 확증편향에 빠지는 거 아냐?
+- **① 결론** 기본은 아님. 조정 기준이 **자기 확신이 아니라 외부 정답(닻)** 이라, 아무리 확신해도 정답과 다르면 깎인다 → **진실로 수렴.**
+- **② 원리** 눈 감고 활을 쏘지만 "정답이 5cm 왼쪽"이라 알려주는 게 라벨. 자기 느낌이 아니라 **바깥 사실**로 고친다.
+- **③ 확장** 단, **정답이 편향되거나·자기 출력으로 배우거나(모델 붕괴)·추천 루프(필터버블)·아첨(sycophancy)** 이면 진짜 확증편향으로 증폭. "진실이냐 편향이냐"는 **닻이 현실에 붙었나**에 달림.
+
+_더 깊이(논문 기반): **[deep-layers-and-yolo.md](deep-layers-and-yolo.md)** (깊이·층별 특화·레이어 제어·YOLO) · **[deep-attention.md](deep-attention.md)** (어텐션·트랜스포머) · **[deep-neural-backprop.md](deep-neural-backprop.md)** (신경망·역전파 수학). 정답/라벨 참고: **[learning-signal.md](learning-signal.md)**._

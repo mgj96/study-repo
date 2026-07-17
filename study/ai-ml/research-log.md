@@ -47,6 +47,8 @@
 - [x] RNN/LSTM 자체를 더 깊게 (게이트 구조) → [deep-rnn.md](deep-rnn.md)
 - [x] 임베딩·토크나이저 실제 동작 (BPE) → [deep-embedding.md](deep-embedding.md)
 - [x] 깊이·층별 특화·레이어 제어·YOLO → [deep-layers-and-yolo.md](deep-layers-and-yolo.md)
+- [x] 신경망 종류 한눈에(약어·의도·장단점) → [nn-types.md](nn-types.md)
+- [x] 학습 신호·라벨·자기지도·확증편향 → [learning-signal.md](learning-signal.md)
 - [ ] RLHF / 파인튜닝 과정 상세
 - [ ] 실제 파이썬 예제 코드로 미니 신경망 구현
 - [ ] superposition / Sparse Autoencoder (겹친 특징 풀기)
