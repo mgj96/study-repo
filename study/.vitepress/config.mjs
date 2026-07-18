@@ -98,6 +98,8 @@ export default withMermaid(defineConfig({
         collapsed: false,
         items: [
           { text: '개념 (Big-O·추상화)', link: '/cs/concept' },
+          { text: '자바로 보는 자료구조', link: '/cs/data-structures-java' },
+          { text: 'GC 함정 (주장 vs 실제)', link: '/cs/gc-gotchas' },
           { text: 'Q&A · 운영체제', link: '/cs/qna/os' },
           { text: 'Q&A · 네트워크', link: '/cs/qna/network' },
           { text: 'Q&A · 데이터베이스', link: '/cs/qna/database' },
