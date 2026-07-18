@@ -9,6 +9,7 @@
 
 | 추상 | Java 클래스 | 핵심 연산 | 언제 |
 |------|------------|-----------|------|
+| 배열(고정) | `int[]` · `T[]` | 인덱스 접근 O(1) | 크기 고정·인덱스 접근 |
 | 동적 배열 | `ArrayList` | get O(1), 끝 add 분할상환 O(1) | **기본 리스트** (대부분 이거) |
 | 연결 리스트 | `LinkedList` | 양끝 O(1), get O(n) | 거의 안 씀 (§1 함정) |
 | 해시맵 | `HashMap` | 평균 O(1) | **키로 조회** |
@@ -19,6 +20,44 @@
 | 우선순위 큐 | `PriorityQueue` | peek O(1), poll O(log n) | top-K, 다익스트라 |
 
 > 감각: **리스트=`ArrayList`, 맵=`HashMap`, 스택/큐=`ArrayDeque`, 우선순위=`PriorityQueue`** 만 기본으로 손에 익혀도 90%.
+
+### import 한눈에 (복사용)
+```java
+// 배열: import 불필요 (언어 내장). 유틸이 필요할 때만:
+import java.util.Arrays;          // Arrays.sort(), Arrays.asList() ...
+
+// 리스트
+import java.util.List;            // 인터페이스 (변수 타입엔 이걸 권장)
+import java.util.ArrayList;       // 기본 동적 배열
+import java.util.LinkedList;      // 연결 리스트 (거의 비권장)
+
+// 맵
+import java.util.Map;             // 인터페이스
+import java.util.HashMap;         // 키 조회 O(1)
+import java.util.TreeMap;         // 정렬·범위
+import java.util.LinkedHashMap;   // 삽입/접근 순서 보존 (LRU 캐시)
+
+// 셋
+import java.util.Set;             // 인터페이스
+import java.util.HashSet;         // 중복 제거
+import java.util.TreeSet;         // 정렬 집합
+import java.util.LinkedHashSet;   // 순서 보존 집합
+
+// 스택·큐·덱
+import java.util.Deque;           // 인터페이스 (스택+큐 겸용)
+import java.util.ArrayDeque;      // 스택·큐 둘 다 (Stack 대신)
+import java.util.Queue;           // 큐 인터페이스
+import java.util.PriorityQueue;   // 우선순위 큐(힙)
+
+// 동시성 (멀티스레드)
+import java.util.concurrent.ConcurrentHashMap;  // 스레드 안전 맵
+
+// ⚠️ 쓰지 말 것 (레거시)
+import java.util.Stack;           // Vector 기반 → ArrayDeque 사용
+import java.util.Vector;          // 동기화 오버헤드 → ArrayList 사용
+```
+
+> 팁: 변수 타입은 **인터페이스**로 선언하고 구현만 바꾸는 게 관례 — `List<String> xs = new ArrayList<>();`
 
 ---
 

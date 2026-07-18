@@ -86,6 +86,8 @@ flowchart TD
 
 *(도식 설명: '무엇을 자주 하나'로 갈라진다 — 키로 조회면 해시맵, 순서 처리면 큐/스택, 정렬·범위검색이면 트리, 최대·최소 반복이면 힙, 인덱스 접근이면 배열을 고른다.)*
 
+> ☕ **자바 클래스·import 매핑**(`ArrayList`·`HashMap`·`ArrayDeque` + import 문)은 → [data-structures-java.md](data-structures-java.md).
+
 ## 5. 변수·원시 타입 선택 (언제 어떤 타입)
 
 - **정수 크기**: 값 범위가 크면 `int`(약 21억)로 부족 → `long`. **오버플로**는 흔한 버그.
