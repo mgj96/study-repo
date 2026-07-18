@@ -100,6 +100,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '개념 (Big-O·추상화)', link: '/cs/concept' },
           { text: '자바로 보는 자료구조', link: '/cs/data-structures-java' },
+          { text: '자료구조 딥다이브 (내부동작)', link: '/cs/data-structures-deep' },
           { text: 'GC 함정 (주장 vs 실제)', link: '/cs/gc-gotchas' },
           { text: '웹 통신 (SOAP·REST·JSON…)', link: '/cs/web-communication' },
           { text: 'Q&A · 운영체제', link: '/cs/qna/os' },
