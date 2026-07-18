@@ -99,6 +99,7 @@ export default withMermaid(defineConfig({
         collapsed: false,
         items: [
           { text: '개념 (Big-O·추상화)', link: '/cs/concept' },
+          { text: 'CS 근간 (컴퓨터 원리)', link: '/cs/cs-foundations' },
           { text: '자바로 보는 자료구조', link: '/cs/data-structures-java' },
           { text: '자료구조 딥다이브 (내부동작)', link: '/cs/data-structures-deep' },
           { text: 'GC 함정 (주장 vs 실제)', link: '/cs/gc-gotchas' },
@@ -113,6 +114,7 @@ export default withMermaid(defineConfig({
         text: '💬 언어',
         collapsed: false,
         items: [
+          { text: '언어 비교 (C++·Java·C#)', link: '/lang/language-comparison' },
           { text: 'Java · 개념', link: '/lang/java/concept' },
           { text: 'Java · 타입/박싱', link: '/lang/java/types-boxing' },
           { text: 'Java · 디자인 패턴', link: '/lang/java/design-patterns' },
