@@ -65,6 +65,7 @@ export default withMermaid(defineConfig({
           { text: '개념 노트', link: '/ai-ml/concept' },
           { text: '신경망 종류 한눈에', link: '/ai-ml/nn-types' },
           { text: '학습 신호·라벨·확증편향', link: '/ai-ml/learning-signal' },
+          { text: '모델 편집·보안(심기)', link: '/ai-ml/model-editing-and-security' },
           { text: 'ML 커리큘럼', link: '/ai-ml/ml-curriculum' },
           { text: '자바 개발자를 위한 ML', link: '/ai-ml/for-java-devs' },
           { text: '암기 Q&A', link: '/ai-ml/qna' },
