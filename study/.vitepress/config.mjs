@@ -87,6 +87,7 @@ export default withMermaid(defineConfig({
         collapsed: false,
         items: [
           { text: '개념 노트', link: '/graphics/concept' },
+          { text: '자바 개발자를 위한 그래픽스', link: '/graphics/for-java-devs' },
           { text: '암기 Q&A', link: '/graphics/qna' },
           { text: '🔬 렌더링 수학', link: '/graphics/deep-rendering-math' },
           { text: '검색 기록', link: '/graphics/research-log' },
