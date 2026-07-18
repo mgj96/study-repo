@@ -113,6 +113,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Java · 개념', link: '/lang/java/concept' },
           { text: 'Java · 타입/박싱', link: '/lang/java/types-boxing' },
+          { text: 'Java · 디자인 패턴', link: '/lang/java/design-patterns' },
           { text: 'Java · Q&A', link: '/lang/java/qna' },
           { text: 'C# · 개념', link: '/lang/csharp/concept' },
           { text: 'C# · Q&A', link: '/lang/csharp/qna' },
