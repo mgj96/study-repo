@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS 실험실 — 직접 돌려보는 컴퓨터 과학</title>
+<style>
+  :root{
+    --bg:#eceff3; --surface:#ffffff; --ink:#16202b; --muted:#5c6b7a;
+    --line:#d6dde4; --accent:#d16a4a; --accent-soft:#f2d9d0;
+    --screen:#0e1620; --screen-ink:#cde0e6; --screen-line:#1e2c38; --screen-dim:#5f7787;
+    --ok:#2e9e6b; --fail:#d64545; --warn:#c98a1e;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;
+    --r:10px; --maxw:1080px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0c1218; --surface:#131c25; --ink:#e6edf3; --muted:#8a99a7;
+      --line:#233039; --accent:#e8956f; --accent-soft:#33231c;
+      --screen:#080d12; --screen-ink:#c9dde4; --screen-line:#18242e; --screen-dim:#526775;
+      --ok:#48c98b; --fail:#f06a6a; --warn:#e0ad4e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c1218; --surface:#131c25; --ink:#e6edf3; --muted:#8a99a7;
+    --line:#233039; --accent:#e8956f; --accent-soft:#33231c;
+    --screen:#080d12; --screen-ink:#c9dde4; --screen-line:#18242e; --screen-dim:#526775;
+    --ok:#48c98b; --fail:#f06a6a; --warn:#e0ad4e;
+  }
+  :root[data-theme="light"]{
+    --bg:#eceff3; --surface:#ffffff; --ink:#16202b; --muted:#5c6b7a;
+    --line:#d6dde4; --accent:#d16a4a; --accent-soft:#f2d9d0;
+    --screen:#0e1620; --screen-ink:#cde0e6; --screen-line:#1e2c38; --screen-dim:#5f7787;
+    --ok:#2e9e6b; --fail:#d64545; --warn:#c98a1e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4vw,44px) clamp(16px,4vw,32px) 72px}
+  /* masthead */
+  .mast{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:30px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);font-weight:600}
+  h1{font-family:var(--mono);font-weight:700;font-size:clamp(26px,5vw,40px);letter-spacing:-.01em;
+    margin:.35em 0 .15em;text-wrap:balance}
+  .lede{color:var(--muted);max-width:60ch;margin:0;font-size:15.5px}
+  .lede a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+  .lede a:hover{border-bottom-color:var(--accent)}
+  /* grid */
+  .grid{display:grid;grid-template-columns:1fr;gap:22px}
+  @media(min-width:840px){.grid{grid-template-columns:1fr 1fr}}
+  /* panel */
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  .phead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .pnum{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .ptitle{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:-.01em;margin:0}
+  .real{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    padding:2px 7px;border-radius:20px;font-weight:600;white-space:nowrap}
+  .real.live{color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 45%,transparent)}
+  .real.sim{color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 45%,transparent)}
+  .pdesc{color:var(--muted);font-size:13.5px;margin:-4px 0 0}
+  .pdesc code{font-family:var(--mono);background:var(--accent-soft);color:var(--ink);
+    padding:1px 5px;border-radius:5px;font-size:12.5px}
+  /* controls */
+  .ctrls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+  .field{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .field label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  input[type="number"],select{font-family:var(--mono);font-size:14px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:7px 9px;width:100%}
+  input[type="range"]{accent-color:var(--accent);width:100%}
+  .rangewrap{min-width:150px;flex:1}
+  .rangeval{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+  button.run{font-family:var(--mono);font-weight:600;font-size:13.5px;letter-spacing:.02em;
+    color:#fff;background:var(--accent);border:none;border-radius:8px;padding:9px 16px;cursor:pointer;
+    transition:filter .15s}
+  button.run:hover{filter:brightness(1.07)}
+  button.run:active{filter:brightness(.94)}
+  button.run:focus-visible,input:focus-visible,select:focus-visible,.toggle button:focus-visible,a:focus-visible{
+    outline:2px solid var(--accent);outline-offset:2px}
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .toggle button{font-family:var(--mono);font-size:12.5px;padding:7px 12px;background:var(--bg);
+    color:var(--muted);border:none;cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:var(--accent);color:#fff}
+  /* screen (readout) */
+  .screen{background:var(--screen);border:1px solid var(--screen-line);border-radius:9px;
+    padding:14px;color:var(--screen-ink);font-family:var(--mono);font-size:13px;
+    overflow-x:auto;min-height:56px}
+  .screen .dim{color:var(--screen-dim)}
+  .screen .big{font-size:clamp(17px,4.4vw,22px);font-weight:700;letter-spacing:-.01em;
+    font-variant-numeric:tabular-nums;word-break:break-all}
+  .screen .ok{color:var(--ok)} .screen .fail{color:var(--fail)} .screen .warn{color:var(--warn)}
+  .screen .accent{color:var(--accent)}
+  .bits{display:flex;flex-wrap:wrap;gap:2px;margin-top:10px;font-size:11px;line-height:1.2}
+  .bit{padding:2px 0;width:1.05ch;text-align:center}
+  .bit.s{color:var(--fail)} .bit.e{color:var(--warn)} .bit.m{color:var(--screen-dim)}
+  .lgnd{display:flex;gap:14px;margin-top:8px;font-size:11px;flex-wrap:wrap}
+  .lgnd span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+  /* bars */
+  .bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .bar-row{display:grid;grid-template-columns:82px 1fr auto;align-items:center;gap:9px;font-size:12px}
+  .bar-track{background:var(--screen-line);border-radius:4px;height:16px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:4px;transition:width .4s ease}
+  .bar-val{font-variant-numeric:tabular-nums;text-align:right;min-width:74px}
+  /* buckets */
+  .buckets{display:flex;gap:4px;align-items:flex-end;height:120px;margin-top:6px;overflow-x:auto;padding-bottom:2px}
+  .bkt{flex:1;min-width:9px;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+  .bkt .col{background:var(--accent);border-radius:3px 3px 0 0;min-height:2px;transition:height .3s}
+  .bkt.tree .col{background:var(--fail)}
+  .bkt .n{font-size:9px;text-align:center;color:var(--screen-dim);margin-top:2px}
+  .foot{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);
+    font-size:12.5px;font-family:var(--mono)}
+  .foot a{color:var(--accent);text-decoration:none}
+  .deeplink{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-decoration:none;
+    border-bottom:1px dotted var(--line);white-space:nowrap}
+  .deeplink:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .note{font-size:12px;color:var(--muted);margin:2px 0 0}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="kicker">CS Playground · 실행되는 개념</div>
+    <h1>CS 실험실</h1>
+    <p class="lede">"CS는 외우기만 하나?" 아니요 — 여기서 <strong>직접 돌려서 결과를 봅니다</strong>.
+      부동소수·Big-O·캐시 타이밍은 브라우저에서 <strong>실제로 측정</strong>되고(자바 결과와 동일),
+      해시·경쟁상태는 인터랙티브하게 재현됩니다. 개념 노트는
+      <a href="https://mgj96.github.io/study-repo/cs/cs-foundations" target="_blank" rel="noopener">CS 근간</a>에.</p>
+  </header>
+
+  <main class="grid">
+
+    <!-- 1. floating point -->
+    <section class="panel" id="fp">
+      <div class="phead">
+        <div><span class="pnum">01</span> <h2 class="ptitle">부동소수 · IEEE 754</h2></div>
+        <span class="real live">실측 · 자바 동일</span>
+      </div>
+      <p class="pdesc">왜 <code>0.1 + 0.2 ≠ 0.3</code> 일까? 2진법엔 0.1이 유한 표현이 없어 반올림된다. 자바 <code>double</code>과 완전히 같은 결과.</p>
+      <div class="ctrls">
+        <div class="field" style="width:96px"><label for="fpA">a</label><input type="number" id="fpA" value="0.1" step="0.1"></div>
+        <div class="field" style="width:96px"><label for="fpB">b</label><input type="number" id="fpB" value="0.2" step="0.1"></div>
+        <button class="run" id="fpRun">a + b 계산</button>
+      </div>
+      <div class="screen" id="fpOut"><span class="dim">→ 계산 버튼을 눌러보세요.</span></div>
+      <a class="deeplink" href="https://mgj96.github.io/study-repo/cs/deep-floating-point" target="_blank" rel="noopener">↳ 딥다이브: 부동소수</a>
+    </section>
+
+    <!-- 2. big-o -->
+    <section class="panel" id="bo">
+      <div class="phead">
+        <div><span class="pnum">02</span> <h2 class="ptitle">Big-O · 시간 측정</h2></div>
+        <span class="real live">실측 · performance.now</span>
+      </div>
+      <p class="pdesc">같은 n에서 <code>O(n)</code> · <code>O(n log n)</code> · <code>O(n²)</code>를 실제로 돌려 밀리초를 잰다. n을 키우면 n²가 폭발한다.</p>
+      <div class="ctrls">
+        <div class="field rangewrap"><label for="boN">n = <span class="rangeval" id="boNv">8000</span></label>
+          <input type="range" id="boN" min="1000" max="40000" step="1000" value="8000"></div>
+        <button class="run" id="boRun">실행</button>
+      </div>
+      <div class="screen"><div class="bars" id="boBars"><span class="dim">→ 실행하면 세 알고리즘의 실제 소요 시간이 막대로 나옵니다.</span></div></div>
+      <a class="deeplink" href="https://mgj96.github.io/study-repo/cs/cs-foundations" target="_blank" rel="noopener">↳ 근간: 복잡도</a>
+    </section>
+
+    <!-- 3. hash collision -->
+    <section class="panel" id="hs">
+      <div class="phead">
+        <div><span class="pnum">03</span> <h2 class="ptitle">해시 충돌 · HashMap</h2></div>
+        <span class="real sim">시뮬레이션</span>
+      </div>
+      <p class="pdesc">키를 버킷에 해싱해 분포를 본다. 한 버킷에 <code>8개↑</code> 쌓이면 자바는 <span style="color:var(--fail);font-weight:600">트리화</span>, load factor <code>0.75</code> 넘으면 리사이즈.</p>
+      <div class="ctrls">
+        <div class="field rangewrap"><label for="hsK">키 개수 = <span class="rangeval" id="hsKv">24</span></label>
+          <input type="range" id="hsK" min="4" max="120" step="1" value="24"></div>
+        <div class="field" style="width:104px"><label for="hsB">버킷 수</label>
+          <select id="hsB"><option>8</option><option selected>16</option><option>32</option></select></div>
+        <button class="run" id="hsRun">해싱</button>
+      </div>
+      <div class="screen">
+        <div id="hsStat" class="dim">→ 해싱을 눌러 버킷 분포를 확인하세요.</div>
+        <div class="buckets" id="hsBuckets"></div>
+      </div>
+      <a class="deeplink" href="https://mgj96.github.io/study-repo/cs/deep-hashmap" target="_blank" rel="noopener">↳ 딥다이브: HashMap 내부</a>
+    </section>
+
+    <!-- 4. race condition -->
+    <section class="panel" id="rc">
+      <div class="phead">
+        <div><span class="pnum">04</span> <h2 class="ptitle">경쟁 상태 · JMM</h2></div>
+        <span class="real sim">시뮬레이션</span>
+      </div>
+      <p class="pdesc">두 스레드가 공유 카운터를 각각 K번 <code>count++</code>. 읽기→쓰기 사이가 엇갈리면 <span style="color:var(--fail);font-weight:600">갱신 유실</span>. 락을 쓰면 정확.</p>
+      <div class="ctrls">
+        <div class="field rangewrap"><label for="rcK">스레드당 증가 K = <span class="rangeval" id="rcKv">200</span></label>
+          <input type="range" id="rcK" min="20" max="1000" step="20" value="200"></div>
+        <div class="field"><label>동기화</label>
+          <div class="toggle" id="rcTog">
+            <button data-lock="0" aria-pressed="true">없음</button>
+            <button data-lock="1" aria-pressed="false">락</button>
+          </div></div>
+        <button class="run" id="rcRun">실행</button>
+      </div>
+      <div class="screen" id="rcOut"><span class="dim">→ '없음'으로 실행하면 최종값이 기대값(2K)보다 작아집니다.</span></div>
+      <a class="deeplink" href="https://mgj96.github.io/study-repo/cs/deep-jmm" target="_blank" rel="noopener">↳ 딥다이브: JMM</a>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    실측 실험은 이 브라우저에서 진짜로 돌아갑니다 · 자바로 확인하려면 <code>jshell</code> 한 줄이면 끝 ·
+    전체 노트 → <a href="https://mgj96.github.io/study-repo/" target="_blank" rel="noopener">study-repo</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s);
+
+  /* ---------- 01 Floating point (REAL) ---------- */
+  function bitsOfDouble(x){
+    const dv = new DataView(new ArrayBuffer(8));
+    dv.setFloat64(0, x, false);
+    let b = "";
+    for(let i=0;i<8;i++) b += dv.getUint8(i).toString(2).padStart(8,"0");
+    return b;
+  }
+  function runFP(){
+    const a = parseFloat($("#fpA").value), b = parseFloat($("#fpB").value);
+    if(Number.isNaN(a)||Number.isNaN(b)){ $("#fpOut").innerHTML='<span class="fail">숫자를 입력하세요.</span>'; return; }
+    const sum = a + b;
+    const naive = a.toString()+" + "+b.toString();
+    const expected = parseFloat((a+b).toPrecision(15)); // "사람이 기대하는" 반올림값
+    const exact = sum === expected;
+    const bits = bitsOfDouble(sum);
+    let bitsHtml = '<div class="bits">';
+    for(let i=0;i<64;i++){
+      const cls = i===0?"s":(i<12?"e":"m");
+      bitsHtml += '<span class="bit '+cls+'">'+bits[i]+'</span>';
+    }
+    bitsHtml += '</div><div class="lgnd">'+
+      '<span><i class="dot" style="background:var(--fail)"></i>부호 1</span>'+
+      '<span><i class="dot" style="background:var(--warn)"></i>지수 11</span>'+
+      '<span><i class="dot" style="background:var(--screen-dim)"></i>가수 52</span></div>';
+    $("#fpOut").innerHTML =
+      '<span class="dim">'+esc(naive)+' =</span><br><span class="big accent">'+esc(sum)+'</span><br>'+
+      '<span class="dim">'+esc(naive)+' === '+esc(expected)+' → </span>'+
+      (exact?'<span class="ok">true</span>':'<span class="fail">false</span>')+
+      (exact?'':'  <span class="warn">← 오차!</span>')+
+      bitsHtml;
+  }
+  $("#fpRun").addEventListener("click", runFP);
+
+  /* ---------- 02 Big-O (REAL timing) ---------- */
+  const QUAD_CAP = 12000;
+  function timeIt(fn){ const t=performance.now(); fn(); return performance.now()-t; }
+  function runBO(){
+    const n = +$("#boN").value;
+    // O(n)
+    const tLin = timeIt(()=>{ let s=0; for(let i=0;i<n;i++) s+=(i*7%13); if(s<0)console.log(s); });
+    // O(n log n) — real sort
+    const tNlog = timeIt(()=>{ const arr=new Float64Array(n); for(let i=0;i<n;i++)arr[i]=((i*2654435761)>>>0); Array.prototype.sort.call(arr,(a,b)=>a-b); });
+    // O(n^2) — capped (that's the lesson)
+    let tQuad=null, skipped=false;
+    if(n<=QUAD_CAP){ tQuad = timeIt(()=>{ let c=0; for(let i=0;i<n;i++) for(let j=0;j<n;j++) c+=((i^j)&1); if(c<0)console.log(c); }); }
+    else skipped=true;
+    const rows = [
+      {name:"O(n)", t:tLin, col:"var(--ok)"},
+      {name:"O(n log n)", t:tNlog, col:"var(--accent)"},
+      {name:"O(n²)", t:skipped?null:tQuad, col:"var(--fail)", skipped}
+    ];
+    const max = Math.max(tLin,tNlog,(tQuad||0),0.01);
+    let html="";
+    rows.forEach(r=>{
+      const val = r.t==null? '<span class="warn">생략 (너무 느림 → 그게 요점)</span>' : r.t.toFixed(2)+" ms";
+      const w = r.t==null?0:Math.max(2,(r.t/max*100));
+      html += '<div class="bar-row"><span>'+r.name+'</span>'+
+        '<span class="bar-track"><span class="bar-fill" style="width:'+w+'%;background:'+r.col+'"></span></span>'+
+        '<span class="bar-val">'+val+'</span></div>';
+    });
+    html += '<p class="note" style="color:var(--screen-dim);margin-top:8px">n='+n.toLocaleString()+
+      ' · n²는 n='+QUAD_CAP.toLocaleString()+' 초과 시 실행을 생략합니다(멈출 만큼 느려서).</p>';
+    $("#boBars").innerHTML = html;
+  }
+  $("#boN").addEventListener("input", e=>{ $("#boNv").textContent = (+e.target.value).toLocaleString(); });
+  $("#boRun").addEventListener("click", runBO);
+
+  /* ---------- 03 Hash collision (sim) ---------- */
+  function hashStr(s, n){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31 + s.charCodeAt(i))|0; } h ^= (h>>>16); return (h>>>0) % n; }
+  function runHS(){
+    const k = +$("#hsK").value, n = +$("#hsB").value;
+    const buckets = new Array(n).fill(0);
+    for(let i=0;i<k;i++){ buckets[hashStr("key"+i+"_v", n)]++; }
+    let collisions=0, treeified=0, maxd=Math.max(...buckets,1);
+    buckets.forEach(c=>{ if(c>1) collisions+=c-1; if(c>=8) treeified++; });
+    const load=(k/n);
+    $("#hsStat").innerHTML =
+      '<span class="dim">load factor</span> <b class="'+(load>0.75?'warn':'')+'">'+load.toFixed(2)+'</b>'+
+      (load>0.75?' <span class="warn">→ 리사이즈 발생</span>':'')+
+      '  ·  <span class="dim">충돌</span> <b>'+collisions+'</b>'+
+      '  ·  <span class="dim">트리화 버킷</span> <b class="'+(treeified?'fail':'')+'">'+treeified+'</b>';
+    let html="";
+    buckets.forEach((c,i)=>{
+      const h = Math.round(c/Math.max(maxd,8)*100);
+      html += '<div class="bkt'+(c>=8?' tree':'')+'"><div class="col" style="height:'+h+'%"></div><div class="n">'+c+'</div></div>';
+    });
+    $("#hsBuckets").innerHTML = html;
+  }
+  $("#hsK").addEventListener("input", e=>{ $("#hsKv").textContent = e.target.value; });
+  $("#hsRun").addEventListener("click", runHS);
+
+  /* ---------- 04 Race condition (sim) ---------- */
+  let rcLock = 0;
+  function runRC(){
+    const K = +$("#rcK").value;
+    const expected = 2*K;
+    // model: two threads, each K increments. Each increment = READ then WRITE(read+1).
+    // state per thread: remaining, phase(0=idle,1=holding read value), reg
+    const th = [ {rem:K,phase:0,reg:0}, {rem:K,phase:0,reg:0} ];
+    let shared = 0, steps=0, guard=0;
+    // simple LCG so it's deterministic-ish per run but varied
+    let seed = (Date.now() ^ (K*2654435761)) >>> 0;
+    const rnd = ()=>{ seed=(seed*1664525+1013904223)>>>0; return seed/4294967296; };
+    let busy = -1; // which thread holds the lock (for lock mode)
+    while((th[0].rem>0||th[0].phase===1||th[1].rem>0||th[1].phase===1) && guard++<5_000_00){
+      // choose a runnable thread
+      let cand=[];
+      for(let t=0;t<2;t++){
+        if(rcLock){
+          if(busy===t || busy===-1){ if(th[t].rem>0||th[t].phase===1) cand.push(t); }
+        } else {
+          if(th[t].rem>0||th[t].phase===1) cand.push(t);
+        }
+      }
+      if(!cand.length) break;
+      const t = cand[Math.floor(rnd()*cand.length)];
+      const T=th[t];
+      if(T.phase===0){ // READ
+        T.reg = shared; T.phase=1; if(rcLock) busy=t;
+      } else { // WRITE
+        shared = T.reg+1; T.phase=0; T.rem--; if(rcLock) busy=-1;
+      }
+      steps++;
+    }
+    const lost = expected - shared;
+    const pct = Math.round(lost/expected*100);
+    $("#rcOut").innerHTML =
+      '<span class="dim">기대값 (2K)</span> <span class="big">'+expected.toLocaleString()+'</span><br>'+
+      '<span class="dim">실제 결과</span> <span class="big '+(lost>0?'fail':'ok')+'">'+shared.toLocaleString()+'</span><br>'+
+      (rcLock
+        ? '<span class="ok">✓ 락으로 읽기·쓰기가 원자적 → 유실 0</span>'
+        : (lost>0
+            ? '<span class="fail">✗ 갱신 유실 '+lost.toLocaleString()+'개 ('+pct+'%)</span> <span class="dim">— 읽고 쓰는 사이 다른 스레드가 끼어듦</span>'
+            : '<span class="warn">이번엔 우연히 안 겹침 — 다시 실행해보세요 (비결정적!)</span>'));
+  }
+  $("#rcTog").addEventListener("click", e=>{
+    const b=e.target.closest("button"); if(!b)return;
+    rcLock = +b.dataset.lock;
+    [...$("#rcTog").children].forEach(x=>x.setAttribute("aria-pressed", x===b?"true":"false"));
+  });
+  $("#rcK").addEventListener("input", e=>{ $("#rcKv").textContent = e.target.value; });
+  $("#rcRun").addEventListener("click", runRC);
+
+  /* initial demo runs */
+  runFP(); runBO(); runHS();
+})();
+</script>
+</body>
+</html>
