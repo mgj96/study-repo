@@ -4,7 +4,7 @@
 > 자료구조는 [data-structures-deep.md](data-structures-deep.md), GC는 [gc-gotchas.md](gc-gotchas.md), 통신은 [web-communication.md](web-communication.md).
 > **★ 항목엔 전용 딥다이브 노트**가 있다: [메모리 계층](deep-memory-hierarchy.md) · [JMM](deep-jmm.md) · [HashMap 내부](deep-hashmap.md) · [가상 메모리](deep-virtual-memory.md) · [B+트리 인덱스](deep-btree-index.md) · [부동소수](deep-floating-point.md).
 >
-> 🧪 **직접 돌려보기**: 부동소수·Big-O·해시 충돌·경쟁상태를 브라우저에서 실제로 실행·측정하는 [CS 실험실](https://mgj96.github.io/study-repo/cs-playground.html) (인터랙티브, 새 탭).
+> 🧪 **직접 돌려보기**: 부동소수·Big-O·해시 충돌·경쟁상태를 브라우저에서 실제로 실행·측정하는 [CS 실험실](https://mgj96.github.io/study-repo/labs/cs-playground.html) (인터랙티브, 새 탭). 전체 실험 목록은 [실험실](https://mgj96.github.io/study-repo/labs/).
 
 ---
 
