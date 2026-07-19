@@ -459,6 +459,30 @@ void transfer(Account from, Account to, long amt) {
 
 ---
 
+## 12. 한눈 결정표 — plain·volatile·atomic·lock
+
+**문제는 2종류**: **가시성**(쓴 값이 보이나 → `volatile`) / **원자성**(복합연산에 안 끼어드나 → atomic·락).
+
+| 상황 | plain | `volatile` | atomic | `synchronized`/lock |
+|------|:---:|:---:|:---:|:---:|
+| 단일 쓰기 + 여러 읽기 (플래그·발행) | ❌ 안 보일 수 있음 | ✅ | ✅ | ✅ |
+| 카운터 `count++` (read-modify-write) | ❌ | ❌ **같음** | ✅ | ✅ |
+| 여러 변수를 한 덩어리로 (불변식) | ❌ | ❌ | ❌ | ✅ |
+
+- plain과 `volatile`이 **같아 보이는 건 딱 `count++` 행뿐**(둘 다 오답 → 실은 atomic을 써야 함). 첫 행에선 **plain은 무한 루프 버그, `volatile`은 정상** — 전혀 다르다.
+
+**한 줄 결정:**
+- 현재값과 **무관한 쓰기**(플래그·설정 발행) → `volatile`
+- 현재값에 **의존하는 쓰기**(카운터·누산) → `AtomicLong`/`LongAdder`
+- **여러 변수·불변식**을 묶어야 → `synchronized`/`Lock`
+
+**비유로 기억:**
+- `volatile` = 칠판을 늘 최신으로 (밀어주기 아님 — **읽을 때 당겨오기**)
+- CAS(atomic) = **`git push`** (안 바뀌었으면 커밋, 바뀌었으면 pull→재시도 = 낙관적 락)
+- 락 = **파일 독점 체크아웃** (비관적 락)
+
+---
+
 ## 용어 사전
 
 | 용어 | 뜻 |
