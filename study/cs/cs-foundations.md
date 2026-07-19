@@ -2,6 +2,7 @@
 
 > 관점: 자료구조 말고 **컴퓨터 그 자체의 뿌리**. 면접 단골이자 개념의 근간. 각 항목에 **★ = 딥다이브 우선순위** 표시. 자바 렌즈.
 > 자료구조는 [data-structures-deep.md](data-structures-deep.md), GC는 [gc-gotchas.md](gc-gotchas.md), 통신은 [web-communication.md](web-communication.md).
+> **★ 항목엔 전용 딥다이브 노트**가 있다: [메모리 계층](deep-memory-hierarchy.md) · [JMM](deep-jmm.md) · [HashMap 내부](deep-hashmap.md) · [가상 메모리](deep-virtual-memory.md) · [B+트리 인덱스](deep-btree-index.md) · [부동소수](deep-floating-point.md).
 
 ---
 
@@ -29,7 +30,9 @@
 | **디스크 seek(HDD)** | ~2–10 ms | **수개월** |
 
 > 외울 비율: **RAM은 L1보다 ~100배 느리고, 디스크 seek은 RAM보다 ~10만 배 느리다.** → 왜 `ArrayList`가 `LinkedList`를 실측에서 이기나(지역성), 왜 배열 순회 방향이 속도를 바꾸나가 다 여기서 나온다.
-> ★ 딥다이브: 캐시 라인·false sharing(자바 동시성) · 데이터 지향 설계(배열 of 원시값).
+
+**한 발 더**: 캐시는 **바이트 하나가 아니라 라인(64B) 통째로** 실어온다 → 인접 데이터를 공짜로 얻음(공간 지역성). 반대로 두 스레드가 **같은 라인의 다른 필드**를 각자 쓰면 서로의 캐시를 무효화하는 **false sharing**으로 느려진다(자바는 `@Contended`/패딩으로 방어). → 그래서 "객체 그래프(포인터 추적)"보다 "원시값 배열"이 빠르다(데이터 지향 설계).
+> ★ 딥다이브 → [deep-memory-hierarchy.md](deep-memory-hierarchy.md)
 
 ### 1.3 스택 vs 힙 — 함수 호출의 기계장치
 - **스택**: 스레드마다 하나. 함수 호출 시 **스택 프레임**(반환 주소·지역 변수·인자)을 쌓고, 리턴 시 팝. 빠르고 자동 회수. 너무 깊으면 **StackOverflowError**.
@@ -55,7 +58,8 @@
 
 ### 2.3 가상 메모리·페이징 ★
 프로세스마다 **사설 가상 주소 공간** → MMU가 **페이지 테이블**로 물리 주소로 변환(페이지 보통 4KB, **TLB**가 캐시). 없는 페이지 참조 시 **page fault** → 디스크에서 로드. 이점: **(1) 격리·보호, (2) 물리 RAM보다 큰 메모리(스왑), (3) 단순한 프로그래밍 모델.**
-- ★ 딥다이브: 다단계 페이지 테이블·page fault · 페이지 교체(LRU/clock)·thrashing · copy-on-write(fork).
+- **한 발 더**: 자바 힙도 가상 메모리 위에 있다 → GC가 힙 전체를 훑으면 **page fault**가 터질 수 있고, `-Xmx`보다 실제 상주 메모리(RSS)가 큰 것도 이 때문. thrashing(스왑 폭주)에 빠지면 시스템이 사실상 멈춘다.
+- ★ 딥다이브 → [deep-virtual-memory.md](deep-virtual-memory.md)
 
 ### 2.4 동시성 ★★★ — 가장 어렵고 가장 많이 물어봄
 - **race condition**: 공유 가변 상태를 동기화 없이 접근 → `count++`(읽기-수정-쓰기)는 원자적이 아님 → 갱신 유실.
@@ -65,7 +69,10 @@
   - `synchronized` → 상호배제 **+ happens-before**(가시성·순서).
   - `volatile` → 가시성·재정렬 방지(단 `x++` 원자성은 **아님**).
   - `happens-before`: A가 B보다 먼저면 A의 효과가 B에 보인다 — JMM의 핵심.
-- ★ 딥다이브: **JMM happens-before, `volatile` vs `synchronized`** · CAS·lock-free·ABA · 데드락 예방(락 순서).
+- **한 발 더 — 왜 `volatile`만으론 부족한가**: `count++`는 읽기→+1→쓰기 3단계라, 두 스레드가 겹치면 갱신이 유실된다. `volatile`은 **가시성**만 줄 뿐 이 묶음을 원자적으로 못 만든다 → `AtomicInteger`(CAS) 또는 `synchronized` 필요.
+- **CAS(Compare-And-Swap)**: "값이 아직 A면 B로 바꿔라"를 **하드웨어가 원자적으로** 수행 → 락 없이(lock-free) 동시성. 단 **ABA 문제**(A→B→A로 되돌아오면 못 알아챔) 주의.
+- **더블 체크 락킹**: 싱글턴 지연 초기화 시 필드를 `volatile`로 안 하면 **재정렬 때문에 반쯤 만들어진 객체**가 보일 수 있다(고전 버그).
+- ★ 딥다이브 → [deep-jmm.md](deep-jmm.md)
 
 ---
 
@@ -77,7 +84,8 @@
 
 ### 3.2 부동소수(IEEE 754) ★ — 왜 0.1 + 0.2 ≠ 0.3
 - 실수는 `부호 × 가수 × 2^지수`. **2진법**이라 0.1은 유한 표현 불가(10진의 1/3처럼) → 반올림 오차 누적 → `0.1 + 0.2 = 0.30000000000000004`.
-- **규칙: 돈 계산에 float/double 금지 → `BigDecimal` 또는 정수(센트).** float `==` 비교 금지(epsilon 사용).
+- **규칙: 돈 계산에 float/double 금지 → `BigDecimal` 또는 정수(센트).** float `==` 비교 금지(epsilon 사용). `NaN != NaN`이라는 함정도.
+- ★ 딥다이브 → [deep-floating-point.md](deep-floating-point.md)
 
 ### 3.3 유니코드·UTF-8 vs UTF-16
 - **ASCII**(7비트, 영어) → **Unicode**(문자→코드포인트) → **UTF-8**(가변 길이 바이트 인코딩, 웹 표준, ASCII 호환).
@@ -113,23 +121,23 @@
 | 토픽 | 한 줄 | 연결 |
 |------|-------|------|
 | **해싱** | 키→고정 정수, 충돌은 체이닝/개방주소 | [data-structures-deep.md](data-structures-deep.md) |
-| **HashMap 내부** ★ | 버킷+체이닝, 8개↑ 트리화, load 0.75 리사이즈 | [data-structures-deep.md](data-structures-deep.md) |
+| **HashMap 내부** ★ | 버킷+체이닝, 8개↑ 트리화, load 0.75 리사이즈 | [deep-hashmap.md](deep-hashmap.md) |
 | **캐싱·LRU** | HashMap+이중연결리스트로 O(1) | [data-structures-deep.md](data-structures-deep.md) |
 | **동시성 버그** | race·deadlock·visibility, 불변·락순서로 방어 | §2.4 |
 | **GC·메모리 누수** | 도달 가능하면 못 치움, 세대별 GC | [gc-gotchas.md](gc-gotchas.md) |
 | **REST** | 자원 URL+HTTP 메서드, 무상태·멱등 | [web-communication.md](web-communication.md) |
-| **DB 인덱스(B+트리)** ★ | 얕은 고차 트리로 디스크 I/O 최소(메모리 계층!) | [data-structures-deep.md](data-structures-deep.md) |
+| **DB 인덱스(B+트리)** ★ | 얕은 고차 트리로 디스크 I/O 최소(메모리 계층!) | [deep-btree-index.md](deep-btree-index.md) |
 | **ACID·트랜잭션** | 원자·일관·격리·지속, 격리수준 트레이드오프 | (DB 노트 예정) |
 
 ---
 
-## ⭐ 시간 없으면 이것부터 (딥다이브 top 6)
-1. **메모리 계층·캐시 라인** (§1.2) — 실무 성능 1순위
-2. **JMM: `volatile` vs `synchronized`** (§2.4) — 가장 어렵고 최다 면접
-3. **HashMap 내부** (§6) — 자바 내부 시그니처 질문
-4. **가상 메모리·페이징** (§2.3) — OS의 마스터 추상화
-5. **B+트리 DB 인덱스** (§6) — 자료구조 ↔ 디스크 지연 연결
-6. **부동소수 0.1+0.2** (§3.2) — 작지만 즉시 실용
+## ⭐ 시간 없으면 이것부터 (딥다이브 top 6 — 전용 노트 있음)
+1. **메모리 계층·캐시 라인** → [deep-memory-hierarchy.md](deep-memory-hierarchy.md) — 실무 성능 1순위
+2. **JMM: `volatile` vs `synchronized`** → [deep-jmm.md](deep-jmm.md) — 가장 어렵고 최다 면접
+3. **HashMap 내부** → [deep-hashmap.md](deep-hashmap.md) — 자바 내부 시그니처 질문
+4. **가상 메모리·페이징** → [deep-virtual-memory.md](deep-virtual-memory.md) — OS의 마스터 추상화
+5. **B+트리 DB 인덱스** → [deep-btree-index.md](deep-btree-index.md) — 자료구조 ↔ 디스크 지연 연결
+6. **부동소수 0.1+0.2** → [deep-floating-point.md](deep-floating-point.md) — 작지만 즉시 실용
 
 ---
 

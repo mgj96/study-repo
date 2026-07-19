@@ -100,6 +100,18 @@ export default withMermaid(defineConfig({
         items: [
           { text: '개념 (Big-O·추상화)', link: '/cs/concept' },
           { text: 'CS 근간 (컴퓨터 원리)', link: '/cs/cs-foundations' },
+          {
+            text: '🔬 근간 딥다이브 (top 6)',
+            collapsed: true,
+            items: [
+              { text: '메모리 계층·캐시', link: '/cs/deep-memory-hierarchy' },
+              { text: 'JMM (volatile vs synchronized)', link: '/cs/deep-jmm' },
+              { text: 'HashMap 내부', link: '/cs/deep-hashmap' },
+              { text: '가상 메모리·페이징', link: '/cs/deep-virtual-memory' },
+              { text: 'B+트리 DB 인덱스', link: '/cs/deep-btree-index' },
+              { text: '부동소수 (IEEE 754)', link: '/cs/deep-floating-point' },
+            ],
+          },
           { text: '자바로 보는 자료구조', link: '/cs/data-structures-java' },
           { text: '자료구조 딥다이브 (내부동작)', link: '/cs/data-structures-deep' },
           { text: 'GC 함정 (주장 vs 실제)', link: '/cs/gc-gotchas' },
