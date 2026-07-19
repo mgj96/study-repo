@@ -122,6 +122,45 @@ class Kitchen {
 2. **리오더링 금지**: `volatile` 변수에 대한 접근은 그 주변 명령어와 뒤섞이지 않는다(메모리 배리어 삽입). write 앞의 일반 write들은 volatile write를 넘어 뒤로 못 가고, read 뒤의 일반 read들은 volatile read를 넘어 앞으로 못 온다.
 3. **happens-before 확립**: 규칙 3에 의해 write→read 사이에 hb를 만든다.
 
+### 왜 plain은 안 보이나 — 멈춤 플래그 (가시성 실감)
+
+`volatile`이 없으면 한 스레드의 write가 다른 스레드에 **영영 도달 안 할 수** 있다. 가장 유명한 예:
+
+```java
+class StopDemo {
+    static boolean running = true;          // ← plain (volatile 아님)
+    public static void main(String[] a) throws InterruptedException {
+        new Thread(() -> {
+            long i = 0;
+            while (running) { i++; }         // running == false 되길 기다림
+            System.out.println("멈춤! i=" + i);
+        }).start();
+        Thread.sleep(100);
+        running = false;                     // 메인이 false로 바꿔도
+        System.out.println("set false");     // 워커는 대개 안 멈춤 (무한 루프)
+    }
+}
+```
+
+**이유 — JIT 레지스터 호이스팅**: 컴파일러는 `running`이 volatile이 아니니 "아무도 안 바꾼다"고 가정해도 된다. 그래서 루프 밖에서 한 번만 읽어 레지스터에 담고 다시 안 읽는다:
+
+```text
+// 컴파일러가 사실상 이렇게 변형:
+boolean r = running;   // 딱 한 번 읽음(true)
+while (r) { i++; }     // 메모리를 다시 안 봄 → 영원히 true
+```
+
+핵심: plain 변수엔 JMM이 **가시성 보장을 아예 안 준다**. "언제 다시 읽을지 모른다"가 아니라 **"다시 읽으란 규칙 자체가 없다"(undefined)**. 그래서 —
+
+| 환경 | 결과 |
+|------|------|
+| 인터프리터/디버그 | 대개 보임 → **테스트 통과** ✅ |
+| C2 JIT 최적화(운영) | 호이스팅 → **안 보임 → 무한 루프** 😱 |
+
+**같은 코드가 테스트는 통과, 운영에서 터진다** — 이게 "보장이 없다"의 실체다. `static volatile boolean running`으로 바꾸면 "매 읽기마다 메모리에서 당겨오기(pull)"가 강제되어 워커가 멈춘다.
+
+> 그래서 `volatile`의 홈그라운드 = **단순 쓰기(현재값에 의존 안 함) + 여러 곳 읽기**(플래그·발행 신호). `count = count+1`처럼 **현재값에 의존하는 쓰기**만 아니면 된다.
+
 ### 하지만 원자성은 보장하지 않는다
 
 이것이 `volatile`의 가장 흔한 함정이다. `volatile`은 **읽기 하나, 쓰기 하나**의 가시성을 보장할 뿐, **읽고-수정하고-쓰는 복합 연산(compound action)** 을 원자적으로 만들지 못한다.
