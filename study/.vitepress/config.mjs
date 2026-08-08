@@ -127,6 +127,13 @@ export default withMermaid(defineConfig({
         ],
       },
       {
+        text: '🏛️ 아키텍처',
+        collapsed: false,
+        items: [
+          { text: '설계 — 개념 노트', link: '/architecture/concept' },
+        ],
+      },
+      {
         text: '💬 언어',
         collapsed: false,
         items: [
