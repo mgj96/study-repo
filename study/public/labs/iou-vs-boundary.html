@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IoU vs 경계 정확도 — 왜 J 말고 F가 따로 필요한가</title>
+<style>
+  :root{
+    --bg:#eceff3; --surface:#ffffff; --ink:#16202b; --muted:#5c6b7a;
+    --line:#d6dde4; --accent:#d16a4a; --accent-soft:#f2d9d0;
+    --good:#2e9a8f; --good-soft:#d3ece8;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0c1218;--surface:#131c25;--ink:#e6edf3;--muted:#8a99a7;
+      --line:#233039;--accent:#e8956f;--accent-soft:#33231c;
+      --good:#4fc4b6;--good-soft:#16302e;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+  .wrap{max-width:940px;margin:0 auto;padding:clamp(24px,5vw,52px) clamp(16px,4vw,28px) 72px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-family:var(--mono);font-weight:700;font-size:clamp(24px,5vw,36px);letter-spacing:-.01em;margin:.3em 0 .2em}
+  .lede{color:var(--muted);max-width:64ch;font-size:15.5px;margin:0 0 28px}
+  a{color:var(--accent)}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+
+  .stage{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+  @media(min-width:760px){.stage{grid-template-columns:minmax(0,420px) 1fr}}
+
+  canvas{width:100%;max-width:420px;aspect-ratio:1/1;display:block;margin:0 auto;
+    image-rendering:pixelated;border-radius:8px;background:var(--bg);cursor:grab;touch-action:none}
+  canvas:active{cursor:grabbing}
+  .hint{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:12px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .sw{width:12px;height:12px;border-radius:3px;flex:none}
+
+  .metric{margin-bottom:16px}
+  .metric .top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono)}
+  .metric .name{font-size:13px;font-weight:600}
+  .metric .val{font-size:22px;font-weight:700;letter-spacing:-.02em}
+  .metric .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .bar{height:9px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:7px}
+  .bar i{display:block;height:100%;width:0;border-radius:6px;transition:width .12s linear}
+  .bar.j i{background:var(--good)}
+  .bar.f i{background:var(--accent)}
+  .bar.jf i{background:linear-gradient(90deg,var(--good),var(--accent))}
+
+  .verdict{margin-top:6px;padding:12px 14px;border-radius:9px;border:1px solid var(--line);
+    background:var(--bg);font-size:13.5px}
+  .verdict b{color:var(--accent)}
+
+  .controls{margin-top:18px}
+  .row{display:flex;align-items:center;gap:10px;margin-bottom:11px;font-size:13px}
+  .row label{font-family:var(--mono);font-size:11.5px;color:var(--muted);min-width:104px;flex:none}
+  .row input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
+  .row output{font-family:var(--mono);font-size:12px;min-width:38px;text-align:right;flex:none}
+
+  .btns{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+  button{font-family:var(--mono);font-size:12px;padding:8px 12px;border-radius:8px;cursor:pointer;
+    border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:border-color .15s,background .15s}
+  button:hover{border-color:var(--accent)}
+  button[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  h2{font-family:var(--mono);font-size:16px;margin:34px 0 10px;letter-spacing:-.01em}
+  p{font-size:14.5px}
+  .note{color:var(--muted);font-size:13.5px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  code{font-family:var(--mono);font-size:.92em;background:var(--bg);padding:1px 5px;border-radius:4px}
+  .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--muted);font-family:var(--mono);font-size:12px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Labs · 지표 실험</div>
+  <h1>🎯 IoU는 90%인데 왜 못 쓰지?</h1>
+  <p class="lede">분할 모델을 평가할 때 <b>IoU(=J, 영역 일치도)</b> 하나만 보면 놓치는 게 있습니다.
+    아래 털 달린 도형이 <b>정답</b>이고, 여러분이 옮길 수 있는 게 <b>예측</b>입니다.
+    면적은 거의 다 맞췄는데 테두리 점수만 폭락하는 상황을 직접 만들어 보세요.</p>
+
+  <div class="stage">
+    <div class="panel">
+      <canvas id="cv" width="320" height="320" aria-label="정답 마스크와 예측 마스크 비교 캔버스"></canvas>
+      <div class="hint">캔버스를 드래그해 예측을 옮기세요</div>
+      <div class="legend">
+        <span><i class="sw" style="background:#5b8a92"></i> 맞은 부분(교집합)</span>
+        <span><i class="sw" style="background:#2e9a8f"></i> 놓친 부분</span>
+        <span><i class="sw" style="background:#d16a4a"></i> 헛짚은 부분</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="metric">
+          <div class="top"><span class="name">J · 영역 일치도 (IoU)</span><span class="val" id="jv">–</span></div>
+          <div class="bar j"><i id="jb"></i></div>
+          <div class="sub">교집합 ÷ 합집합. <b>면적</b>이 맞는지.</div>
+        </div>
+        <div class="metric">
+          <div class="top"><span class="name">F · 경계 정확도</span><span class="val" id="fv">–</span></div>
+          <div class="bar f"><i id="fb"></i></div>
+          <div class="sub" id="fsub">경계 픽셀끼리 매칭한 F값. <b>테두리</b>가 맞는지.</div>
+        </div>
+        <div class="metric">
+          <div class="top"><span class="name">J&amp;F · 최종 점수</span><span class="val" id="jfv">–</span></div>
+          <div class="bar jf"><i id="jfb"></i></div>
+          <div class="sub">DAVIS 벤치마크 표준 = 두 값의 평균.</div>
+        </div>
+        <div class="verdict" id="verdict">…</div>
+      </div>
+
+      <div class="controls panel" style="margin-top:16px">
+        <div class="btns">
+          <button id="p1">뭉뚱그리기</button>
+          <button id="p2">정확히</button>
+          <button id="p3">살짝 어긋남</button>
+        </div>
+        <div class="btns">
+          <button id="mCircle" aria-pressed="true">예측: 대충 원</button>
+          <button id="mTrace" aria-pressed="false">예측: 윤곽 따라</button>
+          <button id="mEdge" aria-pressed="false">경계만 보기</button>
+        </div>
+        <div class="row"><label for="sSpikes">털 개수</label><input type="range" id="sSpikes" min="0" max="24" value="14"><output id="oSpikes">14</output></div>
+        <div class="row"><label for="sLen">털 길이</label><input type="range" id="sLen" min="0" max="52" value="34"><output id="oLen">34</output></div>
+        <div class="row"><label for="sR">예측 반지름</label><input type="range" id="sR" min="30" max="130" value="80"><output id="oR">80</output></div>
+        <div class="row"><label for="sTol">허용 오차 px</label><input type="range" id="sTol" min="1" max="8" value="3"><output id="oTol">3</output></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>해보면 알게 되는 것</h2>
+  <table>
+    <tr><th>해볼 것</th><th>결과</th><th>뜻</th></tr>
+    <tr>
+      <td><b>뭉뚱그리기</b> 누르기</td>
+      <td>J <b>90.5%</b> / F <b>50.8%</b></td>
+      <td>털(머리카락·다리·나뭇가지)을 통째로 무시했는데 <b>면적 점수는 90%가 넘는다.</b>
+        털은 가늘어서 면적 기여가 작기 때문. 큰 물체일수록 이 왜곡이 심하다.</td>
+    </tr>
+    <tr>
+      <td>이어서 <b>털 길이·개수를 올리기</b></td>
+      <td>둘 다 내려가되 <b>격차는 더 벌어짐</b></td>
+      <td>가는 구조가 많아질수록 F가 J보다 빨리 무너진다.
+        <b>F가 필요한 이유가 곧 가는 구조다.</b></td>
+    </tr>
+    <tr>
+      <td><b>살짝 어긋남</b> 누르기<br><span class="note">(매끈한 도형을 6px 밀기)</span></td>
+      <td>J <b>89.7%</b> / F <b>38.3%</b></td>
+      <td>털이 아예 없어도 <b>6픽셀 밀린 것만으로</b> F는 반토막이 나는데 J는 90% 근처를 유지한다.
+        면적이 둘레를 압도하기 때문. <b>J의 관대함은 구조적이다.</b></td>
+    </tr>
+    <tr>
+      <td>그 상태에서 허용 오차를 <code>8</code>로</td>
+      <td>F가 <b>38.3% → 100%</b></td>
+      <td>6px 어긋남이 8px 허용치 안에 들어와 전부 "맞음" 처리된다.
+        <b>기준(d)이 다르면 같은 F값도 비교 불가.</b></td>
+    </tr>
+  </table>
+
+  <h2>그래서 왜 중요한가</h2>
+  <p>영상 편집·합성·의료 영상에서 품질을 결정하는 건 대개 <b>바로 그 테두리</b>입니다.
+    사람 실루엣을 따는데 머리카락이 뭉개지면 합성이 티가 나죠. 그런데 면적 지표만 쓰면
+    정작 쓸모를 결정하는 부분이 <b>측정에서 빠집니다.</b> 그래서 DAVIS 벤치마크는
+    J(영역)와 F(경계)를 따로 재고 평균을 냅니다.</p>
+  <p class="note">일반화하면 — <b>"평균은 좋아 보이는데 실제로는 못 쓰겠다"</b> 싶을 때는
+    대개 중요한 축이 지표에서 빠져 있습니다. 지표는 항상 무언가를 못 잽니다.</p>
+
+  <h2>계산 방식</h2>
+  <p class="note">이 페이지는 <code>320×320</code> 픽셀 격자에서 실제로 계산합니다(어림 애니메이션이 아님).
+    <b>J</b> = 교집합 픽셀 ÷ 합집합 픽셀. <b>F</b> = 각 마스크의 경계 픽셀(안쪽이면서 4-이웃 중 바깥이 있는 픽셀)을 뽑아,
+    허용 오차 <code>d</code> 안에서 서로 매칭한 정밀도·재현율의 조화평균.
+    DAVIS 원 논문은 <code>d</code>를 이미지 대각선의 약 0.75%로 잡습니다.</p>
+
+  <div class="foot">
+    개념 정리는 노트로 →
+    <a href="https://mgj96.github.io/study-repo/ai-ml/deep-yolo-vs-sam">YOLO vs SAM 2 딥다이브</a> ·
+    <a href="index.html">실험실 목록</a><br>
+    출처: Perazzi et al., <i>A Benchmark Dataset and Evaluation Methodology for Video Object Segmentation</i>, CVPR 2016
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var G = 320, CX = G/2, CY = G/2, R0 = 70;
+  var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  var img = ctx.createImageData(G, G);
+
+  var st = { spikes:14, len:34, mode:'circle', px:CX, py:CY, pr:80, tol:3, edge:false };
+
+  function gtR(theta){
+    if(st.spikes === 0) return R0;
+    var s = Math.sin(st.spikes * theta);
+    if(s <= 0) return R0;
+    var p = Math.pow(s, 18);        // 지수가 클수록 털이 가늘다 = 면적 기여가 작다
+    return R0 + st.len * p;
+  }
+
+  var gt = new Uint8Array(G*G), pr = new Uint8Array(G*G);
+
+  function buildMasks(){
+    for(var y=0; y<G; y++){
+      for(var x=0; x<G; x++){
+        var i = y*G + x;
+        var dx = x - CX, dy = y - CY;
+        gt[i] = (Math.sqrt(dx*dx + dy*dy) <= gtR(Math.atan2(dy, dx))) ? 1 : 0;
+
+        var ex = x - st.px, ey = y - st.py;
+        var ed = Math.sqrt(ex*ex + ey*ey);
+        if(st.mode === 'circle'){
+          pr[i] = (ed <= st.pr) ? 1 : 0;
+        } else {
+          pr[i] = (ed <= gtR(Math.atan2(ey, ex))) ? 1 : 0;
+        }
+      }
+    }
+  }
+
+  function boundaryOf(m){
+    var out = [];
+    for(var y=1; y<G-1; y++){
+      for(var x=1; x<G-1; x++){
+        var i = y*G + x;
+        if(!m[i]) continue;
+        if(!m[i-1] || !m[i+1] || !m[i-G] || !m[i+G]) out.push(i);
+      }
+    }
+    return out;
+  }
+
+  function dilate(idxs, d){
+    var out = new Uint8Array(G*G), offs = [], dx, dy;
+    for(dy=-d; dy<=d; dy++) for(dx=-d; dx<=d; dx++)
+      if(dx*dx + dy*dy <= d*d) offs.push([dx, dy]);
+    for(var k=0; k<idxs.length; k++){
+      var i = idxs[k], x = i % G, y = (i - x) / G;
+      for(var o=0; o<offs.length; o++){
+        var nx = x + offs[o][0], ny = y + offs[o][1];
+        if(nx < 0 || nx >= G || ny < 0 || ny >= G) continue;
+        out[ny*G + nx] = 1;
+      }
+    }
+    return out;
+  }
+
+  function hitRate(idxs, mask){
+    if(idxs.length === 0) return 0;
+    var n = 0;
+    for(var k=0; k<idxs.length; k++) if(mask[idxs[k]]) n++;
+    return n / idxs.length;
+  }
+
+  function draw(gBand){
+    var d = img.data;
+    for(var i=0; i<G*G; i++){
+      var g = gt[i], p = pr[i], o = i*4, r, gg, b, a;
+      if(st.edge){
+        d[o]=0; d[o+1]=0; d[o+2]=0; d[o+3]=0;
+        continue;
+      }
+      if(g && p){ r=91;  gg=138; b=146; a=210; }
+      else if(g){ r=46;  gg=154; b=143; a=170; }
+      else if(p){ r=209; gg=106; b=74;  a=170; }
+      else      { r=0;   gg=0;   b=0;   a=0;   }
+      d[o]=r; d[o+1]=gg; d[o+2]=b; d[o+3]=a;
+    }
+
+    if(st.edge){
+      // 허용 오차 띠를 옅게 먼저 깔고, 그 위에 경계 픽셀
+      for(var j=0; j<G*G; j++){
+        if(gBand.band[j]){ var q=j*4; d[q]=46; d[q+1]=154; d[q+2]=143; d[q+3]=48; }
+      }
+      var k, t;
+      for(k=0; k<gBand.gb.length; k++){ t=gBand.gb[k]*4; d[t]=46; d[t+1]=200; d[t+2]=180; d[t+3]=255; }
+      for(k=0; k<gBand.pb.length; k++){ t=gBand.pb[k]*4; d[t]=224; d[t+1]=110; d[t+2]=74; d[t+3]=255; }
+    }
+    ctx.clearRect(0,0,G,G);
+    ctx.putImageData(img, 0, 0);
+  }
+
+  function fmt(v){ return (v*100).toFixed(1) + '%'; }
+
+  function verdictText(J, F){
+    if(J > 0.95 && F > 0.95)
+      return '둘 다 높습니다. <b>이게 진짜로 쓸 수 있는 마스크</b>입니다.';
+    if(J > 0.8 && F < 0.65)
+      return '면적은 <b>' + fmt(J) + '</b> 맞췄지만 테두리는 <b>' + fmt(F) + '</b>뿐입니다. ' +
+             'IoU만 보고 "잘 됐다"고 판단하면, 실제로는 테두리가 뭉개진 마스크를 배포하게 됩니다.';
+    if(J < 0.5)
+      return '위치가 많이 어긋났습니다. 이 정도면 J도 F도 같이 떨어져서 <b>IoU만 봐도 문제를 알 수 있습니다.</b>';
+    return '면적 <b>' + fmt(J) + '</b> / 테두리 <b>' + fmt(F) + '</b>. 두 값의 간격이 곧 <b>"지표가 못 재고 있는 것"</b>의 크기입니다.';
+  }
+
+  function compute(){
+    buildMasks();
+    var inter = 0, uni = 0;
+    for(var i=0; i<G*G; i++){
+      if(gt[i] && pr[i]) inter++;
+      if(gt[i] || pr[i]) uni++;
+    }
+    var J = uni ? inter/uni : 1;
+
+    var gb = boundaryOf(gt), pb = boundaryOf(pr);
+    var gd = dilate(gb, st.tol), pd = dilate(pb, st.tol);
+    var prec = hitRate(pb, gd), rec = hitRate(gb, pd);
+    var F = (prec + rec) > 0 ? (2*prec*rec)/(prec + rec) : 0;
+    var JF = (J + F) / 2;
+
+    draw({ gb:gb, pb:pb, band:gd });
+
+    document.getElementById('jv').textContent  = fmt(J);
+    document.getElementById('fv').textContent  = fmt(F);
+    document.getElementById('jfv').textContent = fmt(JF);
+    document.getElementById('jb').style.width  = (J*100) + '%';
+    document.getElementById('fb').style.width  = (F*100) + '%';
+    document.getElementById('jfb').style.width = (JF*100) + '%';
+    document.getElementById('fsub').innerHTML =
+      '정밀도 ' + fmt(prec) + ' · 재현율 ' + fmt(rec) + ' (허용 오차 ' + st.tol + 'px)';
+    document.getElementById('verdict').innerHTML = verdictText(J, F);
+  }
+
+  // 전체 재계산이 약 4ms(320x320 격자)라 프레임 예산 안에 들어온다.
+  // requestAnimationFrame으로 묶지 않는 이유: 백그라운드 탭에서는 rAF가 멈춰
+  // 지표가 "–"인 채로 남는다. 동기 계산이 더 단순하고 더 안전하다.
+  function schedule(){ compute(); }
+
+  // ---- 입력 ----
+  function bindRange(id, out, key, after){
+    var el = document.getElementById(id), o = document.getElementById(out);
+    el.addEventListener('input', function(){
+      st[key] = +el.value; o.textContent = el.value;
+      if(after) after();
+      schedule();
+    });
+  }
+  bindRange('sSpikes','oSpikes','spikes');
+  bindRange('sLen','oLen','len');
+  bindRange('sR','oR','pr');
+  bindRange('sTol','oTol','tol');
+
+  var bC = document.getElementById('mCircle'), bT = document.getElementById('mTrace'), bE = document.getElementById('mEdge');
+  function setMode(m){
+    st.mode = m;
+    bC.setAttribute('aria-pressed', String(m === 'circle'));
+    bT.setAttribute('aria-pressed', String(m === 'trace'));
+    compute();
+  }
+  bC.addEventListener('click', function(){ setMode('circle'); });
+  bT.addEventListener('click', function(){ setMode('trace'); });
+  bE.addEventListener('click', function(){
+    st.edge = !st.edge;
+    bE.setAttribute('aria-pressed', String(st.edge));
+    compute();
+  });
+
+  function setSlider(id, out, key, v){
+    st[key] = v;
+    document.getElementById(id).value = v;
+    document.getElementById(out).textContent = v;
+  }
+
+  function preset(mode, px, py, r, spikes){
+    st.mode = mode; st.px = px; st.py = py;
+    if(r) setSlider('sR', 'oR', 'pr', r);
+    if(spikes !== undefined) setSlider('sSpikes', 'oSpikes', 'spikes', spikes);
+    bC.setAttribute('aria-pressed', String(mode === 'circle'));
+    bT.setAttribute('aria-pressed', String(mode === 'trace'));
+    compute();
+  }
+  // ① 털을 통째로 무시하는 원 ② 완벽 일치 ③ 매끈한 도형을 6px 밀기
+  document.getElementById('p1').addEventListener('click', function(){ preset('circle', CX, CY, R0, 14); });
+  document.getElementById('p2').addEventListener('click', function(){ preset('trace', CX, CY, 0, 14); });
+  document.getElementById('p3').addEventListener('click', function(){ preset('trace', CX + 6, CY, 0, 0); });
+
+  // 드래그로 예측 옮기기
+  var dragging = false;
+  function toGrid(e){
+    var r = cv.getBoundingClientRect();
+    return { x: (e.clientX - r.left) / r.width * G, y: (e.clientY - r.top) / r.height * G };
+  }
+  cv.addEventListener('pointerdown', function(e){
+    dragging = true; cv.setPointerCapture(e.pointerId);
+    var p = toGrid(e); st.px = p.x; st.py = p.y; schedule();
+  });
+  cv.addEventListener('pointermove', function(e){
+    if(!dragging) return;
+    var p = toGrid(e); st.px = p.x; st.py = p.y; schedule();
+  });
+  function endDrag(){ dragging = false; }
+  cv.addEventListener('pointerup', endDrag);
+  cv.addEventListener('pointercancel', endDrag);
+
+  preset('circle', CX, CY, R0, 14);   // 첫 화면 = "뭉뚱그리기"
+})();
+</script>
+</body>
+</html>
