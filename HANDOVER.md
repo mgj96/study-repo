@@ -51,7 +51,10 @@
 3. **GitHub Pages 최초 활성화** — 워크플로 토큰으론 못 켠다. Settings→Pages→Source=**GitHub Actions**로 사람이 1회 수동 설정(이미 완료). `enablement:true`도 권한 없어 실패했었음.
 4. **새 문서 추가 시** `study/.vitepress/config.mjs` sidebar 등록(단, 세부 심화는 일부러 등록 안 함 — 1-4 참고).
 5. **파일 이동(`git mv`) 시** 참조 상대경로(`../`, `[x](x.md)`)도 함께 수정.
-6. **헤드리스 브라우저 검증 한계** — 프로그램적 `scrollTo`는 scroll 이벤트를 안 쏘고, `requestAnimationFrame`은 멈춤. 시간 기반 기능은 `setInterval`로, 검증은 이벤트 수동 dispatch로.
+6. **헤드리스 브라우저 검증 한계** — 프로그램적 `scrollTo`는 scroll 이벤트를 안 쏘고, `requestAnimationFrame`은 멈춤. 시간 기반 기능은 `setInterval`로, 검증은 이벤트 수동 dispatch로. (labs의 초기 렌더도 rAF에 걸지 말 것 — 백그라운드 탭에서 "–"로 멈춘 실사례 있음)
+7. **`study/` 밖 파일로의 상대 링크** — `study/*.md`에서 저장소 루트의 `papers/`·`tradeoffs/` 등을 `../`로 링크하면 VitePress 빌드 대상 밖이라 **dead link → 빌드 실패**. 2026-08 세션에서 세 번 걸림. 커밋 전 상대 링크 전수 확인.
+8. **개인정보 금지** — 이 저장소는 공개 배포된다. 이름·연락처·회사명·발주처를 노트에 넣지 않는다(이력 기반 문서는 기술 상황으로만 번역). 이력서 기반 비공개 자료는 저장소 밖 `~/Documents/interview-prep-private.md`.
+9. **PowerShell 커밋 메시지** — here-string 안의 큰따옴표가 네이티브 인자 전달에서 깨질 수 있다. 커밋 메시지에 `"` 넣지 말 것.
 
 ---
 
@@ -79,12 +82,18 @@ study/
 ├─ CONVENTIONS.md               형식·작성·IA 표준 (1.5~1.7절이 핵심 규칙)
 ├─ notebooklm-sources.md        NotebookLM 소스 링크 모음
 ├─ roadmap.md · engineering-concepts-map.md · graphics-vs-ml.md
-├─ ai-ml/     concept · qna · research-log · deep-*(attention/backprop/rnn/embedding/representation)
+├─ backend-roadmap.md           실무 역량 갭 트랙 (티어 1~3 전부 작성 완료, 2026-08)
+├─ ai-ml/     concept · qna · research-log · deep-*(attention/backprop/rnn/embedding/representation/layers-and-yolo/yolo-vs-sam)
 ├─ graphics/  concept · qna · research-log · deep-rendering-math
-├─ cs/        concept · qna/(os·network·database·ds-algorithm) · cs-qna.html
-├─ lang/java/ concept · types-boxing · qna    lang/csharp/ concept · qna
+├─ cs/        concept · qna/ · cs-foundations · deep-*(memory/jmm/hashmap/btree/floating/virtual-memory
+│             + redis-cache-and-lock/distributed-consistency/performance-engineering/transaction-and-lock)
+│             · web-communication(§5 실시간 연결당 비용)
+├─ architecture/  concept(설계서·스타일·경계) · deep-modularity-theory · deep-conway-and-ai-agents
+├─ lang/java/ concept · types-boxing · design-patterns · deep-spring-transaction · deep-testing-strategy · qna
+├─ lang/csharp/ concept · qna
 ├─ unity/     concept · qna · deep-gc
-└─ interview/ explain-your-code
+├─ interview/ explain-your-code
+└─ public/labs/  자체완결 인터랙티브 실험 (cs-playground · iou-vs-boundary)
 CONTRIBUTING.md                 빌드 규칙(편집 전 필독)
 package.json / .github/workflows/deploy.yml
 ```
@@ -108,4 +117,4 @@ research-log의 미처리 항목:
 ## 6. 요약 (한 줄)
 > **쉽게→깊게, 장면·비유·도식(+텍스트 설명), CS는 3단, 사이드바는 척추만·나머지는 인라인 링크.** 빌드는 `<`·`$`만 조심. 커밋 후 Actions 확인.
 
-_최종 갱신: 2026-07 · 이 문서를 최신으로 유지할 것(새 규칙·실수·기능은 여기 추가)._
+_최종 갱신: 2026-08-09 · 이 문서를 최신으로 유지할 것(새 규칙·실수·기능은 여기 추가)._
