@@ -18,6 +18,8 @@ https://mgj96.github.io/study-repo/ai-ml/deep-attention
 https://mgj96.github.io/study-repo/ai-ml/deep-neural-backprop
 https://mgj96.github.io/study-repo/ai-ml/deep-rnn
 https://mgj96.github.io/study-repo/ai-ml/deep-embedding
+https://mgj96.github.io/study-repo/ai-ml/deep-layers-and-yolo
+https://mgj96.github.io/study-repo/ai-ml/deep-yolo-vs-sam
 https://mgj96.github.io/study-repo/graphics/concept
 https://mgj96.github.io/study-repo/graphics/qna
 https://mgj96.github.io/study-repo/graphics/deep-rendering-math
@@ -50,6 +52,8 @@ https://mgj96.github.io/study-repo/interview/explain-your-code
 | ML Q&A | [열기](https://mgj96.github.io/study-repo/ai-ml/qna) |
 | 🔬 어텐션·트랜스포머 | [열기](https://mgj96.github.io/study-repo/ai-ml/deep-attention) |
 | 🔬 역전파 수학 | [열기](https://mgj96.github.io/study-repo/ai-ml/deep-neural-backprop) |
+| 🔬 깊이·층별 특화·YOLO | [열기](https://mgj96.github.io/study-repo/ai-ml/deep-layers-and-yolo) |
+| 🔬 YOLO vs SAM 2 (제로샷·모션) | [열기](https://mgj96.github.io/study-repo/ai-ml/deep-yolo-vs-sam) |
 | 그래픽스 개념 | [열기](https://mgj96.github.io/study-repo/graphics/concept) |
 | 그래픽스 Q&A | [열기](https://mgj96.github.io/study-repo/graphics/qna) |
 | 🔬 렌더링 수학 | [열기](https://mgj96.github.io/study-repo/graphics/deep-rendering-math) |
@@ -99,7 +103,7 @@ https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collect
 
 ## 🗺️ 사이트맵 (Raw 마크다운 링크) {#사이트맵-raw-마크다운-링크}
 
-> **추천 소스.** 순수 텍스트라 NotebookLM 추출이 가장 깔끔. 통째로 복사해 넣으면 24개 노트가 전부 소스로 들어감.
+> **추천 소스.** 순수 텍스트라 NotebookLM 추출이 가장 깔끔. 아래 블록을 통째로 복사해 넣으면 목록의 노트가 전부 소스로 들어감.
 > (main에 이미 반영돼 **지금 바로 작동**해요.)
 
 ```
@@ -112,6 +116,8 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-attenti
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-neural-backprop.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-rnn.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-embedding.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-layers-and-yolo.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/ai-ml/deep-yolo-vs-sam.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/qna.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/graphics/deep-rendering-math.md

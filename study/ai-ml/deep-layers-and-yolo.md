@@ -204,6 +204,8 @@ model.train(data="my_data.yaml", epochs=100)  # 여기서 경사하강 다시 �
 | 파인튜닝 | 내 전용 클래스(불량품·특정 부품). head 교체 후 재학습 |
 | from scratch | 도메인이 완전히 다름(의료·위성) + 데이터 충분. 드묾 |
 
+> 🔎 **더 깊이 →** YOLO는 왜 학습한 클래스 밖을 못 보는지, 반대로 SAM 2는 어떻게 재학습 없이(제로샷) 처음 보는 물체를 오려내고 영상에서 추적까지 하는지 — 두 이념의 비교는 [deep-yolo-vs-sam.md](deep-yolo-vs-sam.md).
+
 > 왜 "가져다" 쓰나: from scratch 학습은 거대 데이터 + GPU가 필요하다. 이미 COCO로 backbone이 일반 시각 특징을 배워둬서, 내 문제엔 **head만 살짝 재학습**하면 적은 데이터로 빠르게 된다(전이 학습의 정석). 버전(v1→v11)의 진화는 **구조 개선**이지 원리(CNN + 경사하강)는 동일.
 
 ---
@@ -223,6 +225,7 @@ model.train(data="my_data.yaml", epochs=100)  # 여기서 경사하강 다시 �
 | 학습 시점 vs 사용 시점 | 경사하강 돎(train) vs forward만(inference) |
 
 ## 연결 지도
+- **YOLO vs SAM 2 (닫힌 집합 vs 제로샷·모션 메모리)**: → [deep-yolo-vs-sam.md](deep-yolo-vs-sam.md)
 - **경사하강 수학**: → [deep-neural-backprop.md](deep-neural-backprop.md)
 - **표현 학습(층이 배우는 표현)**: → [deep-representation.md](deep-representation.md)
 - **어텐션 헤드 특화**: → [deep-attention.md](deep-attention.md)
