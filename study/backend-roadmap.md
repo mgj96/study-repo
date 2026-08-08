@@ -192,7 +192,7 @@
 
 **현황**: [cs/web-communication.md](cs/web-communication.md)가 **형식·방식**은 다루지만 **운영 비용 관점**이 빠져 있다. 그 축을 추가.
 
-**목표 산출물**: `cs/web-communication.md`에 단원 추가 (새 파일 대신)
+**✅ 작성 완료** → [cs/web-communication.md](cs/web-communication.md) 5장 (연결당 비용·스케일아웃·프록시 함정·결정 표)
 
 ---
 
