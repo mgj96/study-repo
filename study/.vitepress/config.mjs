@@ -133,6 +133,7 @@ export default withMermaid(defineConfig({
         collapsed: false,
         items: [
           { text: '설계 — 개념 노트', link: '/architecture/concept' },
+          { text: '🔬 모듈성 이론 (경계의 근거)', link: '/architecture/deep-modularity-theory' },
           { text: '🔬 콘웨이 법칙과 AI 에이전트', link: '/architecture/deep-conway-and-ai-agents' },
         ],
       },
