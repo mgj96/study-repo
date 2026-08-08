@@ -17,12 +17,12 @@
 | GC·메모리 누수 | [cs/gc-gotchas.md](cs/gc-gotchas.md), [unity/deep-gc.md](unity/deep-gc.md) | ✅ |
 | 디자인 패턴 (Factory·Template·Proxy) | [lang/java/design-patterns.md](lang/java/design-patterns.md) | ✅ |
 | REST·gRPC·Protobuf 형식/방식 | [cs/web-communication.md](cs/web-communication.md) | ✅ |
-| 격리수준·낙관/비관 락·N+1 | [cs/qna/database.md](cs/qna/database.md) **Q&A 3줄** | ⚠️ 얕음 |
+| 격리수준·낙관/비관 락·N+1 | [cs/deep-transaction-and-lock.md](cs/deep-transaction-and-lock.md) | ✅ |
 | **Spring 프레임워크 자체** | [lang/java/deep-spring-transaction.md](lang/java/deep-spring-transaction.md) | ✅ |
 | **분산 정합성 (멱등성·Outbox·Saga)** | [cs/deep-distributed-consistency.md](cs/deep-distributed-consistency.md) | ✅ |
 | **Redis·캐시 전략·분산 락** | [cs/deep-redis-cache-and-lock.md](cs/deep-redis-cache-and-lock.md) | ✅ |
-| **성능 공학 (부하 테스트 해석)** | 없음 | ❌ |
-| **테스트 전략** | 없음 | ❌ |
+| **성능 공학 (부하 테스트 해석)** | [cs/deep-performance-engineering.md](cs/deep-performance-engineering.md) | ✅ |
+| **테스트 전략** | [lang/java/deep-testing-strategy.md](lang/java/deep-testing-strategy.md) | ✅ |
 | **헥사고날 아키텍처** | 없음 | ❌ |
 
 > **정리**: 그동안 **CS 근간(OS·메모리·자료구조)** 과 **관심 분야(ML·그래픽스)** 를 우선 팠다.
@@ -122,7 +122,7 @@
 - "병목이 DB인지 애플리케이션인지 어떻게 갈랐나?"
 - "부하를 2배로 주면 응답시간이 어떻게 될 것 같나?"
 
-**목표 산출물**: `cs/deep-performance-engineering.md`
+**✅ 작성 완료** → [cs/deep-performance-engineering.md](cs/deep-performance-engineering.md)
 
 ---
 
@@ -137,7 +137,7 @@
 - 낙관적 락의 재시도 전략, 버전 컬럼 설계
 - 데드락 탐지 vs 예방, 락 순서 규약
 
-**목표 산출물**: `cs/deep-transaction-and-lock.md`
+**✅ 작성 완료** → [cs/deep-transaction-and-lock.md](cs/deep-transaction-and-lock.md)
 
 ---
 
@@ -153,7 +153,7 @@
 - Fixture Builder / Object Mother 패턴
 - 테스트가 문서가 되는 지점 — 테스트 코드 기반 API 명세 자동화
 
-**목표 산출물**: `lang/java/deep-testing-strategy.md`
+**✅ 작성 완료** → [lang/java/deep-testing-strategy.md](lang/java/deep-testing-strategy.md)
 
 ---
 
