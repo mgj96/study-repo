@@ -108,6 +108,8 @@ export default withMermaid(defineConfig({
             items: [
               { text: '메모리 계층·캐시', link: '/cs/deep-memory-hierarchy' },
               { text: 'JMM (volatile vs synchronized)', link: '/cs/deep-jmm' },
+              { text: 'Redis 캐시·분산 락', link: '/cs/deep-redis-cache-and-lock' },
+              { text: '분산 정합성 (멱등성·Outbox)', link: '/cs/deep-distributed-consistency' },
               { text: 'HashMap 내부', link: '/cs/deep-hashmap' },
               { text: '가상 메모리·페이징', link: '/cs/deep-virtual-memory' },
               { text: 'B+트리 DB 인덱스', link: '/cs/deep-btree-index' },

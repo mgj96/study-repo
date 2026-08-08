@@ -18,9 +18,9 @@
 | 디자인 패턴 (Factory·Template·Proxy) | [lang/java/design-patterns.md](lang/java/design-patterns.md) | ✅ |
 | REST·gRPC·Protobuf 형식/방식 | [cs/web-communication.md](cs/web-communication.md) | ✅ |
 | 격리수준·낙관/비관 락·N+1 | [cs/qna/database.md](cs/qna/database.md) **Q&A 3줄** | ⚠️ 얕음 |
-| **Spring 프레임워크 자체** | 없음 | ❌ |
-| **분산 정합성 (멱등성·Outbox·Saga)** | 없음 | ❌ |
-| **Redis·캐시 전략·분산 락** | 없음 | ❌ |
+| **Spring 프레임워크 자체** | [lang/java/deep-spring-transaction.md](lang/java/deep-spring-transaction.md) | ✅ |
+| **분산 정합성 (멱등성·Outbox·Saga)** | [cs/deep-distributed-consistency.md](cs/deep-distributed-consistency.md) | ✅ |
+| **Redis·캐시 전략·분산 락** | [cs/deep-redis-cache-and-lock.md](cs/deep-redis-cache-and-lock.md) | ✅ |
 | **성능 공학 (부하 테스트 해석)** | 없음 | ❌ |
 | **테스트 전략** | 없음 | ❌ |
 | **헥사고날 아키텍처** | 없음 | ❌ |
@@ -53,7 +53,7 @@
 - "멱등키를 어디에 저장했나? 그 저장소가 죽으면?"
 - "Outbox를 썼다면 릴레이가 두 번 읽으면 어떻게 되나?"
 
-**목표 산출물**: `cs/deep-distributed-consistency.md`
+**✅ 작성 완료** → [cs/deep-distributed-consistency.md](cs/deep-distributed-consistency.md)
 
 ---
 
@@ -74,7 +74,7 @@
 - "`readOnly=true`를 붙이면 성능이 왜 좋아지나?"
 - "트랜잭션 안에서 외부 API를 호출하면 뭐가 문제인가?" ← **외부 벤더 연계와 직결**
 
-**목표 산출물**: `lang/java/deep-spring-transaction.md`
+**✅ 작성 완료** → [lang/java/deep-spring-transaction.md](lang/java/deep-spring-transaction.md)
 
 ---
 
@@ -97,7 +97,7 @@
 - "`synchronized`로는 왜 안 되나?" ← 이 대비가 핵심
 - "캐시와 DB가 어긋나는 순간이 있나?"
 
-**목표 산출물**: `cs/deep-redis-cache-and-lock.md`
+**✅ 작성 완료** → [cs/deep-redis-cache-and-lock.md](cs/deep-redis-cache-and-lock.md)
 
 ---
 

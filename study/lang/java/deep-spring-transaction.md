@@ -47,7 +47,27 @@ try {
 
 업무 로직 3줄을 위해 **배관 코드 10줄**. 모든 메서드마다 반복되고, 빠뜨리면 커넥션이 샌다.
 
-당시 자바 진영의 공식 해법은 **EJB(Enterprise JavaBeans)의 컨테이너 관리 트랜잭션(CMT)** 이었다. 배포 서술자에 "이 메서드는 트랜잭션 필요"라고 선언하면 컨테이너가 알아서 열고 닫아줬다. **아이디어 자체는 훌륭했다.**
+당시 자바 진영의 공식 해법은 **EJB(Enterprise JavaBeans)의 컨테이너 관리 트랜잭션(CMT)** 이었다.
+
+> 📖 **EJB가 뭔가 (1998~, 지금은 거의 안 씀)**
+>
+> **"기업용 자바 부품 규격"**. 1998년 Sun이 만든 서버 컴포넌트 표준이다.
+>
+> 아이디어는 이렇다 — 업무 로직만 규격에 맞게 짜서 **애플리케이션 서버(컨테이너)** 에 넣으면,
+> **트랜잭션·보안·동시성·원격 호출·풀링**을 컨테이너가 대신 처리해 준다.
+> 개발자는 "이 메서드는 트랜잭션 필요"라고 **선언만** 하면 됐다. 이게 **CMT(컨테이너 관리 트랜잭션)** 다.
+>
+> | | EJB 시절 | 지금 (스프링) |
+> |---|---|---|
+> | 실행 환경 | **무거운 WAS 필수** (WebLogic·WebSphere·JEUS 등) | 내장 톰캣으로 `java -jar` |
+> | 내 클래스 | EJB 인터페이스를 **상속·구현해야 함** | 아무것도 안 붙은 **POJO** |
+> | 단위 테스트 | 서버를 띄워야 가능 → 사실상 불가 | `new`로 만들어 바로 |
+> | 설정 | XML 배포 서술자 (악명 높음) | 애노테이션 |
+>
+> 그래서 **"아이디어는 훌륭한데 값이 너무 비싸다"** 는 평가를 받았고, 스프링이 그 아이디어만 뽑아 왔다.
+> ※ 참고로 **JEUS·WebLogic 같은 자바 EE 애플리케이션 서버는 지금도 공공·금융권에서 현역**이다.
+> 그런 환경에서 일한다면 EJB는 남의 옛날이야기가 아니라 **내 스택의 조상**이다.
+ 배포 서술자에 "이 메서드는 트랜잭션 필요"라고 선언하면 컨테이너가 알아서 열고 닫아줬다. **아이디어 자체는 훌륭했다.**
 
 문제는 값이었다:
 - **무거운 애플리케이션 서버**가 반드시 필요했다 (WebLogic·WebSphere)
@@ -174,7 +194,7 @@ public void pay(Order o) {
 
 **하나의 느린 외부 시스템이 전체를 끌어내리는** 전형적 경로다. 게다가 외부 호출은 **롤백이 안 된다** — DB는 되돌려도 벤더 쪽 결제는 이미 나갔다.
 
-**해결 방향**: 트랜잭션 경계를 외부 호출 **바깥**으로 빼고, 그 사이의 정합성은 **멱등성 + Outbox**로 잡는다. (별도 딥다이브 `cs/deep-distributed-consistency.md` 예정 — [로드맵 1-1](../../backend-roadmap.md))
+**해결 방향**: 트랜잭션 경계를 외부 호출 **바깥**으로 빼고, 그 사이의 정합성은 **멱등성 + Outbox**로 잡는다 → [../../cs/deep-distributed-consistency.md](../../cs/deep-distributed-consistency.md)
 
 ---
 
@@ -299,8 +319,8 @@ Garcia-Molina & Salem의 *Sagas*(SIGMOD 1987)는 **장기 실행 트랜잭션(LL
 - **Proxy 패턴 자체**: → [design-patterns.md](design-patterns.md)
 - **격리수준·락**: → [../../cs/qna/database.md](../../cs/qna/database.md)
 - **인덱스와 락 범위**: → [../../cs/deep-btree-index.md](../../cs/deep-btree-index.md)
-- **프로세스가 여러 개면?**: `cs/deep-redis-cache-and-lock.md` (예정)
-- **트랜잭션이 시스템을 넘어가면?**: `cs/deep-distributed-consistency.md` (예정)
+- **프로세스가 여러 개면?**: → [../../cs/deep-redis-cache-and-lock.md](../../cs/deep-redis-cache-and-lock.md)
+- **트랜잭션이 시스템을 넘어가면?**: → [../../cs/deep-distributed-consistency.md](../../cs/deep-distributed-consistency.md)
 - **학습 순서**: → [../../backend-roadmap.md](../../backend-roadmap.md)
 
 ## 출처
