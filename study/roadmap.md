@@ -1,5 +1,7 @@
 # 학습 로드맵 — 개념 중심 (ML · 그래픽스)
 
+> 📌 이 문서는 **관심사 기반**(ML·그래픽스)이다. **직무 역량 기반** 로드맵은 → [backend-roadmap.md](backend-roadmap.md) (Spring 트랜잭션·분산 정합성·Redis·성능 공학). 둘은 병행한다.
+>
 > **원칙**: 공부의 본체는 **개념·수학**, 언어는 **실습 도구**. (→ Java 문법 떼듯 하지 않는다)
 > **관련 노트**: [ai-ml/](ai-ml/) · [graphics/](graphics/) · [graphics-vs-ml.md](graphics-vs-ml.md) · [lang/java/concept.md](lang/java/concept.md)
 

@@ -46,7 +46,7 @@
 | **Flyweight** | **공유**로 메모리 절약 | `Integer.valueOf()` 캐시(-128~127) |
 
 - **Decorator = IO 스트림** 그 자체. `new BufferedReader(new FileReader(...))`가 데코레이터 중첩. (자바 렌즈에서 "람다 패치"랑 결이 같음)
-- **Proxy = 스프링 AOP**. `@Transactional`이 붙으면 스프링이 **프록시로 감싸** 트랜잭션을 열고 닫는다. (→ [../../ai-ml/for-java-devs.md](../../ai-ml/for-java-devs.md)의 LoRA=AOP 비유)
+- **Proxy = 스프링 AOP**. `@Transactional`이 붙으면 스프링이 **프록시로 감싸** 트랜잭션을 열고 닫는다. (🔎 더 깊이 → [deep-spring-transaction.md](deep-spring-transaction.md) — 프록시라서 생기는 함정 4개·전파·readOnly) (→ [../../ai-ml/for-java-devs.md](../../ai-ml/for-java-devs.md)의 LoRA=AOP 비유)
 
 ---
 

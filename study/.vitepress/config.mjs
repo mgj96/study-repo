@@ -51,6 +51,7 @@ export default withMermaid(defineConfig({
         text: '🗺️ 상위 · 계획',
         items: [
           { text: '학습 로드맵', link: '/roadmap' },
+          { text: '백엔드 심화 로드맵 (역량 갭)', link: '/backend-roadmap' },
           { text: '개념 지도 (6렌즈)', link: '/engineering-concepts-map' },
           { text: '그래픽스 ↔ ML', link: '/graphics-vs-ml' },
           { text: '형식 표준 (CONVENTIONS)', link: '/CONVENTIONS' },
@@ -131,6 +132,7 @@ export default withMermaid(defineConfig({
           { text: 'Java · 개념', link: '/lang/java/concept' },
           { text: 'Java · 타입/박싱', link: '/lang/java/types-boxing' },
           { text: 'Java · 디자인 패턴', link: '/lang/java/design-patterns' },
+          { text: '🔬 Spring 트랜잭션 내부', link: '/lang/java/deep-spring-transaction' },
           { text: 'Java · Q&A', link: '/lang/java/qna' },
           { text: 'C# · 개념', link: '/lang/csharp/concept' },
           { text: 'C# · Q&A', link: '/lang/csharp/qna' },
