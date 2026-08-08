@@ -262,6 +262,8 @@ flowchart LR
 
 **역콘웨이 기동(Inverse Conway Maneuver)**: 원하는 아키텍처가 있으면 **먼저 팀을 그 모양으로 재편**한다. 구조가 따라온다.
 
+> 🔎 **더 깊이 →** 개발 주체가 AI 에이전트 팀이 되면 이 법칙은 어떻게 되나 — 죽는 게 아니라 **부호가 바뀐다**(소통 구조가 제약에서 튜닝 변수로). ChatDev·MetaGPT·GPTSwarm·IMACS 논문 기반: [deep-conway-and-ai-agents.md](deep-conway-and-ai-agents.md)
+
 ### 3-2. 경계 후보를 찾는 기준 4개
 
 | 기준 | 질문 | 신호 |
