@@ -34,6 +34,7 @@ https://mgj96.github.io/study-repo/backend-roadmap
 https://mgj96.github.io/study-repo/architecture/concept
 https://mgj96.github.io/study-repo/architecture/deep-modularity-theory
 https://mgj96.github.io/study-repo/architecture/deep-conway-and-ai-agents
+https://mgj96.github.io/study-repo/architecture/deep-onprem-and-cloud
 https://mgj96.github.io/study-repo/lang/java/deep-spring-transaction
 https://mgj96.github.io/study-repo/lang/java/deep-testing-strategy
 https://mgj96.github.io/study-repo/cs/qna/os
@@ -144,6 +145,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/backend-roadmap.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-modularity-theory.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-conway-and-ai-agents.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-onprem-and-cloud.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/deep-spring-transaction.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/deep-testing-strategy.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/os.md
