@@ -110,6 +110,7 @@ export default withMermaid(defineConfig({
               { text: 'JMM (volatile vs synchronized)', link: '/cs/deep-jmm' },
               { text: 'Redis 캐시·분산 락', link: '/cs/deep-redis-cache-and-lock' },
               { text: '분산 정합성 (멱등성·Outbox)', link: '/cs/deep-distributed-consistency' },
+              { text: 'gRPC 멱등성·fan-out·가십', link: '/cs/deep-grpc-idempotency-and-fanout' },
               { text: '성능 공학 (p99·Little\'s Law)', link: '/cs/deep-performance-engineering' },
               { text: '트랜잭션 격리·락 심화', link: '/cs/deep-transaction-and-lock' },
               { text: 'HashMap 내부', link: '/cs/deep-hashmap' },

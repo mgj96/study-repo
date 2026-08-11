@@ -312,6 +312,7 @@ Saga는 실패 시 보상 트랜잭션으로 되돌린다. **그런데 되돌릴
 | 전진 복구 | 되돌릴 수 없을 때 앞으로 나아가 정합을 맞추는 방식 |
 
 ## 연결 지도
+- **gRPC로 실제 구축하기 (Java↔C#·fan-out·가십)**: → [deep-grpc-idempotency-and-fanout.md](deep-grpc-idempotency-and-fanout.md)
 - **단일 노드 트랜잭션 (선행)**: → [../lang/java/deep-spring-transaction.md](../lang/java/deep-spring-transaction.md)
 - **분산 락과 최종 검증 (선행)**: → [deep-redis-cache-and-lock.md](deep-redis-cache-and-lock.md)
 - **JVM 안의 원자성**: → [deep-jmm.md](deep-jmm.md)
