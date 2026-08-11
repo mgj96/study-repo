@@ -27,6 +27,7 @@ https://mgj96.github.io/study-repo/cs/concept
 https://mgj96.github.io/study-repo/cs/web-communication
 https://mgj96.github.io/study-repo/cs/deep-redis-cache-and-lock
 https://mgj96.github.io/study-repo/cs/deep-distributed-consistency
+https://mgj96.github.io/study-repo/cs/deep-grpc-idempotency-and-fanout
 https://mgj96.github.io/study-repo/cs/deep-performance-engineering
 https://mgj96.github.io/study-repo/cs/deep-transaction-and-lock
 https://mgj96.github.io/study-repo/backend-roadmap
@@ -136,6 +137,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/web-communication.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/deep-redis-cache-and-lock.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/deep-distributed-consistency.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/deep-grpc-idempotency-and-fanout.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/deep-performance-engineering.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/deep-transaction-and-lock.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/backend-roadmap.md
