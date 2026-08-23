@@ -52,6 +52,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '학습 로드맵', link: '/roadmap' },
           { text: '백엔드 심화 로드맵 (역량 갭)', link: '/backend-roadmap' },
+          { text: '코딩테스트 2주 압축 (Java)', link: '/coding-test-2week' },
           { text: '개념 지도 (6렌즈)', link: '/engineering-concepts-map' },
           { text: '그래픽스 ↔ ML', link: '/graphics-vs-ml' },
           { text: '형식 표준 (CONVENTIONS)', link: '/CONVENTIONS' },
@@ -80,6 +81,7 @@ export default withMermaid(defineConfig({
               { text: '토큰화·임베딩', link: '/ai-ml/deep-embedding' },
               { text: '깊이·층별 특화·제어·YOLO', link: '/ai-ml/deep-layers-and-yolo' },
               { text: 'YOLO vs SAM 2 (제로샷·모션)', link: '/ai-ml/deep-yolo-vs-sam' },
+              { text: 'X 랭킹 알고리듬 (원문 대조)', link: '/ai-ml/deep-x-ranking-algorithm' },
             ],
           },
           { text: '검색 기록', link: '/ai-ml/research-log' },
