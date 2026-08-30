@@ -34,6 +34,8 @@ https://mgj96.github.io/study-repo/backend-roadmap
 https://mgj96.github.io/study-repo/coding-test-2week
 https://mgj96.github.io/study-repo/coding-test/binary-distinct-combinations
 https://mgj96.github.io/study-repo/coding-test/rest-api-pagination
+https://mgj96.github.io/study-repo/coding-test/sherlock-and-anagrams
+https://mgj96.github.io/study-repo/coding-test/longest-unique-substring
 https://mgj96.github.io/study-repo/architecture/concept
 https://mgj96.github.io/study-repo/architecture/deep-modularity-theory
 https://mgj96.github.io/study-repo/architecture/deep-conway-and-ai-agents
@@ -148,6 +150,8 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/backend-roadmap.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test-2week.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/binary-distinct-combinations.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/rest-api-pagination.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/sherlock-and-anagrams.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/longest-unique-substring.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-modularity-theory.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-conway-and-ai-agents.md

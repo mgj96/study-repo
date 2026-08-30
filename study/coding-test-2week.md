@@ -345,12 +345,16 @@ for (int i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];
 
 ## 1.5 실전 기출 복기 🔎
 
-실제 시험에서 만난 문제를 **"🤔 생각 → 📖 읽기 → ✅ 확인" 순서로 추론부터 재구성**한 노트. 답을 외우는 게 아니라 **문제를 봤을 때 무엇에 주목하는지**를 연습하는 용도다. (새 기출을 만나면 여기에 한 줄씩 추가)
+실제 시험에서 만난 문제(기출)와 같은 급의 훈련 문제를 **"🤔 생각 → 📖 읽기 → ✅ 확인" 순서로 추론부터 재구성**한 노트. 답을 외우는 게 아니라 **문제를 봤을 때 무엇에 주목하는지**를 연습하는 용도다.
 
-| 기출 | 유형 | 핵심 한 줄 |
-|---|---|---|
-| [이진 문자열 조합 개수](coding-test/binary-distinct-combinations.md) | Distinct Subsequences DP | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 겉모습 같은 4형제 판별표 포함 |
-| [REST API 페이지네이션](coding-test/rest-api-pagination.md) | HTTP + 집계(max / 그룹별 합산) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 항목 max와 국가별 합산-argmax 두 변형 모두 커버 |
+> **수준 기준선**: 실전에서 만난 문제들이 **HackerRank Medium ≈ 기업 코테 3문제 세트의 2번 문제(중)** 급으로 확인됨. 앞으로 훈련 문제도 **이 급으로 통일해서 추가**한다 (1번 워밍업 급은 시간 낭비, 3번 급은 당락 기여도 낮음 — 2번이 합격선이다).
+
+| 노트 | 유형 | 난이도 (HackerRank / 기업) | 핵심 한 줄 |
+|---|---|---|---|
+| [이진 문자열 조합 개수](coding-test/binary-distinct-combinations.md) ★기출 | Distinct Subsequences DP | Medium / 2번(중~중상) | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 4형제 판별표 포함 |
+| [REST API 페이지네이션](coding-test/rest-api-pagination.md) ★기출 | HTTP + 집계(max / 그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
+| [Sherlock and Anagrams](coding-test/sherlock-and-anagrams.md) | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2**. 기출 1번과 같은 "결과로 세기" 사고 |
+| [중복 없는 최장 부분문자열](coding-test/longest-unique-substring.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + **`left = max(left, last+1)` 후퇴 금지**. D8 유형의 관문 |
 
 ---
 

@@ -1,6 +1,7 @@
 # 기출 복기 — REST API 페이지네이션 문제 (특정 필드 최댓값 찾기)
 
 > 실전(HackerRank REST API 인증·기업 코테)에서 만난 유형. "fat이 최고인 항목", "평점 최고 식당", "총 골 수" 전부 **같은 템플릿 하나**다.
+> **난이도**: HackerRank **REST API Intermediate 인증** 급 (알고리즘으로 치면 Easy~Medium) · **기업 코테 기준 1번 워밍업~2번(하~중)** — 사고력이 아니라 꼼꼼함 시험이라 **준비한 사람에겐 공짜 점수, 안 한 사람에겐 0점**인 극단적 분포. 그룹 집계 변형(§3.5)까지 오면 2번 문제(중) 수준.
 > 진행 방식은 [이진 조합 노트](binary-distinct-combinations.md)와 동일 — **🤔 생각 → 📖 읽기 → ✅ 확인** 순서로.
 > 관련: [코딩테스트 2주 로드맵](../coding-test-2week.md) · 원리가 궁금하면 [웹 통신·API](../cs/web-communication.md)
 
