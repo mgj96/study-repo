@@ -110,6 +110,8 @@ public class Solution {
 
 필드명(`fat`→`score`→`price`)과 갱신식(max→sum→filter)만 바꾸면 이 유형 전체가 이 코드다.
 
+> 📦 **import 현황 정리**: HTTP는 `java.net.http.HttpClient`로 **순수 자바(표준, Java 11+)**. JSON만 서드파티(Jackson)가 필요한데, **자바 표준엔 JSON 파서가 없기 때문**이다(JEP 198이 끝내 채택 안 됨). HackerRank엔 Jackson·Gson이 사전 설치돼 있고 보일러플레이트가 보통 import를 제공한다 — Spring Boot가 매일 쓰는 그 Jackson이라 낯설 것도 없다. 참고로 알고리즘 노트 3개(조합·애너그램·윈도우)는 `java.util`까지만 쓰는 100% 표준 라이브러리다.
+
 ---
 
 ## 3.5단계. 변형 — 키별(국가별) 집계 후 최대 ★실제 기출
