@@ -51,8 +51,6 @@ export default withMermaid(defineConfig({
         text: '🗺️ 상위 · 계획',
         items: [
           { text: '학습 로드맵', link: '/roadmap' },
-          { text: '백엔드 심화 로드맵 (역량 갭)', link: '/backend-roadmap' },
-          { text: '코딩테스트 2주 압축 (Java)', link: '/coding-test-2week' },
           { text: '개념 지도 (6렌즈)', link: '/engineering-concepts-map' },
           { text: '그래픽스 ↔ ML', link: '/graphics-vs-ml' },
           { text: '형식 표준 (CONVENTIONS)', link: '/CONVENTIONS' },
@@ -166,9 +164,22 @@ export default withMermaid(defineConfig({
         ],
       },
       {
-        text: '🎯 면접',
+        text: '🎯 면접 · 이직',
         collapsed: false,
         items: [
+          { text: '코딩테스트 2주 압축 (Java)', link: '/coding-test-2week' },
+          {
+            text: '🔬 실전 기출 복기 · 치트시트',
+            collapsed: true,
+            items: [
+              { text: '★기출 이진 문자열 조합 개수', link: '/coding-test/binary-distinct-combinations' },
+              { text: '★기출 REST API 페이지네이션', link: '/coding-test/rest-api-pagination' },
+              { text: 'Sherlock and Anagrams', link: '/coding-test/sherlock-and-anagrams' },
+              { text: '중복 없는 최장 부분문자열', link: '/coding-test/longest-unique-substring' },
+              { text: '📋 org.json 치트시트', link: '/coding-test/org-json-cheatsheet' },
+            ],
+          },
+          { text: '백엔드 심화 로드맵 (역량 갭 · 언어 전략)', link: '/backend-roadmap' },
           { text: '코드 설명 프레임워크', link: '/interview/explain-your-code' },
         ],
       },
