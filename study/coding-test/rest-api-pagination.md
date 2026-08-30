@@ -110,7 +110,27 @@ public class Solution {
 
 필드명(`fat`→`score`→`price`)과 갱신식(max→sum→filter)만 바꾸면 이 유형 전체가 이 코드다.
 
-> 📦 **import 현황 정리**: HTTP는 `java.net.http.HttpClient`로 **순수 자바(표준, Java 11+)**. JSON만 서드파티(Jackson)가 필요한데, **자바 표준엔 JSON 파서가 없기 때문**이다(JEP 198이 끝내 채택 안 됨). HackerRank엔 Jackson·Gson이 사전 설치돼 있고 보일러플레이트가 보통 import를 제공한다 — Spring Boot가 매일 쓰는 그 Jackson이라 낯설 것도 없다. 참고로 알고리즘 노트 3개(조합·애너그램·윈도우)는 `java.util`까지만 쓰는 100% 표준 라이브러리다.
+> 📦 **import 현황 정리**: HTTP는 `java.net.http.HttpClient`로 **순수 자바(표준, Java 11+)**. JSON만 서드파티가 필요한데, **자바 표준엔 JSON 파서가 없기 때문**이다(JEP 198이 끝내 채택 안 됨). HackerRank엔 **org.json · Jackson · Gson이 사전 설치**돼 있어 pom/gradle 없이 import만 하면 된다. 참고로 알고리즘 노트 3개(조합·애너그램·윈도우)는 `java.util`까지만 쓰는 100% 표준 라이브러리다.
+
+### 대안 파싱 — org.json (실전 검증됨, 가장 단순)
+
+Jackson 대신 `org.json`을 쓰면 위 템플릿의 파싱부만 이렇게 바뀐다:
+
+```java
+import org.json.*;                            // HackerRank 사전 설치 — 이 한 줄이면 끝
+
+JSONObject root = new JSONObject(res.body());
+totalPages = root.getInt("total_pages");
+JSONArray data = root.getJSONArray("data");
+for (int i = 0; i < data.length(); i++) {     // ⚠️ size() 아니고 length()
+    JSONObject item = data.getJSONObject(i);
+    double fat = item.optDouble("fat", -1);   // ★ opt* = 키 누락 시 예외 대신 기본값
+    String name = item.getString("name");
+    if (fat > maxFat) { maxFat = fat; best = name; }
+}
+```
+
+org.json만의 함정: ① `get*`은 키가 없으면 **JSONException** — 안전하게는 `opt*` 계열 ② `JSONArray.length()` (size 아님) ③ `optDouble`은 `"32.1"` 같은 문자열 숫자도 자동 변환.
 
 ---
 
@@ -174,6 +194,7 @@ return best;
 
 ## 5단계. 함정 체크리스트 (이 유형의 배점은 전부 여기에 있다)
 
+- [ ] **정규식으로 JSON 파싱을 시도하지 않았나** — JSON은 중첩·재귀 구조라 정규식(정규 언어)으로는 **원리적으로** 못 다룬다. 필드 순서 변경·중첩 객체·문자열 안의 특수문자에서 반드시 깨진다. 파서(org.json/Jackson/Gson)로 갈 것 — 시험장 시간을 녹이는 1순위 지뢰
 - [ ] **total_pages를 응답에서 읽어 갱신**했나 (오답 원인 1위)
 - [ ] **동점(tie) 규칙** — "먼저 나온 것 유지"면 `>`, "나중 것"이면 `>=`. 지문의 한 문장이 답을 가른다
 - [ ] **숫자가 문자열로 오는 경우** — `"fat": "32.1"`처럼 따옴표가 붙어 와도 `asDouble()`은 안전, `asInt()`+`getInt()` 혼용은 위험
