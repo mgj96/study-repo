@@ -150,6 +150,7 @@ export default withMermaid(defineConfig({
           { text: 'Java · 디자인 패턴', link: '/lang/java/design-patterns' },
           { text: '🔬 Spring 트랜잭션 내부', link: '/lang/java/deep-spring-transaction' },
           { text: '🔬 테스트 전략', link: '/lang/java/deep-testing-strategy' },
+          { text: '🔬 품질 게이트·팀 코드 표준', link: '/lang/java/quality-gates-and-standards' },
           { text: 'Java · Q&A', link: '/lang/java/qna' },
           { text: 'C# · 개념', link: '/lang/csharp/concept' },
           { text: 'C# · Q&A', link: '/lang/csharp/qna' },
