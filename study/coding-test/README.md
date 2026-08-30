@@ -15,6 +15,7 @@
 | 2 | [REST API 페이지네이션](rest-api-pagination.md) ★기출 | HTTP + 집계(max/그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
 | 3 | [Sherlock and Anagrams](sherlock-and-anagrams.md) | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2** |
 | 4 | [중복 없는 최장 부분문자열](longest-unique-substring.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + `left = max(left, last+1)` **후퇴 금지** |
+| 📋 | [org.json 치트시트](org-json-cheatsheet.md) | 암기용 API 표면 | — (시험 전날 복습) | **7줄 최소 세트** + get vs opt + 예외 3종 디버깅 순서 |
 
 ## 사고 연결 지도
 
@@ -32,6 +33,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/binary
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/rest-api-pagination.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/sherlock-and-anagrams.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/longest-unique-substring.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-json-cheatsheet.md
 ```
 
 추천 프롬프트: *"각 노트의 🤔 생각 질문만 뽑아 퀴즈로 내고, 내 답과 📖 추론을 비교해줘"* — 노트 형식이 그대로 문답 훈련이 된다.

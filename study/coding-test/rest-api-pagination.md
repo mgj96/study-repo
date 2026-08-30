@@ -132,6 +132,8 @@ for (int i = 0; i < data.length(); i++) {     // ⚠️ size() 아니고 length(
 
 org.json만의 함정: ① `get*`은 키가 없으면 **JSONException** — 안전하게는 `opt*` 계열 ② `JSONArray.length()` (size 아님) ③ `optDouble`은 `"32.1"` 같은 문자열 숫자도 자동 변환.
 
+🔎 **API 표면 전체 암기용 →** [org.json 치트시트](org-json-cheatsheet.md) (7줄 최소 세트 · get vs opt · 예외 3종 디버깅 순서)
+
 ---
 
 ## 3.5단계. 변형 — 키별(국가별) 집계 후 최대 ★실제 기출
