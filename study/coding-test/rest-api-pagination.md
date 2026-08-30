@@ -111,6 +111,54 @@ public class Solution {
 
 ---
 
+## 3.5단계. 변형 — 키별(국가별) 집계 후 최대 ★실제 기출
+
+실제로 만난 문제는 한 단계 더 있었다: **음식마다 칼로리 값이 있고, 국가별로 합산한 총량이 가장 큰 국가**를 찾는 형태.
+
+**🤔 생각** — 3단계 템플릿은 "항목 하나의 최대"를 추적한다. 그런데 답의 단위가 항목(음식)이 아니라 **그룹(국가)**이면 무엇이 달라지나?
+
+<details><summary>📖 추론 열기</summary>
+
+max 변수 2개로는 부족하다 — 어떤 국가의 합계가 최종 1등일지는 **마지막 페이지를 읽기 전까지 모른다** (지금까지 꼴찌였던 국가가 마지막 페이지에서 역전할 수 있다). 그러므로:
+
+> **순회 중에는 판단하지 말고 모으기만 한다.** `Map<국가, 합계>`에 누적 → 전 페이지 순회가 끝난 뒤 한 번에 argmax.
+
+3단계(항목 max)와의 차이를 표로 박아두면 지문을 읽는 순간 갈 길이 보인다:
+
+| 지문이 묻는 것 | 순회 중 상태 | 판단 시점 |
+|---|---|---|
+| 가장 높은 **항목**(음식) 하나 | max 변수 2개 | 순회 **중** 즉시 갱신 |
+| 합계가 가장 높은 **그룹**(국가) | `Map<키, 합계>` | 순회가 **끝난 뒤** argmax |
+
+공개 문제와의 관계: 인증 기출 *Total Goals by a Team*은 "주어진 한 팀"의 합산이라 Map조차 필요 없다. 기업 변형은 키를 안 정해주니 **전 키를 동시에 집계** — HashMap 하나 차이다.
+
+</details>
+
+**✅ 확인** — 3단계 코드에서 루프 안쪽과 반환부만 이렇게 바뀐다:
+
+```java
+Map<String, Double> totalByCountry = new HashMap<>();
+
+// (페이지 루프 안) 판단하지 않고 누적만
+for (JsonNode item : root.get("data")) {
+    String country = item.get("country").asText();
+    double cal = item.get("calories").asDouble();
+    totalByCountry.merge(country, cal, Double::sum);   // 없으면 넣고, 있으면 더함
+}
+
+// (루프 종료 후) 이제야 argmax
+String best = null; double max = -1;
+for (Map.Entry<String, Double> e : totalByCountry.entrySet())
+    if (e.getValue() > max) { max = e.getValue(); best = e.getKey(); }
+return best;
+```
+
+`merge(key, v, Double::sum)` 한 줄이 "없으면 put, 있으면 더하기"를 대신한다 — SQL로 치면 `GROUP BY country` + `ORDER BY SUM(calories) DESC LIMIT 1`을 손으로 쓴 것.
+
+**이 변형의 추가 함정**: ① 동점 국가 처리 — 지문에 "사전순으로 앞선 것" 류의 문장이 있으면 argmax 루프에서 `e.getValue() == max && e.getKey().compareTo(best) < 0` 분기 추가 ② HashMap 순회 순서는 무작위이므로 **동점 규칙 없이 == 방치하면 실행마다 답이 바뀔 수 있다** ③ 평균을 묻는 변형이면 합계와 개수를 함께 누적 (`Map<String, double[]>`).
+
+---
+
 ## 4단계. ✅ 확인 — 제출 전 손 검증 시나리오
 
 머릿속 시뮬레이션으로 3가지를 돌려본다:
@@ -136,5 +184,5 @@ public class Solution {
 ## 3단 요약 (암기)
 
 - **① 결론 · WHAT** — REST API 코테는 알고리즘이 아니라 **"페이지 전부 순회 + 필드 하나 추적"** 체크리스트 문제다. 템플릿 하나로 전 문제를 덮는다.
-- **② 원리 · HOW** — 첫 응답은 데이터가 아니라 **지도(total_pages)**다. `while (page <= totalPages)`로 전부 돌며, 반환 요구에 맞는 최소 상태(max 2변수 / sum 1변수 / 목록 List)만 들고 다닌다.
+- **② 원리 · HOW** — 첫 응답은 데이터가 아니라 **지도(total_pages)**다. `while (page <= totalPages)`로 전부 돌며, 반환 요구에 맞는 최소 상태만 들고 다닌다. 답의 단위가 **항목이면 순회 중 max 갱신**, **그룹(국가)이면 Map에 누적만 하고 순회가 끝난 뒤 argmax** — 판단 시점이 다르다.
 - **③ 확장 · TRADE-OFF** — 점수는 코드가 아니라 **꼼꼼함**에서 갈린다: total_pages 갱신, 동점 규칙(> vs >=), 문자열 숫자, 빈 결과 기본값. 실무의 페이지네이션 API 소비(→ [웹 통신·API](../cs/web-communication.md))와 똑같은 근육이라, 이 유형은 연습 대비 수익률이 가장 높다.

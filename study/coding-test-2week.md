@@ -350,7 +350,7 @@ for (int i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];
 | 기출 | 유형 | 핵심 한 줄 |
 |---|---|---|
 | [이진 문자열 조합 개수](coding-test/binary-distinct-combinations.md) | Distinct Subsequences DP | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 겉모습 같은 4형제 판별표 포함 |
-| [REST API 페이지네이션](coding-test/rest-api-pagination.md) | HTTP + max 추적 | **첫 응답은 데이터가 아니라 지도(total_pages)**. 만능 템플릿 하나로 전 문제 커버 |
+| [REST API 페이지네이션](coding-test/rest-api-pagination.md) | HTTP + 집계(max / 그룹별 합산) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 항목 max와 국가별 합산-argmax 두 변형 모두 커버 |
 
 ---
 
