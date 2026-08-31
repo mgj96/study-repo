@@ -19,6 +19,13 @@
 | 4 | [중복 없는 최장 부분문자열](longest-unique-substring.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + `left = max(left, last+1)` **후퇴 금지** |
 | 5 | [격자 BFS/DFS](grid-bfs-dfs.md) | 탐색 (flood fill·최단) | Lv2 / 2번(중) | 덩어리 세기=아무거나, **최단=BFS 고정** · 방문 표시는 **넣을 때** |
 | 6 | [파라메트릭 이분탐색](parametric-binary-search.md) | 판정 함수 + 이분탐색 | Lv2~3 / 2번(중~중상) | **"계산하지 말고 검증하라"** — 정렬된 건 배열이 아니라 ✗✗✓✓ 경계 |
+| 7 | [우선순위 큐(힙)](priority-queue-heap.md) | 힙 | Lv2 / 2번(중) | "매번 최솟값" = 힙 · 반복문 속 sort 충동이 판별 신호 |
+| 8 | [그리디 교환 논증](greedy-exchange-argument.md) | 정렬 + 증명 | Lv2 / 2번(중) | 회의실=**끝나는 순** · "바꿔치기해도 안 나빠진다" 한 줄 증명 |
+| 9 | [누적합+해시](prefix-sum-hashmap.md) | prefix + HashMap | Lv2 / 2번(중) | **음수 섞이면 윈도우 사망** → `pre−K` 과거 조회 · `{0:1}` 초기값 |
+| 10 | [DP 테이블 (배낭)](dp-table-knapsack.md) | 최적화 DP | Lv2~3 / 2번(중~중상) | 상태를 **말로 먼저** · 0/1 배낭 **역순**, 완전 배낭 정순 |
+| 11 | [Union-Find](union-find.md) | 대표 관리 | Lv2~3 / 2~3번 | **자라나는 그래프** 질의 = UF · 경로압축 대입 필수 |
+| 12 | [스택 시뮬레이션](stack-simulation.md) | 최근성 짝짓기 | Lv1~2 / 1~2번 | "지우면 양옆이 만난다" = 스택 O(n) · 빈 스택/잔여 검사 |
+| 13 | [카카오식 문자열 구현](string-implementation.md) | 명세 옮기기 | Lv1~2 / 1~2번 | 지문 길고 입력 작으면 **명세:함수=1:1** + 중간값 대조 |
 | 📋 | [org.json 치트시트](org-json-cheatsheet.md) | 암기용 API 표면 | — (시험 전날 복습) | **7줄 최소 세트** + get vs opt + 예외 3종 디버깅 순서 |
 
 ## 사고 연결 지도
@@ -37,6 +44,15 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/binary
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/rest-api-pagination.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/sherlock-and-anagrams.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/longest-unique-substring.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/grid-bfs-dfs.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/parametric-binary-search.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/priority-queue-heap.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/greedy-exchange-argument.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/prefix-sum-hashmap.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/dp-table-knapsack.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/union-find.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/stack-simulation.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/string-implementation.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-json-cheatsheet.md
 ```
 
@@ -48,17 +64,11 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-js
 
 | # | 유형 | 대표 문제 | 왜 이 순서인가 |
 |---|---|---|---|
-| ~~1~~ | ~~BFS/DFS 격자 탐색~~ | ✅ [작성 완료](grid-bfs-dfs.md) | — |
-| ~~2~~ | ~~파라메트릭 이분탐색~~ | ✅ [작성 완료](parametric-binary-search.md) | — |
-| 3 | **우선순위 큐(힙)** | Jesse and Cookies / K개 병합 | "매번 최솟값이 필요하다 = 힙" 신호 감각 |
-| 4 | **그리디 교환 논증** | 회의실 배정 / Luck Balance | "왜 이 정렬이 최적인가"를 한 줄로 증명하는 훈련 — [D10](../coding-test-2week.md) 실전판 |
-| 5 | **누적합 + 해시** | 합이 K인 부분배열 개수 | 음수가 섞이면 윈도우가 실패하는 이유 — 윈도우 드릴과 판별 쌍 |
-| 6 | **DP 테이블** | 계단 → 0/1 배낭 → LIS | 카운팅 DP(기출 1번)와 다른 축: "상태 정의를 말로 먼저" |
-| 7 | Union-Find | 친구 네트워크 | 출제 시 대비 |
-| 8 | 스택 시뮬레이션 | 짝 맞추기·괄호 | 출제 시 대비 |
-| 9 | 카카오식 문자열 구현 | 파싱+시뮬레이션 | 국내 기업 코테 특화 |
+**✅ 백로그 1~9 전부 작성 완료 (2026-08-31)** — 위 노트 목록 5~13번이 그 결과물이다. 이로써 **기업 2번 문제 대역의 주요 유형이 전부 드릴로 커버**됐다.
 
-> 형식은 기존과 동일(🤔 생각 → 📖 읽기 → ✅ 확인). 각 드릴은 **"이 유형임을 알아채는 지문 신호"**를 0단계에 반드시 포함한다 — 풀이보다 판별이 먼저다.
+다음 후보(필요 시): 단조 스택(히스토그램·오큰수, 3번 급) · 다익스트라(가중치 최단, 3번 급) · LIS/편집거리(DP 확장) — 2번 대역을 졸업할 때 추가한다.
+
+> 형식은 고정(🤔 생각 → 📖 읽기 → ✅ 확인). 각 드릴은 **"이 유형임을 알아채는 지문 신호"**를 0단계에 반드시 포함한다 — 풀이보다 판별이 먼저다.
 
 ## 새 노트 추가 규칙
 

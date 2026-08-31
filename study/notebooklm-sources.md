@@ -39,6 +39,13 @@ https://mgj96.github.io/study-repo/coding-test/longest-unique-substring
 https://mgj96.github.io/study-repo/coding-test/org-json-cheatsheet
 https://mgj96.github.io/study-repo/coding-test/grid-bfs-dfs
 https://mgj96.github.io/study-repo/coding-test/parametric-binary-search
+https://mgj96.github.io/study-repo/coding-test/priority-queue-heap
+https://mgj96.github.io/study-repo/coding-test/greedy-exchange-argument
+https://mgj96.github.io/study-repo/coding-test/prefix-sum-hashmap
+https://mgj96.github.io/study-repo/coding-test/dp-table-knapsack
+https://mgj96.github.io/study-repo/coding-test/union-find
+https://mgj96.github.io/study-repo/coding-test/stack-simulation
+https://mgj96.github.io/study-repo/coding-test/string-implementation
 https://mgj96.github.io/study-repo/architecture/concept
 https://mgj96.github.io/study-repo/architecture/deep-modularity-theory
 https://mgj96.github.io/study-repo/architecture/deep-conway-and-ai-agents
@@ -161,6 +168,13 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/longes
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-json-cheatsheet.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/grid-bfs-dfs.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/parametric-binary-search.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/priority-queue-heap.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/greedy-exchange-argument.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/prefix-sum-hashmap.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/dp-table-knapsack.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/union-find.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/stack-simulation.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/string-implementation.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-modularity-theory.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-conway-and-ai-agents.md
