@@ -2,6 +2,10 @@
 
 > 출발 질문 셋: ① IntelliJ에서 VS Code로 탈출 가능한가, 뭘 잃나? ② Orca·Buzz는 뭐고 Claude Code와 뭐가 다른가? ③ 제미나이 무료 모델로도 멀티에이전트가 되나?
 > 결론 먼저: **IDE는 듀얼 운용, 에이전트는 단일이면 이전 불필요, 제미나이 무료 실험은 개인 코드 한정.**
+
+> 📌 **결정 기록 (2026-08-31): Orca·Buzz·Gemini CLI 설치·도입하지 않음.**
+> 이유 — 에이전트를 **Claude 하나만** 쓰므로 Orca의 핵심 가치(멀티 에이전트 경쟁·비교)가 성립하지 않고, 병렬 세션·워크트리는 Claude Code가 이미 내장. Buzz는 팀 도입 전제라 솔로에겐 무용.
+> 재검토 트리거 — ① 두 번째 에이전트 구독이 생기면 → Orca ② 팀이 에이전트를 도입하면 → Buzz. 그 전까지 이 노트는 **참고 자료로만** 유지.
 > 관련: [콘웨이 법칙과 AI 에이전트](../architecture/deep-conway-and-ai-agents.md) · [Kotlin 노트](kotlin-for-java-devs.md) · [품질 게이트](java/quality-gates-and-standards.md)
 
 ---
