@@ -113,6 +113,28 @@
     font-size: 12.5px;
   }
 
+  /* ★ 가로 넘침 수정 (2026-08-31)
+     VitePress 모바일 기본은 코드블록 풀블리드 margin: 16px -24px (패딩 24px 가정).
+     위에서 패딩을 16px로 강제했으므로 8px씩 페이지 밖으로 삐져나가
+     문서 폭 > 화면 폭 → 폰에서 확대·가로팬 증상. 마진을 패딩과 일치시킨다 */
+  .vp-doc div[class*='language-'] {
+    margin-left: -16px !important;
+    margin-right: -16px !important;
+  }
+
+  /* 안전망 ①: 표 셀 안 인라인 코드·링크가 셀 폭을 밀지 않게 */
+  .vp-doc td code,
+  .vp-doc th code {
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  /* 안전망 ②: 그래도 남는 가로 넘침은 페이지 팬 대신 내부에서 처리
+     (pre·mjx는 자체 스크롤, mermaid는 자동 축소라 잘릴 실내용 없음) */
+  .VPDoc {
+    overflow-x: hidden;
+  }
+
   /* 수식이 넘칠 때 가로 스크롤 허용 */
   .vp-doc mjx-container {
     overflow-x: auto;
