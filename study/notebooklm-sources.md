@@ -37,6 +37,8 @@ https://mgj96.github.io/study-repo/coding-test/rest-api-pagination
 https://mgj96.github.io/study-repo/coding-test/sherlock-and-anagrams
 https://mgj96.github.io/study-repo/coding-test/longest-unique-substring
 https://mgj96.github.io/study-repo/coding-test/org-json-cheatsheet
+https://mgj96.github.io/study-repo/coding-test/grid-bfs-dfs
+https://mgj96.github.io/study-repo/coding-test/parametric-binary-search
 https://mgj96.github.io/study-repo/architecture/concept
 https://mgj96.github.io/study-repo/architecture/deep-modularity-theory
 https://mgj96.github.io/study-repo/architecture/deep-conway-and-ai-agents
@@ -157,6 +159,8 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/rest-a
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/sherlock-and-anagrams.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/longest-unique-substring.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-json-cheatsheet.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/grid-bfs-dfs.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/parametric-binary-search.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-modularity-theory.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-conway-and-ai-agents.md

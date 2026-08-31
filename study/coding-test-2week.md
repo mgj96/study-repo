@@ -355,6 +355,8 @@ for (int i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];
 | [REST API 페이지네이션](coding-test/rest-api-pagination.md) ★기출 | HTTP + 집계(max / 그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
 | [Sherlock and Anagrams](coding-test/sherlock-and-anagrams.md) | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2**. 기출 1번과 같은 "결과로 세기" 사고 |
 | [중복 없는 최장 부분문자열](coding-test/longest-unique-substring.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + **`left = max(left, last+1)` 후퇴 금지**. D8 유형의 관문 |
+| [격자 BFS/DFS](coding-test/grid-bfs-dfs.md) | 탐색 (flood fill·최단) | Medium / 2번(중) | 덩어리=아무거나, **최단=BFS 고정**, 방문 표시는 넣을 때 |
+| [파라메트릭 이분탐색](coding-test/parametric-binary-search.md) | 판정+이분탐색 | Medium / 2번(중~중상) | **"계산하지 말고 검증하라"** — D9 실전판 |
 
 ---
 

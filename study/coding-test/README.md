@@ -7,6 +7,8 @@
 
 실전 기출이 **HackerRank Medium ≈ 기업 코테 3문제 세트의 2번 문제(중)** 급으로 확인됨. 이 폴더의 훈련 문제는 전부 이 급으로 통일한다 — **2번 문제가 합격선**이다 (1번 워밍업 급은 시간 대비 이득이 없고, 3번 급은 당락 기여도가 낮다).
 
+척도 환산: **프로그래머스 Lv2 ≈ HackerRank Medium ≈ 기업 2번** (Lv1=Easy=1번, Lv3=Hard=3번). 즉 이 폴더의 목표 대역은 **프로그래머스 Lv2 ~ Lv3 초입**이다.
+
 ## 노트 목록
 
 | # | 노트 | 유형 | 난이도 (HackerRank / 기업) | 핵심 한 줄 |
@@ -15,6 +17,8 @@
 | 2 | [REST API 페이지네이션](rest-api-pagination.md) ★기출 | HTTP + 집계(max/그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
 | 3 | [Sherlock and Anagrams](sherlock-and-anagrams.md) | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2** |
 | 4 | [중복 없는 최장 부분문자열](longest-unique-substring.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + `left = max(left, last+1)` **후퇴 금지** |
+| 5 | [격자 BFS/DFS](grid-bfs-dfs.md) | 탐색 (flood fill·최단) | Lv2 / 2번(중) | 덩어리 세기=아무거나, **최단=BFS 고정** · 방문 표시는 **넣을 때** |
+| 6 | [파라메트릭 이분탐색](parametric-binary-search.md) | 판정 함수 + 이분탐색 | Lv2~3 / 2번(중~중상) | **"계산하지 말고 검증하라"** — 정렬된 건 배열이 아니라 ✗✗✓✓ 경계 |
 | 📋 | [org.json 치트시트](org-json-cheatsheet.md) | 암기용 API 표면 | — (시험 전날 복습) | **7줄 최소 세트** + get vs opt + 예외 3종 디버깅 순서 |
 
 ## 사고 연결 지도
@@ -44,8 +48,8 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-js
 
 | # | 유형 | 대표 문제 | 왜 이 순서인가 |
 |---|---|---|---|
-| 1 | **BFS/DFS 격자 탐색** | 섬 개수 / Connected Cells | **기업 2번 최다 빈출인데 드릴 공백.** "최단이면 BFS 고정" 판별 + 방문배열 템플릿 |
-| 2 | **파라메트릭 이분탐색** | Minimum Time Required | "최솟값을 구하라 + 판정 함수가 만들어진다" 전환 훈련 — [D9](../coding-test-2week.md) 실전판 |
+| ~~1~~ | ~~BFS/DFS 격자 탐색~~ | ✅ [작성 완료](grid-bfs-dfs.md) | — |
+| ~~2~~ | ~~파라메트릭 이분탐색~~ | ✅ [작성 완료](parametric-binary-search.md) | — |
 | 3 | **우선순위 큐(힙)** | Jesse and Cookies / K개 병합 | "매번 최솟값이 필요하다 = 힙" 신호 감각 |
 | 4 | **그리디 교환 논증** | 회의실 배정 / Luck Balance | "왜 이 정렬이 최적인가"를 한 줄로 증명하는 훈련 — [D10](../coding-test-2week.md) 실전판 |
 | 5 | **누적합 + 해시** | 합이 K인 부분배열 개수 | 음수가 섞이면 윈도우가 실패하는 이유 — 윈도우 드릴과 판별 쌍 |
