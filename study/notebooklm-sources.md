@@ -45,6 +45,7 @@ https://mgj96.github.io/study-repo/lang/java/deep-spring-transaction
 https://mgj96.github.io/study-repo/lang/java/deep-testing-strategy
 https://mgj96.github.io/study-repo/lang/kotlin-for-java-devs
 https://mgj96.github.io/study-repo/lang/java/quality-gates-and-standards
+https://mgj96.github.io/study-repo/lang/ide-and-agent-tooling
 https://mgj96.github.io/study-repo/cs/qna/os
 https://mgj96.github.io/study-repo/cs/qna/network
 https://mgj96.github.io/study-repo/cs/qna/database
@@ -164,6 +165,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/deep-spr
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/deep-testing-strategy.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/kotlin-for-java-devs.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/java/quality-gates-and-standards.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/lang/ide-and-agent-tooling.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/os.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/network.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/cs/qna/database.md

@@ -145,6 +145,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '언어 비교 (C++·Java·C#)', link: '/lang/language-comparison' },
           { text: 'Kotlin · 자바 개발자용', link: '/lang/kotlin-for-java-devs' },
+          { text: '개발 도구 전략 (IDE·AI 에이전트)', link: '/lang/ide-and-agent-tooling' },
           { text: 'Java · 개념', link: '/lang/java/concept' },
           { text: 'Java · 타입/박싱', link: '/lang/java/types-boxing' },
           { text: 'Java · 디자인 패턴', link: '/lang/java/design-patterns' },
