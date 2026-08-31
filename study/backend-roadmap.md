@@ -255,6 +255,26 @@
 
 > 요약: **취업은 Kotlin, 교양은 Rust, 지금 당장은 둘 다 아니고 코테.**
 
+### 6.1 시장 근거 — 원티드·잡코리아 실태 조사 (2026-08-31)
+
+위 결정이 감이 아니라 데이터인지 채용 공고를 직접 조사해 검증했다. **결론: 기존 전략 유지 — 단, 언어보다 급한 갭이 따로 있다.**
+
+**① 5년차 Java 백엔드에게 시장이 실제로 요구하는 것** (원티드·잡코리아 공고 공통분모)
+
+| 층위 | 요구 항목 | 내 현황 |
+|---|---|---|
+| 기본 (3년+도 요구) | Spring Boot · RESTful API 설계 · RDBMS · **테스트 코드 작성 경험** | ⭕ — 테스트 코드는 경력기술서에 명시적 서술 필요 |
+| 5년+ 차별화 | **MSA 설계·개발** · Docker/K8s · 클라우드(AWS) · CI/CD | △ — 헥사고날·파사드 진행 중이라 MSA 문맥은 연결 가능, **Docker/K8s가 최대 공백** |
+| 시니어 신호 | 아키텍처 **의사결정 이유** 설명 · 개발→배포→모니터링 전 과정 주도 · 문제 해결 서사 | ⭕ — 면접 3단 구조(결론→과정→트레이드오프)와 정확히 일치. 경력기술서는 프로젝트 5개 안팎으로 추리고 기여도·의사결정 중심 서술이 정석 |
+
+**② Kotlin — 판단 유지 (⭕ 이직 무기)**: 공고에 Java/Kotlin **병기가 계속 늘고 있고**, 카카오·토스·라인이 도입기를 공개할 만큼 주류화. "Java만" 대비 지원 가능 공고 폭이 실제로 넓어진다.
+
+**③ Rust — 판단 유지 (❌ 이번 사이클)**: 국내 공고는 블록체인·보안 장비·임베디드·시스템 소프트웨어에 극소수 존재할 뿐, **일반 백엔드 5~7년차 채용에서는 요구가 사실상 없음.** Stack Overflow 2025에서 10년 연속 "가장 존경받는 언어"(72%)지만, 설문 스스로 지적하듯 **admired ≠ 채용 수요** — 실무 수요는 Python·Java 계열에 있다.
+
+**④ 조사로 드러난 진짜 갭**: 언어 다양성이 아니라 **인프라 경험 서술**이다. 5년+ 공고의 차별화 축(MSA·Docker/K8s·클라우드)에서 언어는 이미 충족이고, 컨테이너·배포 경험을 이력서에 어떻게 얹느냐가 서류 통과를 가른다. → 우선순위 4번(Rust) 앞에 "Docker/K8s 기본기 + 현 프로젝트의 배포 파이프라인 정리"를 끼워 넣을 후보.
+
+출처: [카바조 5년+ 공고](https://www.wanted.co.kr/wd/230969) · [와디즈 Java 공고](https://www.wanted.co.kr/wd/7883) · [카카오뱅크 K8s 5년+](https://www.bzpp.co.kr/biz/businessDetailView/BR250404A00376) · [Kotlin 채용 목록(사람인)](https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_kewd=243) · [Rust 공고 목록(오퍼센트)](https://www.offercent.co.kr/list?keywords=Rust) · [Stack Overflow Survey 2025](https://survey.stackoverflow.co/2025/technology) · [백엔드 채용공고 역량 분석](https://brunch.co.kr/@13335218e68a4e8/99) · [경력기술서 작성법 2026](https://blog.searchright.net/developer-career-description-examples/)
+
 ---
 
 ## 연결 지도
