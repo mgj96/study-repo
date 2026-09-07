@@ -68,6 +68,7 @@ https://mgj96.github.io/study-repo/unity/concept
 https://mgj96.github.io/study-repo/unity/qna
 https://mgj96.github.io/study-repo/unity/deep-gc
 https://mgj96.github.io/study-repo/interview/explain-your-code
+https://mgj96.github.io/study-repo/math/fem-and-linear-algebra
 ```
 
 ---
@@ -102,6 +103,7 @@ https://mgj96.github.io/study-repo/interview/explain-your-code
 | Unity Q&A | [열기](https://mgj96.github.io/study-repo/unity/qna) |
 | 🔬 Unity GC 내부 | [열기](https://mgj96.github.io/study-repo/unity/deep-gc) |
 | 면접 · 코드 설명 | [열기](https://mgj96.github.io/study-repo/interview/explain-your-code) |
+| 📐 FEM의 수학 (Ax=b) | [열기](https://mgj96.github.io/study-repo/math/fem-and-linear-algebra) |
 
 ---
 
@@ -197,6 +199,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/unity/concept.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/unity/qna.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/unity/deep-gc.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/interview/explain-your-code.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/fem-and-linear-algebra.md
 ```
 
 _새 노트가 생기면 위 사이트 링크·Raw 블록에 한 줄씩만 추가._

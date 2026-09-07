@@ -97,6 +97,13 @@ export default withMermaid(defineConfig({
         ],
       },
       {
+        text: '📐 수학',
+        collapsed: false,
+        items: [
+          { text: 'FEM의 수학 (Ax=b가 되는 이유)', link: '/math/fem-and-linear-algebra' },
+        ],
+      },
+      {
         text: '🧮 CS 핵심',
         collapsed: false,
         items: [
