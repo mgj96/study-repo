@@ -1,154 +1,57 @@
-# study-repo
+# study-repo — 개발 학습 노트
 
-AI 도구를 적극적으로 활용하는 개발자의 지식 창고.  
-Claude Code와 함께 학습하고, 논의한 내용을 정리한다.
+[![Live Site](https://img.shields.io/badge/📖_Live_Site-mgj96.github.io%2Fstudy--repo-D97757?style=for-the-badge)](https://mgj96.github.io/study-repo/)
 
----
+**▶ 웹으로 보기: <https://mgj96.github.io/study-repo/>** (GitHub Pages · `main` 푸시 시 자동 배포)
 
-## 구조
-
-```
-study-repo/
-  learning-path.md 바닥(Big-O)부터 LLM까지 학습 순서 지도 ★시작점
-  algorithms/      알고리즘 정석 (Big-O부터, 직접 풀 문제 포함)
-  llm/             LLM 이해와 활용
-  concepts/        LLM 핵심 개념 학습문서 (정렬·MoE 등)
-  papers/          검증된 논문 리스트 (인용·발췌)
-  cs-fundamentals/ CS 기초 — 하드웨어를 의식하는 사고
-  conventions/     찾기 좋은 코드 = 좋은 아키텍처·명명
-  tradeoffs/       정답은 없다 — 실무 경험담·대체 방식
-  github-actions/  GitHub Actions 심화
-  obsidian/        지식 관리 방법론
-```
+AI 도구를 적극적으로 활용하는 개발자의 지식 창고.
+Claude Code와 논의하며 내용을 결정하고, 합의된 결과를 VitePress 사이트로 배포한다.
 
 ---
 
-## 🧭 시작점 — 학습 로드맵
+## 📂 구조 — 사이트 본체는 `study/`
 
-| 문서 | 내용 |
-|------|------|
-| [learning-path.md](learning-path.md) | 바닥(수학·Big-O)부터 LLM 내부까지 단계별 순서. **여기부터 보세요** |
+VitePress로 빌드되는 콘텐츠는 전부 [`study/`](study/) 아래에 있다. 웹이 아니라 GitHub 화면에서 훑을 때는 아래 지도를 따라간다.
 
-## 알고리즘 정석 (algorithms/)
+| 폴더/문서 | 내용 |
+|---|---|
+| [study/coding-test/](study/coding-test/) | **코딩테스트 유형 훈련** — 실전 기출 복기 2편 + 유형 드릴 11편 + org.json 치트시트 (Lv2~Lv3 초입). 폴더 안 README가 색인 |
+| [study/coding-test-2week.md](study/coding-test-2week.md) | 코딩테스트 2주 압축 로드맵 (Java) |
+| [study/interview/](study/interview/) | 면접 대비 — 코드 설명 프레임워크 등 |
+| [study/backend-roadmap.md](study/backend-roadmap.md) | 백엔드 심화 로드맵 + 5~7년차 언어 전략(§6)·채용시장 조사(§6.1) |
+| [study/cs/](study/cs/) | CS 딥다이브 — JMM, 메모리, 네트워크 등 |
+| [study/lang/](study/lang/) | 언어 — Java 품질 게이트, Kotlin(for Java devs), IDE·에이전트 도구 전략 |
+| [study/architecture/](study/architecture/) | 아키텍처·설계 원칙 |
+| [study/ai-ml/](study/ai-ml/) | AI·ML 이해 |
+| [study/graphics/](study/graphics/) · [study/unity/](study/unity/) | 그래픽스 · Unity/GC |
+| [study/engineering-concepts-map.md](study/engineering-concepts-map.md) | 개념 연결 지도 (트레이드오프 렌즈) |
+| [study/roadmap.md](study/roadmap.md) | 관심사 기반 로드맵 (ML·그래픽스) |
 
-| 문서 | 내용 |
-|------|------|
-| [Big-O 표기](algorithms/big-o-notation.md) | 정의·단순화 규칙·분석법·함정 + **직접 풀어보기 문제** |
+## 🎧 NotebookLM으로 학습하기
 
-## 언어 (languages/)
+- **소스 등록**: [study/notebooklm-sources.md](study/notebooklm-sources.md) — 사이트 링크와 raw 링크가 카테고리별로 정리돼 있어 NotebookLM에 바로 붙여넣는다.
+- 원칙: **이 저장소(git)가 진실의 원천**, NotebookLM은 소비·학습용. 새 노트를 추가하면 위 소스 문서에도 등록한다.
 
-| 문서 | 내용 |
-|------|------|
-| [언어 불문 공통](languages/language-agnostic-fundamentals.md) | 패턴·원칙은 옮겨가고 관용구만 다르다 |
-| [Java ↔ C# ↔ Python + 개발 가이드](languages/java-vs-csharp.md) | 개념→Java→C#→Python 툴팁 비교, 명명·관례, 패턴의 언어별 관용구 |
-
-## LLM 이해와 활용
-
-| 문서 | 내용 |
-|------|------|
-| [LLM이란 무엇인가](llm/what-is-llm.md) | 작동 원리, 토큰, context window, 한계 |
-| [모델별 비교](llm/model-comparison.md) | Copilot, Claude Code, Gemini, Codex — context 크기 & 코드베이스 읽기 방식 |
-| [도구 검색·컨텍스트·용도](llm/tools-search-and-context.md) | 도구별 검색 방식(근접/에이전트/RAG/통째), 컨텍스트량, 용도별 선택 가이드 |
-| [카파시 접근법](llm/karpathy-approach.md) | 밑바닥부터 이해하는 학습 철학 |
-| [코드베이스 분석 방법](llm/codebase-analysis.md) | Claude Code와 작업할 때 알려줘야 할 것들, 실전 프롬프트 패턴 |
-
-## LLM 핵심 개념 (concepts/)
-
-| 문서 | 내용 |
-|------|------|
-| [RLHF / RLAIF 정렬](concepts/rlhf-rlaif-alignment.md) | 모델을 '말 잘 듣게' 만드는 정렬 — SFT→RM→PPO, Constitutional AI, DPO |
-| [MoE (Mixture-of-Experts)](concepts/mixture-of-experts.md) | 적게 켜서 크게 쓰는 구조 — 희소 활성화, 셀프호스팅 메모리 |
-
-## 논문 리스트 (papers/)
-
-| 문서 | 내용 |
-|------|------|
-| [환각·추론·창발](papers/hallucination-reasoning-emergence.md) | 검증된 arXiv 논문 — 왜 환각이 불가피하고 창의와 연결되는지, 추론·창발 |
-
-## CS 기초 (cs-fundamentals/)
-
-| 문서 | 내용 |
-|------|------|
-| [메모리 계층과 지연시간](cs-fundamentals/memory-hierarchy-and-latency.md) | L1~네트워크 지연 직관, 캐시·지역성 |
-| [Scale-up vs Scale-out](cs-fundamentals/scaling-up-vs-out.md) | 수직/수평 확장 트레이드오프, 병목 찾기 |
-| [스케일의 현실 — 중소 4개 회사](cs-fundamentals/scale-reality-small-medium.md) | StackOverflow·37signals·Instagram·PrimeVideo로 보는 "복붙 금지" |
-| [동시성 vs 병렬성](cs-fundamentals/concurrency-vs-parallelism.md) | 구조 vs 실행, 이벤트루프, I/O·CPU 바운드 |
-| [시간복잡도·자료구조](cs-fundamentals/time-complexity-and-data-structures.md) | Big-O 직관, 자료구조 선택, 캐시 친화성 |
-| [프로세스/스레드·OS 기초](cs-fundamentals/process-thread-os-basics.md) | 컨텍스트 스위치 비용, 가상메모리·스왑 |
-| [네트워크 기초](cs-fundamentals/networking-basics.md) | 지연 vs 대역폭, 왕복 비용 줄이기 |
-
-## 아키텍처·규칙 (conventions/)
-
-| 문서 | 내용 |
-|------|------|
-| [Findability-Driven Design](conventions/findability-driven-design.md) | 찾기 좋은 코드 = 좋은 아키텍처(FSD·DDD)·명명 → CLAUDE.md |
-| [단순함 원칙 (YAGNI 등)](conventions/simplicity-principles.md) | YAGNI·KISS·Gall's Law — 단순하게, 판단은 사람이 |
-
-## 사고법 (thinking/)
-
-| 문서 | 내용 |
-|------|------|
-| [추론 기법](thinking/reasoning-methods.md) | 연역·귀납·가추·first-principles + LLM 시대 사고력 유지(검증 중심) |
-
-## 퀴즈 (quizzes/)
-
-| 문서 | 내용 |
-|------|------|
-| [동시성·락·네트워크](quizzes/concurrency-locking-network.md) | 오늘치 정리 + 팁/함정 + 추가예제 + 퀴즈10문항(정답 포함). NotebookLM 자가테스트용 |
-
-## 실무 트레이드오프 (tradeoffs/)
-
-| 문서 | 내용 |
-|------|------|
-| [정답은 없다 — 경험담·대체 방식](tradeoffs/no-single-right-answer.md) | Redis→DB 행락, MSA→모놀리스, 인덱스·캐시·UUID 등 10가지 통념 점검 |
-| [트레이드오프 읽는 법 + 지표](tradeoffs/reading-tradeoffs-and-metrics.md) | 무엇을 얻고 잃나, 지표는 수단(Goodhart)·측정 먼저(Knuth) |
-
-## GitHub Actions 심화
-
-| 문서 | 내용 |
-|------|------|
-| [Reusable Workflows](github-actions/reusable-workflows.md) | 워크플로우를 함수처럼 재사용 — caller/called 구조, 실제 리팩토링 사례 |
-| [PR 자동 리뷰 봇](github-actions/pr-review-bot.md) | LLM이 PR diff를 자동 리뷰 — 모델/빈도/체크기준, 보안, hallucination 실전 사례 |
-
-## Obsidian & 지식 관리
-
-| 문서 | 내용 |
-|------|------|
-| [Obsidian이란](obsidian/what-is-obsidian.md) | 마크다운 기반 지식 관리 도구 |
-| [LLM으로 지식 유지하기](obsidian/llm-knowledge-management.md) | LLM 기억 없음 문제 해결법 |
-| [링크 가이드](obsidian/linking-guide.md) | 이 레포의 노트 연결 방식 |
-
----
-
-## 학습 순서 추천
-
-1. [LLM이란 무엇인가](llm/what-is-llm.md) — 기반 개념
-2. [카파시 접근법](llm/karpathy-approach.md) — 학습 철학
-3. [모델별 비교](llm/model-comparison.md) — 도구 선택
-4. [코드베이스 분석 방법](llm/codebase-analysis.md) — 실전 활용
-5. [LLM으로 지식 유지하기](obsidian/llm-knowledge-management.md) — 지식 누적
-
----
-
-## NotebookLM에 넣어 학습하기
-
-이 레포의 .md를 Google **NotebookLM**(마크다운 공식 지원)에 올려 질문·요약·오디오 학습에 쓴다.
-
-**분리 단위 = 카테고리.** 폴더 1개 → 번들 .md 1개 → NotebookLM 소스 1개.
-(NotebookLM 제한: 소스 50개 / 소스당 50만 단어. 카테고리로 묶으면 관련 지식이 한 소스에
-모이고, 문서를 추가해도 그 번들만 커진다 → 확장성 좋음.)
+## 🛠 로컬 빌드
 
 ```bash
-bash scripts/bundle-for-notebooklm.sh   # dist/notebooklm/<카테고리>.md 생성
-# → dist/notebooklm/ 의 .md들을 NotebookLM에 업로드
+npm install
+npm run docs:dev      # 로컬 미리보기
+npm run docs:build    # 프로덕션 빌드 (study/.vitepress/dist)
 ```
 
-**맥에서 딸깍(더블클릭):** `notebooklm-bundle.command` 더블클릭 →
-최신화 + 번들 생성 + 폴더 열기까지 한 번에. (첫 실행만 우클릭→"열기")
+배포는 `.github/workflows/deploy.yml`이 `main` 푸시마다 자동 수행한다.
 
-> study-repo(.md, git 버전관리)가 **진실의 원천**, NotebookLM은 소비·학습용.
-> 새 작업은 요약해서 해당 카테고리 .md에 추가 → 스크립트 재실행 → 재업로드.
+## 📜 운영 규칙
+
+- 작성 규칙: [study/CONVENTIONS.md](study/CONVENTIONS.md) · [study/writing-guide.md](study/writing-guide.md)
+- 작업 현황 인수인계: `HANDOVER.md` (있다면 먼저 읽기)
+- 노트 형식: **① 결론(WHAT) → ② 원리(HOW) → ③ 확장(TRADE-OFF)** 3단 구조, 근거는 출처 링크로
+
+## 🗄 레거시 폴더
+
+루트의 `algorithms/`, `llm/`, `concepts/`, `cs-fundamentals/`, `conventions/`, `tradeoffs/`, `github-actions/`, `obsidian/`, `papers/`, `quizzes/`, `thinking/`, `languages/`는 **VitePress 이전(사이트 미포함) 시절의 노트**다. 내용 참고는 가능하지만 최신 정리는 전부 `study/`에서 이루어진다. NotebookLM 번들 스크립트(`scripts/bundle-for-notebooklm.sh`)도 이 레거시 구조 기준의 구버전이다.
 
 ---
 
-> Claude Code와 논의하며 내용을 결정하고, 합의된 내용을 이 레포에 저장하는 방식으로 운영.
+> 운영 방식: Claude Code와 논의 → 합의된 내용을 노트로 저장 → 커밋·푸시 → 자동 배포 → 라이브 확인.
