@@ -100,6 +100,8 @@ export default withMermaid(defineConfig({
         text: '📐 수학',
         collapsed: false,
         items: [
+          { text: '이산수학 (코테의 족보)', link: '/math/discrete-math-for-coders' },
+          { text: '선형대수 (행렬 = 변환)', link: '/math/linear-algebra-essentials' },
           { text: 'FEM의 수학 (Ax=b가 되는 이유)', link: '/math/fem-and-linear-algebra' },
         ],
       },
