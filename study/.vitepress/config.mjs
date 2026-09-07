@@ -102,6 +102,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '이산수학 (코테의 족보)', link: '/math/discrete-math-for-coders' },
           { text: '선형대수 (행렬 = 변환)', link: '/math/linear-algebra-essentials' },
+          { text: '확률통계 (평균을 의심하는 기술)', link: '/math/probability-statistics-essentials' },
           { text: 'FEM의 수학 (Ax=b가 되는 이유)', link: '/math/fem-and-linear-algebra' },
         ],
       },

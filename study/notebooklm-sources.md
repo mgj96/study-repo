@@ -71,6 +71,7 @@ https://mgj96.github.io/study-repo/interview/explain-your-code
 https://mgj96.github.io/study-repo/math/fem-and-linear-algebra
 https://mgj96.github.io/study-repo/math/discrete-math-for-coders
 https://mgj96.github.io/study-repo/math/linear-algebra-essentials
+https://mgj96.github.io/study-repo/math/probability-statistics-essentials
 ```
 
 ---
@@ -108,6 +109,7 @@ https://mgj96.github.io/study-repo/math/linear-algebra-essentials
 | 📐 FEM의 수학 (Ax=b) | [열기](https://mgj96.github.io/study-repo/math/fem-and-linear-algebra) |
 | 📐 이산수학 (코테의 족보) | [열기](https://mgj96.github.io/study-repo/math/discrete-math-for-coders) |
 | 📐 선형대수 (행렬 = 변환) | [열기](https://mgj96.github.io/study-repo/math/linear-algebra-essentials) |
+| 📐 확률통계 (평균 의심) | [열기](https://mgj96.github.io/study-repo/math/probability-statistics-essentials) |
 
 ---
 
@@ -206,6 +208,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/interview/explain-
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/fem-and-linear-algebra.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/discrete-math-for-coders.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/linear-algebra-essentials.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/probability-statistics-essentials.md
 ```
 
 _새 노트가 생기면 위 사이트 링크·Raw 블록에 한 줄씩만 추가._
