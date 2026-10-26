@@ -148,6 +148,7 @@ export default withMermaid(defineConfig({
           { text: '🔬 온프레미스와 클라우드', link: '/architecture/deep-onprem-and-cloud' },
           { text: '🔬 콘웨이 법칙과 AI 에이전트', link: '/architecture/deep-conway-and-ai-agents' },
           { text: '🔬 AI 시대 검증·내재화·구조 유지', link: '/architecture/deep-ai-era-verification' },
+          { text: '🔬 검증의 시대 (pstack·MR 3만 건 머지)', link: '/architecture/deep-verification-era-pstack-and-merge-at-scale' },
         ],
       },
       {

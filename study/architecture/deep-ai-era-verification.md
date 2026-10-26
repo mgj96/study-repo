@@ -142,6 +142,7 @@ AI 시대에 구조 개선이 더 중요해지는 이유: 코드는 빨리 늘�
 ## 연결
 
 - 조직 구조 쪽 짝: [콘웨이 법칙과 AI 에이전트](deep-conway-and-ai-agents.md)
+- 다음 단계(pstack·머지 처리량): [검증의 시대 — pstack과 MR 3만 건 머지](deep-verification-era-pstack-and-merge-at-scale.md)
 - 경계의 근거: [모듈성 이론](deep-modularity-theory.md)
 - 유지의 도구: [품질 게이트·팀 코드 표준](../lang/java/quality-gates-and-standards.md) · [테스트 전략](../lang/java/deep-testing-strategy.md)
 - 측정의 언어: [성능 공학](../cs/deep-performance-engineering.md) · [확률통계](../math/probability-statistics-essentials.md)
