@@ -95,7 +95,9 @@ AI 시대에 구조 개선이 더 중요해지는 이유: 코드는 빨리 늘�
 | 지불하는 것 | 같이 배포·같이 죽음 | 네트워크 실패·정합성·운영 복잡도 |
 | 선택 기준 | 팀이 작고 경계가 아직 흔들릴 때 | 경계가 안정적이고 격리 이득이 분명할 때 |
 
-> **용어 함정**: 둘은 반대 방향의 결정이다. 문서·면접에서 "모듈화했다"고 말할 때 **어느 쪽인지 한 문장으로 못 박지 않으면** 질문 하나에 무너진다. ([모듈성 이론](deep-modularity-theory.md): 경계의 근거는 변경 이유와 응집)
+> **용어 함정**: 둘은 서로 **다른 배포 단위의 결정**이다. 문서·면접에서 "모듈화했다"고 말할 때 **어느 쪽인지 한 문장으로 못 박지 않으면** 질문 하나에 무너진다. ([모듈성 이론](deep-modularity-theory.md): 경계의 근거는 변경 이유와 응집)
+
+**단계적 경로도 흔하다**: 둘은 대안이면서 동시에 **순서**가 될 수 있다 — 모듈러 모놀리스로 경계를 먼저 만들고 테스트·CI로 검증한 뒤, 격리 이득이 분명한 부분만 서비스로 떼어낸다. 경계가 틀렸을 때 고치는 비용은 서비스로 뗀 뒤가 훨씬 크기 때문이다. 대표 사례로 Shopify는 핵심을 하나의 애플리케이션으로 두고 컴포넌트 경계를 정적 분석(Packwerk)으로 강제하며 **점진적으로** 경계를 만들어 갔다(2017~). 다만 "필요한 모듈만 추출한다"는 부분은 2차 요약만 확인했고 1차 출처로는 검증하지 못했다. 이 경로의 결과물은 흔히 **"전체 MSA"가 아니라 "모듈러 모놀리스를 본체로 둔 일부 서비스 분리 하이브리드"**다 — 하이브리드를 MSA라고 부르면 과장이 된다.
 
 ### 4.3 유지 — 한 번 바꾸고 끝이 아니다
 
@@ -113,7 +115,7 @@ AI 시대에 구조 개선이 더 중요해지는 이유: 코드는 빨리 늘�
 
 - **① 결론 · WHAT** — AI로 구현 비용이 급락하면서 병목은 **검증**으로 옮겨갔다. 그래서 같은 수준에 머물지 않는 방법은 "더 많이 쓰기"가 아니라 **판별 전문성 + 테스트 구조**를 갖추고 도전 범위를 넓히는 것이다.
 - **② 원리 · HOW** — 검증은 3층: 오라클(비교할 정답) → 고정 후 변경(현재 동작 박제) → 측정(주장과 증거 분리, 확인/미확인 구분 기록). AI 사용은 개인 요령이 아니라 **규칙 파일·프롬프트 방식·검증 절차를 문서로 고정**해 도구가 바뀌어도 품질이 유지되게 한다. 구조 변경은 **고정 → 변경 → CI로 유지** 순서다.
-- **③ 확장 · TRADE-OFF** — 검증은 공짜가 아니다: 오라클이 없는 영역은 속성 테스트로 간접 검증할 수밖에 없고, 테스트 통과는 **스위트가 잡는 범위까지만** 보장한다(pgrust의 직렬 러너 지적). 구조 분리는 격리를 얻는 대신 네트워크·정합성·운영 비용을 낸다 — 모듈러 모놀리스와 서비스 분리는 **반대 방향의 결정**이라 용어부터 정확해야 한다.
+- **③ 확장 · TRADE-OFF** — 검증은 공짜가 아니다: 오라클이 없는 영역은 속성 테스트로 간접 검증할 수밖에 없고, 테스트 통과는 **스위트가 잡는 범위까지만** 보장한다(pgrust의 직렬 러너 지적). 구조 분리는 격리를 얻는 대신 네트워크·정합성·운영 비용을 낸다 — 모듈러 모놀리스와 서비스 분리는 **배포 단위가 다른 결정**이고 단계적으로 이어 쓰는 경로도 흔하므로, 지금 어느 단계인지 용어부터 정확해야 한다.
 
 ## 용어 사전 (영 ↔ 한)
 
@@ -138,6 +140,7 @@ AI 시대에 구조 개선이 더 중요해지는 이유: 코드는 빨리 늘�
 - pgrust: [Better Stack — PGRust: A Rust Rewrite of PostgreSQL That Passes All Regression Tests](https://betterstack.com/community/guides/databases/pgrust-postgres/) · [Vonng — Did AI Rewrite PostgreSQL in Rust? Not Quite](https://vonng.com/en/ai/rewrite-pg-in-rust/) · [LinuxCompatible — PgRust: AI-Coded Rust Rewrite Passes 100% of Tests](https://www.linuxcompatible.org/story/pgrust-aicoded-rust-rewrite-of-postgresql-passes-of-tests/) — 저자·기간·공개일은 매체마다 불일치, 미확인 처리
 - Strangler Fig: [Fowler — Using the Strangler Fig with Mobile Apps](https://martinfowler.com/articles/strangler-fig-mobile-apps.html) · [AWS Prescriptive Guidance — The strangler fig pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-aspnet-web-services/fig-pattern.html)
 - Anti-Corruption Layer: [Azure Architecture Center — Anti-Corruption Layer pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer)
+- 모듈러 모놀리스의 점진적 경계 강제: [Under Deconstruction: The State of Shopify's Monolith (engineering.fyi 재게시)](https://www.engineering.fyi/article/under-deconstruction-the-state-of-shopify-s-monolith) — Shopify Engineering 글의 재게시본이며, 추출 관련 세부는 2차 요약 수준
 
 ## 연결
 
