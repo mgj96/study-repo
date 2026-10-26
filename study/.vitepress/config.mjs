@@ -147,6 +147,7 @@ export default withMermaid(defineConfig({
           { text: '🔬 모듈성 이론 (경계의 근거)', link: '/architecture/deep-modularity-theory' },
           { text: '🔬 온프레미스와 클라우드', link: '/architecture/deep-onprem-and-cloud' },
           { text: '🔬 콘웨이 법칙과 AI 에이전트', link: '/architecture/deep-conway-and-ai-agents' },
+          { text: '🔬 AI 시대 검증·내재화·구조 유지', link: '/architecture/deep-ai-era-verification' },
         ],
       },
       {
