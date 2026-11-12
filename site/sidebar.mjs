@@ -1,0 +1,420 @@
+// 사이트 왼쪽 메뉴. 새 문서를 메뉴에 넣으려면 여기에 한 줄 추가한다.
+// 세부 심화 문서는 일부러 넣지 않는다 (study/CONVENTIONS.md 1.7절).
+// link는 study/ 기준 경로에서 .md를 뺀 것. collapsed: true면 처음에 접힌 상태.
+
+export const topNav = [
+  {
+    "text": "홈",
+    "link": "/"
+  },
+  {
+    "text": "로드맵",
+    "link": "/roadmap"
+  },
+  {
+    "text": "CS",
+    "link": "/cs/concept"
+  },
+  {
+    "text": "GitHub",
+    "link": "https://github.com/mgj96/study-repo"
+  }
+];
+
+export const sidebar = [
+  {
+    "text": "🗺️ 상위 · 계획",
+    "items": [
+      {
+        "text": "학습 로드맵",
+        "link": "/roadmap"
+      },
+      {
+        "text": "개념 지도 (6렌즈)",
+        "link": "/engineering-concepts-map"
+      },
+      {
+        "text": "그래픽스 ↔ ML",
+        "link": "/graphics-vs-ml"
+      },
+      {
+        "text": "형식 표준 (CONVENTIONS)",
+        "link": "/CONVENTIONS"
+      },
+      {
+        "text": "✍️ 글쓰기 가이드",
+        "link": "/writing-guide"
+      },
+      {
+        "text": "NotebookLM 소스",
+        "link": "/notebooklm-sources"
+      }
+    ]
+  },
+  {
+    "text": "🧠 AI · 머신러닝",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "개념 노트",
+        "link": "/ai-ml/concept"
+      },
+      {
+        "text": "신경망 종류 한눈에",
+        "link": "/ai-ml/nn-types"
+      },
+      {
+        "text": "학습 신호·라벨·확증편향",
+        "link": "/ai-ml/learning-signal"
+      },
+      {
+        "text": "모델 편집·보안(심기)",
+        "link": "/ai-ml/model-editing-and-security"
+      },
+      {
+        "text": "ML 커리큘럼",
+        "link": "/ai-ml/ml-curriculum"
+      },
+      {
+        "text": "자바 개발자를 위한 ML",
+        "link": "/ai-ml/for-java-devs"
+      },
+      {
+        "text": "암기 Q&A",
+        "link": "/ai-ml/qna"
+      },
+      {
+        "text": "🔬 심화 (딥다이브)",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "어텐션·트랜스포머 (논문)",
+            "link": "/ai-ml/deep-attention"
+          },
+          {
+            "text": "역전파 수학",
+            "link": "/ai-ml/deep-neural-backprop"
+          },
+          {
+            "text": "RNN·LSTM (어텐션 이전)",
+            "link": "/ai-ml/deep-rnn"
+          },
+          {
+            "text": "토큰화·임베딩",
+            "link": "/ai-ml/deep-embedding"
+          },
+          {
+            "text": "깊이·층별 특화·제어·YOLO",
+            "link": "/ai-ml/deep-layers-and-yolo"
+          },
+          {
+            "text": "YOLO vs SAM 2 (제로샷·모션)",
+            "link": "/ai-ml/deep-yolo-vs-sam"
+          },
+          {
+            "text": "X 랭킹 알고리듬 (원문 대조)",
+            "link": "/ai-ml/deep-x-ranking-algorithm"
+          }
+        ]
+      },
+      {
+        "text": "검색 기록",
+        "link": "/ai-ml/research-log"
+      }
+    ]
+  },
+  {
+    "text": "🎨 컴퓨터 그래픽스",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "개념 노트",
+        "link": "/graphics/concept"
+      },
+      {
+        "text": "자바 개발자를 위한 그래픽스",
+        "link": "/graphics/for-java-devs"
+      },
+      {
+        "text": "암기 Q&A",
+        "link": "/graphics/qna"
+      },
+      {
+        "text": "🔬 렌더링 수학",
+        "link": "/graphics/deep-rendering-math"
+      },
+      {
+        "text": "검색 기록",
+        "link": "/graphics/research-log"
+      }
+    ]
+  },
+  {
+    "text": "📐 수학",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "이산수학 (코테의 족보)",
+        "link": "/math/discrete-math-for-coders"
+      },
+      {
+        "text": "선형대수 (행렬 = 변환)",
+        "link": "/math/linear-algebra-essentials"
+      },
+      {
+        "text": "확률통계 (평균을 의심하는 기술)",
+        "link": "/math/probability-statistics-essentials"
+      },
+      {
+        "text": "FEM의 수학 (Ax=b가 되는 이유)",
+        "link": "/math/fem-and-linear-algebra"
+      }
+    ]
+  },
+  {
+    "text": "🧮 CS 핵심",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "개념 (Big-O·추상화)",
+        "link": "/cs/concept"
+      },
+      {
+        "text": "CS 근간 (컴퓨터 원리)",
+        "link": "/cs/cs-foundations"
+      },
+      {
+        "text": "🔬 근간 딥다이브 (top 6)",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "메모리 계층·캐시",
+            "link": "/cs/deep-memory-hierarchy"
+          },
+          {
+            "text": "JMM (volatile vs synchronized)",
+            "link": "/cs/deep-jmm"
+          },
+          {
+            "text": "Redis 캐시·분산 락",
+            "link": "/cs/deep-redis-cache-and-lock"
+          },
+          {
+            "text": "분산 정합성 (멱등성·Outbox)",
+            "link": "/cs/deep-distributed-consistency"
+          },
+          {
+            "text": "gRPC 멱등성·fan-out·가십",
+            "link": "/cs/deep-grpc-idempotency-and-fanout"
+          },
+          {
+            "text": "성능 공학 (p99·Little's Law)",
+            "link": "/cs/deep-performance-engineering"
+          },
+          {
+            "text": "트랜잭션 격리·락 심화",
+            "link": "/cs/deep-transaction-and-lock"
+          },
+          {
+            "text": "HashMap 내부",
+            "link": "/cs/deep-hashmap"
+          },
+          {
+            "text": "가상 메모리·페이징",
+            "link": "/cs/deep-virtual-memory"
+          },
+          {
+            "text": "B+트리 DB 인덱스",
+            "link": "/cs/deep-btree-index"
+          },
+          {
+            "text": "부동소수 (IEEE 754)",
+            "link": "/cs/deep-floating-point"
+          }
+        ]
+      },
+      {
+        "text": "자바로 보는 자료구조",
+        "link": "/cs/data-structures-java"
+      },
+      {
+        "text": "자료구조 딥다이브 (내부동작)",
+        "link": "/cs/data-structures-deep"
+      },
+      {
+        "text": "GC 함정 (주장 vs 실제)",
+        "link": "/cs/gc-gotchas"
+      },
+      {
+        "text": "웹 통신 (SOAP·REST·JSON…)",
+        "link": "/cs/web-communication"
+      },
+      {
+        "text": "Q&A · 운영체제",
+        "link": "/cs/qna/os"
+      },
+      {
+        "text": "Q&A · 네트워크",
+        "link": "/cs/qna/network"
+      },
+      {
+        "text": "Q&A · 데이터베이스",
+        "link": "/cs/qna/database"
+      },
+      {
+        "text": "Q&A · 자료구조·알고리즘",
+        "link": "/cs/qna/ds-algorithm"
+      }
+    ]
+  },
+  {
+    "text": "🏛️ 아키텍처",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "설계 — 개념 노트",
+        "link": "/architecture/concept"
+      },
+      {
+        "text": "🔬 모듈성 이론 (경계의 근거)",
+        "link": "/architecture/deep-modularity-theory"
+      },
+      {
+        "text": "🔬 온프레미스와 클라우드",
+        "link": "/architecture/deep-onprem-and-cloud"
+      },
+      {
+        "text": "🔬 콘웨이 법칙과 AI 에이전트",
+        "link": "/architecture/deep-conway-and-ai-agents"
+      },
+      {
+        "text": "🔬 AI 시대 검증·내재화·구조 유지",
+        "link": "/architecture/deep-ai-era-verification"
+      },
+      {
+        "text": "🔬 검증의 시대 (pstack·3만 건 머지·소프트웨어 팩토리)",
+        "link": "/architecture/deep-verification-era-pstack-and-merge-at-scale"
+      },
+      {
+        "text": "🔬 운영 중인 구조 바꾸기 (전환 사례)",
+        "link": "/architecture/deep-migration-case-studies"
+      }
+    ]
+  },
+  {
+    "text": "💬 언어",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "언어 비교 (C++·Java·C#)",
+        "link": "/lang/language-comparison"
+      },
+      {
+        "text": "Kotlin · 자바 개발자용",
+        "link": "/lang/kotlin-for-java-devs"
+      },
+      {
+        "text": "개발 도구 전략 (IDE·AI 에이전트)",
+        "link": "/lang/ide-and-agent-tooling"
+      },
+      {
+        "text": "Java · 개념",
+        "link": "/lang/java/concept"
+      },
+      {
+        "text": "Java · 타입/박싱",
+        "link": "/lang/java/types-boxing"
+      },
+      {
+        "text": "Java · 디자인 패턴",
+        "link": "/lang/java/design-patterns"
+      },
+      {
+        "text": "🔬 Spring 트랜잭션 내부",
+        "link": "/lang/java/deep-spring-transaction"
+      },
+      {
+        "text": "🔬 테스트 전략",
+        "link": "/lang/java/deep-testing-strategy"
+      },
+      {
+        "text": "🔬 품질 게이트·팀 코드 표준",
+        "link": "/lang/java/quality-gates-and-standards"
+      },
+      {
+        "text": "Java · Q&A",
+        "link": "/lang/java/qna"
+      },
+      {
+        "text": "C# · 개념",
+        "link": "/lang/csharp/concept"
+      },
+      {
+        "text": "C# · Q&A",
+        "link": "/lang/csharp/qna"
+      }
+    ]
+  },
+  {
+    "text": "🎮 Unity",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "개념 (GC)",
+        "link": "/unity/concept"
+      },
+      {
+        "text": "암기 Q&A",
+        "link": "/unity/qna"
+      },
+      {
+        "text": "🔬 GC 내부 (공식문서)",
+        "link": "/unity/deep-gc"
+      }
+    ]
+  },
+  {
+    "text": "🎯 면접 · 이직",
+    "collapsed": false,
+    "items": [
+      {
+        "text": "코딩테스트 2주 압축 (Java)",
+        "link": "/coding-test-2week"
+      },
+      {
+        "text": "🔬 실전 기출 복기 · 치트시트",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "★기출 이진 문자열 조합 개수",
+            "link": "/coding-test/binary-distinct-combinations"
+          },
+          {
+            "text": "★기출 REST API 페이지네이션",
+            "link": "/coding-test/rest-api-pagination"
+          },
+          {
+            "text": "Sherlock and Anagrams",
+            "link": "/coding-test/sherlock-and-anagrams"
+          },
+          {
+            "text": "중복 없는 최장 부분문자열",
+            "link": "/coding-test/longest-unique-substring"
+          },
+          {
+            "text": "📋 org.json 치트시트",
+            "link": "/coding-test/org-json-cheatsheet"
+          }
+        ]
+      },
+      {
+        "text": "백엔드 심화 로드맵 (역량 갭 · 언어 전략)",
+        "link": "/backend-roadmap"
+      },
+      {
+        "text": "코드 설명 프레임워크",
+        "link": "/interview/explain-your-code"
+      }
+    ]
+  }
+];

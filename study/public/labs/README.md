@@ -4,7 +4,7 @@
 정적 HTML/JS로 자체 완결되며, 노트에 코드 의존이 없습니다(링크만).
 
 ## 현재
-- 위치: `study/public/labs/` — VitePress가 그대로 서빙.
+- 위치: `study/public/labs/` — 빌드 때 사이트에 그대로 복사돼 서빙된다.
 - URL: `https://mgj96.github.io/study-repo/labs/` (인덱스) · `.../labs/cs-playground.html`
 - 파일:
   - `index.html` — 실험 목록(도메인 진입점)
@@ -13,7 +13,7 @@
 ## 경계 규칙 (분리를 쉽게 유지)
 1. **자체 완결**: 각 실험은 외부 리소스 없이 단일 HTML(inline CSS/JS).
 2. **노트 → 실험**은 절대 URL 링크로만. **실험 → 노트**도 절대 URL로만.
-3. 공유 빌드/상태 없음. VitePress 빌드에 의존하지 않음.
+3. 공유 빌드/상태 없음. 사이트 빌드에 의존하지 않음.
 
 ## 나중에 별도 레포로 분리하려면
 1. 이 `labs/` 폴더를 새 레포(예: `study-labs`)로 이동

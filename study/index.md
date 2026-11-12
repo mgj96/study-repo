@@ -45,10 +45,10 @@ features:
 
 ## 이 사이트는?
 
-GitHub 저장소 [`mgj96/study-repo`](https://github.com/mgj96/study-repo)의 마크다운 노트를 **VitePress**로 자동 렌더링한 학습 사이트입니다.
+GitHub 저장소 [`mgj96/study-repo`](https://github.com/mgj96/study-repo)의 마크다운 노트를 **Next.js + Meta Astryx 디자인 시스템**으로 자동 렌더링한 학습 사이트입니다.
 
 - 📝 **소스는 마크다운** — 저장소에 `git push`하면 자동으로 이 사이트가 갱신됩니다.
-- 🔎 좌측 사이드바 · 우측 목차 · 상단 **검색** · **다크모드** 지원.
+- 🔎 좌측 메뉴 · 우측 목차 · 상단 **검색(Ctrl/⌘+K)** · **다크모드** 지원.
 - 📱 폰·PC 어디서든 열람.
 
 > 작성 원칙: **쉽게(12살 눈높이)** → 필요하면 **논문 수준 딥다이브(🔬)**. Q&A는 항상 **① 결론 · ② 원리 · ③ 확장**.

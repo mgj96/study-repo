@@ -8,7 +8,7 @@
 
 ## 0. 이 저장소가 뭔가
 - **개발 학습 노트**(CS · ML · 그래픽스 · 언어 · 면접)를 마크다운으로 정리한 저장소.
-- **VitePress**로 빌드해 **GitHub Actions → GitHub Pages**에 자동 배포.
+- **Next.js(정적 내보내기) + Meta Astryx 디자인 시스템**으로 빌드해 **GitHub Actions → GitHub Pages**에 자동 배포. (2026-11에 VitePress에서 이전)
 - 라이브: **https://mgj96.github.io/study-repo/**
 - 소스: `github.com/mgj96/study-repo`
 - 같은 md 하나가 **사이트 + NotebookLM 소스** 둘 다로 쓰인다.
@@ -46,13 +46,13 @@
 ---
 
 ## 2. 🚫 반복하면 안 되는 실수 (이번 세션에서 실제로 겪음)
-1. **마크다운 본문의 꺾쇠 `<`** — 코드/백틱 밖의 `<Integer>`, `O(1)<O(n)` 는 VitePress(Vue)가 HTML 태그로 오해해 **빌드 실패**. → 제네릭·부등호는 항상 백틱: `` `List<Integer>` ``.
+1. **마크다운 본문의 꺾쇠 `<`·HTML 태그** — Astryx Markdown은 HTML을 그리지 않는다(`<details>` 접기만 변환해서 지원). 제네릭·부등호는 항상 백틱: `` `List<Integer>` ``. (VitePress 시절엔 이게 빌드 실패 원인이었다.)
 2. **수식** — `$...$`/`$$...$$`(LaTeX, MathJax). 가격 등 **단독 `$`는 `\$`로 이스케이프**.
 3. **GitHub Pages 최초 활성화** — 워크플로 토큰으론 못 켠다. Settings→Pages→Source=**GitHub Actions**로 사람이 1회 수동 설정(이미 완료). `enablement:true`도 권한 없어 실패했었음.
-4. **새 문서 추가 시** `study/.vitepress/config.mjs` sidebar 등록(단, 세부 심화는 일부러 등록 안 함 — 1-4 참고).
+4. **새 문서 추가 시** 메뉴에 넣을 문서만 `site/sidebar.mjs`에 한 줄 등록(세부 심화는 일부러 등록 안 함 — 1-4 참고). 등록하지 않아도 페이지·검색에는 자동으로 나온다.
 5. **파일 이동(`git mv`) 시** 참조 상대경로(`../`, `[x](x.md)`)도 함께 수정.
 6. **헤드리스 브라우저 검증 한계** — 프로그램적 `scrollTo`는 scroll 이벤트를 안 쏘고, `requestAnimationFrame`은 멈춤. 시간 기반 기능은 `setInterval`로, 검증은 이벤트 수동 dispatch로. (labs의 초기 렌더도 rAF에 걸지 말 것 — 백그라운드 탭에서 "–"로 멈춘 실사례 있음)
-7. **`study/` 밖 파일로의 상대 링크** — `study/*.md`에서 저장소 루트의 `papers/`·`tradeoffs/` 등을 `../`로 링크하면 VitePress 빌드 대상 밖이라 **dead link → 빌드 실패**. 2026-08 세션에서 세 번 걸림. 커밋 전 상대 링크 전수 확인.
+7. **`study/` 밖 파일로의 상대 링크** — 사이트에는 `study/`만 올라간다. `../HANDOVER.md`처럼 밖을 가리키면 빌드 때 **GitHub 원문 링크로 자동 변환**된다. (VitePress 시절엔 dead link로 빌드 실패했었다.)
 8. **개인정보 금지** — 이 저장소는 공개 배포된다. 이름·연락처·회사명·발주처를 노트에 넣지 않는다(이력 기반 문서는 기술 상황으로만 번역). 이력서 기반 비공개 자료는 저장소 밖 `~/Documents/interview-prep-private.md`.
 9. **PowerShell 커밋 메시지** — here-string 안의 큰따옴표가 네이티브 인자 전달에서 깨질 수 있다. 커밋 메시지에 `"` 넣지 말 것.
 
@@ -61,8 +61,8 @@
 ## 3. 빌드·배포 파이프라인 (자동)
 ```
 main에 push → GitHub Actions(.github/workflows/deploy.yml)
-  → npm install (vitepress, markdown-it-mathjax3, mermaid, vitepress-plugin-mermaid)
-  → npm run docs:build (= vitepress build study)
+  → npm install (next, react, @astryxdesign/core, theme-neutral, katex, mermaid)
+  → npm run docs:build (= study 정적 파일 복사 + next build site → site/out)
   → Pages 배포 → https://mgj96.github.io/study-repo/
 ```
 - 상태: 저장소 **Actions 탭**. 빌드 실패 시 사이트는 이전 버전 유지.
@@ -74,10 +74,6 @@ main에 push → GitHub Actions(.github/workflows/deploy.yml)
 ## 4. 저장소 구조
 ```
 study/
-├─ .vitepress/config.mjs        사이트 설정(사이드바·검색 한글·mermaid 테마·base=/study-repo/)
-├─ .vitepress/theme/            커스텀 테마
-│   ├─ index.js, custom.css     Pretendard 폰트·Claude 코럴·모바일 표·읽기바
-│   └─ Layout.vue               읽기 진행바 + 도구 FAB(자동스크롤·북마크·이어읽기)
 ├─ index.md                     홈(hero)
 ├─ CONVENTIONS.md               형식·작성·IA 표준 (1.5~1.7절이 핵심 규칙)
 ├─ notebooklm-sources.md        NotebookLM 소스 링크 모음
@@ -98,11 +94,19 @@ CONTRIBUTING.md                 빌드 규칙(편집 전 필독)
 package.json / .github/workflows/deploy.yml
 ```
 
-### 사이트 기능 (Layout.vue / custom.css)
-- 상단 **읽기 진행바**, 우하단 **📖 도구 FAB**(탭하면 펼침): ▶자동읽기(−/+속도)·🔖북마크·📑목록(북마크·이어보기)
-- **보던 스크롤 위치 자동 저장·복원**, **북마크**(localStorage, 기기별)
-- 한글 검색 UI, 다크모드, KaTeX 수식, Mermaid 도식(코럴), 모바일 표 줄바꿈
-- ※ **음성 낭독(TTS)은 제거됨** — 다시 넣지 말 것(사용자 요청으로 삭제).
+### 사이트 (site/ 폴더)
+```
+site/
+├─ sidebar.mjs              왼쪽 메뉴 (새 문서를 메뉴에 넣을 때 여기)
+├─ app/                     Next.js 페이지 (홈, 문서 [...slug])
+├─ components/Shell.tsx     Astryx AppShell·TopNav·SideNav·검색(CommandPalette)·테마 전환
+├─ components/DocView.tsx   Astryx Markdown 본문 + Outline 목차 + Mermaid·KaTeX·접기
+├─ lib/content.ts           study/ md 읽기, 링크 변환, details→접기, 검색 색인
+└─ scripts/copy-static.mjs  study/public·*.html 을 사이트로 복사
+```
+- 디자인: **Meta Astryx**(React 디자인 시스템, `theme-neutral`). 다크모드(시스템/라이트/다크 순환), Ctrl/⌘+K 검색(문서 제목·소제목), 오른쪽 목차, 이전/다음.
+- URL은 VitePress 시절과 같다(`/architecture/concept` 등) — NotebookLM·Gemini 링크 그대로 유효.
+- VitePress 시절 기능(읽기 진행바·자동읽기·북마크 FAB)은 이전 때 **유지하지 않기로 결정**(사용자 확인). 음성 낭독(TTS)도 다시 넣지 말 것.
 
 ---
 

@@ -18,10 +18,13 @@ tools/
 jadxlog.txt
 classes3.jar
 
-# Node / VitePress
+# Node / 사이트 빌드 생성물
 node_modules/
-study/.vitepress/dist/
-study/.vitepress/cache/
+site/.next/
+site/out/
+site/public/
+site/next-env.d.ts
+site/tsconfig.tsbuildinfo
 *.log
 
 # IDE

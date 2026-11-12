@@ -1,0 +1,26 @@
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+@import '@astryxdesign/theme-neutral/theme.css';
+@import 'katex/dist/katex.min.css';
+
+/* 한글 본문 가독성 */
+body {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.study-math-block {
+  overflow-x: auto;
+  margin-block: 12px;
+}
+
+.study-mermaid {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  margin-block: 16px;
+}
+.study-mermaid svg {
+  max-width: 100%;
+  height: auto;
+}

@@ -5,13 +5,13 @@
 **▶ 웹으로 보기: <https://mgj96.github.io/study-repo/>** (GitHub Pages · `main` 푸시 시 자동 배포)
 
 AI 도구를 적극적으로 활용하는 개발자의 지식 창고.
-Claude Code와 논의하며 내용을 결정하고, 합의된 결과를 VitePress 사이트로 배포한다.
+Claude Code와 논의하며 내용을 결정하고, 합의된 결과를 사이트(Next.js + Meta Astryx 디자인 시스템)로 배포한다.
 
 ---
 
 ## 📂 구조 — 사이트 본체는 `study/`
 
-VitePress로 빌드되는 콘텐츠는 전부 [`study/`](study/) 아래에 있다. 웹이 아니라 GitHub 화면에서 훑을 때는 아래 지도를 따라간다.
+사이트로 빌드되는 콘텐츠는 전부 [`study/`](study/) 아래에 있다. 웹이 아니라 GitHub 화면에서 훑을 때는 아래 지도를 따라간다.
 
 | 폴더/문서 | 내용 |
 |---|---|
@@ -37,7 +37,7 @@ VitePress로 빌드되는 콘텐츠는 전부 [`study/`](study/) 아래에 있�
 ```bash
 npm install
 npm run docs:dev      # 로컬 미리보기
-npm run docs:build    # 프로덕션 빌드 (study/.vitepress/dist)
+npm run docs:build    # 프로덕션 빌드 (site/out)
 ```
 
 배포는 `.github/workflows/deploy.yml`이 `main` 푸시마다 자동 수행한다.
@@ -50,7 +50,7 @@ npm run docs:build    # 프로덕션 빌드 (study/.vitepress/dist)
 
 ## 🗄 레거시 폴더
 
-루트의 `algorithms/`, `llm/`, `concepts/`, `cs-fundamentals/`, `conventions/`, `tradeoffs/`, `github-actions/`, `obsidian/`, `papers/`, `quizzes/`, `thinking/`, `languages/`는 **VitePress 이전(사이트 미포함) 시절의 노트**다. 내용 참고는 가능하지만 최신 정리는 전부 `study/`에서 이루어진다. NotebookLM 번들 스크립트(`scripts/bundle-for-notebooklm.sh`)도 이 레거시 구조 기준의 구버전이다.
+루트의 `algorithms/`, `llm/`, `concepts/`, `cs-fundamentals/`, `conventions/`, `tradeoffs/`, `github-actions/`, `obsidian/`, `papers/`, `quizzes/`, `thinking/`, `languages/`는 **사이트 도입 이전(사이트 미포함) 시절의 노트**다. 내용 참고는 가능하지만 최신 정리는 전부 `study/`에서 이루어진다. NotebookLM 번들 스크립트(`scripts/bundle-for-notebooklm.sh`)도 이 레거시 구조 기준의 구버전이다.
 
 ---
 
