@@ -114,7 +114,7 @@ https://mgj96.github.io/study-repo/architecture/deep-migration-case-studies
 | 📐 선형대수 (행렬 = 변환) | [열기](https://mgj96.github.io/study-repo/math/linear-algebra-essentials) |
 | 📐 확률통계 (평균 의심) | [열기](https://mgj96.github.io/study-repo/math/probability-statistics-essentials) |
 | 🔬 AI 시대 검증·내재화·구조 유지 | [열기](https://mgj96.github.io/study-repo/architecture/deep-ai-era-verification) |
-| 🔬 검증의 시대 (pstack·MR 3만 건 머지) | [열기](https://mgj96.github.io/study-repo/architecture/deep-verification-era-pstack-and-merge-at-scale) |
+| 🔬 검증의 시대 (pstack·3만 건 머지·소프트웨어 팩토리) | [열기](https://mgj96.github.io/study-repo/architecture/deep-verification-era-pstack-and-merge-at-scale) |
 | 🔬 운영 중인 구조 바꾸기 (전환 사례) | [열기](https://mgj96.github.io/study-repo/architecture/deep-migration-case-studies) |
 
 ---
