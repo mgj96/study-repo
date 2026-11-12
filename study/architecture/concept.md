@@ -415,3 +415,5 @@ void 도메인은_인프라를_모른다() {
 - ArchUnit — https://www.archunit.org/
 
 _짧은 인용은 출처 표기. 이 문서는 **설계(신규 구축)** 관점이다. 기존 구조를 진단·개선하는 관점은 별도._
+
+> 🔎 **더 깊이 →** 이미 돌아가는 구조를 바꾸는 법 — Uber·Shopify·Segment·Prime Video·Airbnb·Discord 전환 사례, "바깥을 바꿀까 안만 바꿀까"·"옮기며 버그도 고칠까" 기준, 전환용 ADR 템플릿: [deep-migration-case-studies.md](deep-migration-case-studies.md)

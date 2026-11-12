@@ -74,6 +74,7 @@ https://mgj96.github.io/study-repo/math/linear-algebra-essentials
 https://mgj96.github.io/study-repo/math/probability-statistics-essentials
 https://mgj96.github.io/study-repo/architecture/deep-ai-era-verification
 https://mgj96.github.io/study-repo/architecture/deep-verification-era-pstack-and-merge-at-scale
+https://mgj96.github.io/study-repo/architecture/deep-migration-case-studies
 ```
 
 ---
@@ -114,6 +115,7 @@ https://mgj96.github.io/study-repo/architecture/deep-verification-era-pstack-and
 | 📐 확률통계 (평균 의심) | [열기](https://mgj96.github.io/study-repo/math/probability-statistics-essentials) |
 | 🔬 AI 시대 검증·내재화·구조 유지 | [열기](https://mgj96.github.io/study-repo/architecture/deep-ai-era-verification) |
 | 🔬 검증의 시대 (pstack·MR 3만 건 머지) | [열기](https://mgj96.github.io/study-repo/architecture/deep-verification-era-pstack-and-merge-at-scale) |
+| 🔬 운영 중인 구조 바꾸기 (전환 사례·ADR) | [열기](https://mgj96.github.io/study-repo/architecture/deep-migration-case-studies) |
 
 ---
 
@@ -215,6 +217,7 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/linear-algebr
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/math/probability-statistics-essentials.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-ai-era-verification.md
 https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-verification-era-pstack-and-merge-at-scale.md
+https://raw.githubusercontent.com/mgj96/study-repo/main/study/architecture/deep-migration-case-studies.md
 ```
 
 _새 노트가 생기면 위 사이트 링크·Raw 블록에 한 줄씩만 추가._
