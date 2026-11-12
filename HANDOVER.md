@@ -88,7 +88,7 @@ study/
 ├─ cs/        concept · qna/ · cs-foundations · deep-*(memory/jmm/hashmap/btree/floating/virtual-memory
 │             + redis-cache-and-lock/distributed-consistency/performance-engineering/transaction-and-lock)
 │             · web-communication(§5 실시간 연결당 비용)
-├─ architecture/  concept(설계서·스타일·경계) · deep-modularity-theory · deep-conway-and-ai-agents · deep-migration-case-studies(전환 사례·전환용 ADR)
+├─ architecture/  concept(설계서·스타일·경계) · deep-modularity-theory · deep-conway-and-ai-agents · deep-migration-case-studies(전환 사례·판단 기준)
 ├─ lang/java/ concept · types-boxing · design-patterns · deep-spring-transaction · deep-testing-strategy · qna
 ├─ lang/csharp/ concept · qna
 ├─ unity/     concept · qna · deep-gc
