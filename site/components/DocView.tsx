@@ -11,6 +11,7 @@ import {CodeBlock} from '@astryxdesign/core/CodeBlock';
 import {Collapsible} from '@astryxdesign/core/Collapsible';
 import {ClickableCard} from '@astryxdesign/core/ClickableCard';
 import {Divider} from '@astryxdesign/core/Divider';
+import {Button} from '@astryxdesign/core/Button';
 import {HStack, VStack, StackItem} from '@astryxdesign/core/Stack';
 import {Text} from '@astryxdesign/core/Text';
 import {useMediaQuery} from '@astryxdesign/core/hooks';
@@ -93,7 +94,20 @@ function makeComponents(): MarkdownComponents {
 
 const components = makeComponents();
 
-export function DocView({source, prev, next}: {source: string; prev: NavLink; next: NavLink}) {
+const RAW_BASE = 'https://raw.githubusercontent.com/mgj96/study-repo/main/study/';
+
+// Gemini·NotebookLM에 바로 붙여넣을 원문(마크다운) 주소를 복사한다.
+function CopyRawLink({file}: {file: string}) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    await navigator.clipboard.writeText(RAW_BASE + encodeURI(file));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+  return <Button label={copied ? '복사됨' : '원문 링크 복사'} variant="secondary" size="sm" onClick={copy} />;
+}
+
+export function DocView({source, file, prev, next}: {source: string; file: string; prev: NavLink; next: NavLink}) {
   const headingLinks = useMemo(() => createMarkdownHeadingLinks({headingIdPrefix: 'doc'}), []);
   const plugins = useMemo(() => [headingLinks], [headingLinks]);
   const outline = useOutlineFromMarkdown(source, {plugins}).filter(i => i.level >= 2 && i.level <= 3);
@@ -113,6 +127,9 @@ export function DocView({source, prev, next}: {source: string; prev: NavLink; ne
       }
       content={
         <LayoutContent isScrollable={false} padding={8}>
+          <HStack gap={2} style={{justifyContent: 'flex-end', marginBottom: 8}}>
+            <CopyRawLink file={file} />
+          </HStack>
           <div ref={topRef} className="study-doc">
             <Markdown id="doc" plugins={plugins} components={components} contentWidth="100%" autolink="gfm">
               {source}

@@ -133,7 +133,9 @@ export function flatSidebar(): NavLink[] {
 }
 
 export function prevNext(route: string) {
-  const flat = flatSidebar();
+  // 책 페이지끼리만 이어지게 한다 (책 → 저장소 문서로 넘어가지 않게).
+  const inBook = (r: string) => r.startsWith('/book/');
+  const flat = flatSidebar().filter(x => inBook(x.link) === inBook(route));
   const i = flat.findIndex(x => x.link === route);
   if (i < 0) return {prev: null, next: null};
   return {prev: flat[i - 1] ?? null, next: flat[i + 1] ?? null};

@@ -23,6 +23,14 @@ function walk(dir) {
   }
 }
 walk(STUDY);
+// 부 합본: sidebar.mjs의 parts 순서대로 장을 이어 붙여 /bundle/<id>.md 로 만든다 (NotebookLM·Gemini용).
+const {parts} = await import('../sidebar.mjs');
+fs.mkdirSync(path.join(PUBLIC, 'bundle'), {recursive: true});
+for (const part of parts) {
+  const body = part.files.map(f => fs.readFileSync(path.join(STUDY, f), 'utf8').trim()).join('\n\n---\n\n');
+  fs.writeFileSync(path.join(PUBLIC, 'bundle', `${part.id}.md`), `# ${part.title} (합본)\n\n${body}\n`);
+}
+
 // GitHub Pages가 _next 폴더를 무시하지 않게
 fs.writeFileSync(path.join(PUBLIC, '.nojekyll'), '');
 console.log('static files copied to site/public');

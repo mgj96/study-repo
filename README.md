@@ -9,28 +9,25 @@ Claude Code와 논의하며 내용을 결정하고, 합의된 결과를 사이�
 
 ---
 
-## 📂 구조 — 사이트 본체는 `study/`
+## 📂 구조 — 한 권의 책 `study/book/`
 
-사이트로 빌드되는 콘텐츠는 전부 [`study/`](study/) 아래에 있다. 웹이 아니라 GitHub 화면에서 훑을 때는 아래 지도를 따라간다.
+사이트 콘텐츠는 **"구조를 설계하고 바꾸는 엔지니어"** 한 권으로 묶여 있다. 전체 목차는 [study/README.md](study/README.md).
 
-| 폴더/문서 | 내용 |
+| 부 | 내용 |
 |---|---|
-| [study/coding-test/](study/coding-test/) | **코딩테스트 유형 훈련** — 실전 기출 복기 2편 + 유형 드릴 11편 + org.json 치트시트 (Lv2~Lv3 초입). 폴더 안 README가 색인 |
-| [study/coding-test-2week.md](study/coding-test-2week.md) | 코딩테스트 2주 압축 로드맵 (Java) |
-| [study/interview/](study/interview/) | 면접 대비 — 코드 설명 프레임워크 등 |
-| [study/backend-roadmap.md](study/backend-roadmap.md) | 백엔드 심화 로드맵 + 5~7년차 언어 전략(§6)·채용시장 조사(§6.1) |
-| [study/cs/](study/cs/) | CS 딥다이브 — JMM, 메모리, 네트워크 등 |
-| [study/lang/](study/lang/) | 언어 — Java 품질 게이트, Kotlin(for Java devs), IDE·에이전트 도구 전략 |
-| [study/architecture/](study/architecture/) | 아키텍처·설계 원칙 |
-| [study/ai-ml/](study/ai-ml/) | AI·ML 이해 |
-| [study/graphics/](study/graphics/) · [study/unity/](study/unity/) | 그래픽스 · Unity/GC |
-| [study/engineering-concepts-map.md](study/engineering-concepts-map.md) | 개념 연결 지도 (트레이드오프 렌즈) |
-| [study/roadmap.md](study/roadmap.md) | 관심사 기반 로드맵 (ML·그래픽스) |
+| [서문](study/book/preface/00-how-to-read.md) | 이 책을 읽는 법 · 트레이드오프를 읽는 법 · 추론 기법 |
+| [1부 컴퓨터가 일하는 방식](study/book/part1/) | 추상화·복잡도, 메모리, 동시성·JMM, 자료구조·인덱스 |
+| [2부 데이터와 일관성](study/book/part2/) | 트랜잭션, 캐시·분산 락, 분산 정합성, 통신, 성능 |
+| [3부 경계를 긋는 법](study/book/part3/) | 설계의 출발점, 모듈성, 콘웨이 법칙, 온프레미스·클라우드 |
+| [4부 운영 중인 구조 바꾸기](study/book/part4/) | 전환 사례와 판단 기준, 구조를 CI로 지키기 |
+| [5부 AI 시대의 검증](study/book/part5/) | 검증의 시대, 테스트와 품질 게이트 |
+| [부록](study/book/appendix/) | A 언어·도구 · B 수학 · C AI·ML · D 그래픽스·Unity · E 면접·코테 |
 
-## 🎧 NotebookLM으로 학습하기
+## 🎧 Gemini · NotebookLM으로 듣기
 
-- **소스 등록**: [study/notebooklm-sources.md](study/notebooklm-sources.md) — 사이트 링크와 raw 링크가 카테고리별로 정리돼 있어 NotebookLM에 바로 붙여넣는다.
-- 원칙: **이 저장소(git)가 진실의 원천**, NotebookLM은 소비·학습용. 새 노트를 추가하면 위 소스 문서에도 등록한다.
+- 각 페이지 위 **원문 링크 복사** 버튼 → 붙여넣기 (raw 마크다운 주소).
+- 부 단위 합본: `https://mgj96.github.io/study-repo/bundle/part1.md` ~ `part5.md`, `appendix.md` (빌드 때 자동 생성).
+- 원칙: **이 저장소(git)가 진실의 원천**, NotebookLM은 소비·학습용.
 
 ## 🛠 로컬 빌드
 
@@ -47,10 +44,6 @@ npm run docs:build    # 프로덕션 빌드 (site/out)
 - 작성 규칙: [study/CONVENTIONS.md](study/CONVENTIONS.md) · [study/writing-guide.md](study/writing-guide.md)
 - 작업 현황 인수인계: `HANDOVER.md` (있다면 먼저 읽기)
 - 노트 형식: **① 결론(WHAT) → ② 원리(HOW) → ③ 확장(TRADE-OFF)** 3단 구조, 근거는 출처 링크로
-
-## 🗄 레거시 폴더
-
-루트의 `algorithms/`, `llm/`, `concepts/`, `cs-fundamentals/`, `conventions/`, `tradeoffs/`, `github-actions/`, `obsidian/`, `papers/`, `quizzes/`, `thinking/`, `languages/`는 **사이트 도입 이전(사이트 미포함) 시절의 노트**다. 내용 참고는 가능하지만 최신 정리는 전부 `study/`에서 이루어진다. NotebookLM 번들 스크립트(`scripts/bundle-for-notebooklm.sh`)도 이 레거시 구조 기준의 구버전이다.
 
 ---
 

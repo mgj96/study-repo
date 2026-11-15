@@ -24,5 +24,5 @@ export default async function DocPage({params}: {params: Promise<Params>}) {
   if (!doc) notFound();
   const {source} = loadMarkdown(doc.file);
   const {prev, next} = prevNext(doc.route);
-  return <DocView source={source} prev={prev} next={next} />;
+  return <DocView source={source} file={doc.file} prev={prev} next={next} />;
 }

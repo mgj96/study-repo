@@ -25,7 +25,7 @@ main에 push
 | `study/**/*.md` | 노트 본문 (사이트 페이지가 됨, 파일 경로 = 주소) |
 | `study/index.md` | 홈 화면 (앞부분 `hero`·`features`가 상단 카드) |
 | `study/public/` | 그대로 복사되는 정적 파일 (labs 실험 페이지) |
-| `site/sidebar.mjs` | 왼쪽 메뉴 |
+| `site/sidebar.mjs` | 책 목차 + 부 합본 목록 |
 | `site/` 나머지 | 사이트 코드 (Astryx 컴포넌트) |
 
 ---
@@ -46,7 +46,7 @@ main에 push
 - ` ```mermaid ` 코드블록은 브라우저에서 그림으로 그려진다(다크모드 자동 대응). 문법이 틀리면 원문 코드가 그대로 보인다.
 
 ### (4) 새 문서 추가 시 메뉴
-- 새 `.md`는 **자동으로 페이지·검색에 들어간다.** 왼쪽 메뉴에도 넣고 싶을 때만 `site/sidebar.mjs`에 한 줄 추가한다(세부 심화는 넣지 않는다 — CONVENTIONS 1.7).
+- 새 장/절은 `study/book/partN/`에 만들고 `site/sidebar.mjs`의 `sidebar`(목차 순서 = 이전/다음 순서)와 `parts`(부 합본)에 추가한다(CONVENTIONS 1장).
 
 ### (5) 링크
 - 상대 링크(`../cs/x.md`, `폴더/`)는 빌드 때 사이트 주소로 바뀐다. 폴더 링크는 그 폴더의 `README.md` → `index.md` → `concept.md` 순서로 연결된다.
@@ -59,7 +59,7 @@ main에 push
 
 - [ ] 본문에 HTML 태그 없나? (`<details>` 접기 제외) 제네릭·부등호는 백틱
 - [ ] 수식은 `$`/`$$`로, 단독 `$`는 `\$`
-- [ ] 메뉴에 넣을 문서면 `site/sidebar.mjs`에 추가
+- [ ] 새 장/절이면 `site/sidebar.mjs`의 `sidebar`·`parts`에 추가
 - [ ] 파일 이동 시 상대경로 링크 갱신
 - [ ] Q&A는 3단(① 결론 · ② 원리 · ③ 확장) 유지 ([CONVENTIONS](study/CONVENTIONS.md))
 
@@ -83,4 +83,4 @@ npm run docs:build    # push 전에 빌드가 통과하는지 확인 (권장)
 ## 6. 배포처 변경(선택)
 - 저장소 이름이 바뀌거나 루트 도메인으로 옮기면 `site/next.config.mjs`의 `BASE_PATH`를 바꾼다(루트면 `''`).
 
-_요약: **HTML 대신 마크다운(접기만 예외), 수식은 `$$`, 메뉴는 `site/sidebar.mjs`.**_
+_요약: **HTML 대신 마크다운(접기만 예외), 수식은 `$$`, 목차는 `site/sidebar.mjs`.**_
