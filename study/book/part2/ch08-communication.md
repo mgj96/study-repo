@@ -6,6 +6,30 @@
 
 서비스 사이의 모든 호출은 네트워크를 건넌다. 이 장은 지연(latency)과 대역폭(bandwidth)의 차이를 먼저 잡고, SOAP·REST·JSON·gRPC·GraphQL이 각각 어떤 문제를 풀려고 나왔는지 자바 개발자의 눈으로 비교한다. 끝에는 네트워크 Q&A가 있다.
 
+
+### 한눈에 보기
+
+```mermaid
+flowchart TB
+    subgraph F["축 1: 데이터 형식 (어떤 글자로 담나)"]
+        J["JSON"]
+        X["XML"]
+        P["Protobuf"]
+    end
+    subgraph W["축 2: 통신 방식 (어떤 규약으로 주고받나)"]
+        R["REST"]
+        S["SOAP"]
+        G["gRPC"]
+        Q["GraphQL"]
+    end
+    R -- "보통" --> J
+    S -- "강제" --> X
+    G -- "기본" --> P
+    Q -- "보통" --> J
+```
+
+> 통신은 두 축으로 나눠 봐야 헷갈리지 않는다. 형식은 데이터를 어떤 글자로 담느냐(JSON·XML·Protobuf), 방식은 어떤 규약으로 주고받느냐(REST·SOAP·gRPC·GraphQL)다. REST는 보통 JSON을, SOAP은 XML을 강제하고, gRPC는 기본으로 Protobuf를 쓴다.
+
 ---
 
 ## 네트워크 기초 — 지연(latency) vs 대역폭(bandwidth)
