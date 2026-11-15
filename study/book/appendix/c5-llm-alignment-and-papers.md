@@ -53,7 +53,7 @@ flowchart LR
 - 이후 KTO, IPO, ORPO 등 변형 다수. → "정렬 = 고정 기술"이 아니라 **빠르게 진화 중**.
 
 #### 5. 정렬세(alignment tax)와 부작용
-- 너무 강하게 정렬하면 **성능 저하·과도한 거부·아첨(sycophancy)** 이 생길 수 있음.
+- 너무 강하게 정렬하면 **성능 저하·과도한 거부·아첨**(sycophancy)이 생길 수 있음.
 - → 정렬은 "안전 vs 유용성"의 줄다리기. (환각-창의 트레이드오프와 같은 결의 문제)
 
 #### 6. 정렬 방법 계보 (나열) — RLHF만 있는 게 아니다
@@ -107,7 +107,7 @@ flowchart LR
 
 #### 1. 핵심 아이디어 — 희소 활성화(sparse activation)
 보통(dense) 모델은 모든 파라미터가 매 토큰에 관여한다. MoE는 FFN 블록을
-여러 **전문가**로 나누고, **라우터(router)** 가 토큰마다 적합한 소수(예: 64개 중 2개)만 켠다.
+여러 **전문가**로 나누고, **라우터**(router)가 토큰마다 적합한 소수(예: 64개 중 2개)만 켠다.
 ```
 토큰 → 라우터 → [전문가 중 top-k 선택] → 그 전문가만 연산
 → 총 파라미터 ↑↑ , 토큰당 연산 ≈ 그대로
@@ -223,7 +223,7 @@ arXiv: [2512.01797](https://arxiv.org/abs/2512.01797)
 #### 5. Towards Large Reasoning Models: A Survey of Reinforced Reasoning (Xu 외, 2025)
 arXiv: [2501.09686](https://arxiv.org/abs/2501.09686)
 - RL + Chain-of-Thought으로 **좋은 추론 궤적을 시행착오로 탐색**.
-- test-time에 **더 긴 중간 토큰("생각")**을 허용하면 추론 정확도가 크게 오름 (o1/DeepSeek-R1 계열).
+- test-time에 **더 긴 중간 토큰**("생각")을 허용하면 추론 정확도가 크게 오름 (o1/DeepSeek-R1 계열).
 - → 추론력은 모델 크기만이 아니라 **학습·추론 방법의 산물**.
 
 #### 6. Stop Overthinking: A Survey on Efficient Reasoning (2025)

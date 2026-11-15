@@ -119,7 +119,7 @@
 
 ### 0. 30초 직관
 
-여러 명이 회의실에서 일하는데, **각자 자기 자리 메모장(코어 캐시)** 에 계산 결과를 적는다. 칠판(메인 메모리)은 공용이다. 문제는 두 가지다.
+여러 명이 회의실에서 일하는데, **각자 자기 자리 메모장**(코어 캐시)에 계산 결과를 적는다. 칠판(메인 메모리)은 공용이다. 문제는 두 가지다.
 
 1. **가시성(visibility)**: 내가 메모장에 적은 값을 언제 칠판에 옮겨 적을지, 남이 언제 칠판을 다시 읽을지 아무 약속이 없다. → 내가 `stop = true`로 바꿔도 옆 사람은 영원히 옛날 값만 볼 수 있다.
 2. **순서(reordering)**: 컴파일러와 CPU는 성능을 위해 "결과만 같으면 된다"며 **내 코드 순서를 마음대로 뒤섞는다**. 나 혼자 볼 때는 문제없지만, 남이 중간 상태를 훔쳐보면 앞뒤가 뒤바뀐 걸 본다.
@@ -276,7 +276,7 @@ while (r) { i++; }     // 메모리를 다시 안 봄 → 영원히 true
 
 #### 하지만 원자성은 보장하지 않는다
 
-이것이 `volatile`의 가장 흔한 함정이다. `volatile`은 **읽기 하나, 쓰기 하나**의 가시성을 보장할 뿐, **읽고-수정하고-쓰는 복합 연산(compound action)** 을 원자적으로 만들지 못한다.
+이것이 `volatile`의 가장 흔한 함정이다. `volatile`은 **읽기 하나, 쓰기 하나**의 가시성을 보장할 뿐, **읽고-수정하고-쓰는 복합 연산**(compound action)을 원자적으로 만들지 못한다.
 
 `x++`은 사실 세 개의 연산이다: ① `x` 읽기 → ② `+1` → ③ `x`에 쓰기. `volatile`이어도 두 스레드가 ①을 동시에 하면 같은 값을 읽고 둘 다 +1 해서 **한 번의 증가가 사라진다**(lost update).
 
@@ -401,7 +401,7 @@ class Singleton {
 
 ### 6. Atomic 클래스 & CAS — 락 없는 동시성
 
-`java.util.concurrent.atomic`(예: `AtomicInteger`, `AtomicLong`, `AtomicReference`)은 락 없이 원자적 연산을 제공한다. 핵심 무기는 **CAS(Compare-And-Swap)** 라는 CPU 명령이다.
+`java.util.concurrent.atomic`(예: `AtomicInteger`, `AtomicLong`, `AtomicReference`)은 락 없이 원자적 연산을 제공한다. 핵심 무기는 **CAS**(Compare-And-Swap)라는 CPU 명령이다.
 
 #### CAS의 동작
 
@@ -430,7 +430,7 @@ int incrementAndGet() {
 CAS는 "값이 **기대값과 같은지**"만 본다. 그런데 값이 A → B → A로 바뀐 뒤 돌아왔다면, CAS는 "안 바뀌었다"고 오판한다. 값은 같지만 그 사이 **다른 일이 일어났다**는 맥락이 사라진다.
 
 - 대표 사례: 락프리 스택에서 top 노드를 A라고 읽고 CAS 준비 중, 다른 스레드가 A를 pop → B를 pop → A를 다시 push. 내 CAS는 top==A를 보고 성공하지만, 그 A의 `next`는 이미 사라진 노드를 가리킬 수 있다.
-- 해결: **버전(스탬프)** 을 값에 붙여 함께 CAS한다. Java의 `AtomicStampedReference`(참조+정수 스탬프)나 `AtomicMarkableReference`(참조+불린 마크)가 이를 위한 도구다. 스탬프가 매번 증가하므로 A→B→A라도 스탬프가 달라 CAS가 실패한다.
+- 해결: **버전**(스탬프)을 값에 붙여 함께 CAS한다. Java의 `AtomicStampedReference`(참조+정수 스탬프)나 `AtomicMarkableReference`(참조+불린 마크)가 이를 위한 도구다. 스탬프가 매번 증가하므로 A→B→A라도 스탬프가 달라 CAS가 실패한다.
 
 ```java
 import java.util.concurrent.atomic.AtomicStampedReference;
@@ -564,7 +564,7 @@ void transfer(Account from, Account to, long amt) {
 
 - [ ] 여러 스레드가 공유하는 필드에 **동기화가 하나라도 있나**? 없으면 데이터 레이스 = 결과 미정의.
 - [ ] **읽기 쪽도** 동기화했나? write만 `synchronized`/`volatile`이고 read가 맨몸이면 가시성 깨짐.
-- [ ] 그 연산이 **check-then-act / read-modify-write** 인가? 그렇다면 `volatile`로는 부족 → atomic/락.
+- [ ] 그 연산이 **check-then-act / read-modify-write**인가? 그렇다면 `volatile`로는 부족 → atomic/락.
 - [ ] 카운터/누산기 → `AtomicLong`/`LongAdder`. 단순 플래그 → `volatile`. 불변 데이터 공유 → `final` + 불변 객체.
 - [ ] 락을 2개 이상 잡나? → **전역 락 순서**를 정해 순환 대기 차단.
 - [ ] 지연 초기화 싱글턴? → DCL보다 **holder 관용구**나 `enum`을 우선.
@@ -591,7 +591,7 @@ void transfer(Account from, Account to, long amt) {
 
 **비유로 기억:**
 - `volatile` = 칠판을 늘 최신으로 (밀어주기 아님 — **읽을 때 당겨오기**)
-- CAS(atomic) = **`git push`** (안 바뀌었으면 커밋, 바뀌었으면 pull→재시도 = 낙관적 락)
+- CAS(atomic) = `git push` (안 바뀌었으면 커밋, 바뀌었으면 pull→재시도 = 낙관적 락)
 - 락 = **파일 독점 체크아웃** (비관적 락)
 
 ---

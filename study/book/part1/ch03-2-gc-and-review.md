@@ -57,10 +57,10 @@ GC는 "자동이라 신경 안 써도 된다"고 배우지만, **성능·메모�
 - 저지연 GC도 **짧게라도 STW 구간**이 있다(초기 마킹 등). "pause 없음"이 아니라 "pause가 매우 짧음".
 
 #### ⑥ `finalize()`는 폐기(deprecated), 쓰지 마라
-- **언제 불릴지 보장 없음**(영영 안 불릴 수도). 리소스 정리는 **try-with-resources / `Cleaner`** 로.
+- **언제 불릴지 보장 없음**(영영 안 불릴 수도). 리소스 정리는 try-with-resources / `Cleaner`로.
 
 #### ⑦ OOM인데 "메모리 남아 보임"
-- Java는 **압축(compaction)** 을 해서 힙 단편화는 덜하지만 — **큰 연속 배열 요구**, **Metaspace**(클래스 메타), **off-heap(다이렉트 버퍼)** 은 별개 원인. (Unity/Boehm GC는 **비압축**이라 단편화로 OOM이 더 흔함, → [D.3 Unity GC](../appendix/d3-unity-gc.md))
+- Java는 **압축**(compaction)을 해서 힙 단편화는 덜하지만 — **큰 연속 배열 요구**, **Metaspace**(클래스 메타), **off-heap**(다이렉트 버퍼)은 별개 원인. (Unity/Boehm GC는 **비압축**이라 단편화로 OOM이 더 흔함, → [D.3 Unity GC](../appendix/d3-unity-gc.md))
 
 ---
 

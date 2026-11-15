@@ -93,7 +93,7 @@
 | C++ | Java | C# |
 |-----|------|-----|
 | **수동**(`new`/`delete`, RAII) | **GC** | **GC** + 결정적 정리(`IDisposable`/`using`) |
-- **왜 갈렸나**: C++는 **성능·예측 가능성**(GC 멈춤 없음). Java는 메모리 누수·댕글링 포인터를 **"용납 불가"**로 보고, 특히 **다운로드되는 모바일 코드**의 안전을 위해 GC 채택. C#은 GC를 따르되, C++ 개발자가 그리워한 **결정적 정리**(`using`)를 되살림.
+- **왜 갈렸나**: C++는 **성능·예측 가능성**(GC 멈춤 없음). Java는 메모리 누수·댕글링 포인터를 "**용납 불가**"로 보고, 특히 **다운로드되는 모바일 코드**의 안전을 위해 GC 채택. C#은 GC를 따르되, C++ 개발자가 그리워한 **결정적 정리**(`using`)를 되살림.
 
 #### ② 컴파일 대상
 | C++ | Java | C# |
@@ -138,7 +138,7 @@
 |-----------|---------|------|
 | **Checked exception**(`throws` 폭증) | **없앰** | Hejlsberg: **버전 관리**(throws에 예외 추가 = 클라 코드 깨짐) + **확장성**(사람들이 우회해 오히려 품질 저하) |
 | 타입 소거(박싱·런타임 정보 없음) | **reified 제네릭** | 런타임에 충실한 타입 |
-| 값 타입 없음 | **`struct`** | 성능·박싱 회피 |
+| 값 타입 없음 | `struct` | 성능·박싱 회피 |
 | getter/setter 보일러플레이트 | **프로퍼티** (`{ get; set; }`) | 언어 차원 지원 |
 | 연산자 오버로딩 없음 | **부활** | 값 타입 연산에 필요 |
 | 비결정적 `finalize` | **`IDisposable`+`using`** | 결정적 자원 정리 |
@@ -159,7 +159,7 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 ---
 
 ### 한 줄 요약
-**C++**(성능·통제, C+Simula) → **Java**(안전·단순, C++에서 위험 제거) → **C#**(실용, Java+C++장점+신기능). 갈림길은 **메모리(수동/GC)·컴파일(네이티브/VM)·포인터·값타입·제네릭(템플릿/소거/reified)** 이고, 각 선택엔 **성능 vs 안전 vs 생산성**이라는 서로 다른 우선순위가 깔려 있다.
+**C++**(성능·통제, C+Simula) → **Java**(안전·단순, C++에서 위험 제거) → **C#**(실용, Java+C++장점+신기능). 갈림길은 **메모리(수동/GC)·컴파일(네이티브/VM)·포인터·값타입·제네릭**(템플릿/소거/reified)이고, 각 선택엔 **성능 vs 안전 vs 생산성**이라는 서로 다른 우선순위가 깔려 있다.
 
 ### 출처
 - Stroustrup, *A History of C++ (HOPL)* — https://www.stroustrup.com/hopl2.pdf
@@ -172,7 +172,7 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 
 ## Java ↔ C# ↔ Python — 툴팁식 비교 + 개발 가이드
 
-> "자바에선 이렇게 하는데 C#/파이썬에선?" 을 **개념 → Java → C# → Python** 로 빠르게 찾는 참조.
+> "자바에선 이렇게 하는데 C#/파이썬에선?" 을 **개념 → Java → C# → Python**로 빠르게 찾는 참조.
 > 디자인 패턴·설계는 그대로 옮겨가고([공통](a2-other-languages.md)), 여기선 **관용구 차이**만.
 > NotebookLM에 넣고 "C#에서 X는 어떻게?" 물으면 툴팁처럼 답이 나온다.
 
@@ -182,12 +182,12 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 |------|------|-----|--------|
 | 프로퍼티 | `getX()/setX()` | `public int X { get; set; }` | **`@property` 데코레이터** |
 | 컬렉션 질의 | Stream + 람다 | LINQ `.Where().Select()` | **리스트 컴프리헨션** `[f(x) for x in xs if ...]` |
-| 비동기 | `CompletableFuture` | `async/await` | **`async/await`** (asyncio) |
+| 비동기 | `CompletableFuture` | `async/await` | `async/await` (asyncio) |
 | 콜백/이벤트 | 함수형 인터페이스 | `delegate`/`event`,`Func<>` | **함수가 일급 객체** (그냥 함수 전달) |
 | 값 타입 | (없음) | `struct` = 값 타입 | (없음) 전부 객체 참조 |
 | 타입 | 정적 | 정적 | **동적**(런타임), 선택적 타입힌트(`typing`) |
-| null | `Optional<T>` | `T?`,`??`,`?.` | **`None`** (`?.` 없음, `x or 기본값`) |
-| 불변 DTO | record | `record` | **`@dataclass(frozen=True)`** / `namedtuple` |
+| null | `Optional<T>` | `T?`,`??`,`?.` | `None` (`?.` 없음, `x or 기본값`) |
+| 불변 DTO | record | `record` | `@dataclass(frozen=True)` / `namedtuple` |
 | 인터페이스 | `interface` | `interface`(`I`접두) | **ABC / `Protocol`**(덕 타이핑) |
 | 패키지 | `package` | `namespace` | **모듈/패키지**(폴더+`__init__.py`) |
 | 진입점 | `static void main` | `Main`/top-level | `if __name__ == "__main__":` |
@@ -218,7 +218,7 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 | 메서드 | camelCase | **PascalCase** ← 자바와 다름! `GetUser()` |
 | 프로퍼티 | (getter) | **PascalCase** `UserName` |
 | 지역변수/매개변수 | camelCase | camelCase |
-| private 필드 | camelCase | **`_camelCase`** (밑줄 접두) |
+| private 필드 | camelCase | `_camelCase` (밑줄 접두) |
 | 상수 | UPPER_CASE | **PascalCase** |
 
 #### 실무 관례 (idiomatic C#)
@@ -228,7 +228,7 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 - **DI가 기본**: .NET에 내장 DI 컨테이너. `Program.cs`에서 `builder.Services.AddScoped<...>()`.
   → Singleton을 static으로 만들지 말고 DI lifetime으로.
 - **record로 DTO**: 불변 데이터는 `record`.
-- **`var`**: 우변에서 타입이 명백하면 `var` 사용 권장.
+- `var`: 우변에서 타입이 명백하면 `var` 사용 권장.
 - **nullable 활용**: `string?`, `obj?.Prop`, `x ?? 기본값`.
 - **프로젝트 구조**: 솔루션(`.sln`) > 프로젝트(`.csproj`) > 폴더. namespace는 폴더와 보통 일치시키되 명시.
 
@@ -247,7 +247,7 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 | 메서드/함수 | camelCase | PascalCase | **snake_case** `get_user()` |
 | 변수 | camelCase | camelCase | **snake_case** |
 | 상수 | UPPER_CASE | PascalCase | **UPPER_CASE** |
-| "private" | camelCase | `_camelCase` | **`_leading_underscore`**(관례, 강제 아님) |
+| "private" | camelCase | `_camelCase` | `_leading_underscore`(관례, 강제 아님) |
 
 #### 관용 (idiomatic Python)
 - **getter/setter 대신** `@property` 데코레이터. 평소엔 그냥 public 속성 직접 접근(캡슐화 강박 X).
@@ -304,7 +304,7 @@ JS 개발자가 TS를 쓰는 이유: `undefined is not a function`을 **배포 �
 - 2017 구글이 안드로이드 공식 언어로 채택, 2019 "안드로이드 우선" 선언 — 결정적 전환점
 - **Spring이 공식 지원** (스프링 이니셜라이저에서 언어 선택란에 Kotlin이 있음) — 백엔드 이직 관점에서 중요한 건 안드로이드가 아니라 이쪽이다
 
-> 탄생 목표가 "혁명"이 아니라 **"자바 개발자의 하루를 덜 아프게"**였다는 점이 언어 성격 전부를 설명한다 — 배울 게 적고, 자바와 섞어 쓸 수 있고, 급진적 개념이 없다.
+> 탄생 목표가 "혁명"이 아니라 "**자바 개발자의 하루를 덜 아프게**"였다는 점이 언어 성격 전부를 설명한다 — 배울 게 적고, 자바와 섞어 쓸 수 있고, 급진적 개념이 없다.
 
 ---
 
