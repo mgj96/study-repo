@@ -298,6 +298,10 @@ export const sidebar = [
       {
         "text": "🔬 운영 중인 구조 바꾸기 (전환 사례)",
         "link": "/architecture/deep-migration-case-studies"
+      },
+      {
+        "text": "🔬 구조를 CI로 지키기 (ArchUnit·피트니스 함수)",
+        "link": "/architecture/deep-architecture-fitness-ci"
       }
     ]
   },
