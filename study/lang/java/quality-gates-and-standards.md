@@ -144,8 +144,9 @@ git config blame.ignoreRevsFile .git-blame-ignore-revs
 | SSOT | 단일 진실 원천 — 표준의 실체는 문서가 아니라 커밋된 설정 파일 |
 
 ## 연결 지도
+- **도구 고르기·튜닝 트레이드오프 (기본값 탈출)**: → [deep-ci-quality-tools-tuning.md](deep-ci-quality-tools-tuning.md)
 - **테스트 계층의 심화 (③칸)**: → [deep-testing-strategy.md](deep-testing-strategy.md)
-- **아키텍처 규칙의 강제 (ArchUnit·피트니스 함수)**: → [../../architecture/concept.md](../../architecture/concept.md)
+- **아키텍처 규칙의 강제 (ArchUnit·피트니스 함수)**: → [../../architecture/deep-architecture-fitness-ci.md](../../architecture/deep-architecture-fitness-ci.md)
 - **"최종 지점에서 검증" 사고의 원형**: → [../../cs/deep-distributed-consistency.md](../../cs/deep-distributed-consistency.md)
 - **관측이 담당하는 ④칸**: → [../../cs/deep-performance-engineering.md](../../cs/deep-performance-engineering.md)
 - **컴파일 타임으로 당기기의 극단 (Kotlin)**: → [../kotlin-for-java-devs.md](../kotlin-for-java-devs.md)

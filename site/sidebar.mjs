@@ -346,6 +346,10 @@ export const sidebar = [
         "link": "/lang/java/quality-gates-and-standards"
       },
       {
+        "text": "🔬 CI 품질 도구 고르기·튜닝",
+        "link": "/lang/java/deep-ci-quality-tools-tuning"
+      },
+      {
         "text": "Java · Q&A",
         "link": "/lang/java/qna"
       },
