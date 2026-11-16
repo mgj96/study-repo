@@ -11,7 +11,7 @@
 ## 딥다이브 — 깊이·층별 특화·레이어 제어, 그리고 YOLO
 
 > 기반: **Olah et al., *Feature Visualization / Zoom In: Circuits* (Distill)** · **Zeiler & Fergus (2014)** · **Tenney et al. (2019)** · **Ultralytics YOLO Docs**
-> 형식: 30초 직관 → 심화. 얕은 버전은 [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md), [C.1 큰 그림](c1-big-picture.md). 경사하강 수학은 [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md), 표현 학습은 [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md).
+> 형식: 30초 직관 → 심화. 얕은 버전은 C.8 X 랭킹 알고리듬·정리, C.1 큰 그림. 경사하강 수학은 C.3 학습 신호와 역전파, 표현 학습은 C.3 학습 신호와 역전파.
 
 ---
 
@@ -70,7 +70,7 @@ flowchart LR
 
 각 층은 **바로 아래층 결과만** 재료로 쓸 수 있어, 낮은 층은 자연히 "어디에나 쓰이는 기본 재료(선)"를, 높은 층은 "완성품"을 배운다. **재사용 구조가 특화를 강제**한다(1장과 같은 원리).
 
-Transformer라면 **어텐션 헤드**(head)가 특화된다 — 한 헤드는 문법 관계, 다른 헤드는 대명사가 가리키는 명사를 맡는 식(→ [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)).
+Transformer라면 **어텐션 헤드**(head)가 특화된다 — 한 헤드는 문법 관계, 다른 헤드는 대명사가 가리키는 명사를 맡는 식(→ C.4 RNN·임베딩·어텐션).
 
 ---
 
@@ -88,7 +88,7 @@ Transformer라면 **어텐션 헤드**(head)가 특화된다 — 한 헤드는 �
 | **가중치(학습 결과, 숫자)** | ✅ `.pt`에 전부 저장 — 몇십억 개든 다 열람 가능 |
 | **"왜 그 답을 골랐나"(사람 말로 된 이유)** | ❌ 알기 어렵다 ← **이게 블랙박스** |
 
-- **역전파는 블랙박스가 아니다.** 오히려 가장 명확한 부분. 역전파가 "역으로 추적"하는 건 *이유*가 아니라 "**오차에 각 가중치가 얼마나 책임 있나**(기울기)"다 (→ [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)).
+- **역전파는 블랙박스가 아니다.** 오히려 가장 명확한 부분. 역전파가 "역으로 추적"하는 건 *이유*가 아니라 "**오차에 각 가중치가 얼마나 책임 있나**(기울기)"다 (→ C.3 학습 신호와 역전파).
 - **가중치도 다 보인다.** 그냥 저장된 숫자다.
 - **모르는 건 "의미".** 하나의 판단이 수백만 숫자에 **잘게 흩어져(distributed)** 담기고 라벨이 없어, "이 뉴런 = 고양이 귀"처럼 읽히지 않는다. → **관측 가능 ≠ 해석 가능. 알고리즘을 아는 것 ≠ 의미를 아는 것.**
 
@@ -214,7 +214,7 @@ model.train(data="my_data.yaml", epochs=100)  # 여기서 경사하강 다시 �
 | 파인튜닝 | 내 전용 클래스(불량품·특정 부품). head 교체 후 재학습 |
 | from scratch | 도메인이 완전히 다름(의료·위성) + 데이터 충분. 드묾 |
 
-> 🔎 **더 깊이 →** YOLO는 왜 학습한 클래스 밖을 못 보는지, 반대로 SAM 2는 어떻게 재학습 없이(제로샷) 처음 보는 물체를 오려내고 영상에서 추적까지 하는지 — 두 이념의 비교는 [C.7 YOLO vs SAM 2](c7-yolo-vs-sam.md).
+> 🔎 **더 깊이 →** YOLO는 왜 학습한 클래스 밖을 못 보는지, 반대로 SAM 2는 어떻게 재학습 없이(제로샷) 처음 보는 물체를 오려내고 영상에서 추적까지 하는지 — 두 이념의 비교는 C.7 YOLO vs SAM 2.
 
 > 왜 "가져다" 쓰나: from scratch 학습은 거대 데이터 + GPU가 필요하다. 이미 COCO로 backbone이 일반 시각 특징을 배워둬서, 내 문제엔 **head만 살짝 재학습**하면 적은 데이터로 빠르게 된다(전이 학습의 정석). 버전(v1→v11)의 진화는 **구조 개선**이지 원리(CNN + 경사하강)는 동일.
 
@@ -235,11 +235,11 @@ model.train(data="my_data.yaml", epochs=100)  # 여기서 경사하강 다시 �
 | 학습 시점 vs 사용 시점 | 경사하강 돎(train) vs forward만(inference) |
 
 ### 연결 지도
-- **YOLO vs SAM 2 (닫힌 집합 vs 제로샷·모션 메모리)**: → [C.7 YOLO vs SAM 2](c7-yolo-vs-sam.md)
-- **경사하강 수학**: → [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
-- **표현 학습(층이 배우는 표현)**: → [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
-- **어텐션 헤드 특화**: → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
-- **박싱→힙→GC(파라미터·메모리 비용)**: → [D.3 Unity GC](d3-unity-gc.md)
+- **YOLO vs SAM 2 (닫힌 집합 vs 제로샷·모션 메모리)**: → C.7 YOLO vs SAM 2
+- **경사하강 수학**: → C.3 학습 신호와 역전파
+- **표현 학습(층이 배우는 표현)**: → C.3 학습 신호와 역전파
+- **어텐션 헤드 특화**: → C.4 RNN·임베딩·어텐션
+- **박싱→힙→GC(파라미터·메모리 비용)**: → D.3 Unity GC
 
 ### 출처
 - Olah, et al. *Feature Visualization.* Distill, 2017 — https://distill.pub/2017/feature-visualization/
@@ -252,6 +252,16 @@ model.train(data="my_data.yaml", epochs=100)  # 여기서 경사하강 다시 �
 - Ultralytics YOLO Docs — https://docs.ultralytics.com/
 
 _짧은 인용은 출처 표기. 프레임워크·모델 버전에 따라 세부는 달라질 수 있으니 최신 문서 확인._
+
+---
+
+## 함께 보기
+
+- [C.1 큰 그림](c1-big-picture.md)
+- [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
+- [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
+- [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md)
+- [D.3 Unity GC](d3-unity-gc.md)
 
 ---
 

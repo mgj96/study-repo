@@ -12,7 +12,7 @@
 
 > **용도**: NotebookLM 소스 및 복습용. 이미 쓰는 Java를 "문법"이 아니라 **개념·역사·철학**으로 이해.
 > **관점**: 언어는 도구지만, 그 도구가 *왜 그렇게 설계됐는지*를 알면 훨씬 잘 쓴다.
-> **연결**: [C.1 큰 그림](c1-big-picture.md) · [A.1 Java](a1-java.md) · 게임엔진(Unity C#/Unreal C++)도 OOP 기반이라 그래픽스 트랙과도 연결.
+> **연결**: C.1 큰 그림 · A.1 Java · 게임엔진(Unity C#/Unreal C++)도 OOP 기반이라 그래픽스 트랙과도 연결.
 
 ---
 
@@ -177,7 +177,7 @@ _작성: 2026-07 · 개념·역사 정리. 세부 문법·최신 버전은 공�
 
 > **출발점**: "값이 크면 타입도 커진다. int는 정수만, long은 32자리?"
 > **바로잡기**: `int`는 **32비트**(≈10자리, ±21억), `long`은 **64비트**(≈19자리). "비트 수 ≠ 자릿수"다.
-> **연결**: [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md)(타입 선택) · [D.3 Unity GC](d3-unity-gc.md)(박싱→힙 할당)
+> **연결**: 1장 추상화와 복잡도(타입 선택) · D.3 Unity GC(박싱→힙 할당)
 
 ---
 
@@ -246,7 +246,7 @@ List<Integer> list = ... // 제네릭은 객체만 담아서 int가 자동 박�
 
 #### 왜 조심해야 하나 (성능·GC)
 - 박싱마다 **힙에 객체가 생긴다** → 반복문·대량 데이터에서 **garbage 폭증 → GC 부담**.
-  - → 이게 [Unity GC 노트](d3-unity-gc.md)의 "boxing → 힙 할당"과 **같은 이야기**. (C#도 값 타입→object 박싱 시 힙 할당)
+  - → 이게 Unity GC 노트의 "boxing → 힙 할당"과 **같은 이야기**. (C#도 값 타입→object 박싱 시 힙 할당)
 - **Integer 캐시 함정**: Java는 `-128~127` 범위 Integer를 캐싱해 재사용.
   ```java
   Integer a = 100, b = 100;   // 캐시 → a == b : true
@@ -295,7 +295,7 @@ _작성: 2026-07 · Java 기준. 값 범위는 언어·플랫폼에 따라 다�
 ## 자바 개발자를 위한 디자인 패턴 — 팩토리 말고 나머지도
 
 > 관점: GoF 23개를 다 외우지 말고, **자바 표준 라이브러리·스프링에 이미 박혀 있는** 것부터 "언제 쓰나 + 어디에 있나"로 잡는다. (Factory는 아는 상태에서 확장)
-> 관련: [A.1 Java](a1-java.md) · [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md) · 리스너=옵서버 (→ [3.2 GC 함정과 점검](../part1/ch03-2-gc-and-review.md)).
+> 관련: A.1 Java · C.2 학습 경로와 신경망 종류 · 리스너=옵서버 (→ 3.2 GC 함정과 점검).
 
 ---
 
@@ -340,7 +340,7 @@ _작성: 2026-07 · Java 기준. 값 범위는 언어·플랫폼에 따라 다�
 | **Flyweight** | **공유**로 메모리 절약 | `Integer.valueOf()` 캐시(-128~127) |
 
 - **Decorator = IO 스트림** 그 자체. `new BufferedReader(new FileReader(...))`가 데코레이터 중첩. (자바 렌즈에서 "람다 패치"랑 결이 같음)
-- **Proxy = 스프링 AOP**. `@Transactional`이 붙으면 스프링이 **프록시로 감싸** 트랜잭션을 열고 닫는다. (🔎 더 깊이 → [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md) — 프록시라서 생기는 함정 4개·전파·readOnly) (→ [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)의 LoRA=AOP 비유)
+- **Proxy = 스프링 AOP**. `@Transactional`이 붙으면 스프링이 **프록시로 감싸** 트랜잭션을 열고 닫는다. (🔎 더 깊이 → 5장 트랜잭션과 락 — 프록시라서 생기는 함정 4개·전파·readOnly) (→ C.2 학습 경로와 신경망 종류의 LoRA=AOP 비유)
 
 ---
 
@@ -356,7 +356,7 @@ _작성: 2026-07 · Java 기준. 값 범위는 언어·플랫폼에 따라 다�
 | **Chain of Responsibility** | 처리기를 **사슬**로 넘김 | 서블릿 `Filter`, 스프링 시큐리티 필터 |
 | **State** | **상태별로 행동** 바뀜 | 상태 머신 |
 
-- **Observer = 리스너** 바로 그것. 등록·해제·누수 주의는 [3.2 GC 함정과 점검](../part1/ch03-2-gc-and-review.md) 참고.
+- **Observer = 리스너** 바로 그것. 등록·해제·누수 주의는 3.2 GC 함정과 점검 참고.
 - **Strategy = 람다**. `list.sort(Comparator.comparing(...))`에서 정렬 "전략"을 람다로 주입. 자바 8 이후 전략 패턴은 대부분 람다로 대체.
 - **Template Method**: `HttpServlet`을 상속해 `doGet()`만 채우는 게 딱 이 패턴. 뼈대(요청 분기)는 부모가, 세부만 내가.
 
@@ -379,7 +379,7 @@ _작성: 2026-07 · Java 기준. 값 범위는 언어·플랫폼에 따라 다�
 
 ### 언제 뭘 쓰나 · 주의
 
-- **먼저 문제를 만나고 패턴을 붙여라.** 패턴부터 깔면 **과설계(over-engineering)** — YAGNI 위반(→ [A.1 Java](a1-java.md) 7장 과한 추상화).
+- **먼저 문제를 만나고 패턴을 붙여라.** 패턴부터 깔면 **과설계(over-engineering)** — YAGNI 위반(→ A.1 Java 7장 과한 추상화).
 - 자바 8 이후 **Strategy·Command·Observer는 람다/메서드 참조로** 훨씬 짧게 쓴다. 굳이 클래스 안 만들어도 됨.
 - 스프링을 쓰면 **Singleton·Proxy·Factory·Template**은 프레임워크가 이미 해준다 — **직접 구현할 일이 준다.**
 
@@ -400,7 +400,7 @@ _작성: 2026-07 · Java 기준. 값 범위는 언어·플랫폼에 따라 다�
 ### Java — 암기 Q&A (얕게)
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 쉬운 말 위주.
-> 개념 상세: [A.1 Java](a1-java.md) · [A.1 Java](a1-java.md)
+> 개념 상세: A.1 Java · A.1 Java
 
 ---
 
@@ -430,6 +430,17 @@ _작성: 2026-07 · Java 기준. 값 범위는 언어·플랫폼에 따라 다�
 - **③ 확장** 이식성·안전(자동 메모리 관리 GC)이 강점. 대신 JVM 위라 네이티브보다 약간 느릴 수 있다.
 
 _더 깊이: OOP 어원(Simula/Smalltalk), 제네릭, 함수형(람다·스트림) 등은 물어보면 파봄._
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md)
+- [3.2 GC 함정과 점검](../part1/ch03-2-gc-and-review.md)
+- [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md)
+- [C.1 큰 그림](c1-big-picture.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+- [D.3 Unity GC](d3-unity-gc.md)
 
 ---
 

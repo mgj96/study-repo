@@ -6,7 +6,6 @@
 
 IDE를 벗어난 검증 흐름과 AI 에이전트 도구 전략, LLM 코딩 도구가 관련 코드를 찾아오는 방식과 컨텍스트 양, 코드베이스 분석법, 그리고 모델 비교를 모았다. 모델 비교는 작성 시점 기준이라 숫자는 바뀔 수 있다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -29,7 +28,6 @@ flowchart LR
 > 📌 **결정 기록 (2026-08-31): Orca·Buzz·Gemini CLI 설치·도입하지 않음.**
 > 이유 — 에이전트를 **Claude 하나만** 쓰므로 Orca의 핵심 가치(멀티 에이전트 경쟁·비교)가 성립하지 않고, 병렬 세션·워크트리는 Claude Code가 이미 내장. Buzz는 팀 도입 전제라 솔로에겐 무용.
 > 재검토 트리거 — ① 두 번째 에이전트 구독이 생기면 → Orca ② 팀이 에이전트를 도입하면 → Buzz. 그 전까지 이 노트는 **참고 자료로만** 유지.
-> 관련: [콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md) · [Kotlin 노트](a2-other-languages.md) · [품질 게이트](../part5/ch17-1-testing-and-standards.md)
 
 ---
 
@@ -92,13 +90,13 @@ Orca의 존재 이유는 ① 여러 종류 에이전트 경쟁 ② 같은 작업
 
 > ⚠️ **결정적 경고 — 무료 티어는 코드를 학습에 쓴다.** 구글 약관이 무료 티어 입력을 제품 개선·ML 학습에 사용하고 리뷰어가 열람할 수 있다고 명시한다(민감·기밀 데이터 제출 금지 조항). **회사 코드(B2G·운영 소스)는 절대 무료 제미나이에 넣지 말 것** — 학습 미사용 보장은 유료 티어부터다.
 >
-> 실전 규칙: **개인 사이드 프로젝트·코테 연습 = 무료 실험 OK / 회사 코드 = Claude 단독 유지.** [품질 게이트 노트](../part5/ch17-1-testing-and-standards.md)의 비밀키 스캔과 같은 계열의 규율이다 — 코드가 어디로 흘러가는지가 곧 보안 경계다.
+> 실전 규칙: **개인 사이드 프로젝트·코테 연습 = 무료 실험 OK / 회사 코드 = Claude 단독 유지.** 품질 게이트 노트의 비밀키 스캔과 같은 계열의 규율이다 — 코드가 어디로 흘러가는지가 곧 보안 경계다.
 
 ---
 
 ### 4. 콘웨이 노트와의 접점
 
-이 3종은 [콘웨이×AI 노트](../part3/ch12-conway-and-ai-agents.md)의 논문 단계들이 반년 만에 제품이 된 구도다: **Orca** = 토폴로지를 UI로 갈아끼우는 역콘웨이 기동의 제품화, **Buzz** = "하이브리드 팀의 소통 경로에 에이전트가 정식 입주"(신원까지 부여), **Claude Code** = 그 안의 개별 노동자. 이론 노트가 예측한 카테고리가 실제로 열리는 중이다.
+이 3종은 콘웨이×AI 노트의 논문 단계들이 반년 만에 제품이 된 구도다: **Orca** = 토폴로지를 UI로 갈아끼우는 역콘웨이 기동의 제품화, **Buzz** = "하이브리드 팀의 소통 경로에 에이전트가 정식 입주"(신원까지 부여), **Claude Code** = 그 안의 개별 노동자. 이론 노트가 예측한 카테고리가 실제로 열리는 중이다.
 
 ---
 
@@ -376,9 +374,9 @@ Codex(GPT-5.5)   = 워커: 위임받은 긴 터미널 작업을 끝까지 실행
 
 ### 관련 문서
 
-- [모델별 비교](a3-tools-and-llm.md) — 모델 자체의 강점/약점/비용
-- [LLM이란 무엇인가](c2-curriculum-and-nn-types.md) — context window, 토큰 개념
-- [코드베이스 분석 방법](a3-tools-and-llm.md) — 컨텍스트 전달 실전
+- 모델별 비교 — 모델 자체의 강점/약점/비용
+- LLM이란 무엇인가 — context window, 토큰 개념
+- 코드베이스 분석 방법 — 컨텍스트 전달 실전
 
 ---
 
@@ -520,13 +518,6 @@ find . -name "*.ts" -not -path "*/node_modules/*" | xargs cat > context.txt
 진입점은 [파일]이고, 최종 결과는 [어디로 가는지]야.
 ```
 
-### 관련 문서
-
-- [모델별 비교](a3-tools-and-llm.md)
-- [LLM이란 무엇인가](c2-curriculum-and-nn-types.md)
-
----
-
 ## LLM 모델별 비교 — 코딩 도구 관점
 
 ### 컨텍스트 윈도우 비교
@@ -634,13 +625,6 @@ find . -name "*.ts" | xargs cat > all_code.txt
 2. **진입점 먼저 제공** — `README`, `main.ts`, `index.ts` 등
 3. **불필요한 파일 제외** — `node_modules`, `dist`, `.git` 제외
 4. **핵심 파일만 선별** — context 낭비 방지
-
-### 관련 문서
-
-- [LLM이란 무엇인가](c2-curriculum-and-nn-types.md)
-- [코드베이스 분석 방법](a3-tools-and-llm.md)
-
----
 
 ## Claude 신모델 vs OpenAI GPT-5.6 비교 정리 (2026.07)
 
@@ -753,6 +737,15 @@ find . -name "*.ts" | xargs cat > all_code.txt
 - Claude Timeline — https://www.scriptbyai.com/anthropic-claude-timeline/
 
 _작성일: 2026-07-14 · 벤치마크 수치는 벤더 발표 기준, 독립 검증 전 참고용_
+
+---
+
+## 함께 보기
+
+- [12장 콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md)
+- [17.1 테스트 전략과 팀 표준](../part5/ch17-1-testing-and-standards.md)
+- [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
 
 ---
 

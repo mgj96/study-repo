@@ -12,7 +12,7 @@
 
 > 기반: **Gray, *Notes on Data Base Operating Systems* (1978, 2PC)** · **Gilbert & Lynch, *Brewer's Conjecture...* (2002, CAP 증명)** · **Garcia-Molina & Salem, *Sagas* (SIGMOD 1987)** · **Richardson, *Transactional Outbox* (microservices.io)**
 > 형식: 30초 직관 → **왜 이 문제가 생겼나** → 원리 → 트레이드오프.
-> **선행**: 단일 노드 트랜잭션은 [5장 트랜잭션과 락](ch05-transaction-and-lock.md), 분산 락은 [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md). 학습 순서는 [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md).
+> **선행**: 단일 노드 트랜잭션은 5장 트랜잭션과 락, 분산 락은 6장 캐시와 분산 락. 학습 순서는 E.1 역량 로드맵·코드 설명법.
 
 ---
 
@@ -78,7 +78,7 @@ Eric Brewer가 2000년에 추측으로 제시하고, **Gilbert & Lynch가 2002�
 
 #### 1-3. Saga (1987) — 40년 전에 이미 나온 답
 
-[5장 트랜잭션과 락](ch05-transaction-and-lock.md) 5장에서 본 그 논문이다. Garcia-Molina & Salem은 **긴 트랜잭션(LLT)** 문제를 이렇게 풀었다:
+5장 트랜잭션과 락 5장에서 본 그 논문이다. Garcia-Molina & Salem은 **긴 트랜잭션(LLT)** 문제를 이렇게 풀었다:
 
 > 긴 트랜잭션 하나를 **짧은 트랜잭션의 연속**으로 쪼갠다. 실패하면 이미 커밋된 것들을 **보상 트랜잭션**(compensating transaction)으로 되돌린다.
 
@@ -182,7 +182,7 @@ try {
 // 여기 도달한 요청은 단 하나임이 DB가 보장
 ```
 
-> **DB 유니크 제약이 곧 락이다.** [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md) 6장에서 본 결론과 정확히 같다 — **최종 저장 지점에서 검증한다.** Redis 락으로 거르는 건 최적화일 뿐, 보증은 DB가 한다.
+> **DB 유니크 제약이 곧 락이다.** 6장 캐시와 분산 락 6장에서 본 결론과 정확히 같다 — **최종 저장 지점에서 검증한다.** Redis 락으로 거르는 건 최적화일 뿐, 보증은 DB가 한다.
 
 #### 4-3. 보관 기간
 
@@ -193,7 +193,7 @@ try {
 
 #### 4-4. HTTP의 멱등성과 다르다
 
-`GET`·`PUT`·`DELETE`가 "멱등 메서드"라고 배운다([8장 통신](ch08-communication.md)). 그건 **명세상의 약속**이지 구현이 보장해주는 게 아니다. `PUT`을 구현하면서 내부에서 카운터를 증가시키면 그건 멱등이 아니다. **멱등성은 메서드가 아니라 내가 만드는 것이다.**
+`GET`·`PUT`·`DELETE`가 "멱등 메서드"라고 배운다(8장 통신). 그건 **명세상의 약속**이지 구현이 보장해주는 게 아니다. `PUT`을 구현하면서 내부에서 카운터를 증가시키면 그건 멱등이 아니다. **멱등성은 메서드가 아니라 내가 만드는 것이다.**
 
 ---
 
@@ -322,14 +322,14 @@ Saga는 실패 시 보상 트랜잭션으로 되돌린다. **그런데 되돌릴
 | 전진 복구 | 되돌릴 수 없을 때 앞으로 나아가 정합을 맞추는 방식 |
 
 ### 연결 지도
-- **gRPC로 실제 구축하기 (Java↔C#·fan-out·가십)**: → [7.2 gRPC 멱등성·fan-out](ch07-2-grpc-idempotency.md)
-- **단일 노드 트랜잭션 (선행)**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **분산 락과 최종 검증 (선행)**: → [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
-- **JVM 안의 원자성**: → [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
-- **DB 격리수준·락**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **HTTP 메서드의 멱등성**: → [8장 통신](ch08-communication.md)
-- **통신 방식 (동기·비동기)**: → [8장 통신](ch08-communication.md)
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **gRPC로 실제 구축하기 (Java↔C#·fan-out·가십)**: → 7.2 gRPC 멱등성·fan-out
+- **단일 노드 트랜잭션 (선행)**: → 5장 트랜잭션과 락
+- **분산 락과 최종 검증 (선행)**: → 6장 캐시와 분산 락
+- **JVM 안의 원자성**: → 3.1 스레드와 JMM
+- **DB 격리수준·락**: → 5장 트랜잭션과 락
+- **HTTP 메서드의 멱등성**: → 8장 통신
+- **통신 방식 (동기·비동기)**: → 8장 통신
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Gray, J. *Notes on Data Base Operating Systems.* 1978 — 2PC의 정리
@@ -340,6 +340,16 @@ Saga는 실패 시 보상 트랜잭션으로 되돌린다. **그런데 되돌릴
 - Kleppmann, M. *Designing Data-Intensive Applications.* O'Reilly, 2017 — 9장(일관성과 합의)
 
 _짧은 인용은 출처 표기. 패턴 구현은 스택·브로커에 따라 세부가 달라진다._
+
+---
+
+## 함께 보기
+
+- [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
+- [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
+- [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
+- [8장 통신](ch08-communication.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

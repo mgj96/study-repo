@@ -12,7 +12,7 @@ Redis는 단일 스레드라는 선택으로 단순함과 속도를 얻었다. �
 
 > 기반: **Redis 공식 문서 / antirez 블로그** · **Kleppmann, *How to do distributed locking* (2016)** · **antirez, *Is Redlock safe?* (2016)** · **Redis 설계 배경(LLOOGG, 2009)**
 > 형식: 30초 직관 → **왜 만들어졌나** → 원리 → 트레이드오프.
-> **선행**: JVM 안의 동시성은 [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md). 이 노트는 **그 도구가 전부 무효가 되는 지점**에서 시작한다. 학습 순서는 [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md).
+> **선행**: JVM 안의 동시성은 3.1 스레드와 JMM. 이 노트는 **그 도구가 전부 무효가 되는 지점**에서 시작한다. 학습 순서는 E.1 역량 로드맵·코드 설명법.
 
 ---
 
@@ -28,7 +28,7 @@ public synchronized void apply(User u) {     // ⚠️ 서버가 1대일 때만 
 
 **`synchronized`는 JVM 하나 안에서만 유효하다.** 서버가 2대면 JVM이 2개고, 락도 2개다. 두 서버가 각각 "지금 99명"이라고 믿고 동시에 통과시킨다. → **101명 당첨.**
 
-[3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)에서 배운 것들(`volatile`·CAS·`synchronized`)은 전부 "**하나의 메모리를 공유하는 스레드들**"을 전제한다. 프로세스가 둘이 되는 순간 그 전제가 깨진다.
+3.1 스레드와 JMM에서 배운 것들(`volatile`·CAS·`synchronized`)은 전부 "**하나의 메모리를 공유하는 스레드들**"을 전제한다. 프로세스가 둘이 되는 순간 그 전제가 깨진다.
 
 > **그래서 필요한 게 "바깥에 있는 심판"이다.** 모든 서버가 공통으로 물어보는 한 곳. 그게 보통 Redis다.
 
@@ -321,7 +321,7 @@ if (rank > 100) {
 #### Q1. 서버가 여러 대면 `synchronized`가 왜 안 되나?
 
 - **① 결론 · WHAT** `synchronized`는 **JVM 하나 안의 스레드**만 통제한다. 서버가 2대면 JVM이 2개라 **락도 2개**다. 서로를 모른다.
-- **② 원리 · HOW** 자바의 동시성 도구는 전부 **하나의 메인 메모리를 공유하는 스레드**를 전제한다([3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)). 프로세스가 분리되면 그 전제가 성립하지 않는다. 그래서 **모두가 물어보는 외부 심판**(Redis·DB·ZooKeeper)이 필요해진다.
+- **② 원리 · HOW** 자바의 동시성 도구는 전부 **하나의 메인 메모리를 공유하는 스레드**를 전제한다(3.1 스레드와 JMM). 프로세스가 분리되면 그 전제가 성립하지 않는다. 그래서 **모두가 물어보는 외부 심판**(Redis·DB·ZooKeeper)이 필요해진다.
 - **③ 확장 · TRADE-OFF** 외부 심판은 **네트워크 왕복 비용**과 **새로운 단일 장애점**을 만든다. 그리고 6장에서 보듯 **완전한 정확성도 보장하지 못한다.** 그래서 가능하면 락 대신 **원자적 연산 하나**(`INCR`)나 **DB 제약**으로 푸는 게 낫다.
 
 #### Q2. Redis는 왜 단일 스레드인데 빠른가?
@@ -355,11 +355,11 @@ if (rank > 100) {
 | `SCAN` / `UNLINK` | `KEYS` / `DEL`의 논블로킹 대체 명령 |
 
 ### 연결 지도
-- **JVM 안의 동시성 (선행)**: → [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
-- **트랜잭션 경계와 커넥션**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **DB 락·격리수준**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **메모리 계층 (왜 메모리가 빠른가)**: → [2.1 메모리 계층과 캐시](../part1/ch02-1-memory-hierarchy.md)
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **JVM 안의 동시성 (선행)**: → 3.1 스레드와 JMM
+- **트랜잭션 경계와 커넥션**: → 5장 트랜잭션과 락
+- **DB 락·격리수준**: → 5장 트랜잭션과 락
+- **메모리 계층 (왜 메모리가 빠른가)**: → 2.1 메모리 계층과 캐시
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Kleppmann, M. *How to do distributed locking.* 2016-02-08 — https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
@@ -369,6 +369,15 @@ if (rank > 100) {
 - Kleppmann, M. *Designing Data-Intensive Applications.* O'Reilly, 2017 — 8~9장(신뢰할 수 없는 시계·분산 락)
 
 _짧은 인용은 출처 표기. Redis 버전에 따라 명령·동작이 달라질 수 있으니 사용 중인 버전 문서를 확인할 것._
+
+---
+
+## 함께 보기
+
+- [2.1 메모리 계층과 캐시](../part1/ch02-1-memory-hierarchy.md)
+- [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
+- [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

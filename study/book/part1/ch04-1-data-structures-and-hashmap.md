@@ -6,7 +6,6 @@
 
 자바 컬렉션을 무엇을 언제 쓰는지부터 시작해, 자료구조의 내부가 어떻게 생겼는지, 그리고 HashMap이 어떻게 O(1)을 지키는지를 본다. 해시 충돌·리사이즈·트리화가 왜 그렇게 설계됐는지가 핵심이다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -26,7 +25,7 @@ flowchart LR
 ## 자바로 보는 자료구조 — 뭘 언제 쓰나 + 놓치기 쉬운 함정
 
 > 관점: 추상 자료구조를 **실제 Java Collections**에 매핑하고, 자바 개발자가 **자주 놓치는 함정**을 필수부터 정리.
-> 추상 선택 가이드(결정 트리)는 [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md) 4장. 자바 렌즈 전반: [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md).
+> 추상 선택 가이드(결정 트리)는 1장 추상화와 복잡도 4장. 자바 렌즈 전반: C.2 학습 경로와 신경망 종류.
 
 ---
 
@@ -103,7 +102,7 @@ import java.util.Vector;          // 동기화 오버헤드 → ArrayList 사용
   ```
 
 #### ④ 오토박싱 비용 (자바 렌즈의 핵심)
-- `HashMap<Integer, Integer>` 는 `int`를 **`Integer`로 박싱** → 힙 할당·GC 부담 (→ [A.1 Java](../appendix/a1-java.md)).
+- `HashMap<Integer, Integer>` 는 `int`를 **`Integer`로 박싱** → 힙 할당·GC 부담 (→ A.1 Java).
 - 핫패스·대용량이면 primitive 특화 컬렉션(예: Eclipse Collections, fastutil) 고려.
 
 #### ⑤ 초기 용량 · load factor
@@ -149,7 +148,7 @@ import java.util.Vector;          // 동기화 오버헤드 → ArrayList 사용
 ---
 
 ### 한 줄 요약
-자바에선 **리스트=`ArrayList`, 맵=`HashMap`, 스택·큐=`ArrayDeque`, 우선순위**=`PriorityQueue`가 기본. 함정은 **LinkedList·Stack 지양, equals+hashCode 계약, 오토박싱 비용, rehash·fail-fast**. → 추상 선택 기준은 [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md), GC 함정은 [3.2 GC 함정과 점검](ch03-2-gc-and-review.md).
+자바에선 **리스트=`ArrayList`, 맵=`HashMap`, 스택·큐=`ArrayDeque`, 우선순위**=`PriorityQueue`가 기본. 함정은 **LinkedList·Stack 지양, equals+hashCode 계약, 오토박싱 비용, rehash·fail-fast**. → 추상 선택 기준은 1장 추상화와 복잡도, GC 함정은 3.2 GC 함정과 점검.
 
 ### 참조
 - [Java Collections 튜토리얼](https://docs.oracle.com/javase/tutorial/collections/) · [Big-O Cheat Sheet](https://www.bigocheatsheet.com/)
@@ -159,7 +158,7 @@ import java.util.Vector;          // 동기화 오버헤드 → ArrayList 사용
 ## 자료구조 딥다이브 — 내부는 어떻게 생겼나 (흥미 위주)
 
 > 관점: "쓰는 법"에서 "**왜 그렇게 빠른가**"로. 겉보기 O(1) 뒤의 진짜 기계장치를 뜯어본다.
-> 얕은 실무 가이드는 [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md), 선택 기준은 [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md).
+> 얕은 실무 가이드는 4.1 자료구조와 HashMap, 선택 기준은 1장 추상화와 복잡도.
 
 ---
 
@@ -181,7 +180,7 @@ import java.util.Vector;          // 동기화 오버헤드 → ArrayList 사용
 용량 4 → 꽉 참 → 8로 복사(4번) → ... → 16으로 복사(8번) ...
 총 복사 = 4+8+16+... ≈ 2n  →  한 번당 평균 O(1)
 ```
-> 💡 왜 하필 **2배(또는 1.5배)**? 고정량(+10)씩 늘리면 복사가 O(n)씩 자주 나 총 O(n²). **곱셈 성장**이라야 분할상환 O(1)이 성립. 이게 "숨은 재할당 비용"(→ [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) 함정)의 정체.
+> 💡 왜 하필 **2배(또는 1.5배)**? 고정량(+10)씩 늘리면 복사가 O(n)씩 자주 나 총 O(n²). **곱셈 성장**이라야 분할상환 O(1)이 성립. 이게 "숨은 재할당 비용"(→ 4.1 자료구조와 HashMap 함정)의 정체.
 
 ---
 
@@ -244,7 +243,7 @@ key ─hashCode()→ 정수 ─(비트 섞기)→ index = hash & (배열크기-1
 ### 6. 더 팔 것 (deep-dive 목록)
 - [ ] **HashMap 리사이즈·treeify 소스** 뜯어보기 (JDK `HashMap.java`)
 - [ ] **레드-블랙 트리 회전** 직접 그려보기
-- [ ] **B+트리로 DB 인덱스** 동작 (→ [8장 통신](../part2/ch08-communication.md) 이후 DB 노트)
+- [ ] **B+트리로 DB 인덱스** 동작 (→ 8장 통신 이후 DB 노트)
 - [ ] **Bloom Filter 수학** (오탐률 계산)
 - [ ] **LRU를 `LinkedHashMap`으로** 5줄 구현
 - [ ] **Union-Find 경로 압축** (거의 O(1)의 비밀)
@@ -262,7 +261,7 @@ key ─hashCode()→ 정수 ─(비트 섞기)→ index = hash & (배열크기-1
 ## 딥다이브 — HashMap 내부는 어떻게 O(1)인가
 
 > 관점: `map.get(key)`가 왜 "한 방에" 나오는가. 그리고 그 O(1)이 **깨지는 순간**과 자바 8이 그걸 어떻게 방어하는지.
-> 얕은 실무 가이드는 [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md), 자료구조 전반은 [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md), 이론 배경은 [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md).
+> 얕은 실무 가이드는 4.1 자료구조와 HashMap, 자료구조 전반은 4.1 자료구조와 HashMap, 이론 배경은 1장 추상화와 복잡도.
 
 ---
 
@@ -391,7 +390,7 @@ while (p != null) {
   - 너무 낮추면(예: 0.5) 충돌은 줄지만 **빈 칸이 많아 메모리 낭비↑**, 리사이즈도 잦아짐.
   - 0.75는 이 둘의 **경험적 균형점**이다.
 - **2배로 키우는 이유**: 크기를 항상 2의 거듭제곱으로 유지해야 `(n-1) & hash` 트릭이 성립한다. 게다가 자바 8은 재배치 시 각 노드가 **"제자리에 남거나, 정확히 (기존 위치 + 기존 용량)으로 이동"** 둘 중 하나임을 이용해 rehash를 최적화한다(`hash & oldCap` 비트 하나로 판정).
-- 리사이즈는 O(n) 작업이지만 **가끔만** 일어나 분할상환(amortized)으로 put 평균은 여전히 O(1)이다(동적 배열의 곱셈 성장 논리와 동일, → [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)).
+- 리사이즈는 O(n) 작업이지만 **가끔만** 일어나 분할상환(amortized)으로 put 평균은 여전히 O(1)이다(동적 배열의 곱셈 성장 논리와 동일, → 4.1 자료구조와 HashMap).
 
 ```java
 // 리사이즈 개념: 용량 2배 → 각 노드를 새 배열에 재배치
@@ -513,7 +512,17 @@ User u = users.get(new UserId("acme", 42L));   // 논리적으로 같은 키 →
 
 - **OpenJDK `HashMap.java` 소스** — `hash()`의 `(h = key.hashCode()) ^ (h >>> 16)`, `TREEIFY_THRESHOLD=8` / `UNTREEIFY_THRESHOLD=6` / `MIN_TREEIFY_CAPACITY=64`, 그리고 **버킷당 노드 수 기대 분포를 담은 푸아송(λ=0.5) 주석**(8일 확률 약 6e-8).
 - **Oracle Java SE 21 API — `HashMap`**: https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/HashMap.html
-- 교차 링크: [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) · [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) · [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- 교차 링크: 4.1 자료구조와 HashMap · 4.1 자료구조와 HashMap · 1장 추상화와 복잡도
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- [3.2 GC 함정과 점검](ch03-2-gc-and-review.md)
+- [8장 통신](../part2/ch08-communication.md)
+- [A.1 Java](../appendix/a1-java.md)
+- [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md)
 
 ---
 

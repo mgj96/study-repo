@@ -12,7 +12,7 @@
 
 > 기반: **gRPC 공식 문서 *Retry / Service Config*** · **gRPC 제안서 A6 *Client Retries* (재시도·헤징 설계)** · **Microsoft Learn *Transient fault handling with gRPC retries*** · **Demers et al., *Epidemic Algorithms for Replicated Database Maintenance* (PODC 1987, 가십의 원전)**
 > 형식: 시나리오 → 커넥션의 실체 → 재시도 3층 → 멱등성 구축(코드) → fan-out → peer 전파 → 체크리스트.
-> **선행**: 멱등성·Outbox의 원리는 [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md), gRPC가 뭔지는 [8장 통신](ch08-communication.md), 연결 유지 비용은 같은 문서 5장.
+> **선행**: 멱등성·Outbox의 원리는 7.1 멱등성·Outbox·Saga, gRPC가 뭔지는 8장 통신, 연결 유지 비용은 같은 문서 5장.
 
 ---
 
@@ -24,7 +24,7 @@
 [중앙 서버 · Java/Spring]  ──gRPC──▶  [현장 게이트웨이 · C#/.NET]  ──▶  차단기
 ```
 
-중앙이 `OpenGate` RPC를 쐈는데 **타임아웃**이 났다. [분산 정합성 노트](ch07-1-distributed-consistency.md)의 그 문장이 그대로 돌아온다 — **타임아웃은 실패가 아니라 "모름"이다.** 차단기가 안 열린 건지, 열렸는데 응답만 유실된 건지 구분할 수 없다.
+중앙이 `OpenGate` RPC를 쐈는데 **타임아웃**이 났다. 분산 정합성 노트의 그 문장이 그대로 돌아온다 — **타임아웃은 실패가 아니라 "모름"이다.** 차단기가 안 열린 건지, 열렸는데 응답만 유실된 건지 구분할 수 없다.
 
 - 재시도 안 하면 → 차가 못 나간다 (요금 낸 고객이 갇힘)
 - 재시도하면 → 이미 열렸는데 또 명령이 간다. 차단기라 다행이지, **"요금 청구해라"였으면 이중과금**이다
@@ -70,7 +70,7 @@ var channel = GrpcChannel.ForAddress("https://central:5001", new GrpcChannelOpti
 
 #### 1-2. keepalive가 없으면 생기는 일
 
-[8장 통신](ch08-communication.md) 5-4장의 함정이 여기서 재현된다 — gRPC 연결은 **긴 연결**이므로 중간의 LB·방화벽·Nginx가 유휴 커넥션을 조용히 끊는다. 끊긴 걸 모르는 채 RPC를 쏘면 **첫 호출만 이상하게 실패**하는 미스터리가 된다. keepalive PING이 그 절단을 조기 감지하고 재접속시킨다. (단, 너무 짧게 잡으면 서버가 `GOAWAY too_many_pings`로 오히려 끊는다 — 서버 허용치와 맞출 것.)
+8장 통신 5-4장의 함정이 여기서 재현된다 — gRPC 연결은 **긴 연결**이므로 중간의 LB·방화벽·Nginx가 유휴 커넥션을 조용히 끊는다. 끊긴 걸 모르는 채 RPC를 쏘면 **첫 호출만 이상하게 실패**하는 미스터리가 된다. keepalive PING이 그 절단을 조기 감지하고 재접속시킨다. (단, 너무 짧게 잡으면 서버가 `GOAWAY too_many_pings`로 오히려 끊는다 — 서버 허용치와 맞출 것.)
 
 #### 1-3. 데드라인은 전파된다
 
@@ -81,7 +81,7 @@ stub.withDeadlineAfter(3, TimeUnit.SECONDS).openGate(req);   // Java
 client.OpenGateAsync(req, deadline: DateTime.UtcNow.AddSeconds(3));  // C#
 ```
 
-**작업 규칙 2: 모든 RPC에 데드라인을 건다.** 데드라인 없는 RPC는 영원히 대기할 수 있고, 그 대기가 스레드·커넥션을 쥔다 — [성능 공학 노트](ch09-performance-and-scale.md)의 Little's Law가 말하는 "응답시간 열화 = 점유 폭증"의 입구다. gRPC는 데드라인을 **호출 체인을 따라 전파**하므로(중앙→게이트웨이→하위 장치), 최상위에서 건 3초가 전체 예산이 된다.
+**작업 규칙 2: 모든 RPC에 데드라인을 건다.** 데드라인 없는 RPC는 영원히 대기할 수 있고, 그 대기가 스레드·커넥션을 쥔다 — 성능 공학 노트의 Little's Law가 말하는 "응답시간 열화 = 점유 폭증"의 입구다. gRPC는 데드라인을 **호출 체인을 따라 전파**하므로(중앙→게이트웨이→하위 장치), 최상위에서 건 3초가 전체 예산이 된다.
 
 ---
 
@@ -158,7 +158,7 @@ var request = new OpenGateRequest {
 var res = await client.OpenGateAsync(request, deadline: DateTime.UtcNow.AddSeconds(3));
 ```
 
-> [분산 정합성 노트](ch07-1-distributed-consistency.md) 4-1의 규칙 그대로다 — **가장 흔한 실수는 재시도할 때 키를 새로 만드는 것.** gRPC 내장 재시도의 좋은 점이 바로 이것이다: **런타임이 같은 요청 객체를 재전송하므로 키가 실수로 바뀔 수 없다.** 애플리케이션 레벨에서 수동 재시도 루프를 짤 때만 키 재사용을 직접 챙기면 된다.
+> 분산 정합성 노트 4-1의 규칙 그대로다 — **가장 흔한 실수는 재시도할 때 키를 새로 만드는 것.** gRPC 내장 재시도의 좋은 점이 바로 이것이다: **런타임이 같은 요청 객체를 재전송하므로 키가 실수로 바뀔 수 없다.** 애플리케이션 레벨에서 수동 재시도 루프를 짤 때만 키 재사용을 직접 챙기면 된다.
 
 #### 3-3. 서버(Java) — "조회 후 처리"가 아니라 "선점 후 처리"
 
@@ -227,11 +227,11 @@ public void ApplyPolicy(PolicySnapshot incoming) {
 }
 ```
 
-> **"세터는 멱등하고 증분은 아니다"** (`x = 42` vs `x += 1`) — [분산 정합성 노트](ch07-1-distributed-consistency.md)의 그 원리를 전파 설계에 적용한 것이다. 전파할 땐 가능하면 **명령이 아니라 원하는 최종 상태(desired state)를 버전과 함께** 보내라. 쿠버네티스가 정확히 이 원리로 동작한다(선언적 상태 + 조정 루프).
+> **"세터는 멱등하고 증분은 아니다"** (`x = 42` vs `x += 1`) — 분산 정합성 노트의 그 원리를 전파 설계에 적용한 것이다. 전파할 땐 가능하면 **명령이 아니라 원하는 최종 상태(desired state)를 버전과 함께** 보내라. 쿠버네티스가 정확히 이 원리로 동작한다(선언적 상태 + 조정 루프).
 
 #### 4-3. 발신 측 — 대상별 Outbox 큐
 
-중앙은 [Outbox 패턴](ch07-1-distributed-consistency.md)을 **대상별로** 확장한다: `(target, seq, payload, delivered)` 테이블에 쓰고, 릴레이가 대상마다 미전달분을 재시도한다. 복제된 BE 인스턴스 M개가 같은 테이블을 보므로, **어느 인스턴스가 릴레이를 돌려도** 결과가 같다(전달 여부 갱신도 멱등 — `delivered=true`는 세터다).
+중앙은 Outbox 패턴을 **대상별로** 확장한다: `(target, seq, payload, delivered)` 테이블에 쓰고, 릴레이가 대상마다 미전달분을 재시도한다. 복제된 BE 인스턴스 M개가 같은 테이블을 보므로, **어느 인스턴스가 릴레이를 돌려도** 결과가 같다(전달 여부 갱신도 멱등 — `delivered=true`는 세터다).
 
 ---
 
@@ -280,7 +280,7 @@ flowchart TB
 가십이 주는 건 **결과적 일관성**이다. "언젠가 모두 같은 상태"이지 "지금 모두 같은 상태"가 아니다. 따라서:
 
 - **정책·설정·상태 공유에는 적합** (요금 정책, 만차 현황, 블랙리스트)
-- **돈이 걸린 단일 결정에는 부적합** (같은 정기권으로 두 게이트 동시 통과 차단 같은 문제는 가십으로 못 푼다 — 중앙 원장 또는 [분산 락](ch06-cache-and-distributed-lock.md)의 영역이고, 끊김 시에는 **전진 복구**(선통과 후정산)로 설계한다 → [분산 정합성 6장](ch07-1-distributed-consistency.md))
+- **돈이 걸린 단일 결정에는 부적합** (같은 정기권으로 두 게이트 동시 통과 차단 같은 문제는 가십으로 못 푼다 — 중앙 원장 또는 분산 락의 영역이고, 끊김 시에는 **전진 복구**(선통과 후정산)로 설계한다 → 분산 정합성 6장)
 
 ---
 
@@ -351,11 +351,11 @@ flowchart TB
 | 결과적 일관성 | "언젠가 모두 같음". 지금 같음은 보장 안 함 |
 
 ### 연결 지도
-- **멱등성·Outbox·전진 복구 (원리 선행)**: → [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md)
-- **gRPC·Protobuf 기초와 연결 유지 비용**: → [8장 통신](ch08-communication.md)
-- **단일성 결정(분산 락)의 영역**: → [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
-- **데드라인과 점유의 수학**: → [9장 성능과 스케일](ch09-performance-and-scale.md)
-- **경계 너머의 강한 결합 (이론)**: → [11장 모듈성 이론](../part3/ch11-modularity.md) 3-3장
+- **멱등성·Outbox·전진 복구 (원리 선행)**: → 7.1 멱등성·Outbox·Saga
+- **gRPC·Protobuf 기초와 연결 유지 비용**: → 8장 통신
+- **단일성 결정(분산 락)의 영역**: → 6장 캐시와 분산 락
+- **데드라인과 점유의 수학**: → 9장 성능과 스케일
+- **경계 너머의 강한 결합 (이론)**: → 11장 모듈성 이론 3-3장
 
 ### 출처
 - gRPC 공식 문서, *Retry* / *Service Config* — https://grpc.io/docs/guides/retry/ · https://grpc.io/docs/guides/service-config/
@@ -365,6 +365,15 @@ flowchart TB
 - Kleppmann, M. *Designing Data-Intensive Applications.* 2017 — 5장(복제)·11장(스트림)
 
 _짧은 인용은 출처 표기. gRPC 설정 키·기본값은 언어 구현·버전에 따라 다르니 사용 스택 문서로 확인._
+
+---
+
+## 함께 보기
+
+- [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
+- [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md)
+- [9장 성능과 스케일](ch09-performance-and-scale.md)
+- [11장 모듈성 이론](../part3/ch11-modularity.md)
 
 ---
 

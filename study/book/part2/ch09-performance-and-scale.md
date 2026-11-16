@@ -12,7 +12,7 @@
 
 > 기반: **Tene, *How NOT to Measure Latency* (2013~)** · **Little, *A Proof for the Queuing Formula L = λW* (1961)** · **Gregg, *The USE Method*** · **Wilkie, *The RED Method*** · **HikariCP, *About Pool Sizing***
 > 형식: 30초 직관 → 왜 이 도구가 생겼나 → 원리 → 트레이드오프.
-> 관련: 커넥션 점유는 [5장 트랜잭션과 락](ch05-transaction-and-lock.md) 2-4장, 캐시는 [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md). 학습 순서는 [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md).
+> 관련: 커넥션 점유는 5장 트랜잭션과 락 2-4장, 캐시는 6장 캐시와 분산 락. 학습 순서는 E.1 역량 로드맵·코드 설명법.
 
 ---
 
@@ -106,7 +106,7 @@ $$\text{동시 처리 중 요청 수} = \text{TPS} \times \text{평균 응답시
 | 스레드 200개, 응답 0.5초 → 최대 TPS는? | 200 ÷ 0.5 = **400 TPS** (그 이상은 물리적으로 불가) |
 | 응답이 0.2→2초로 열화되면? | 같은 TPS에 동시 요청 **10배** → 풀 고갈 |
 
-**세 번째 줄이 장애의 공식이다.** 외부 API가 느려지면(응답시간↑) 같은 트래픽에서도 점유 자원이 정비례로 늘어난다 — [Spring 트랜잭션 노트](ch05-transaction-and-lock.md) 2-4장의 "느린 벤더가 커넥션 풀을 말리는" 경로가 바로 이 수식이다.
+**세 번째 줄이 장애의 공식이다.** 외부 API가 느려지면(응답시간↑) 같은 트래픽에서도 점유 자원이 정비례로 늘어난다 — Spring 트랜잭션 노트 2-4장의 "느린 벤더가 커넥션 풀을 말리는" 경로가 바로 이 수식이다.
 
 > **부하 시나리오 설계에도 역으로 쓴다**: "동시 사용자 3,000명, 사용자당 10초에 1회 요청" → λ = 300 TPS. 이게 목표 부하다. "스레드 3,000개로 최대한 때려보자"는 시나리오가 아니라 공격이다.
 
@@ -156,7 +156,7 @@ pool size ≈ (DB 서버 코어 수 × 2) + 유효 디스크 수
 
 #### 5-2. 왜 작을수록 빠른가
 
-DB가 실제로 **동시에** 일할 수 있는 수는 코어 수에 묶여 있다. 커넥션 400개를 열어도 4코어면 **4개만 실행되고 396개는 락과 컨텍스트 스위칭을 유발하며 대기**한다. 큰 풀은 처리량을 늘리는 게 아니라 **경합을 늘린다.** (같은 원리를 [Redis 노트](ch06-cache-and-distributed-lock.md) 2장에서 봤다 — 작업이 짧을수록 병렬화 비용이 이득을 이긴다.)
+DB가 실제로 **동시에** 일할 수 있는 수는 코어 수에 묶여 있다. 커넥션 400개를 열어도 4코어면 **4개만 실행되고 396개는 락과 컨텍스트 스위칭을 유발하며 대기**한다. 큰 풀은 처리량을 늘리는 게 아니라 **경합을 늘린다.** (같은 원리를 Redis 노트 2장에서 봤다 — 작업이 짧을수록 병렬화 비용이 이득을 이긴다.)
 
 > ⚠️ **주의 두 가지**: ① 이 공식은 회전 디스크 시절 것이라 SSD 환경에선 **출발점**일 뿐, 정답은 부하 테스트로 찾는다. ② 풀을 줄이기 전에 **트랜잭션 안의 외부 호출부터 제거**해야 한다 — 느린 작업이 커넥션을 쥔 채면 작은 풀은 즉사한다(3-2의 Little's Law).
 
@@ -168,7 +168,7 @@ DB가 실제로 **동시에** 일할 수 있는 수는 코어 수에 묶여 있�
 pool size ≥ 스레드 수 × (요청당 커넥션 수 - 1) + 1
 ```
 
-이보다 작으면 **모두가 두 번째 커넥션을 기다리는 데드락**이 가능하다 — [Spring 트랜잭션 노트](ch05-transaction-and-lock.md) 3장의 `REQUIRES_NEW` 경고가 수식으로 나온 것.
+이보다 작으면 **모두가 두 번째 커넥션을 기다리는 데드락**이 가능하다 — Spring 트랜잭션 노트 3장의 `REQUIRES_NEW` 경고가 수식으로 나온 것.
 
 ---
 
@@ -224,11 +224,11 @@ pool size ≥ 스레드 수 × (요청당 커넥션 수 - 1) + 1
 | 워밍업 | JIT·캐시가 정상 상태에 도달할 때까지 버리는 측정 구간 |
 
 ### 연결 지도
-- **트랜잭션이 커넥션을 쥐는 시간**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **캐시와 스탬피드 (부하의 완충)**: → [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
-- **"작을수록 빠르다"의 원리**: → [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md) 2장
-- **품질 속성 시나리오 (숫자를 요구로)**: → [10장 설계의 출발점](../part3/ch10-design-starting-point.md) 1-4장
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **트랜잭션이 커넥션을 쥐는 시간**: → 5장 트랜잭션과 락
+- **캐시와 스탬피드 (부하의 완충)**: → 6장 캐시와 분산 락
+- **"작을수록 빠르다"의 원리**: → 6장 캐시와 분산 락 2장
+- **품질 속성 시나리오 (숫자를 요구로)**: → 10장 설계의 출발점 1-4장
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Tene, G. *How NOT to Measure Latency.* 강연 (Strange Loop 등, 2013~) — HdrHistogram·wrk2의 배경
@@ -269,7 +269,7 @@ _짧은 인용은 출처 표기. 수치 예시는 원리 설명용이며 실측�
 | 한계 | 하드웨어 상한에 빨리 도달 | 설계만 맞으면 계속 |
 
 - 왜 수직이 지연에 유리? 모든 처리가 **한 메모리/캐시 계층** 안에서 일어나 네트워크 왕복이 없음.
-  (→ [메모리 계층](../part1/ch02-1-memory-hierarchy.md)과 직결)
+  (→ 메모리 계층과 직결)
 
 #### 3. 병목은 옮겨 다닌다
 자원을 늘리면 병목이 **다른 곳으로 이동**한다. 예: 메모리 100%·CPU 70% 상태에서
@@ -298,18 +298,11 @@ flowchart TD
 
 - **AI/Claude Code에 일 시킬 때**: "확장성 좋게 만들어줘"는 모호하다 →
   "**현재 병목은 DB I/O, 트래픽 1만 rps 목표, 우선 수직 스케일 가정**" 처럼
-  병목·목표·전략을 명시해야 제대로 된 결과가 나온다. ([코드베이스 분석](../appendix/a3-tools-and-llm.md))
+  병목·목표·전략을 명시해야 제대로 된 결과가 나온다. (코드베이스 분석)
 - **GitHub Actions runner**: 기본 runner(2코어/7GB)로 부족하면 → 큰 runner(수직) vs
-  matrix 병렬(수평)을 병목 기준으로 선택. ([Reusable Workflows](../part5/ch17-2-ci-quality-automation.md))
+  matrix 병렬(수평)을 병목 기준으로 선택. (Reusable Workflows)
 - **MoE 모델 셀프호스팅**: 활성 파라미터는 작아도 전체를 적재해야 하므로,
-  메모리가 병목 → 수직(큰 VRAM) 우선 판단. ([MoE](../appendix/c5-llm-alignment-and-papers.md))
-
-### 관련 문서
-
-- [메모리 계층과 지연시간](../part1/ch02-1-memory-hierarchy.md)
-- [Reusable Workflows](../part5/ch17-2-ci-quality-automation.md)
-
----
+  메모리가 병목 → 수직(큰 VRAM) 우선 판단. (MoE)
 
 ## 스케일의 현실 — 중소 회사 기준 4개 회사 사례
 
@@ -356,7 +349,7 @@ flowchart TD
 ### 사례 4. Amazon Prime Video — 분산 되돌리기 (반례 보강)
 
 - 하이퍼스케일러조차 마이크로서비스/서버리스 → **모놀리스로 통합, 비용 90%↓**.
-- 교훈: **큰 회사도 과한 분산을 되돌린다.** "분산 = 진보"가 아니다. (앞 [tradeoffs 사례2](../part4/ch14-migration-case-studies.md) 참고)
+- 교훈: **큰 회사도 과한 분산을 되돌린다.** "분산 = 진보"가 아니다. (앞 tradeoffs 사례2 참고)
 - 출처: [thestack 정리](https://www.thestack.technology/amazon-prime-video-microservices-monolith/)
 
 ---
@@ -385,11 +378,17 @@ flowchart TD
 **Redis가 "필요해서"가 아니라 측정된 병목일 때.** 단일 DB로 충분하면 `db-atomic` 같은
 단순 해법이 더 빠르고 단순하다. 위 4개 회사의 "단순함 우선"과 같은 결.
 
-### 관련 문서
+## 함께 보기
 
-- [Scale-up vs Scale-out](ch09-performance-and-scale.md)
-- [정답은 없다 — 경험담](../part4/ch14-migration-case-studies.md)
-- [트레이드오프 읽는 법](../preface/00-how-to-read.md)
+- [서문 — 이 책을 읽는 법](../preface/00-how-to-read.md)
+- [2.1 메모리 계층과 캐시](../part1/ch02-1-memory-hierarchy.md)
+- [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
+- [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
+- [14장 전환 사례와 판단 기준](../part4/ch14-migration-case-studies.md)
+- [17.2 CI 품질 도구와 자동화](../part5/ch17-2-ci-quality-automation.md)
+- [A.3 개발 도구와 LLM](../appendix/a3-tools-and-llm.md)
+- [C.5 정렬·MoE·논문](../appendix/c5-llm-alignment-and-papers.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

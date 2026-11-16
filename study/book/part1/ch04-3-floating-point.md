@@ -6,7 +6,6 @@
 
 돈 계산에 double을 쓰면 안 되는 이유는 IEEE 754 표현 방식에 있다. 이 절은 부호·지수·가수가 어떻게 수를 근사하는지, 언제 BigDecimal이나 정수 단위를 써야 하는지 정리한다. 끝에는 자료구조·알고리즘 Q&A로 1부를 마무리한다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -23,7 +22,6 @@ flowchart LR
 ## 딥다이브 — 부동소수(IEEE 754): 왜 0.1 + 0.2 ≠ 0.3
 
 > Java 개발자 관점의 딥다이브. `float`/`double`은 **2진 부동소수**(IEEE 754)이고, 우리가 익숙한 10진 소수와 표현 체계가 다르다. 그 간극에서 모든 버그가 나온다.
-> 관련 노트: [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md), [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)
 
 ---
 
@@ -313,16 +311,12 @@ if (Math.abs(a - b) <= 4 * Math.ulp(a)) { ... }
 
 ---
 
-관련 노트: [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md) · [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)
-
----
-
 ## 정리 Q&A
 
 ### CS 암기 Q&A — 자료구조 · 알고리즘
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 외우기용.
-> 개념 심화는 [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md) 참고.
+> 개념 심화는 1장 추상화와 복잡도 참고.
 
 ---
 
@@ -376,7 +370,15 @@ if (Math.abs(a - b) <= 4 * Math.ulp(a)) { ... }
 - **② 원리** 전위(루트→좌→우), 중위(좌→루트→우), 후위(좌→우→루트).
 - **③ 확장** 중위 순회는 BST에서 **정렬된 순서**로 나옴. 후위는 삭제·계산에, 전위는 복제·직렬화에 쓰인다.
 
-_형식 참고: [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)_
+_형식 참고: E.1 역량 로드맵·코드 설명법_
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

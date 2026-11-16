@@ -72,8 +72,7 @@ L1을 1초로 치면: RAM ≈ 약 3-4분, SSD ≈ 며칠, 디스크 seek ≈ 1�
 
 ### 관련 문서
 
-- [scale-up vs scale-out](../part2/ch09-performance-and-scale.md)
-- [Reusable Workflows](../part5/ch17-2-ci-quality-automation.md) — runner CPU/RAM 고려
+- Reusable Workflows — runner CPU/RAM 고려
 
 ---
 
@@ -81,7 +80,6 @@ L1을 1초로 치면: RAM ≈ 약 3-4분, SSD ≈ 며칠, 디스크 seek ≈ 1�
 
 > 관점: "코드는 CPU가 실행한다"는 착각을 버린다. **진짜 병목은 데이터를 CPU까지 나르는 일**이다.
 > Big-O가 같아도 `ArrayList`가 `LinkedList`를 이기고, 필드 배치 하나로 멀티스레드 성능이 10배 갈린다. 그 정체를 파본다.
-> 관련: [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) · [3.2 GC 함정과 점검](ch03-2-gc-and-review.md) · [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
 
 ---
 
@@ -211,7 +209,7 @@ Big-O로는 둘 다 순회 O(n)인데, 실측은 배열이 **수 배~수십 배*
 1. 순회·검색이 캐시 친화적이라 압도적으로 빠르고,
 2. LinkedList의 O(1) 삽입은 "삽입 지점 노드를 이미 쥐고 있을 때"뿐 — 보통은 **먼저 O(n)으로 찾아가야** 하고, 그 탐색이 캐시 미스 지옥이다.
 
-> 실전 결론: 자바에서 `LinkedList`를 쓸 이유는 거의 없다. `ArrayDeque`가 큐/스택도 더 빠르다(→ [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)).
+> 실전 결론: 자바에서 `LinkedList`를 쓸 이유는 거의 없다. `ArrayDeque`가 큐/스택도 더 빠르다(→ 4.1 자료구조와 HashMap).
 
 ---
 
@@ -333,7 +331,7 @@ public class FalseSharing {
 
 - **수동 패딩**: 위처럼 더미 필드로 채워 핫 필드가 라인을 독점하게 한다. 단, JIT/컴파일러가 미사용 필드를 재배치·제거할 수 있어 취약하다.
 - `@jdk.internal.vm.annotation.Contended` (JDK 8+ 내부 애노테이션): JVM이 **자동으로 앞뒤에 패딩**을 붙여 필드를 독립 라인에 배치. 애플리케이션 코드에서 쓰려면 `-XX:-RestrictContended` 필요(내부 API라 조심).
-- **실전 사례**: JDK 자신이 이걸 쓴다. `LongAdder`/`Striped64`의 셀, `ForkJoinPool`, `ConcurrentHashMap`의 카운터 셀 등이 `@Contended`로 거짓 공유를 피한다. **`AtomicLong` 여러 개를 여러 스레드가 각각 증가시키는 경합 상황에선 `LongAdder`가 훨씬 빠른데**, 그 비결의 큰 축이 바로 셀 분산 + 거짓 공유 회피다(→ [3.2 GC 함정과 점검](ch03-2-gc-and-review.md)의 동시성 함정과 함께 보라).
+- **실전 사례**: JDK 자신이 이걸 쓴다. `LongAdder`/`Striped64`의 셀, `ForkJoinPool`, `ConcurrentHashMap`의 카운터 셀 등이 `@Contended`로 거짓 공유를 피한다. **`AtomicLong` 여러 개를 여러 스레드가 각각 증가시키는 경합 상황에선 `LongAdder`가 훨씬 빠른데**, 그 비결의 큰 축이 바로 셀 분산 + 거짓 공유 회피다(→ 3.2 GC 함정과 점검의 동시성 함정과 함께 보라).
 
 > 자바 렌즈 요약: "동기화도 안 겹치고 `volatile`도 각자인데 왜 안 빨라지지?"의 90%는 거짓 공유다. 프로파일러의 **메모리 스톨/캐시 미스** 지표를 봐야 보인다.
 
@@ -437,6 +435,16 @@ RAM ↔ 디스크: 전송 단위 = 페이지(~8KB),      "페이지 폴트" 1번
 - CSAPP (Computer Systems: A Programmer's Perspective), 6장 The Memory Hierarchy — https://csapp.cs.cmu.edu/
 - Ulrich Drepper, "What Every Programmer Should Know About Memory" (2007) — https://people.freebsd.org/~lstewart/articles/cpumemory.pdf
 - Colin Scott, "Latency Numbers Every Programmer Should Know" (인터랙티브) — https://colin-scott.github.io/personal_website/research/interactive_latency.html
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- [3.2 GC 함정과 점검](ch03-2-gc-and-review.md)
+- [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
+- [17.2 CI 품질 도구와 자동화](../part5/ch17-2-ci-quality-automation.md)
 
 ---
 

@@ -6,7 +6,6 @@
 
 X(Twitter)의 For You 랭킹 알고리듬을 공개 소스 원문과 대조해 읽는다. 그 뒤에 AI·ML을 공부하며 남긴 검색 기록과 정리 Q&A를 둔다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -25,8 +24,7 @@ flowchart LR
 
 > 대조 대상: [`xai-org/x-algorithm`](https://github.com/xai-org/x-algorithm) @ `d0cef2f` (2026-08-20)
 > 방법: 저장소를 직접 clone 하여 `home-mixer/params/param.rs`, `home-mixer/params/config.rs` 값을 1:1 대조
-> 형식: 12살 요약 → 원문 수치 심화. 얕은 버전은 [C.1 큰 그림](c1-big-picture.md), [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md).
-> 관련: [학습 신호·라벨·확증편향](c3-learning-signal-and-backprop.md) · [모델 편집·보안](c3-learning-signal-and-backprop.md) · [검색 기록](c8-ranking-and-log.md)
+> 형식: 12살 요약 → 원문 수치 심화. 얕은 버전은 C.1 큰 그림, C.8 X 랭킹 알고리듬·정리.
 
 ---
 
@@ -221,7 +219,7 @@ cat home-mixer/params/config.rs
   - Alain & Bengio, *Linear Classifier Probes* (2016) — https://arxiv.org/abs/1610.01644
   - Tenney 외, *BERT Rediscovers the Classical NLP Pipeline* (2019) — https://arxiv.org/abs/1905.05950
   - Ultralytics YOLO Docs — https://docs.ultralytics.com/
-- **노트 반영**: [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md) (깊이 트레이드오프 · 층별 특화 · 검증 3층위 · 레이어 제어 · YOLO 학습/사용 시점).
+- **노트 반영**: C.6 층별 특화와 YOLO (깊이 트레이드오프 · 층별 특화 · 검증 3층위 · 레이어 제어 · YOLO 학습/사용 시점).
 
 ### 2026-08-08
 
@@ -239,7 +237,7 @@ cat home-mixer/params/config.rs
     - RepVL-PAN + region-text contrastive로 open-vocabulary화. LVIS 제로샷 35.4 AP · V100 52.0 FPS.
   - Ding 외(2024), *SAM2Long* (메모리 트리로 긴 영상 개선) — https://arxiv.org/abs/2410.16268
   - Encord, *SAM 2 & SA-V Dataset Explained* — https://encord.com/blog/segment-anything-model-2-sam-2/
-- **노트 반영**: [C.7 YOLO vs SAM 2](c7-yolo-vs-sam.md) (두 이념 · 제로샷 3개의 다리 · 메모리 기반 모션 · 성능 축 비교 · YOLO-World).
+- **노트 반영**: C.7 YOLO vs SAM 2 (두 이념 · 제로샷 3개의 다리 · 메모리 기반 모션 · 성능 축 비교 · YOLO-World).
 - **핵심 발견**: 제로샷의 열쇠는 데이터 규모가 아니라 **고정 크기 출력층(`Linear(..., num_classes)`) 병목의 제거**. SAM은 이름을 버려서, YOLO-World는 이름을 임베딩으로 옮겨서 같은 목적지에 도달. 또 SAM 2의 "모션 인식"은 옵티컬 플로우가 아니라 **기억 + cross-attention 대조**다.
 
 #### 검색 5 — 탄생 배경(역사) · 평가 지표 · 구조 진화 (같은 노트 확장)
@@ -257,17 +255,17 @@ cat home-mixer/params/config.rs
   - facebookresearch/sam2 README (실제 API) — https://github.com/facebookresearch/sam2
   - Ultralytics SAM 2 Docs (크기·속도 벤치마크) — https://docs.ultralytics.com/models/sam-2/
     - SAM2-b 162 MB / 80.8M / CPU 28,867 ms/장 vs YOLO n-seg 6.7 MB / 2.7M / 25.2 ms/장 → **CPU 약 930배** 차이.
-- **노트 반영**: [C.7 YOLO vs SAM 2](c7-yolo-vs-sam.md) 확장 — 1·2장(탄생 배경·목표·대가), 4장(SAM 1→2 진화), 7장(지표 읽는 법), 8장(오픈보캐뷸러리 계보), 9장(실전 코드·파이프라인), Q4·Q5 추가.
+- **노트 반영**: C.7 YOLO vs SAM 2 확장 — 1·2장(탄생 배경·목표·대가), 4장(SAM 1→2 진화), 7장(지표 읽는 법), 8장(오픈보캐뷸러리 계보), 9장(실전 코드·파이프라인), Q4·Q5 추가.
 - **핵심 발견**: ① YOLO의 설계 목표(실시간·저비용·엣지)가 **그대로 남용 경로**(감시·군사)가 되어 창시자가 떠났다 — 목표와 위험은 같은 성질에서 나온다. ② `set_image()` / `predict()` 분리 같은 **API 모양이 곧 아키텍처**(무거운 인코더 1회 + 가벼운 디코더 N회)다. ③ 실무 1순위 용도는 배포가 아니라 **라벨링 자동화** — SAM으로 라벨 만들고 가벼운 YOLO를 학습시켜 배포(시간축 분리).
 
 ### 다음에 더 파볼 것 (TODO)
-- [x] RNN/LSTM 자체를 더 깊게 (게이트 구조) → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
-- [x] 임베딩·토크나이저 실제 동작 (BPE) → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
-- [x] 깊이·층별 특화·레이어 제어·YOLO → [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)
-- [x] YOLO vs SAM 2 (제로샷 원리 · 모션 메모리) → [C.7 YOLO vs SAM 2](c7-yolo-vs-sam.md)
-- [x] 신경망 종류 한눈에(약어·의도·장단점) → [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
-- [x] 학습 신호·라벨·자기지도·확증편향 → [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
-- [x] 모델 편집·보안(PEFT/LoRA·ROME·MEMIT·백도어) → [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
+- [x] RNN/LSTM 자체를 더 깊게 (게이트 구조) → C.4 RNN·임베딩·어텐션
+- [x] 임베딩·토크나이저 실제 동작 (BPE) → C.4 RNN·임베딩·어텐션
+- [x] 깊이·층별 특화·레이어 제어·YOLO → C.6 층별 특화와 YOLO
+- [x] YOLO vs SAM 2 (제로샷 원리 · 모션 메모리) → C.7 YOLO vs SAM 2
+- [x] 신경망 종류 한눈에(약어·의도·장단점) → C.2 학습 경로와 신경망 종류
+- [x] 학습 신호·라벨·자기지도·확증편향 → C.3 학습 신호와 역전파
+- [x] 모델 편집·보안(PEFT/LoRA·ROME·MEMIT·백도어) → C.3 학습 신호와 역전파
 - [ ] RLHF / 파인튜닝 과정 상세
 - [ ] 실제 파이썬 예제 코드로 미니 신경망 구현
 - [ ] superposition / Sparse Autoencoder (겹친 특징 풀기)
@@ -279,7 +277,7 @@ cat home-mixer/params/config.rs
 ### AI · 머신러닝 — 암기 Q&A (얕게)
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 쉬운 말 위주. 심화는 물어보면 더 파기.
-> 개념 상세: [C.1 큰 그림](c1-big-picture.md)
+> 개념 상세: C.1 큰 그림
 
 ---
 
@@ -331,14 +329,25 @@ cat home-mixer/params/config.rs
 #### Q10. 이미지는 사람이 라벨 다는데, 글씨는 정답을 어떻게 얻어?
 - **① 결론** 글은 대부분 **데이터가 스스로 정답을 만든다(자기지도학습)**. 사람이 라벨 안 달아도 됨.
 - **② 원리** "나는 밥을 ___ → 먹었다"처럼 **다음 단어를 가리고 맞히기.** 정답이 이미 글 안에 있어, 인터넷 글 전체가 공짜 문제집.
-- **③ 확장** 음성·영상·그림도 "일부 가리고 맞히기" 또는 이미지-캡션 짝(CLIP)으로 배움. 라벨 비용 0 → LLM 폭발의 원동력. (→ [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md))
+- **③ 확장** 음성·영상·그림도 "일부 가리고 맞히기" 또는 이미지-캡션 짝(CLIP)으로 배움. 라벨 비용 0 → LLM 폭발의 원동력. (→ C.3 학습 신호와 역전파)
 
 #### Q11. 계속 자기 결과로 학습하면 확증편향에 빠지는 거 아냐?
 - **① 결론** 기본은 아님. 조정 기준이 **자기 확신이 아니라 외부 정답(닻)** 이라, 아무리 확신해도 정답과 다르면 깎인다 → **진실로 수렴.**
 - **② 원리** 눈 감고 활을 쏘지만 "정답이 5cm 왼쪽"이라 알려주는 게 라벨. 자기 느낌이 아니라 **바깥 사실**로 고친다.
 - **③ 확장** 단, **정답이 편향되거나·자기 출력으로 배우거나(모델 붕괴)·추천 루프(필터버블)·아첨(sycophancy)** 이면 진짜 확증편향으로 증폭. "진실이냐 편향이냐"는 **닻이 현실에 붙었나**에 달림.
 
-_더 깊이(논문 기반): **[C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)** (깊이·층별 특화·레이어 제어·YOLO) · **[C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)** (어텐션·트랜스포머) · **[C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)** (신경망·역전파 수학). 정답/라벨 참고: **[C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)**._
+_더 깊이(논문 기반): **C.6 층별 특화와 YOLO** (깊이·층별 특화·레이어 제어·YOLO) · **C.4 RNN·임베딩·어텐션** (어텐션·트랜스포머) · **C.3 학습 신호와 역전파** (신경망·역전파 수학). 정답/라벨 참고: **C.3 학습 신호와 역전파**._
+
+---
+
+## 함께 보기
+
+- [C.1 큰 그림](c1-big-picture.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+- [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
+- [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
+- [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)
+- [C.7 YOLO vs SAM 2](c7-yolo-vs-sam.md)
 
 ---
 

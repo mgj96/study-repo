@@ -10,9 +10,9 @@ Uber·Shopify·Segment·Prime Video·Airbnb·Discord는 각자 다른 방향으�
 
 ## 운영 중인 구조 바꾸기 — 전환 사례와 판단 기준
 
-> 용도: **이미 돌아가는 시스템의 구조를 어떻게 바꾸는가.** [개념 노트](../part3/ch10-design-starting-point.md)가 "새로 만들 때"라면, 이 문서는 "이미 있는 것을 고칠 때"다.
+> 용도: **이미 돌아가는 시스템의 구조를 어떻게 바꾸는가.** 개념 노트가 "새로 만들 때"라면, 이 문서는 "이미 있는 것을 고칠 때"다.
 > 기반: Uber·Shopify·Segment·Amazon Prime Video·Airbnb·Discord 공개 엔지니어링 글, GitHub Scientist(2016).
-> 관련: 새로 지을 때의 구조 선택은 [개념 노트](../part3/ch10-design-starting-point.md), 점진 대체(Strangler Fig)와 모듈러 모놀리스→분리 단계는 [AI 시대 검증·구조 유지 4장](../part5/ch16-1-bottleneck-moved-to-verification.md), 경계의 이론은 [모듈성 이론](../part3/ch11-modularity.md).
+> 관련: 새로 지을 때의 구조 선택은 개념 노트, 점진 대체(Strangler Fig)와 모듈러 모놀리스→분리 단계는 AI 시대 검증·구조 유지 4장, 경계의 이론은 모듈성 이론.
 
 ---
 
@@ -64,7 +64,7 @@ Uber·Shopify·Segment·Prime Video·Airbnb·Discord는 각자 다른 방향으�
 어떤 시스템이든 **바깥 모양**(다른 시스템이 부르는 방식, 배포 단위)과 **안쪽 구현**(언어, 자료구조, 저장 방식)이 있다. 바깥 모양을 그대로 두고 안만 바꾸면, 부르는 쪽은 아무것도 몰라도 된다. 이게 가장 안전한 변경이다. 바깥을 바꾸면 그 시스템을 부르는 모든 쪽이 같이 바뀌어야 하니 비용과 위험이 훨씬 크다.
 
 > 이 네 가지가 사례를 읽는 렌즈다. 각 사례에서 "**어디가 아팠나 → 무엇을 얻으려고 무엇을 내줬나 → 바깥을 바꿨나, 안만 바꿨나**"를 들으면 된다.
-> 🔎 각 구조의 장단점을 표로 비교한 것은 [개념 노트 2장](../part3/ch10-design-starting-point.md), 품질 속성이 구조를 정하는 원리는 [개념 노트 1-3](../part3/ch10-design-starting-point.md), 경계 긋는 기준은 [개념 노트 3-2](../part3/ch10-design-starting-point.md).
+> 🔎 각 구조의 장단점을 표로 비교한 것은 개념 노트 2장, 품질 속성이 구조를 정하는 원리는 개념 노트 1-3, 경계 긋는 기준은 개념 노트 3-2.
 
 ---
 
@@ -125,7 +125,7 @@ flowchart LR
 **그래서**: 유행하던 마이크로서비스 대신, **배포 단위를 늘리지 않고 모듈성만 높이는 길**을 골랐다. 코드는 한 저장소·한 배포에 두되 컴포넌트 사이 경계를 강제했다. 경계 위반은 정적 분석 도구(Packwerk)로 잡았다.
 
 > **배울 점**: "구조는 유지, 내부만 변경"의 대표 사례다. 컴포넌트마다 팀 소유가 생기자 Rails 업그레이드 같은 전체 작업도 팀별로 나눠 처리할 수 있게 됐다.
-> 🔎 이 경로가 나중에 "일부 서비스 분리"로 이어지는 단계적 그림은 [AI 시대 검증 4.2](../part5/ch16-1-bottleneck-moved-to-verification.md)에 있다.
+> 🔎 이 경로가 나중에 "일부 서비스 분리"로 이어지는 단계적 그림은 AI 시대 검증 4.2에 있다.
 
 #### 2-3. Segment — 쪼갰다가, 돌아오다
 
@@ -209,7 +209,7 @@ Discord의 Rust 도입은 "전부 다시 짜기"가 아니라 **병목만 골라
 | 컴포넌트 하나가 성능·비용 한계에 부딪힌다 | 그 컴포넌트 내부만 교체 | Discord, Prime Video |
 | 같은 규칙이 여러 곳에 흩어져 어긋난다 | 횡단 관심사를 한 곳으로 | Airbnb |
 
-**핵심 요약**: 기본값은 **안만 바꾸기**다. 바깥(배포 단위·서비스 경계·API)을 바꾸는 순간 네트워크·정합성·운영 비용이 새로 생긴다. 그래서 바깥을 바꾸자는 쪽이 근거를 대야 한다. [개념 노트 3-2](../part3/ch10-design-starting-point.md)의 "기본값은 합쳐두는 것"과 같은 원리다.
+**핵심 요약**: 기본값은 **안만 바꾸기**다. 바깥(배포 단위·서비스 경계·API)을 바꾸는 순간 네트워크·정합성·운영 비용이 새로 생긴다. 그래서 바깥을 바꾸자는 쪽이 근거를 대야 한다. 개념 노트 3-2의 "기본값은 합쳐두는 것"과 같은 원리다.
 
 ---
 
@@ -245,7 +245,7 @@ flowchart LR
 3. 불일치가 0에 수렴하면 전환
 4. 그동안 발견한 옛 버그는 **목록으로 쌓아 두고**, 전환이 끝난 뒤 별도 변경으로 고친다
 
-> 이 방식은 [Strangler Fig](../part5/ch16-1-bottleneck-moved-to-verification.md)(옆에서 새 것을 키우며 기능을 하나씩 옮기기)와 잘 맞는다. Strangler Fig가 "**어디로 보낼지**"를 정한다면, Scientist 방식은 "**보내도 되는지**"를 확인한다.
+> 이 방식은 Strangler Fig(옆에서 새 것을 키우며 기능을 하나씩 옮기기)와 잘 맞는다. Strangler Fig가 "**어디로 보낼지**"를 정한다면, Scientist 방식은 "**보내도 되는지**"를 확인한다.
 
 #### 4-2. 예외 — 같이 고쳐도 되는 경우
 
@@ -309,11 +309,11 @@ flowchart LR
 | Strangler Fig | 새 것을 옆에서 키우며 기능을 하나씩 옮기는 점진 대체 |
 
 ### 연결 지도
-- **새로 만들 때의 설계·구조 선택**: → [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
-- **점진 대체, 모듈러 모놀리스 → 일부 분리 단계**: → [16.1 병목이 검증으로](../part5/ch16-1-bottleneck-moved-to-verification.md)
-- **경계의 이론**: → [11장 모듈성 이론](../part3/ch11-modularity.md)
-- **조직이 구조를 만든다(분리 이유가 팀일 때)**: → [12장 콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md)
-- **쪼갠 뒤의 정합성 비용**: → [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
+- **새로 만들 때의 설계·구조 선택**: → 10장 설계의 출발점
+- **점진 대체, 모듈러 모놀리스 → 일부 분리 단계**: → 16.1 병목이 검증으로
+- **경계의 이론**: → 11장 모듈성 이론
+- **조직이 구조를 만든다(분리 이유가 팀일 때)**: → 12장 콘웨이 법칙과 AI 에이전트
+- **쪼갠 뒤의 정합성 비용**: → 7.1 멱등성·Outbox·Saga
 
 ### 출처
 - Gluck, A. *Introducing Domain-Oriented Microservice Architecture.* Uber Engineering, 2020 — https://www.uber.com/blog/microservice-architecture/
@@ -369,8 +369,8 @@ sequenceDiagram
   → Redis라는 **별도 인프라 + 네트워크 왕복 + 장애 지점**을 통째로 제거.
 - 단일 카운터(재고 등)에 모두가 몰리면 그 한 행에 락이 집중(hot row)되어 직렬화됨.
   값을 **N개 행으로 분산**(예: 재고 1000을 100씩 10행)하면 락 경합이 1/N로 줄어 동시성↑.
-  (네트워크 왕복 제거 → [네트워크 기초](../part2/ch08-communication.md),
-   락 경합 = 직렬화 → [동시성](../part1/ch03-1-threads-and-jmm.md))
+  (네트워크 왕복 제거 → 네트워크 기초,
+   락 경합 = 직렬화 → 동시성)
 
 **단, 반대 맥락에선?**
 - DB 락은 **열린 트랜잭션을 잡고** 기다리게 한다 → 경합이 극심하거나 트랜잭션이 길면
@@ -397,7 +397,7 @@ sequenceDiagram
 **왜 통했나**
 - Step Functions는 상태 전이마다 과금인데 초당 수많은 전이 발생 → 오케스트레이션 비용 폭발.
 - 컴포넌트를 한 프로세스에 합쳐 **프레임 전달을 S3가 아닌 메모리 안에서** 처리
-  → 비싼 데이터 이동(네트워크·스토리지 왕복) 제거. ([메모리 계층](../part1/ch02-1-memory-hierarchy.md))
+  → 비싼 데이터 이동(네트워크·스토리지 왕복) 제거. (메모리 계층)
 
 **단, 반대 맥락에선?**
 - 이건 **특정 워크로드(고빈도 스트림 처리) 한정** 결과다. "마이크로서비스는 틀렸다"는
@@ -502,9 +502,23 @@ sequenceDiagram
 
 ### 관련 문서
 
-- [Scale-up vs Scale-out](../part2/ch09-performance-and-scale.md) — 병목부터 측정
-- [동시성 vs 병렬성](../part1/ch03-1-threads-and-jmm.md) — 락·직렬화
-- [메모리 계층과 지연시간](../part1/ch02-1-memory-hierarchy.md) — 데이터 이동 비용
+- Scale-up vs Scale-out — 병목부터 측정
+- 동시성 vs 병렬성 — 락·직렬화
+- 메모리 계층과 지연시간 — 데이터 이동 비용
+
+---
+
+## 함께 보기
+
+- [2.1 메모리 계층과 캐시](../part1/ch02-1-memory-hierarchy.md)
+- [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
+- [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
+- [8장 통신](../part2/ch08-communication.md)
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
+- [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
+- [11장 모듈성 이론](../part3/ch11-modularity.md)
+- [12장 콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md)
+- [16.1 병목이 검증으로](../part5/ch16-1-bottleneck-moved-to-verification.md)
 
 ---
 

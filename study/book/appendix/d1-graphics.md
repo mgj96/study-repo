@@ -357,7 +357,6 @@ _작성: 2026-07 · 개념 이해용 학습 노트 (정확한 수식·구현은 
 ## 자바 개발자를 위한 컴퓨터 그래픽스 — 아는 걸로 이해하기
 
 > 관점: 그래픽스도 **아는 Java 개념의 재배치**로 볼 수 있다. 특히 **파이프라인 = Stream, 셰이더 = 람다, GPU = parallelStream 극한, 레이트레이싱 = 재귀**.
-> 관련: [D.1 컴퓨터 그래픽스](d1-graphics.md) · [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md) · [C.1 큰 그림](c1-big-picture.md).
 
 ---
 
@@ -396,7 +395,7 @@ List<Pixel> frame = mesh.vertices.stream()
 ```
 
 - 각 **단계(stage)** = `.map()` 하나. 데이터(정점→조각→픽셀)가 흐르며 모양이 바뀐다.
-- (→ [D.1 컴퓨터 그래픽스](d1-graphics.md) 4장 파이프라인 개요와 같은 그림.)
+- (→ D.1 컴퓨터 그래픽스 4장 파이프라인 개요와 같은 그림.)
 
 ---
 
@@ -488,7 +487,13 @@ flowchart LR
 그래픽스를 자바로 번역하면: **파이프라인 = Stream, 셰이더 = 람다 콜백, GPU = parallelStream의 극한, MVP = 함수 합성, 레이트레이싱 = 재귀.** 단 **GPU는 JVM 밖 별도 언어이고, 분기가 비싸며, OOP보다 데이터 배치가 성능을 좌우**한다는 세 가지가 다르다.
 
 ### 참조
-- [D.1 컴퓨터 그래픽스](d1-graphics.md) · [D.2 렌더링 수학·ML 비교](d2-rendering-math.md) · [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+
+---
+
+## 함께 보기
+
+- [C.1 큰 그림](c1-big-picture.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
 
 ---
 

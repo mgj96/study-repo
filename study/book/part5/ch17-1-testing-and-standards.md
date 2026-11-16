@@ -6,7 +6,6 @@
 
 통과하는 테스트가 아무것도 증명하지 못할 때가 있다. 이 절은 무엇을 어떤 단위로 테스트해야 하는지 정리하고, 팀의 코드 표준을 '문서'에서 '빌드 실패'로 승격시키는 품질 게이트를 무료 도구로 세우는 법을 다룬다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -25,7 +24,7 @@ flowchart LR
 
 > 기반: **Cohn, *Succeeding with Agile* (2009, 테스트 피라미드)** · **Dodds, *The Testing Trophy* (2018~)** · **Meszaros, *xUnit Test Patterns* (2007, 테스트 더블)** · **Fowler, *Mocks Aren't Stubs* (2004)**
 > 형식: 30초 직관 → 역사(두 도형의 대립) → 원리 → 트레이드오프.
-> 관련: `@Transactional`의 프록시 동작은 [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md), 학습 순서는 [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md).
+> 관련: `@Transactional`의 프록시 동작은 5장 트랜잭션과 락, 학습 순서는 E.1 역량 로드맵·코드 설명법.
 
 ---
 
@@ -144,7 +143,7 @@ verify(repository).findById(42L);       // "findById를 호출할 것"이라는 
 | **`REQUIRES_NEW` 상호작용** | 테스트 트랜잭션과 별개 트랜잭션이 얽혀 실제와 다른 커밋/롤백 조합이 됨 |
 | **트랜잭션 밖 동작** | 프로덕션에선 트랜잭션이 끝난 뒤 도는 코드(이벤트 리스너 `AFTER_COMMIT` 등)가 테스트에선 **아예 실행 안 됨** |
 
-> 특히 마지막 줄 — [Outbox 패턴](../part2/ch07-1-distributed-consistency.md)의 릴레이나 `@TransactionalEventListener(AFTER_COMMIT)`는 **롤백 테스트에서 침묵**한다. "테스트는 통과하는데 이벤트가 안 나간다"의 정체다.
+> 특히 마지막 줄 — Outbox 패턴의 릴레이나 `@TransactionalEventListener(AFTER_COMMIT)`는 **롤백 테스트에서 침묵**한다. "테스트는 통과하는데 이벤트가 안 나간다"의 정체다.
 
 **대안**: 핵심 흐름 일부는 **진짜 커밋 + 명시적 정리**(`@Sql` cleanup, Testcontainers로 매번 새 DB)로 검증한다. 전부 그럴 필요는 없다 — **커밋 경로가 의심되는 곳만.**
 
@@ -171,7 +170,7 @@ Parking p = aParking()                 // 모든 필드에 유효한 기본값
 ```
 
 > **빌더의 진짜 가치는 "이 테스트에서 중요한 것"만 드러난다는 것.** 나머지 필드가 소음으로 안 보이니, 테스트가 **문서**로 읽힌다 — "미납 요금이 있는 출차 차량이면 ~해야 한다"가 코드에서 그대로 보인다.
-> [A.1 Java](../appendix/a1-java.md)의 Builder가 테스트에서 제일 값을 하는 자리가 여기다.
+> A.1 Java의 Builder가 테스트에서 제일 값을 하는 자리가 여기다.
 
 ---
 
@@ -181,7 +180,7 @@ Parking p = aParking()                 // 모든 필드에 유효한 기본값
 
 - **① 결론 · WHAT** 고정 비율은 없다 — **버그가 어디서 나는 코드베이스인가**로 정한다. 도메인 로직이 두꺼우면 단위 중심(피라미드), 로직이 얇고 계층 연결이 본체면 통합 중심(트로피).
 - **② 원리 · HOW** 피라미드(Cohn, 2009)는 "통합이 느리고 비싸던" 시대의 비용 구조를 반영한 것이고, 트로피(Dodds)는 Testcontainers·슬라이스 테스트로 **통합이 싸진 뒤**의 재계산이다. CRUD·연동 중심 시스템의 버그는 대부분 쿼리·매핑·트랜잭션 경계, 즉 **계층 사이**에서 나므로 mock 단위 테스트가 그걸 못 잡는다.
-- **③ 확장 · TRADE-OFF** 통합 중심의 대가는 **피드백 속도와 실패 원인의 모호함**(어느 층이 깨졌는지 바로 안 보임)이다. 그래서 순수 로직(요금 계산 등)은 여전히 빠른 단위 테스트로 분리해 두는 게 남는 장사다 — 헥사고날의 "도메인 격리"([10장 설계의 출발점](../part3/ch10-design-starting-point.md))가 정확히 이걸 가능하게 하는 구조다.
+- **③ 확장 · TRADE-OFF** 통합 중심의 대가는 **피드백 속도와 실패 원인의 모호함**(어느 층이 깨졌는지 바로 안 보임)이다. 그래서 순수 로직(요금 계산 등)은 여전히 빠른 단위 테스트로 분리해 두는 게 남는 장사다 — 헥사고날의 "도메인 격리"(10장 설계의 출발점)가 정확히 이걸 가능하게 하는 구조다.
 
 #### Q2. Mockito를 언제 쓰고 언제 쓰지 말아야 하나?
 
@@ -214,11 +213,11 @@ Parking p = aParking()                 // 모든 필드에 유효한 기본값
 | 자동 롤백 | 테스트 트랜잭션을 끝에 롤백해 DB를 되돌리는 관행 |
 
 ### 연결 지도
-- **`@Transactional`의 프록시·전파 (함정의 뿌리)**: → [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md)
-- **AFTER_COMMIT과 Outbox (롤백 테스트의 사각지대)**: → [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
-- **Builder 패턴**: → [A.1 Java](../appendix/a1-java.md)
-- **도메인 격리가 단위 테스트를 가능케 함**: → [10장 설계의 출발점](../part3/ch10-design-starting-point.md) 2-2장
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **`@Transactional`의 프록시·전파 (함정의 뿌리)**: → 5장 트랜잭션과 락
+- **AFTER_COMMIT과 Outbox (롤백 테스트의 사각지대)**: → 7.1 멱등성·Outbox·Saga
+- **Builder 패턴**: → A.1 Java
+- **도메인 격리가 단위 테스트를 가능케 함**: → 10장 설계의 출발점 2-2장
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Cohn, M. *Succeeding with Agile.* Addison-Wesley, 2009 — 테스트 피라미드
@@ -235,7 +234,6 @@ _짧은 인용은 출처 표기. 프레임워크 버전에 따라 테스트 동�
 
 > 출발 질문 두 개: ① 자바에서 유닛테스트 말고 에러를 잡는 형식이 더 있나? ② SonarQube 말고 무료 도구로 소스 정규화·팀 표준을 맞추는 방법은?
 > 핵심 주장: **스타일 가이드 문서는 아무도 안 지킨다. 지켜지는 표준은 "어기면 빌드가 깨지는" 표준뿐이다.**
-> 관련: [테스트 전략](ch17-1-testing-and-standards.md) · [디자인 패턴](../appendix/a1-java.md) · [아키텍처 피트니스 함수](../part3/ch10-design-starting-point.md)
 
 ---
 
@@ -248,7 +246,7 @@ _짧은 인용은 출처 표기. 프레임워크 버전에 따라 테스트 동�
 | ① 컴파일 | javac 도는 순간 | 언어 자체 · **ErrorProne**(구글) · **NullAway**(우버) | 타입 오류, 버그 패턴(`==` 문자열 비교), 널 접근 — Kotlin 없이 자바에서 널 안전 근사 |
 | ② 정적 분석 | 실행 없이 소스·의존성 | **Checkstyle · PMD · SpotBugs** · SonarQube CE · **OWASP Dependency-Check** | 스타일·버그 패턴·보안(SAST)·의존성 CVE(SCA) |
 | ③ 테스트 | 실행해서 | JUnit · Testcontainers · **jqwik**(property) · **PIT**(mutation) · Pact(계약) | 동작 오류. mutation은 "테스트를 테스트" |
-| ④ 런타임 | 떠 있는 앱 | OWASP ZAP(DAST) · 관측(RED/USE → [성능 공학](../part2/ch09-performance-and-scale.md)) | 마지막 그물 |
+| ④ 런타임 | 떠 있는 앱 | OWASP ZAP(DAST) · 관측(RED/USE → 성능 공학) | 마지막 그물 |
 
 > 보안은 3종 세트로: **SAST**(내 소스) · **SCA**(의존성 — Log4Shell이 이 칸의 존재 이유) · **DAST**(외부 공격 시뮬). 여기에 **gitleaks**(커밋 속 비밀키 스캔)까지가 기본 배선.
 
@@ -318,7 +316,7 @@ lint:
   script: ./gradlew spotlessCheck checkstyleMain pmdMain spotbugsMain
 ```
 
-> **왜 3겹인가**: ①만 있으면 IDE 안 쓰는 사람·설정 안 한 사람이 뚫는다. ②는 로컬이라 우회 가능(`--no-verify`). **③이 유일하게 우회 불가**라 최종 보루이고, ①②는 ③에서 창피당하기 전에 미리 잡아주는 편의다. — [분산 정합성](../part2/ch07-1-distributed-consistency.md)의 "최종 지점에서 검증"과 같은 사고: 앞단은 최적화, 보증은 마지막 게이트가 한다.
+> **왜 3겹인가**: ①만 있으면 IDE 안 쓰는 사람·설정 안 한 사람이 뚫는다. ②는 로컬이라 우회 가능(`--no-verify`). **③이 유일하게 우회 불가**라 최종 보루이고, ①②는 ③에서 창피당하기 전에 미리 잡아주는 편의다. — 분산 정합성의 "최종 지점에서 검증"과 같은 사고: 앞단은 최적화, 보증은 마지막 게이트가 한다.
 
 ---
 
@@ -350,7 +348,7 @@ git config blame.ignoreRevsFile .git-blame-ignore-revs
 ### 5. 합의 관리 — 도구 설정이 곧 표준 문서다
 
 - **진실의 원천(SSOT)은 설정 파일**: `checkstyle.xml`·`.editorconfig`가 저장소에 커밋돼 있으면 그게 표준이다. 위키 가이드 문서는 "왜"만 짧게 — 문서와 도구가 어긋나면 **도구가 이긴다** (안 그러면 둘 다 죽는다)
-- **규칙 변경은 ADR로**: "왜 이 규칙을 껐나"를 [결정 기록](../part3/ch10-design-starting-point.md)으로 — 6개월 뒤 같은 논쟁의 재발 방지
+- **규칙 변경은 ADR로**: "왜 이 규칙을 껐나"를 결정 기록으로 — 6개월 뒤 같은 논쟁의 재발 방지
 - **화이트라벨/fork 구조에서는**: 표준 설정을 마더쉽에 두고 현장이 상속 — 설정 파일도 코드처럼 fork 전략을 태운다. 현장별 예외는 예외 파일로 명시(암묵 diff 금지)
 
 ---
@@ -377,12 +375,25 @@ git config blame.ignoreRevsFile .git-blame-ignore-revs
 | SSOT | 단일 진실 원천 — 표준의 실체는 문서가 아니라 커밋된 설정 파일 |
 
 ### 연결 지도
-- **도구 고르기·튜닝 트레이드오프 (기본값 탈출)**: → [17.2 CI 품질 도구와 자동화](ch17-2-ci-quality-automation.md)
-- **테스트 계층의 심화 (③칸)**: → [17.1 테스트 전략과 팀 표준](ch17-1-testing-and-standards.md)
-- **아키텍처 규칙의 강제 (ArchUnit·피트니스 함수)**: → [15장 구조를 CI로 지키기](../part4/ch15-architecture-fitness-ci.md)
-- **"최종 지점에서 검증" 사고의 원형**: → [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
-- **관측이 담당하는 ④칸**: → [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
-- **컴파일 타임으로 당기기의 극단 (Kotlin)**: → [A.2 다른 언어 (C++·C#·Kotlin)](../appendix/a2-other-languages.md)
+- **도구 고르기·튜닝 트레이드오프 (기본값 탈출)**: → 17.2 CI 품질 도구와 자동화
+- **테스트 계층의 심화 (③칸)**: → 17.1 테스트 전략과 팀 표준
+- **아키텍처 규칙의 강제 (ArchUnit·피트니스 함수)**: → 15장 구조를 CI로 지키기
+- **"최종 지점에서 검증" 사고의 원형**: → 7.1 멱등성·Outbox·Saga
+- **관측이 담당하는 ④칸**: → 9장 성능과 스케일
+- **컴파일 타임으로 당기기의 극단 (Kotlin)**: → A.2 다른 언어 (C++·C#·Kotlin)
+
+---
+
+## 함께 보기
+
+- [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md)
+- [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
+- [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
+- [15장 구조를 CI로 지키기](../part4/ch15-architecture-fitness-ci.md)
+- [A.1 Java](../appendix/a1-java.md)
+- [A.2 다른 언어 (C++·C#·Kotlin)](../appendix/a2-other-languages.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

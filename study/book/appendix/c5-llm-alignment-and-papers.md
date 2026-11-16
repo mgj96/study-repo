@@ -68,7 +68,7 @@ flowchart LR
 - **거부(refusal)**: 위험·민감 요청 차단 — Constitutional 원칙의 결과.
 - **아첨(sycophancy)**: 사용자가 좋아할 답으로 기울기 — RLHF 보상의 부작용.
 - **장황함/면책**: "일반적으로는…" 같은 회피 — 평가가 안전한 답을 보상해서.
-- **거짓 자신감**: 모르면서 단정 — [환각 논문](c5-llm-alignment-and-papers.md)의
+- **거짓 자신감**: 모르면서 단정 — 환각 논문의
   "찍기 보상"과 같은 뿌리.
 
 ### 알면 AI를 더 잘 쓰는 법 (어필 포인트)
@@ -86,9 +86,8 @@ flowchart LR
 
 ### 관련 문서
 
-- [LLM이란 무엇인가](c2-curriculum-and-nn-types.md) — 사전학습 단계
-- [논문: 환각·추론·창발](c5-llm-alignment-and-papers.md) — 정렬세·환각과 연결
-- [카파시 접근법](c2-curriculum-and-nn-types.md)
+- LLM이란 무엇인가 — 사전학습 단계
+- 논문: 환각·추론·창발 — 정렬세·환각과 연결
 
 ---
 
@@ -168,9 +167,7 @@ flowchart LR
 
 ### 관련 문서
 
-- [LLM이란 무엇인가](c2-curriculum-and-nn-types.md)
-- [모델별 비교](a3-tools-and-llm.md) — 컨텍스트·비용 비교
-- [RLHF / RLAIF 정렬](c5-llm-alignment-and-papers.md)
+- 모델별 비교 — 컨텍스트·비용 비교
 
 ---
 
@@ -250,17 +247,23 @@ arXiv: [2304.15004](https://arxiv.org/abs/2304.15004)
 
 ### 어떻게 공부할까 (밑바닥 이해 루트)
 
-1. **개념 먼저**: [LLM이란 무엇인가](c2-curriculum-and-nn-types.md) — 토큰·attention·확률분포
+1. **개념 먼저**: LLM이란 무엇인가 — 토큰·attention·확률분포
 2. **환각의 본질**: A-1 → A-3 (통계적 부산물 → 창의와의 트레이드오프)
 3. **추론의 출처**: B-5 (RL+CoT가 추론을 만든다)
 4. **비판적 시각**: C-7 vs C-8 (측정이 결론을 바꾼다 → 논문은 가정부터 본다)
-5. **직접 구현**: [카파시 접근법](c2-curriculum-and-nn-types.md) (nanoGPT 등)
+5. **직접 구현**: 카파시 접근법 (nanoGPT 등)
 
 ### 관련 문서
 
-- [LLM이란 무엇인가](c2-curriculum-and-nn-types.md) — hallucination, knowledge cutoff 기초
-- [카파시 접근법](c2-curriculum-and-nn-types.md) — 밑바닥부터 이해
-- [모델별 비교](a3-tools-and-llm.md)
+- LLM이란 무엇인가 — hallucination, knowledge cutoff 기초
+- 카파시 접근법 — 밑바닥부터 이해
+
+---
+
+## 함께 보기
+
+- [A.3 개발 도구와 LLM](a3-tools-and-llm.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
 
 ---
 

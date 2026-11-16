@@ -6,7 +6,6 @@
 
 Java·HackerRank 기준의 2주 압축 로드맵과, 기출 복기·유형 훈련 노트를 어떻게 쓰는지에 대한 안내다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -27,7 +26,6 @@ flowchart LR
 
 > 대상: 배열·정렬까지는 아는 기초 수준 / 목표: 코딩테스트 통과 실력 + 기본기 재정비
 > 기준 플랫폼: HackerRank · 언어: Java
-> 관련: [학습 로드맵](c1-big-picture.md) · [백엔드 심화 로드맵](e1-roadmap-and-explain.md) · [자바로 보는 자료구조](../part1/ch04-1-data-structures-and-hashmap.md) · [Q&A 자료구조·알고리즘](../part1/ch04-3-floating-point.md) · [Java 타입/박싱](a1-java.md)
 
 ---
 
@@ -376,17 +374,17 @@ for (int i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];
 
 | 노트 | 유형 | 난이도 (HackerRank / 기업) | 핵심 한 줄 |
 |---|---|---|---|
-| [이진 문자열 조합 개수](e3-past-problems.md) ★기출 | Distinct Subsequences DP | Medium / 2번(중~중상) | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 4형제 판별표 포함 |
-| [REST API 페이지네이션](e3-past-problems.md) ★기출 | HTTP + 집계(max / 그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
-| [Sherlock and Anagrams](e3-past-problems.md) | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2**. 기출 1번과 같은 "결과로 세기" 사고 |
-| [중복 없는 최장 부분문자열](e3-past-problems.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + **`left = max(left, last+1)` 후퇴 금지**. D8 유형의 관문 |
-| [격자 BFS/DFS](e4-pattern-drills.md) | 탐색 (flood fill·최단) | Medium / 2번(중) | 덩어리=아무거나, **최단=BFS 고정**, 방문 표시는 넣을 때 |
-| [파라메트릭 이분탐색](e4-pattern-drills.md) | 판정+이분탐색 | Medium / 2번(중~중상) | **"계산하지 말고 검증하라"** — D9 실전판 |
-| [우선순위 큐(힙)](e4-pattern-drills.md) | 힙 | Medium / 2번 | "매번 최솟값" 신호 — 반복문 속 sort 충동 |
-| [그리디 교환 논증](e4-pattern-drills.md) | 정렬+증명 | Medium / 2번 | 회의실=끝나는 순 — D10 실전판 |
-| [누적합+해시](e4-pattern-drills.md) | prefix+Map | Medium / 2번 | 음수면 윈도우 사망 → `pre−K` 조회 |
-| [DP 테이블 (배낭)](e4-pattern-drills.md) | 최적화 DP | Medium / 2번 | 상태를 말로 먼저 · 0/1은 역순 — D13 실전판 |
-| [Union-Find](e4-pattern-drills.md) · [스택 시뮬](e4-pattern-drills.md) · [문자열 구현](e4-pattern-drills.md) | 대비용 3종 | Lv1~3 | 전체 목록·판별 지도는 [기출 폴더 README](e2-coding-test-2week.md) |
+| 이진 문자열 조합 개수 ★기출 | Distinct Subsequences DP | Medium / 2번(중~중상) | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 4형제 판별표 포함 |
+| REST API 페이지네이션 ★기출 | HTTP + 집계(max / 그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
+| Sherlock and Anagrams | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2**. 기출 1번과 같은 "결과로 세기" 사고 |
+| 중복 없는 최장 부분문자열 | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + **`left = max(left, last+1)` 후퇴 금지**. D8 유형의 관문 |
+| 격자 BFS/DFS | 탐색 (flood fill·최단) | Medium / 2번(중) | 덩어리=아무거나, **최단=BFS 고정**, 방문 표시는 넣을 때 |
+| 파라메트릭 이분탐색 | 판정+이분탐색 | Medium / 2번(중~중상) | **"계산하지 말고 검증하라"** — D9 실전판 |
+| 우선순위 큐(힙) | 힙 | Medium / 2번 | "매번 최솟값" 신호 — 반복문 속 sort 충동 |
+| 그리디 교환 논증 | 정렬+증명 | Medium / 2번 | 회의실=끝나는 순 — D10 실전판 |
+| 누적합+해시 | prefix+Map | Medium / 2번 | 음수면 윈도우 사망 → `pre−K` 조회 |
+| DP 테이블 (배낭) | 최적화 DP | Medium / 2번 | 상태를 말로 먼저 · 0/1은 역순 — D13 실전판 |
+| Union-Find · 스택 시뮬 · 문자열 구현 | 대비용 3종 | Lv1~3 | 전체 목록·판별 지도는 기출 폴더 README |
 
 ---
 
@@ -440,7 +438,7 @@ for (int i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];
 
 ## 🧪 코딩테스트 기출 복기 & 유형 훈련
 
-> GitHub에서 이 폴더를 열면 보이는 인덱스. 상위 계획은 [코딩테스트 2주 로드맵](e2-coding-test-2week.md).
+> GitHub에서 이 폴더를 열면 보이는 인덱스. 상위 계획은 코딩테스트 2주 로드맵.
 > 모든 노트는 답을 먼저 보여주지 않고 **🤔 생각(멈춰서 스스로) → 📖 읽기(접힌 추론을 열어서) → ✅ 확인(손 검증)** 순서로 진행된다 — 풀이 암기가 아니라 **문제를 봤을 때 무엇에 주목하는지**를 훈련하는 형식.
 
 ### 수준 기준선
@@ -453,20 +451,20 @@ for (int i = 2; i <= n; i++) dp[i] = dp[i-1] + dp[i-2];
 
 | # | 노트 | 유형 | 난이도 (HackerRank / 기업) | 핵심 한 줄 |
 |---|---|---|---|---|
-| 1 | [이진 문자열 조합 개수](e3-past-problems.md) ★기출 | Distinct Subsequences DP | Medium / 2번(중~중상) | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 겉모습 같은 4형제 판별표 포함 |
-| 2 | [REST API 페이지네이션](e3-past-problems.md) ★기출 | HTTP + 집계(max/그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
-| 3 | [Sherlock and Anagrams](e3-past-problems.md) | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2** |
-| 4 | [중복 없는 최장 부분문자열](e3-past-problems.md) | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + `left = max(left, last+1)` **후퇴 금지** |
-| 5 | [격자 BFS/DFS](e4-pattern-drills.md) | 탐색 (flood fill·최단) | Lv2 / 2번(중) | 덩어리 세기=아무거나, **최단=BFS 고정** · 방문 표시는 **넣을 때** |
-| 6 | [파라메트릭 이분탐색](e4-pattern-drills.md) | 판정 함수 + 이분탐색 | Lv2~3 / 2번(중~중상) | **"계산하지 말고 검증하라"** — 정렬된 건 배열이 아니라 ✗✗✓✓ 경계 |
-| 7 | [우선순위 큐(힙)](e4-pattern-drills.md) | 힙 | Lv2 / 2번(중) | "매번 최솟값" = 힙 · 반복문 속 sort 충동이 판별 신호 |
-| 8 | [그리디 교환 논증](e4-pattern-drills.md) | 정렬 + 증명 | Lv2 / 2번(중) | 회의실=**끝나는 순** · "바꿔치기해도 안 나빠진다" 한 줄 증명 |
-| 9 | [누적합+해시](e4-pattern-drills.md) | prefix + HashMap | Lv2 / 2번(중) | **음수 섞이면 윈도우 사망** → `pre−K` 과거 조회 · `{0:1}` 초기값 |
-| 10 | [DP 테이블 (배낭)](e4-pattern-drills.md) | 최적화 DP | Lv2~3 / 2번(중~중상) | 상태를 **말로 먼저** · 0/1 배낭 **역순**, 완전 배낭 정순 |
-| 11 | [Union-Find](e4-pattern-drills.md) | 대표 관리 | Lv2~3 / 2~3번 | **자라나는 그래프** 질의 = UF · 경로압축 대입 필수 |
-| 12 | [스택 시뮬레이션](e4-pattern-drills.md) | 최근성 짝짓기 | Lv1~2 / 1~2번 | "지우면 양옆이 만난다" = 스택 O(n) · 빈 스택/잔여 검사 |
-| 13 | [카카오식 문자열 구현](e4-pattern-drills.md) | 명세 옮기기 | Lv1~2 / 1~2번 | 지문 길고 입력 작으면 **명세:함수=1:1** + 중간값 대조 |
-| 📋 | [org.json 치트시트](e3-past-problems.md) | 암기용 API 표면 | — (시험 전날 복습) | **7줄 최소 세트** + get vs opt + 예외 3종 디버깅 순서 |
+| 1 | 이진 문자열 조합 개수 ★기출 | Distinct Subsequences DP | Medium / 2번(중~중상) | 마지막 글자로 분류 + **덮어쓰기 = 중복 제거**. 겉모습 같은 4형제 판별표 포함 |
+| 2 | REST API 페이지네이션 ★기출 | HTTP + 집계(max/그룹 합산) | Intermediate 인증 / 1~2번(하~중) | **첫 응답은 데이터가 아니라 지도(total_pages)**. 국가별 합산-argmax 변형 포함 |
+| 3 | Sherlock and Anagrams | 해시 그룹핑 + 조합 공식 | Medium / 2번(중) | 쌍을 세지 말고 **정규화 키로 묶어 c(c-1)/2** |
+| 4 | 중복 없는 최장 부분문자열 | 슬라이딩 윈도우 | Medium / 1~2번(중) | 불변식 유지 + `left = max(left, last+1)` **후퇴 금지** |
+| 5 | 격자 BFS/DFS | 탐색 (flood fill·최단) | Lv2 / 2번(중) | 덩어리 세기=아무거나, **최단=BFS 고정** · 방문 표시는 **넣을 때** |
+| 6 | 파라메트릭 이분탐색 | 판정 함수 + 이분탐색 | Lv2~3 / 2번(중~중상) | **"계산하지 말고 검증하라"** — 정렬된 건 배열이 아니라 ✗✗✓✓ 경계 |
+| 7 | 우선순위 큐(힙) | 힙 | Lv2 / 2번(중) | "매번 최솟값" = 힙 · 반복문 속 sort 충동이 판별 신호 |
+| 8 | 그리디 교환 논증 | 정렬 + 증명 | Lv2 / 2번(중) | 회의실=**끝나는 순** · "바꿔치기해도 안 나빠진다" 한 줄 증명 |
+| 9 | 누적합+해시 | prefix + HashMap | Lv2 / 2번(중) | **음수 섞이면 윈도우 사망** → `pre−K` 과거 조회 · `{0:1}` 초기값 |
+| 10 | DP 테이블 (배낭) | 최적화 DP | Lv2~3 / 2번(중~중상) | 상태를 **말로 먼저** · 0/1 배낭 **역순**, 완전 배낭 정순 |
+| 11 | Union-Find | 대표 관리 | Lv2~3 / 2~3번 | **자라나는 그래프** 질의 = UF · 경로압축 대입 필수 |
+| 12 | 스택 시뮬레이션 | 최근성 짝짓기 | Lv1~2 / 1~2번 | "지우면 양옆이 만난다" = 스택 O(n) · 빈 스택/잔여 검사 |
+| 13 | 카카오식 문자열 구현 | 명세 옮기기 | Lv1~2 / 1~2번 | 지문 길고 입력 작으면 **명세:함수=1:1** + 중간값 대조 |
+| 📋 | org.json 치트시트 | 암기용 API 표면 | — (시험 전날 복습) | **7줄 최소 세트** + get vs opt + 예외 3종 디버깅 순서 |
 
 ### 사고 연결 지도
 
@@ -514,7 +512,18 @@ https://raw.githubusercontent.com/mgj96/study-repo/main/study/coding-test/org-js
 
 1. 실전에서 만난 문제는 **★기출** 표시, 훈련용은 표시 없음 — 전부 2번 문제 급 유지
 2. 형식 고정: 0단계 판별 → 🤔/📖(details 접기)/✅ 단계들 → 결론 코드(Java) → 손 추적 표 → 함정 체크리스트 → 3단 요약
-3. 추가 시 이 README 표 + [로드맵 §1.5](e2-coding-test-2week.md) 표 + NotebookLM 소스 목록에 한 줄씩 등록
+3. 추가 시 이 README 표 + 로드맵 §1.5 표 + NotebookLM 소스 목록에 한 줄씩 등록
+
+---
+
+## 함께 보기
+
+- [4.1 자료구조와 HashMap](../part1/ch04-1-data-structures-and-hashmap.md)
+- [4.3 부동소수 (IEEE 754)](../part1/ch04-3-floating-point.md)
+- [A.1 Java](a1-java.md)
+- [C.1 큰 그림](c1-big-picture.md)
+- [E.1 역량 로드맵·코드 설명법](e1-roadmap-and-explain.md)
+- [E.4 유형 훈련](e4-pattern-drills.md)
 
 ---
 

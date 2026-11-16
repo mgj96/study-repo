@@ -41,7 +41,7 @@
 #### 3. 가상 메모리
 - 각 프로세스는 연속된 가상 주소 공간을 보지만, 실제론 페이지 단위로 물리 메모리에 매핑.
 - 물리 메모리가 부족하면 **페이징/스왑**(디스크로) → 느린 계층으로 떨어져 급격히 느려짐.
-- → "메모리 부족"이 곧 "디스크 속도로 추락"을 뜻함. ([메모리 계층](ch02-1-memory-hierarchy.md))
+- → "메모리 부족"이 곧 "디스크 속도로 추락"을 뜻함. (메모리 계층)
 
 ### 실무 연결 — 이걸 알면 무엇이 달라지나
 
@@ -49,15 +49,7 @@
   CPU 바운드는 ≈코어 수, I/O 바운드는 좀 더 많게 — 측정으로 결정.
 - **"메모리 늘렸더니 갑자기 빨라짐"**: 스왑이 사라져 디스크 추락을 면한 것.
 - **컨테이너/서버 사이징**: 프로세스 격리(안정) vs 스레드 공유(효율)의 트레이드오프를 의식.
-- **동시성 코드**와 직결 → [동시성 vs 병렬성](ch03-1-threads-and-jmm.md).
-
-### 관련 문서
-
-- [동시성 vs 병렬성](ch03-1-threads-and-jmm.md)
-- [메모리 계층과 지연시간](ch02-1-memory-hierarchy.md)
-- [Scale-up vs Scale-out](../part2/ch09-performance-and-scale.md)
-
----
+- **동시성 코드**와 직결 → 동시성 vs 병렬성.
 
 ## 동시성(Concurrency) vs 병렬성(Parallelism)
 
@@ -99,21 +91,12 @@
 
 - **Node가 빠른데 느린 이유**: 단일 스레드 이벤트 루프라 I/O는 잘 버티지만,
   무거운 계산을 넣으면 루프가 막힌다 → 워커/별도 프로세스로 분리.
-- **scale-out과 연결**: 병렬은 코어/머신을 늘려야 효과 → [scale-up vs scale-out](../part2/ch09-performance-and-scale.md).
+- **scale-out과 연결**: 병렬은 코어/머신을 늘려야 효과 → scale-up vs scale-out.
 - **"왜 코어 늘렸는데 안 빨라지지"**: 코드가 동시성 구조가 아니거나, 공유 락 경합이 병목.
 - **AI에게 일 시킬 때**: "동시 처리해줘"는 모호 → "I/O 바운드라 비동기로" 또는
   "CPU 바운드라 멀티프로세스로"처럼 **작업 성격을 명시**해야 맞는 코드가 나온다.
 
-### 관련 문서
-
-- [프로세스/스레드·OS 기초](ch03-1-threads-and-jmm.md)
-- [Scale-up vs Scale-out](../part2/ch09-performance-and-scale.md)
-
----
-
 ## 딥다이브 — 자바 메모리 모델 (JMM): volatile vs synchronized
-
-> 관련 노트: [3.2 GC 함정과 점검](ch03-2-gc-and-review.md) · [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
 
 ---
 
@@ -624,7 +607,11 @@ void transfer(Account from, Account to, long amt) {
 
 ---
 
-> 관련 노트: [3.2 GC 함정과 점검](ch03-2-gc-and-review.md) · [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+## 함께 보기
+
+- [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md)
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
 
 ---
 

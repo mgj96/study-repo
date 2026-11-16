@@ -28,7 +28,6 @@
 
 이 서문 뒤에는 책 전체에서 계속 쓰는 두 가지 도구를 먼저 둔다. 트레이드오프를 읽는 법과, AI 시대에 스스로 생각하는 법이다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -133,9 +132,7 @@ flowchart LR
 
 ### 관련 문서
 
-- [정답은 없다 — 경험담·대체 방식](../part4/ch14-migration-case-studies.md)
-- [Scale-up vs Scale-out](../part2/ch09-performance-and-scale.md) — 병목 측정
-- [시간복잡도·자료구조](../part1/ch01-abstraction-and-complexity.md)
+- Scale-up vs Scale-out — 병목 측정
 
 ---
 
@@ -175,7 +172,7 @@ Microsoft의 지식노동자 319명 설문(CHI 2025):
 남의 결론·유추를 빌리지 말고 **부정할 수 없는 기본 사실까지 쪼갠 뒤** 다시 쌓는다.
 - "다들 Redis 쓰니까" (유추) ❌ → "동시성=정합성 문제고, 우리 앱은 단일 DB다 →
   DB 락이면 충분" (기본 사실에서 재구성) ✅
-- 카파시의 "직접 구현해 이해" 와 같은 정신. ([karpathy-approach](../appendix/c2-curriculum-and-nn-types.md))
+- 카파시의 "직접 구현해 이해" 와 같은 정신. (karpathy-approach)
 
 ### 연습법 — LLM과 함께 쓰되 사고를 지키기
 
@@ -188,15 +185,22 @@ Microsoft의 지식노동자 319명 설문(CHI 2025):
 ### 우리 레포에 어떻게 쓰이나
 
 - 트레이드오프 판단 = 가추(가설) + 연역(원칙 적용) + 귀납·측정(검증).
-- 단순함 원칙([simplicity-principles](../part3/ch10-design-starting-point.md))의 "지금 필요한가?"
+- 단순함 원칙(simplicity-principles)의 "지금 필요한가?"
   판단이 곧 추론. 원칙은 도구, **고르는 건 추론.**
 
 ### 관련 문서
 
-- [단순함 원칙(YAGNI 등)](../part3/ch10-design-starting-point.md)
-- [카파시 접근법](../appendix/c2-curriculum-and-nn-types.md) — 밑바닥부터 이해
-- [트레이드오프 읽는 법 + 지표](00-how-to-read.md)
-- [환각·추론·창발 논문](../appendix/c5-llm-alignment-and-papers.md)
+- 카파시 접근법 — 밑바닥부터 이해
+
+---
+
+## 함께 보기
+
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
+- [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
+- [14장 전환 사례와 판단 기준](../part4/ch14-migration-case-studies.md)
+- [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md)
+- [C.5 정렬·MoE·논문](../appendix/c5-llm-alignment-and-papers.md)
 
 ---
 

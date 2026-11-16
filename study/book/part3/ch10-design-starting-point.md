@@ -12,7 +12,7 @@
 
 > 용도: **새로 만들 때 구조를 어떻게 고르고 긋는가.** 설계서 작성 → 형식(스타일) 선택 → 실제 경계 긋기 순서.
 > 기반: **Cockburn, *Ports and Adapters* (2005)** · **Conway, *How Do Committees Invent?* (Datamation 1968)** · **Nygard, *Documenting Architecture Decisions* (2011)** · **Brown, *C4 Model*** · **Ford et al., *Building Evolutionary Architectures* (2017)**
-> 관련: 트랜잭션 경계는 [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md), 서비스 경계와 정합성은 [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md), 학습 순서는 [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md).
+> 관련: 트랜잭션 경계는 5장 트랜잭션과 락, 서비스 경계와 정합성은 7.1 멱등성·Outbox·Saga, 학습 순서는 E.1 역량 로드맵·코드 설명법.
 
 ---
 
@@ -83,7 +83,7 @@
 | **규제·감사** | 이벤트 소싱, 이력 테이블, 불변 로그 |
 
 > **주목**: "가용성"과 "정합성"이 **정반대 구조**를 요구한다. 가용성은 쪼개라 하고, 정합성은 모으라 한다.
-> [분산 정합성 노트](../part2/ch07-1-distributed-consistency.md)에서 본 CAP이 설계 문서 수준에서 나타나는 지점이 여기다.
+> 분산 정합성 노트에서 본 CAP이 설계 문서 수준에서 나타나는 지점이 여기다.
 > **둘 다 1순위일 수는 없다.** 설계서는 이 순위를 정하는 문서다.
 
 #### 1-4. 품질 속성은 "시나리오"로 써야 한다
@@ -214,7 +214,7 @@ flowchart LR
 호출 대신 **사건을 발행**하고, 관심 있는 쪽이 구독한다.
 
 - **최적화**: **결합도.** 발행자는 구독자를 모른다. 새 구독자를 추가해도 발행자를 안 고친다.
-- **포기**: **추적 가능성.** "이 이벤트 다음에 무슨 일이 일어나는가"가 코드에 안 보인다. 디버깅이 어려워지고, 순서·중복·유실 문제가 따라온다(→ [분산 정합성](../part2/ch07-1-distributed-consistency.md)).
+- **포기**: **추적 가능성.** "이 이벤트 다음에 무슨 일이 일어나는가"가 코드에 안 보인다. 디버깅이 어려워지고, 순서·중복·유실 문제가 따라온다(→ 분산 정합성).
 - **언제**: 한 사건에 여러 후속 처리가 붙고, 그 목록이 계속 늘어날 때.
 
 #### 2-5. 모듈러 모놀리스
@@ -272,7 +272,7 @@ flowchart LR
 
 **역콘웨이 기동(Inverse Conway Maneuver)**: 원하는 아키텍처가 있으면 **먼저 팀을 그 모양으로 재편**한다. 구조가 따라온다.
 
-> 🔎 **더 깊이 →** 개발 주체가 AI 에이전트 팀이 되면 이 법칙은 어떻게 되나 — 죽는 게 아니라 **부호가 바뀐다**(소통 구조가 제약에서 튜닝 변수로). ChatDev·MetaGPT·GPTSwarm·IMACS 논문 기반: [12장 콘웨이 법칙과 AI 에이전트](ch12-conway-and-ai-agents.md)
+> 🔎 **더 깊이 →** 개발 주체가 AI 에이전트 팀이 되면 이 법칙은 어떻게 되나 — 죽는 게 아니라 **부호가 바뀐다**(소통 구조가 제약에서 튜닝 변수로). ChatDev·MetaGPT·GPTSwarm·IMACS 논문 기반: 12장 콘웨이 법칙과 AI 에이전트
 
 #### 3-2. 경계 후보를 찾는 기준 4개
 
@@ -283,10 +283,10 @@ flowchart LR
 | **③ 트랜잭션** | 이 둘이 **한 트랜잭션에 묶여야** 하는가? | 묶여야 하면 **쪼개지 마라** |
 | **④ 팀** | 다른 팀이 **다른 주기로** 배포하는가? | 그렇다면 쪼갤 이유가 생김 |
 
-> **③이 가장 강한 제약이다.** 트랜잭션이 필요한 둘을 쪼개면 [분산 정합성](../part2/ch07-1-distributed-consistency.md)의 도구를 전부 동원해야 한다.
+> **③이 가장 강한 제약이다.** 트랜잭션이 필요한 둘을 쪼개면 분산 정합성의 도구를 전부 동원해야 한다.
 > **"쪼갤 수 있다"와 "쪼개야 한다"는 다르다.** 기본값은 **합쳐두는 것**이고, 쪼개는 쪽이 근거를 대야 한다.
 
-> 🔎 더 깊이 →이 기준 4개가 **어느 이론에서 왔는지** — Parnas 정보 은닉(1972)·결합도/응집도·커너선스·Martin 메트릭(SDP/SAP)·DDD 바운디드 컨텍스트: [11장 모듈성 이론](ch11-modularity.md)
+> 🔎 더 깊이 →이 기준 4개가 **어느 이론에서 왔는지** — Parnas 정보 은닉(1972)·결합도/응집도·커너선스·Martin 메트릭(SDP/SAP)·DDD 바운디드 컨텍스트: 11장 모듈성 이론
 
 **①은 단일 책임 원칙의 진짜 의미이기도 하다** — "하나의 일만 한다"가 아니라 "**바뀌는 이유가 하나**"다.
 
@@ -330,7 +330,6 @@ void 도메인은_인프라를_모른다() {
 
 > **이게 아키텍처를 "지키는" 유일한 현실적 방법이다.** 규칙을 **테스트로 만들면** CI가 위반을 잡는다.
 > 문서에만 있는 아키텍처는 **첫 번째 급한 배포에서 무너진다.**
-> 🔎 더 깊이 → [구조를 CI로 지키기 (클래스·슈퍼클래스·메서드 규칙, freeze, Spring Modulith)](../part4/ch15-architecture-fitness-ci.md)
 
 #### 3-5. 피트니스 함수 — 설계서 ⑥번의 실체
 
@@ -408,12 +407,12 @@ void 도메인은_인프라를_모른다() {
 | ArchUnit | 자바에서 아키텍처 규칙을 테스트로 검증하는 라이브러리 |
 
 ### 연결 지도
-- **트랜잭션 경계 (경계 긋기의 제약)**: → [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md)
-- **쪼갠 뒤의 정합성 비용**: → [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
-- **프로세스가 여러 개일 때의 동시성**: → [6장 캐시와 분산 락](../part2/ch06-cache-and-distributed-lock.md)
-- **GoF 패턴 (한 단계 아래 층)**: → [A.1 Java](../appendix/a1-java.md)
-- **설계 원칙·트레이드오프 렌즈**: → [C.1 큰 그림](../appendix/c1-big-picture.md)
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **트랜잭션 경계 (경계 긋기의 제약)**: → 5장 트랜잭션과 락
+- **쪼갠 뒤의 정합성 비용**: → 7.1 멱등성·Outbox·Saga
+- **프로세스가 여러 개일 때의 동시성**: → 6장 캐시와 분산 락
+- **GoF 패턴 (한 단계 아래 층)**: → A.1 Java
+- **설계 원칙·트레이드오프 렌즈**: → C.1 큰 그림
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Cockburn, A. *Hexagonal Architecture (Ports and Adapters).* 2005 — https://alistair.cockburn.us/hexagonal-architecture/
@@ -427,7 +426,7 @@ void 도메인은_인프라를_모른다() {
 
 _짧은 인용은 출처 표기. 이 문서는 **설계(신규 구축)** 관점이다. 기존 구조를 진단·개선하는 관점은 별도._
 
-> 🔎 **더 깊이 →** 이미 돌아가는 구조를 바꾸는 법 — Uber·Shopify·Segment·Prime Video·Airbnb·Discord 전환 사례, "바깥을 바꿀까 안만 바꿀까"·"옮기며 버그도 고칠까" 기준: [14장 전환 사례와 판단 기준](../part4/ch14-migration-case-studies.md)
+> 🔎 **더 깊이 →** 이미 돌아가는 구조를 바꾸는 법 — Uber·Shopify·Segment·Prime Video·Airbnb·Discord 전환 사례, "바깥을 바꿀까 안만 바꿀까"·"옮기며 버그도 고칠까" 기준: 14장 전환 사례와 판단 기준
 
 ---
 
@@ -435,7 +434,7 @@ _짧은 인용은 출처 표기. 이 문서는 **설계(신규 구축)** 관점�
 
 > 같은 뿌리("불필요한 복잡함을 피하라")를 가진 원칙 묶음. **YAGNI**가 대표.
 > 단, 이 원칙들은 "무엇을 하지 말지"의 *지침*일 뿐, **"지금 여기에 적용할지"의 판단은 사람 몫**이다.
-> 그 판단력 = 추론 → [추론 기법](../preface/00-how-to-read.md).
+> 그 판단력 = 추론 → 추론 기법.
 
 ### 핵심 — YAGNI (You Aren't Gonna Need It)
 
@@ -474,21 +473,18 @@ flowchart TD
 
 이 원칙들은 **"언제 멈추고 언제 더할지"를 자동으로 정해주지 않는다.** "지금 필요한가?",
 "이게 측정된 한계인가, 그냥 불안인가?"를 **판단하는 건 사람의 추론**이다.
-LLM은 근거를 빨리 찾아주지만, 판단까지 위탁하면 사고력이 준다(→ [추론 기법](../preface/00-how-to-read.md)).
+LLM은 근거를 빨리 찾아주지만, 판단까지 위탁하면 사고력이 준다(→ 추론 기법).
 
 ### 우리 사례와 연결 (모두 같은 정신)
 
 - **Redis 걷어내고 db-row-lock/atomic** — 지금 분산이 필요 없으니 Redis의 분산 능력을 버린
-  계산된 YAGNI 베팅. ([tradeoffs 사례1](../part4/ch14-migration-case-studies.md))
-- **중소 회사 4사례** — 모놀리스+검증된 기술로 시작, 측정된 병목일 때만 확장. ([scale-reality](../part2/ch09-performance-and-scale.md))
+  계산된 YAGNI 베팅. (tradeoffs 사례1)
+- **중소 회사 4사례** — 모놀리스+검증된 기술로 시작, 측정된 병목일 때만 확장. (scale-reality)
 - **lab-benchmarks** — "필요해서"가 아니라 측정으로 결정.
 
 ### 관련 문서
 
-- [추론 기법](../preface/00-how-to-read.md) — 적용 판단을 위한 사고법
-- [정답은 없다 — 경험담](../part4/ch14-migration-case-studies.md)
-- [트레이드오프 읽는 법](../preface/00-how-to-read.md)
-- [카파시 접근법](../appendix/c2-curriculum-and-nn-types.md)
+- 추론 기법 — 적용 판단을 위한 사고법
 
 ---
 
@@ -501,7 +497,6 @@ LLM은 근거를 빨리 찾아주지만, 판단까지 위탁하면 사고력이 
 ### 출발점 — LLM의 코드 이해 = findability
 
 LLM은 코드를 통째로 "아는" 게 아니라, 필요한 부분을 **찾아서** context에 넣고 추론한다.
-([코드베이스 분석 방법](../appendix/a3-tools-and-llm.md), [도구 검색·컨텍스트](../appendix/a3-tools-and-llm.md) 참고)
 
 그 "찾기"는 두 방식뿐인데, **둘 다 같은 것을 요구**한다:
 
@@ -551,9 +546,25 @@ AI가 생성·탐색할 때 그 규칙을 따르게 만든다.
 
 ### 관련 문서
 
-- [코드베이스 분석 방법](../appendix/a3-tools-and-llm.md)
-- [도구 검색·컨텍스트·용도](../appendix/a3-tools-and-llm.md)
-- [카파시 접근법](../appendix/c2-curriculum-and-nn-types.md) — CLAUDE.md 4원칙
+- 카파시 접근법 — CLAUDE.md 4원칙
+
+---
+
+## 함께 보기
+
+- [서문 — 이 책을 읽는 법](../preface/00-how-to-read.md)
+- [5장 트랜잭션과 락](../part2/ch05-transaction-and-lock.md)
+- [6장 캐시와 분산 락](../part2/ch06-cache-and-distributed-lock.md)
+- [7.1 멱등성·Outbox·Saga](../part2/ch07-1-distributed-consistency.md)
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
+- [12장 콘웨이 법칙과 AI 에이전트](ch12-conway-and-ai-agents.md)
+- [14장 전환 사례와 판단 기준](../part4/ch14-migration-case-studies.md)
+- [15장 구조를 CI로 지키기](../part4/ch15-architecture-fitness-ci.md)
+- [A.1 Java](../appendix/a1-java.md)
+- [A.3 개발 도구와 LLM](../appendix/a3-tools-and-llm.md)
+- [C.1 큰 그림](../appendix/c1-big-picture.md)
+- [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

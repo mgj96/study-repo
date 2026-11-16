@@ -11,7 +11,7 @@
 ## 딥다이브 — 렌더링 수학 (좌표변환·래스터화·레이트레이싱)
 
 > 기반: **LearnOpenGL – Coordinate Systems** ([링크](https://learnopengl.com/Getting-started/Coordinate-Systems)) · **Scratchapixel – Ray Tracing / Rasterization** ([링크](https://www.scratchapixel.com/)) · **PBR Book** ([링크](https://pbr-book.org/))
-> 형식: 12살 요약 → 수식 심화. 얕은 버전은 [D.2 렌더링 수학·ML 비교](d2-rendering-math.md), [D.1 컴퓨터 그래픽스](d1-graphics.md).
+> 형식: 12살 요약 → 수식 심화. 얕은 버전은 D.2 렌더링 수학·ML 비교, D.1 컴퓨터 그래픽스.
 
 ---
 
@@ -131,14 +131,14 @@ $$
 - **스페큘러** `k_s·(R·V)^n`: 반사 방향 R과 시선 V의 내적을 n제곱. n(광택)이 클수록 하이라이트가 좁고 날카로움.
 - 내적(dot product)이 "두 방향이 얼마나 일치하나"를 재는 도구로 조명의 핵심.
 
-> 현대는 물리 기반(PBR): 에너지 보존·BRDF로 더 사실적. (→ [D.1 컴퓨터 그래픽스](d1-graphics.md) 11장)
+> 현대는 물리 기반(PBR): 에너지 보존·BRDF로 더 사실적. (→ D.1 컴퓨터 그래픽스 11장)
 
 ---
 
 ### 6. 왜 GPU인가 (연결)
 
 - 좌표 변환(행렬 곱)·픽셀 셰이딩·광선 교차 모두 **대량 병렬 계산** → GPU가 수천 코어로 동시에 처리.
-- 이 행렬 곱 병렬성은 **신경망 학습과 동일한 연산** → 그래픽스 GPU가 AI 붐도 이끔. (→ [D.2 렌더링 수학·ML 비교](d2-rendering-math.md))
+- 이 행렬 곱 병렬성은 **신경망 학습과 동일한 연산** → 그래픽스 GPU가 AI 붐도 이끔. (→ D.2 렌더링 수학·ML 비교)
 
 ---
 
@@ -166,7 +166,6 @@ _짧은 인용은 출처 표기, 수식은 표준 표기로 재정리._
 ## 컴퓨터 그래픽스 ↔ 머신러닝: 비교와 융합
 
 > **용도**: NotebookLM 소스 및 복습용. 두 학습 노트를 잇는 다리.
-> **연결**: [C.1 큰 그림](c1-big-picture.md) · [D.1 컴퓨터 그래픽스](d1-graphics.md)
 > **한 줄**: 전통적으로는 정반대(규칙을 알고 그림 vs 규칙을 모르니 배움)지만, 수학·GPU를 공유하며 요즘은 융합 중.
 
 ---
@@ -253,7 +252,7 @@ _짧은 인용은 출처 표기, 수식은 표준 표기로 재정리._
 - Neural Rendering, NeRF (Neural Radiance Fields), 3D Gaussian Splatting
 - Diffusion Models, Stable Diffusion, Latent Diffusion
 - NVIDIA DLSS, AI Denoising, Differentiable Rendering
-- 기반 노트: [C.1 큰 그림](c1-big-picture.md), [D.1 컴퓨터 그래픽스](d1-graphics.md)
+- 기반 노트: C.1 큰 그림, D.1 컴퓨터 그래픽스
 
 _작성: 2026-07 · 개념 비교용 요약. 융합 분야는 빠르게 바뀌므로 최신 자료는 검색 확인._
 
@@ -307,7 +306,7 @@ _작성: 2026-07 · 개념 비교용 요약. 융합 분야는 빠르게 바뀌�
 ### 컴퓨터 그래픽스 — 암기 Q&A (얕게)
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 쉬운 말 위주.
-> 개념 상세: [D.1 컴퓨터 그래픽스](d1-graphics.md)
+> 개념 상세: D.1 컴퓨터 그래픽스
 
 ---
 
@@ -336,7 +335,14 @@ _작성: 2026-07 · 개념 비교용 요약. 융합 분야는 빠르게 바뀌�
 - **② 원리** GPU는 단순 계산 코어가 수천 개라 같은 연산을 병렬로 처리.
 - **③ 확장**이 병렬성이 AI(행렬 곱)에도 딱 맞아, 그래픽스용 GPU가 딥러닝 붐도 이끌었다.
 
-_더 깊이(논문·교재 기반): **[D.2 렌더링 수학·ML 비교](d2-rendering-math.md)** — MVP 변환·래스터화(무게중심)·레이트레이싱·퐁 조명 수식._
+_더 깊이(논문·교재 기반): **D.2 렌더링 수학·ML 비교** — MVP 변환·래스터화(무게중심)·레이트레이싱·퐁 조명 수식._
+
+---
+
+## 함께 보기
+
+- [C.1 큰 그림](c1-big-picture.md)
+- [D.1 컴퓨터 그래픽스](d1-graphics.md)
 
 ---
 

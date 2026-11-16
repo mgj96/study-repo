@@ -6,7 +6,6 @@
 
 "이렇게 하면 GC가 줄어든다"는 말 중 상당수는 소스를 보면 사실이 아니다. 이 절은 그런 주장들을 실제 동작과 대조한다. 끝의 정리 문제는 동시성·락·네트워크를 한 번에 묶어, 어떤 접근이 맞는지 스스로 골라보게 한다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -28,7 +27,7 @@ flowchart TD
 ## GC 놓치기 쉬운 함정 — "된다"는 주장 vs 실제 (소스 기준)
 
 > 관점: "요즘 GC는 좋아져서 된다"는 말이 많지만, **공식 문서·소스를 보면 조건·한계**가 붙는다. 필수 함정부터.
-> Java 중심 + Unity/C#는 [D.3 Unity GC](../appendix/d3-unity-gc.md)(공식 매뉴얼 기반). 자바 렌즈: [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md).
+> Java 중심 + Unity/C#는 D.3 Unity GC(공식 매뉴얼 기반). 자바 렌즈: C.2 학습 경로와 신경망 종류.
 
 ---
 
@@ -47,7 +46,7 @@ GC는 "자동이라 신경 안 써도 된다"고 배우지만, **성능·메모�
 
 #### ③ 메모리를 OS에 잘 안 돌려준다
 - 힙이 한 번 커지면 **잘 안 줄어든다**(역사적 기본 동작). G1은 조건부로만 uncommit, **ZGC/Shenandoah가 반환을 개선**했지만 **기본 설정·플랫폼에 따라 제한적**.
-- → **소스 기준 결론**: "피크 사용량 ≈ 상주 메모리"로 예산을 잡아라. (Unity는 더 심함 — **WebGL은 아예 반환 안 함**, → [D.3 Unity GC](../appendix/d3-unity-gc.md))
+- → **소스 기준 결론**: "피크 사용량 ≈ 상주 메모리"로 예산을 잡아라. (Unity는 더 심함 — **WebGL은 아예 반환 안 함**, → D.3 Unity GC)
 
 #### ④ 저지연 GC도 "총 일"을 줄이는 게 아니다
 - ZGC·Shenandoah는 **STW를 짧게 분산**할 뿐, **처리량(throughput)과 트레이드오프**가 있다(CPU·배리어 오버헤드). "무료로 빨라진다"가 아님.
@@ -60,7 +59,7 @@ GC는 "자동이라 신경 안 써도 된다"고 배우지만, **성능·메모�
 - **언제 불릴지 보장 없음**(영영 안 불릴 수도). 리소스 정리는 try-with-resources / `Cleaner`로.
 
 #### ⑦ OOM인데 "메모리 남아 보임"
-- Java는 **압축**(compaction)을 해서 힙 단편화는 덜하지만 — **큰 연속 배열 요구**, **Metaspace**(클래스 메타), **off-heap**(다이렉트 버퍼)은 별개 원인. (Unity/Boehm GC는 **비압축**이라 단편화로 OOM이 더 흔함, → [D.3 Unity GC](../appendix/d3-unity-gc.md))
+- Java는 **압축**(compaction)을 해서 힙 단편화는 덜하지만 — **큰 연속 배열 요구**, **Metaspace**(클래스 메타), **off-heap**(다이렉트 버퍼)은 별개 원인. (Unity/Boehm GC는 **비압축**이라 단편화로 OOM이 더 흔함, → D.3 Unity GC)
 
 ---
 
@@ -94,7 +93,7 @@ GC는 "자동이라 신경 안 써도 된다"고 배우지만, **성능·메모�
                               ↘ 메모리↑ → RAM 부족 → OS 스왑 → 전체 느림
   재시작 → 메모리 통째 회수 + live set 0 → 쌩쌩
   ```
-- **③ 확장** 근본 원인은 **누수(참조 미해제)** — 재시작은 임시방편(서버는 주기적 rolling restart로 버팀). 발열 스로틀링·GPU 리소스 누수·단편화 등 **비(非)메모리 원인**도 섞여 재시작이 "만능약"처럼 보인다. 해결: 참조 해제·풀링·캐시 만료 (→ [D.3 Unity GC](../appendix/d3-unity-gc.md)).
+- **③ 확장** 근본 원인은 **누수(참조 미해제)** — 재시작은 임시방편(서버는 주기적 rolling restart로 버팀). 발열 스로틀링·GPU 리소스 누수·단편화 등 **비(非)메모리 원인**도 섞여 재시작이 "만능약"처럼 보인다. 해결: 참조 해제·풀링·캐시 만료 (→ D.3 Unity GC).
 
 ### 누수 막는 법 (코드)
 
@@ -132,7 +131,7 @@ void dispose() { button.removeListener(l); }   // 참조 끊김 → 회수 가�
 
 - 규칙: **등록한 계층과 같은 계층의 "소멸 콜백"에서 해제.** `add`한 곳이 있으면 `remove`할 곳을 **반드시 짝지어** 둔다.
 - ⚠️ **익명·내부 클래스 리스너**는 바깥 객체(`this`)를 통째로 붙잡는다 → 안 풀면 그 객체 그래프 전체가 누수. → 참조 보관 후 해제, 또는 `WeakReference`·정적 중첩 클래스.
-- 이벤트 리스너는 **옵서버(Observer) 패턴**의 대표 사례 (→ [A.1 Java](../appendix/a1-java.md)).
+- 이벤트 리스너는 **옵서버(Observer) 패턴**의 대표 사례 (→ A.1 Java).
 
 #### 2. 캐시 — 자동 회수 구조로
 ```java
@@ -162,7 +161,7 @@ try (var conn = open()) {   // 블록 끝나면 자동 close (예외가 나도!)
 ### 참조
 - Oracle, *HotSpot GC Tuning Guide* — https://docs.oracle.com/en/java/javase/17/gctuning/
 - OpenJDK, *ZGC (JEP)* — https://openjdk.org/projects/zgc/
-- Unity Manual, *Garbage collector* — [D.3 Unity GC](../appendix/d3-unity-gc.md)
+- Unity Manual, *Garbage collector* — D.3 Unity GC
 
 ---
 
@@ -262,10 +261,20 @@ try (var conn = open()) {   // 블록 끝나면 자동 close (예외가 나도!)
 
 ### 관련 문서
 
-- [정답은 없다 — 경험담](../part4/ch14-migration-case-studies.md) (사례1)
-- [네트워크 기초](../part2/ch08-communication.md) — 왕복이 비싼 이유
-- [단순함 원칙(YAGNI)](../part3/ch10-design-starting-point.md)
-- [추론 기법](../preface/00-how-to-read.md)
+- 정답은 없다 — 경험담 (사례1)
+- 네트워크 기초 — 왕복이 비싼 이유
+
+---
+
+## 함께 보기
+
+- [서문 — 이 책을 읽는 법](../preface/00-how-to-read.md)
+- [8장 통신](../part2/ch08-communication.md)
+- [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
+- [14장 전환 사례와 판단 기준](../part4/ch14-migration-case-studies.md)
+- [A.1 Java](../appendix/a1-java.md)
+- [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md)
+- [D.3 Unity GC](../appendix/d3-unity-gc.md)
 
 ---
 

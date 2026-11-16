@@ -12,7 +12,7 @@
 
 > **출발점**: 넥슨 컨퍼런스 슬라이드 "힙은 한 번 커지면 반환되지 않음(Mono)" vs "유니티는 반환한다"는 얘기 — **어느 쪽이 맞나?**
 > **결론(먼저)**: 둘 다 부분적으로 맞다. 유니티 힙은 **커지긴 쉽고 줄어들긴 어렵다.** 빈 페이지를 OS에 **돌려주기도 하지만 "보장 안 됨"**, 주소공간은 **절대 반환 안 함**, WebGL은 **아예 반환 안 함**. → 실무에선 **피크 사용량 = 상주 메모리**로 잡아야 안전.
-> **관련**: [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md)(Q3 메모리 단편화·OOM) · [부록 D 그래픽스](d1-graphics.md)
+> **관련**: 1장 추상화와 복잡도(Q3 메모리 단편화·OOM) · 부록 D 그래픽스
 
 ---
 
@@ -100,7 +100,7 @@ _작성: 2026-07 · Unity 버전에 따라 세부 동작이 다를 수 있으므
 ## 딥다이브 — Unity 가비지 컬렉션 내부 (공식 문서 기반)
 
 > 기반: **Unity Manual – Garbage collector / Incremental GC / Understanding the managed heap** ([GC](https://docs.unity3d.com/6000.1/Documentation/Manual/performance-garbage-collector.html) · [Incremental](https://docs.unity3d.com/6000.1/Documentation/Manual/performance-incremental-garbage-collection.html))
-> 형식: 12살 요약 → 내부 동작 심화. 얕은 버전은 [D.3 Unity GC](d3-unity-gc.md), [D.3 Unity GC](d3-unity-gc.md).
+> 형식: 12살 요약 → 내부 동작 심화. 얕은 버전은 D.3 Unity GC, D.3 Unity GC.
 
 ---
 
@@ -158,7 +158,7 @@ flowchart TD
   - **주소공간(address space)은 절대 반환 안 함.**
   - **WebGL은 아예 반환 안 함** — 힙은 오직 커짐.
 - 실무 결론: "**피크 사용량 = 상주 메모리**"로 메모리 예산을 잡아라.
-- → 이건 CS의 "남은 메모리보다 작은데 OOM"(단편화)과 **같은 원리**. (→ [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md))
+- → 이건 CS의 "남은 메모리보다 작은데 OOM"(단편화)과 **같은 원리**. (→ 1장 추상화와 복잡도)
 
 ---
 
@@ -188,7 +188,7 @@ GC 튜닝보다 **쓰레기를 안 만드는 것**이 정석. 힙 할당을 유�
 | 유발 원인 | 왜 힙 할당 | 대책 |
 |-----------|-----------|------|
 | **string 조작** | `a+b+c`가 임시 문자열을 계속 생성 | `StringBuilder`, 캐싱 |
-| **boxing** | 값 타입→object 감싸며 힙에 객체 (→ [A.1 Java](a1-java.md)) | 제네릭·struct로 회피 |
+| **boxing** | 값 타입→object 감싸며 힙에 객체 (→ A.1 Java) | 제네릭·struct로 회피 |
 | **람다 캡처(closure)** | 외부 변수 캡처 시 힙 객체 생성 | 캡처 없는 람다·정적 메서드 |
 | **LINQ / foreach 일부** | 이터레이터·델리게이트 할당 | 핫패스에선 for 루프 |
 | **컬렉션 재할당** | List 용량 초과 시 재할당 | 초기 용량 지정·풀링 |
@@ -201,8 +201,8 @@ GC 튜닝보다 **쓰레기를 안 만드는 것**이 정석. 힙 할당을 유�
 ---
 
 ### 7. 연결 지도
-- **박싱 → 힙 → GC**: Java·C#·Unity 공통 원리 (→ [A.1 Java](a1-java.md), [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md)).
-- **비압축 → 단편화 → OOM**: CS 메모리 개념과 동일 (→ [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md)).
+- **박싱 → 힙 → GC**: Java·C#·Unity 공통 원리 (→ A.1 Java, A.2 다른 언어 (C++·C#·Kotlin)).
+- **비압축 → 단편화 → OOM**: CS 메모리 개념과 동일 (→ 1장 추상화와 복잡도).
 
 ### 용어 사전
 | 용어 | 뜻 |
@@ -230,7 +230,7 @@ _짧은 인용은 출처 표기. Unity 버전에 따라 세부는 달라질 수 
 ### Unity — 암기 Q&A (얕게)
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 쉬운 말 위주.
-> 개념 상세: [D.3 Unity GC](d3-unity-gc.md) · 언어: [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md)
+> 개념 상세: D.3 Unity GC · 언어: A.2 다른 언어 (C++·C#·Kotlin)
 
 ---
 
@@ -259,7 +259,16 @@ _짧은 인용은 출처 표기. Unity 버전에 따라 세부는 달라질 수 
 - **② 원리** IL2CPP는 성능·플랫폼 이점. 단 **GC는 둘 다 Boehm**으로 같다.
 - **③ 확장** 그래서 힙 반환 특성·최적화 원칙은 두 방식이 동일하다.
 
-_더 깊이(공식 문서 기반): **[D.3 Unity GC](d3-unity-gc.md)** — Boehm GC·Mark&Sweep·Incremental·Write Barrier·할당 줄이기. 생명주기·ECS는 다음에._
+_더 깊이(공식 문서 기반): **D.3 Unity GC** — Boehm GC·Mark&Sweep·Incremental·Write Barrier·할당 줄이기. 생명주기·ECS는 다음에._
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md)
+- [A.1 Java](a1-java.md)
+- [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md)
+- [D.1 컴퓨터 그래픽스](d1-graphics.md)
 
 ---
 

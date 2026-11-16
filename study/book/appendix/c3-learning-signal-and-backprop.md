@@ -11,7 +11,7 @@
 ## 학습 신호 — ML은 "정답"을 어디서 얻나 (지도·자기지도), 그리고 확증편향
 
 > 용도: "이미지는 라벨을 사람이 달지만, 글·음성은 어떻게 배우지?"와 "그럼 모델이 확증편향에 빠지는 것 아냐?"에 대한 참고 정리.
-> 관련: [C.1 큰 그림](c1-big-picture.md)(12장 다음 토큰 예측) · [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md) · [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md).
+> 관련: C.1 큰 그림(12장 다음 토큰 예측) · C.2 학습 경로와 신경망 종류 · C.4 RNN·임베딩·어텐션.
 
 ---
 
@@ -110,7 +110,7 @@ ML의 연료는 **정답 신호(닻)**. **이미지는 사람 라벨(지도)**, 
 ## 딥다이브 — 신경망과 역전파 수학 (논문·교재 기반)
 
 > 기반: **Michael Nielsen, *Neural Networks and Deep Learning*, Ch.2** ([링크](http://neuralnetworksanddeeplearning.com/chap2.html)) · **Stanford CS231n – Backprop** ([링크](https://cs231n.github.io/optimization-2/)) · **3Blue1Brown – Backpropagation** ([링크](https://www.3blue1brown.com/lessons/backpropagation))
-> 형식: 12살 요약 → 수식 심화. 얕은 버전은 [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md), [C.1 큰 그림](c1-big-picture.md).
+> 형식: 12살 요약 → 수식 심화. 얕은 버전은 C.8 X 랭킹 알고리듬·정리, C.1 큰 그림.
 
 ---
 
@@ -228,7 +228,7 @@ $$
 
 - **시그모이드(sigmoid)**: 출력 0~1. 하지만 입력이 크거나 작으면 σ′ ≈ 0 → BP2에서 오차가 계속 작아짐 → **기울기 소실(vanishing gradient)**, 깊은 망 학습이 어려움.
 - **ReLU** (`max(0,x)`): 양수 구간에서 기울기 1이라 소실이 덜함 → 딥러닝을 실용화한 핵심. (단 음수는 0 → "죽은 ReLU" 문제)
-- 이 "기울기 소실" 때문에 잔차 연결(ResNet)·정규화 같은 기법이 나왔고, **트랜스포머의 잔차+LayerNorm**도 같은 맥락(→ [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md) 6장).
+- 이 "기울기 소실" 때문에 잔차 연결(ResNet)·정규화 같은 기법이 나왔고, **트랜스포머의 잔차+LayerNorm**도 같은 맥락(→ C.4 RNN·임베딩·어텐션 6장).
 
 ---
 
@@ -263,7 +263,7 @@ _4대 방정식은 Nielsen 표기 기준. 짧은 인용은 출처 표기, 나머
 ## 딥다이브 — 표현 학습: 깊은 신경망은 왜 잘 될까
 
 > 기반: **Zeiler & Fergus (2014), "Visualizing and Understanding CNNs"** · **Bengio 외 (2013), "Representation Learning: A Review"** · **d2l.ai**
-> 이 페이지는 [C.1 큰 그림](c1-big-picture.md) 6단원 "왜 깊게 쌓나"를 더 깊이 판 것. (사이드바에는 없고, 인라인 링크·검색으로 도달)
+> 이 페이지는 C.1 큰 그림 6단원 "왜 깊게 쌓나"를 더 깊이 판 것. (사이드바에는 없고, 인라인 링크·검색으로 도달)
 
 ---
 
@@ -303,7 +303,7 @@ Zeiler & Fergus(2014)는 CNN의 각 층이 **무엇에 반응하는지**를 시�
 2. **추상화 단계**: 문제를 "한 방에" 풀지 않고 **작은 변환을 여러 번** 거치는 게 학습에 유리.
 3. **전이 가능성**: 얕은 층이 배운 "엣지·질감"은 **다른 과제에도 그대로 재사용**된다(전이학습·파인튜닝의 토대).
 
-> 단, 깊다고 무조건 좋은 건 아니다 — 너무 깊으면 **기울기 소실**(→ [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md))로 학습이 어려워, **잔차 연결(ResNet)**·정규화 같은 장치가 필요하다. (트랜스포머의 잔차+LayerNorm도 같은 이유 → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md))
+> 단, 깊다고 무조건 좋은 건 아니다 — 너무 깊으면 **기울기 소실**(→ C.3 학습 신호와 역전파)로 학습이 어려워, **잔차 연결(ResNet)**·정규화 같은 장치가 필요하다. (트랜스포머의 잔차+LayerNorm도 같은 이유 → C.4 RNN·임베딩·어텐션)
 
 ---
 
@@ -323,7 +323,7 @@ Zeiler & Fergus(2014)는 CNN의 각 층이 **무엇에 반응하는지**를 시�
 ## 모델에 심기 — 파인튜닝·모델 편집·백도어 (같은 도구, 방향만 반대)
 
 > 관점: "레이어만 빼서 튜닝되나? 안전을 심나, 거짓·환각을 심나?"에 대한 정리. **같은 메커니즘이 안전도 악의도 심을 수 있다**(대칭). 방어 관점의 교육용.
-> 관련: [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)(닻·확증편향) · [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)(층별 제어) · [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md).
+> 관련: C.3 학습 신호와 역전파(닻·확증편향) · C.6 층별 특화와 YOLO(층별 제어) · C.2 학습 경로와 신경망 종류.
 
 ---
 
@@ -359,7 +359,7 @@ Zeiler & Fergus(2014)는 CNN의 각 층이 **무엇에 반응하는지**를 시�
 ### 3. 좋은 쪽 — 안전·정렬 심기
 
 - **Safety fine-tuning**: 유해 요청 거절, 정중한 응답 등을 학습으로 심음.
-- **RLHF**(사람 피드백 강화학습): "사람이 선호하는 답"에 보상 → 정렬(alignment). (→ [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md))
+- **RLHF**(사람 피드백 강화학습): "사람이 선호하는 답"에 보상 → 정렬(alignment). (→ C.3 학습 신호와 역전파)
 - **가드레일**: 입출력 필터를 덧댐(모델 밖 방어).
 
 ---
@@ -373,7 +373,7 @@ Zeiler & Fergus(2014)는 CNN의 각 층이 **무엇에 반응하는지**를 시�
   - **자바 렌즈**: **공급망 공격(supply-chain)** — 의존성에 몰래 악성 코드를 넣거나, 특정 조건에서만 터지는 **로직 폭탄(logic bomb)**.
 - **거짓 사실 주입**: 모델 편집으로 틀린 정보를 정답인 양 심음 → 그럴듯하게 퍼뜨림.
 
-> 이건 [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)의 "닻이 흔들리면 확증편향"의 **공격 버전** — 신뢰할 수 없는 출처의 모델·데이터·가중치를 그대로 쓰면 위험.
+> 이건 C.3 학습 신호와 역전파의 "닻이 흔들리면 확증편향"의 **공격 버전** — 신뢰할 수 없는 출처의 모델·데이터·가중치를 그대로 쓰면 위험.
 
 ---
 
@@ -415,6 +415,15 @@ Zeiler & Fergus(2014)는 CNN의 각 층이 **무엇에 반응하는지**를 시�
 - Geva et al., *Transformer Feed-Forward Layers Are Key-Value Memories*, 2021 — https://arxiv.org/abs/2012.14913
 - Dai et al., *Knowledge Neurons in Pretrained Transformers*, 2021 — https://arxiv.org/abs/2104.08696
 - Hu et al., *LoRA: Low-Rank Adaptation of Large Language Models*, 2021 — https://arxiv.org/abs/2106.09685
+
+---
+
+## 함께 보기
+
+- [C.1 큰 그림](c1-big-picture.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+- [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)
+- [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md)
 
 ---
 

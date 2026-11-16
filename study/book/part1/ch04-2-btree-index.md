@@ -6,7 +6,6 @@
 
 DB 인덱스는 '디스크를 덜 읽기 위한' 자료구조다. 이 절은 B+트리가 왜 넓고 얕은지, 복합 인덱스 순서와 커버링 인덱스가 실무에서 무엇을 바꾸는지 본다. 앞 장의 메모리 계층 이야기가 디스크 페이지로 이어진다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -27,7 +26,7 @@ flowchart TD
 ## 딥다이브 — DB 인덱스와 B+트리
 
 > 관점: "인덱스 걸었는데 왜 안 빨라지지?"에서 "**디스크 페이지 몇 번 읽느냐**"로. `SELECT` 뒤에서 도는 진짜 기계장치를 뜯어본다.
-> 자료구조 내부 일반론은 [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md), CS 기초 개념은 [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md), 네트워크·프로토콜은 [8장 통신](../part2/ch08-communication.md).
+> 자료구조 내부 일반론은 4.1 자료구조와 HashMap, CS 기초 개념은 1장 추상화와 복잡도, 네트워크·프로토콜은 8장 통신.
 > 출처: Kleppmann, *Designing Data-Intensive Applications* ch.3 / Markus Winand, *Use The Index, Luke* (https://use-the-index-luke.com/).
 
 ---
@@ -105,7 +104,7 @@ B+트리는 **노드 하나에 키를 수백 개** 담는다. 노드 하나 = �
 B+트리:    높이 3~4, 노드당 키 수백개 →  디스크 읽기 3~4회 (캐시로 사실상 1~2회)
 ```
 
-> 그래서 "메모리에서는 레드-블랙 트리, 디스크에서는 B+트리"다. **B+트리의 존재 이유 전체가 "디스크 페이지 읽기 횟수를 최소화**"라는 한 문장으로 압축된다(→ 이 발상은 [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) §3의 "균형 트리는 왜 안 쏠리나"를 디스크 세계로 확장한 것).
+> 그래서 "메모리에서는 레드-블랙 트리, 디스크에서는 B+트리"다. **B+트리의 존재 이유 전체가 "디스크 페이지 읽기 횟수를 최소화**"라는 한 문장으로 압축된다(→ 이 발상은 4.1 자료구조와 HashMap §3의 "균형 트리는 왜 안 쏠리나"를 디스크 세계로 확장한 것).
 
 ---
 
@@ -343,7 +342,15 @@ B+트리는 데이터를 **제자리**(in-place)에 갱신해서 정렬을 유�
 
 - Martin Kleppmann, *Designing Data-Intensive Applications*, ch.3 "Storage and Retrieval" — B-트리 vs LSM 트리, 페이지·fanout·디스크 I/O 관점. (O'Reilly, 2017)
 - Markus Winand, *Use The Index, Luke* — https://use-the-index-luke.com/ — B+트리 조회, 복합 인덱스와 left-prefix, 커버링, 선택도, 인덱스가 안 먹는 SQL 패턴의 실무 정석.
-- 관련 노트: [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)(균형 트리·해시맵 내부), [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)(기초 개념), [8장 통신](../part2/ch08-communication.md)(프로토콜·통신).
+- 관련 노트: 4.1 자료구조와 HashMap(균형 트리·해시맵 내부), 1장 추상화와 복잡도(기초 개념), 8장 통신(프로토콜·통신).
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)
+- [8장 통신](../part2/ch08-communication.md)
 
 ---
 

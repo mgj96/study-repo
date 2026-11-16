@@ -20,10 +20,10 @@
 | **OOP 4원칙** (캡슐화·상속·다형성·추상화) | 객체 모델링 사고는 언어 무관 |
 | **SOLID** | 설계 원칙. 자바든 C#든 좋은 설계의 기준 동일 |
 | **디자인 패턴** (전략·옵저버·팩토리…) | "문제↔해결 구조"라 언어 불문. 단 *구현 관용구*는 다름(아래) |
-| **시간/공간 복잡도(Big-O)** | 수학. 언어 무관 ([Big-O](../part1/ch01-abstraction-and-complexity.md)) |
+| **시간/공간 복잡도(Big-O)** | 수학. 언어 무관 (Big-O) |
 | **자료구조** (배열·해시·트리) | 개념 동일, 이름·API만 다름 |
-| **동시성 개념** (락·경합·동시성vs병렬) | OS·하드웨어 레벨이라 불문 ([동시성](../part1/ch03-1-threads-and-jmm.md)) |
-| **트레이드오프 사고** | 측정·판단은 언어 위의 layer ([트레이드오프](../preface/00-how-to-read.md)) |
+| **동시성 개념** (락·경합·동시성vs병렬) | OS·하드웨어 레벨이라 불문 (동시성) |
+| **트레이드오프 사고** | 측정·판단은 언어 위의 layer (트레이드오프) |
 
 → 즉 당신이 가진 **디자인 패턴·설계 감각은 C#에서도 그대로 자산**이다.
 
@@ -41,20 +41,12 @@
 
 > **"패턴을 안다"와 "그 언어의 관용구로 표현할 줄 안다"는 다르다.**
 > 디자인 패턴을 아는 당신이 C#에서 막히는 건 *설계*가 아니라 *관용구·관례*다.
-> → 그 차이만 [Java vs C#](a2-other-languages.md)에서 툴팁식으로 정리.
-
-### 관련 문서
-
-- [Java vs C# — 툴팁 비교 + C# 개발 가이드](a2-other-languages.md)
-- [Findability — 좋은 구조·명명](../part3/ch10-design-starting-point.md)
-- [단순함 원칙](../part3/ch10-design-starting-point.md)
-
----
+> → 그 차이만 Java vs C#에서 툴팁식으로 정리.
 
 ## C++ vs Java vs C# — 왜 갈라졌나 (역사·철학)
 
 > 관점: 세 언어는 **사촌**인데 왜 다를까? **C++는 C+Simula의 후손, Java는 C++에 대한 반작용, C#은 Java에 대한 반작용**(이면서 C++의 유용함을 되살림). "파생된 근거"를 창시자 발언·문서로 추적한다.
-> 자바 렌즈 전반: [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md) · Java 개념 [A.1 Java](a1-java.md) · C# [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md).
+> 자바 렌즈 전반: C.2 학습 경로와 신경망 종류 · Java 개념 A.1 Java · C# A.2 다른 언어 (C++·C#·Kotlin).
 
 ---
 
@@ -111,7 +103,7 @@
 | C++ | Java | C# |
 |-----|------|-----|
 | 자유(스택/힙 선택) | **거의 참조**(원시 8개만 값, 박싱) | **`struct` 값 타입** + 통합 타입 시스템 |
-- **왜 C#이 값 타입을 추가**: 박싱·힙 할당·GC 부담을 피하려고. Hejlsberg는 `List<int>`가 진짜 int이길 원했다 — 박싱해서 공유하는 건 *"엄청 비싼 방법"*이라고. (→ [A.1 Java](a1-java.md))
+- **왜 C#이 값 타입을 추가**: 박싱·힙 할당·GC 부담을 피하려고. Hejlsberg는 `List<int>`가 진짜 int이길 원했다 — 박싱해서 공유하는 건 *"엄청 비싼 방법"*이라고. (→ A.1 Java)
 
 #### ⑤ 제네릭 — 가장 큰 기술적 분기
 | | 방식 | 결과 |
@@ -154,7 +146,7 @@
 - **Java**: 안전·단순·이식 우선. **위험한 걸 빼앗는다.**
 - **C#**: 생산성·실용. **Java의 안전은 유지하고, C++의 유용함을 돌려주고, 계속 새 기능**을 얹는다.
 
-Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md)), C++는 "포인터·수동 메모리·템플릿을 되찾은 조상"이라고 보면 지도가 잡힌다.
+Java를 안다면 C#은 사촌(→ A.2 다른 언어 (C++·C#·Kotlin)), C++는 "포인터·수동 메모리·템플릿을 되찾은 조상"이라고 보면 지도가 잡힌다.
 
 ---
 
@@ -173,7 +165,7 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 ## Java ↔ C# ↔ Python — 툴팁식 비교 + 개발 가이드
 
 > "자바에선 이렇게 하는데 C#/파이썬에선?" 을 **개념 → Java → C# → Python**로 빠르게 찾는 참조.
-> 디자인 패턴·설계는 그대로 옮겨가고([공통](a2-other-languages.md)), 여기선 **관용구 차이**만.
+> 디자인 패턴·설계는 그대로 옮겨가고(공통), 여기선 **관용구 차이**만.
 > NotebookLM에 넣고 "C#에서 X는 어떻게?" 물으면 툴팁처럼 답이 나온다.
 
 ### 1. 언어 기능 대조 (개념 → Java → C#)
@@ -267,17 +259,14 @@ Java를 안다면 C#은 사촌(→ [A.2 다른 언어 (C++·C#·Kotlin)](a2-othe
 
 ### 관련 문서
 
-- [언어 불문 공통](a2-other-languages.md)
-- [단순함 원칙(YAGNI)](../part3/ch10-design-starting-point.md) — 패턴 남발 말고 필요할 때
-- [Findability — 명명·구조](../part3/ch10-design-starting-point.md)
+- 단순함 원칙(YAGNI) — 패턴 남발 말고 필요할 때
 
 ---
 
 ## 자바 개발자를 위한 Kotlin — "자바의 TypeScript"라는 비유로
 
-> 용도: [언어 전략 §6](e1-roadmap-and-explain.md)에서 "이직용 1~2주 투자" 판정을 받은 Kotlin의 개념 정리.
+> 용도: 언어 전략 §6에서 "이직용 1~2주 투자" 판정을 받은 Kotlin의 개념 정리.
 > 뼈대 비유: **TypeScript : JavaScript ≈ Kotlin : Java** — 런타임에 터지던 에러를 **컴파일 타임으로 끌어오는 층**. 이 비유가 어디까지 맞고 어디서 깨지는지가 이 노트의 절반이다.
-> 관련: [언어 비교 (C++·Java·C#)](a2-other-languages.md) · [Java 개념](a1-java.md) · [Java 타입/박싱](a1-java.md)
 
 ---
 
@@ -324,7 +313,7 @@ b?.length ?: 0             // ✅ 엘비스: null이면 기본값 (Optional.orEl
 b!!.length                 // ⚠️ 탈출구: "내가 책임진다" — 여기서 NPE 나면 자업자득 (TS의 ! 와 동일)
 ```
 
-> **원리**: "null 검사를 했는가"라는 **런타임 질문을 타입 시스템의 컴파일 타임 증명 문제로 변환**한 것. [deep-jmm](../part1/ch03-1-threads-and-jmm.md)식으로 말하면 — 검사 시점과 사용 시점 사이의 틈을 컴파일러가 정적으로 막는다. Rust의 소유권이 메모리에 한 일을, Kotlin은 null에 한 셈이다 (야심의 크기는 다르지만 방향이 같다).
+> **원리**: "null 검사를 했는가"라는 **런타임 질문을 타입 시스템의 컴파일 타임 증명 문제로 변환**한 것. deep-jmm식으로 말하면 — 검사 시점과 사용 시점 사이의 틈을 컴파일러가 정적으로 막는다. Rust의 소유권이 메모리에 한 일을, Kotlin은 null에 한 셈이다 (야심의 크기는 다르지만 방향이 같다).
 
 #### ② 스마트 캐스트 — instanceof 후 캐스팅 실수 제거
 
@@ -406,7 +395,7 @@ fun handle(r: ExitResult) = when (r) {            // ❌ SeasonTicket 분기를 
 
 ---
 
-### 6. 이직용 1~2주 경로 ([언어 전략 §6](e1-roadmap-and-explain.md) 실행판)
+### 6. 이직용 1~2주 경로 (언어 전략 §6 실행판)
 
 ```
 D1~2   문법 훑기 — 공식 Kotlin Koans (온라인, 설치 불필요)
@@ -433,7 +422,7 @@ D8~10  기존 자바 코드 하나를 Kotlin으로 변환해보기 (IntelliJ 자
 ## C# — 개념 노트 (얕게 시작)
 
 > 용도: Unity와 직결되는 언어. Java를 알면 90%는 익숙하다.
-> 심화는 물어보면서 점점 파기. 관련: [A.1 Java](a1-java.md) · [D.3 Unity GC](d3-unity-gc.md)
+> 심화는 물어보면서 점점 파기. 관련: A.1 Java · D.3 Unity GC
 
 ---
 
@@ -450,7 +439,7 @@ C#은 마이크로소프트가 만든 언어로, **Java와 매우 비슷한 객�
 
 ### 2. Java와 다른 핵심 (얕게)
 - **값 타입 vs 참조 타입**: `struct`(값, 스택/인라인) vs `class`(참조, 힙). Java의 원시/객체 구분과 닮았지만 C#은 **내가 struct를 직접 만들 수 있다.**
-- **박싱**: 값 타입을 `object`로 감싸면 **힙 할당** → Unity에서 GC 부담(→ [A.1 Java](a1-java.md)와 같은 원리).
+- **박싱**: 값 타입을 `object`로 감싸면 **힙 할당** → Unity에서 GC 부담(→ A.1 Java와 같은 원리).
 - **LINQ**: 데이터를 SQL처럼 질의(`where`, `select`).
 - **async/await**: 비동기 코드를 동기처럼 쉽게 쓰는 문법.
 
@@ -483,7 +472,7 @@ _이 노트는 얕은 시작. 값/참조 타입, LINQ, async 등은 물어보면
 ### C# — 암기 Q&A (얕게)
 
 > 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 쉬운 말 위주.
-> 개념: [A.2 다른 언어 (C++·C#·Kotlin)](a2-other-languages.md)
+> 개념: A.2 다른 언어 (C++·C#·Kotlin)
 
 ---
 
@@ -513,6 +502,19 @@ _이 노트는 얕은 시작. 값/참조 타입, LINQ, async 등은 물어보면
 - **③ 확장** 네트워크·파일 대기에 좋음. 흐름은 편해지나 내부 동작을 모르면 디버깅이 헷갈릴 수 있다.
 
 _더 깊이: LINQ, 델리게이트/이벤트, Unity 코루틴 vs async 등은 물어보면 파봄._
+
+---
+
+## 함께 보기
+
+- [서문 — 이 책을 읽는 법](../preface/00-how-to-read.md)
+- [1장 추상화와 복잡도](../part1/ch01-abstraction-and-complexity.md)
+- [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
+- [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
+- [A.1 Java](a1-java.md)
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+- [D.3 Unity GC](d3-unity-gc.md)
+- [E.1 역량 로드맵·코드 설명법](e1-roadmap-and-explain.md)
 
 ---
 

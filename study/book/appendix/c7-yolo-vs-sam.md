@@ -11,7 +11,7 @@
 ## 딥다이브 — YOLO vs SAM 2: 탄생 배경, 제로샷의 원리, 그리고 "뭐가 더 나은가"
 
 > 기반: **Redmon et al., *You Only Look Once* (CVPR 2016)** · **Kirillov et al., *Segment Anything* (ICCV 2023)** · **Ravi et al., *SAM 2* (Meta, 2024)** · **Ryali et al., *Hiera* (ICML 2023)** · **Cheng et al., *YOLO-World* (CVPR 2024)** · **Perazzi et al., *DAVIS Benchmark* (CVPR 2016)**
-> 형식: 30초 직관 → **왜 만들어졌나(역사)** → 원리 → 실전. 레이어·YOLO 학습/사용 시점은 [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md), 표현 학습은 [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md), 어텐션은 [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md).
+> 형식: 30초 직관 → **왜 만들어졌나(역사)** → 원리 → 실전. 레이어·YOLO 학습/사용 시점은 C.6 층별 특화와 YOLO, 표현 학습은 C.3 학습 신호와 역전파, 어텐션은 C.4 RNN·임베딩·어텐션.
 
 ---
 
@@ -326,7 +326,7 @@ flowchart TB
 
 **고정 크기 메모리가 실시간을 샀고, 대신 이걸 팔았다:**
 
-1. **드리프트(drift)**: 프레임 t의 오류가 메모리에 저장되고, 그게 t+1의 입력이 된다. 오류가 **누적**된다. 자기 출력을 자기 입력으로 먹는 모든 순차 구조의 숙명 (→ [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)의 오류 전파와 같은 계열).
+1. **드리프트(drift)**: 프레임 t의 오류가 메모리에 저장되고, 그게 t+1의 입력이 된다. 오류가 **누적**된다. 자기 출력을 자기 입력으로 먹는 모든 순차 구조의 숙명 (→ C.4 RNN·임베딩·어텐션의 오류 전파와 같은 계열).
 2. **긴 가림(occlusion)**: 물체가 6프레임보다 오래 가려지면 기억에서 밀려난다. 다시 나타나도 못 알아본다.
 3. **유사 물체 혼동**: 똑같이 생긴 물체 여럿이 교차하면 정체성이 뒤바뀐다(ID switch).
 
@@ -682,13 +682,13 @@ SAM을 실무에서 쓰는 **1순위 용도**는 추론이 아니라 **학습 �
 
 ### 연결 지도
 
-- **YOLO의 레이어 구조·학습 vs 사용 시점**: → [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)
-- **순차 구조의 오류 누적**: → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
-- **cross-attention 원리**: → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
-- **텍스트·이미지 임베딩 공간 (CLIP의 기반)**: → [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
-- **자기지도 학습 (MAE의 기반)**: → [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
-- **자바 개발자 관점 ML 매핑**: → [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
-- **모델 비교·선택 기준**: → [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md), [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+- **YOLO의 레이어 구조·학습 vs 사용 시점**: → C.6 층별 특화와 YOLO
+- **순차 구조의 오류 누적**: → C.4 RNN·임베딩·어텐션
+- **cross-attention 원리**: → C.4 RNN·임베딩·어텐션
+- **텍스트·이미지 임베딩 공간 (CLIP의 기반)**: → C.4 RNN·임베딩·어텐션
+- **자기지도 학습 (MAE의 기반)**: → C.3 학습 신호와 역전파
+- **자바 개발자 관점 ML 매핑**: → C.2 학습 경로와 신경망 종류
+- **모델 비교·선택 기준**: → C.3 학습 신호와 역전파, C.2 학습 경로와 신경망 종류
 
 ### 출처
 
@@ -712,6 +712,15 @@ SAM을 실무에서 쓰는 **1순위 용도**는 추론이 아니라 **학습 �
 - Encord, *SAM 2 & SA-V Dataset Explained* — https://encord.com/blog/segment-anything-model-2-sam-2/
 
 _짧은 인용은 출처 표기. 모델 버전·벤치마크 수치·API는 갱신되므로 최신 문서 확인._
+
+---
+
+## 함께 보기
+
+- [C.2 학습 경로와 신경망 종류](c2-curriculum-and-nn-types.md)
+- [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
+- [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)
+- [C.6 층별 특화와 YOLO](c6-layers-and-yolo.md)
 
 ---
 

@@ -11,7 +11,7 @@
 ## 딥다이브 — RNN과 LSTM (어텐션 이전의 순서 처리)
 
 > 기반: **Christopher Olah, "Understanding LSTM Networks"** ([링크](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)) · **CS231n / d2l.ai RNN 장**
-> 형식: 12살 요약 → 심화. 이 노트는 [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)의 "왜 어텐션이 나왔나"를 뒤에서 받쳐준다.
+> 형식: 12살 요약 → 심화. 이 노트는 C.4 RNN·임베딩·어텐션의 "왜 어텐션이 나왔나"를 뒤에서 받쳐준다.
 
 ---
 
@@ -37,7 +37,7 @@ flowchart LR
 
 *(도식 설명: RNN은 단어를 하나씩 읽으며 '기억(h)'을 다음 단계로 계속 넘긴다. h2는 단어2와 h1을 함께 보고 만들어지므로, 앞 내용이 뒤로 흐른다.)*
 
-**한계 — 기울기 소실**: 기억을 여러 번 곱하며 넘기다 보면, 문장이 길 때 **앞 단어의 영향이 지수적으로 흐려진다**(→ [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)의 기울기 소실과 같은 원리). "저 앞에서 나온 주어"를 뒤에서 기억 못 하는 것.
+**한계 — 기울기 소실**: 기억을 여러 번 곱하며 넘기다 보면, 문장이 길 때 **앞 단어의 영향이 지수적으로 흐려진다**(→ C.3 학습 신호와 역전파의 기울기 소실과 같은 원리). "저 앞에서 나온 주어"를 뒤에서 기억 못 하는 것.
 
 ---
 
@@ -68,7 +68,7 @@ LSTM도 두 벽을 완전히 못 넘었다:
 1. **여전한 장거리 한계**: 아무리 게이트로 관리해도 정보가 **한 줄(순차)로만** 흐른다. 아주 먼 단어 관계는 경로가 길다.
 2. **병렬화 불가**: 단어를 **순서대로** 처리해야 해 GPU를 충분히 못 쓴다 → 대규모 학습이 느리다.
 
-**어텐션**은 이 둘을 한 번에 깼다 — 모든 단어 쌍을 **동시에·직접** 연결(경로 O(1))하고, 순서 의존이 없어 **병렬 처리**가 된다. (→ [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md) 1장 복잡도 표)
+**어텐션**은 이 둘을 한 번에 깼다 — 모든 단어 쌍을 **동시에·직접** 연결(경로 O(1))하고, 순서 의존이 없어 **병렬 처리**가 된다. (→ C.4 RNN·임베딩·어텐션 1장 복잡도 표)
 
 **핵심 요약**: RNN=기억을 이어가며 순차 처리, LSTM=게이트로 기억 관리해 장기 의존성 개선. 그러나 순차·장거리 한계로 어텐션에 대체됨.
 
@@ -82,7 +82,7 @@ LSTM도 두 벽을 완전히 못 넘었다:
 ## 딥다이브 — 토큰화와 임베딩 (글자를 숫자로)
 
 > 기반: **Hugging Face – Tokenizers / NLP Course** ([링크](https://huggingface.co/learn/nlp-course/chapter6)) · **Mikolov 외, word2vec (2013)** · **Jurafsky & Martin, *Speech and Language Processing***
-> 형식: 12살 요약 → 심화. 트랜스포머([C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md))의 **맨 앞 입력 단계**를 다룬다.
+> 형식: 12살 요약 → 심화. 트랜스포머(C.4 RNN·임베딩·어텐션)의 **맨 앞 입력 단계**를 다룬다.
 
 ---
 
@@ -122,7 +122,7 @@ flowchart LR
 
 - 유명한 예: `king − man + woman ≈ queen` — 의미의 "관계"가 벡터 연산으로 나타난다(word2vec).
 - 즉 임베딩 공간에서 **거리·방향이 의미를 담는다.** "고양이"와 "강아지"는 가깝고, "고양이"와 "자동차"는 멀다.
-- 트랜스포머에서는 이 임베딩에 **위치 인코딩**을 더해(→ [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md) 5장) 순서 정보까지 실어 보낸다.
+- 트랜스포머에서는 이 임베딩에 **위치 인코딩**을 더해(→ C.4 RNN·임베딩·어텐션 5장) 순서 정보까지 실어 보낸다.
 
 **핵심 요약**: 임베딩 = 토큰을 의미가 담긴 벡터로. 비슷한 뜻은 가까운 위치, 의미 관계는 벡터 연산으로 나타난다.
 
@@ -133,7 +133,7 @@ flowchart LR
 ```
 글 → [토큰화] → 토큰들 → [임베딩] → 벡터들 → (+위치인코딩) → 트랜스포머
 ```
-이 노트는 그 **맨 앞 두 단계**다. 이후는 [C.4 RNN·임베딩·어텐션](c4-sequence-and-attention.md)로 이어진다.
+이 노트는 그 **맨 앞 두 단계**다. 이후는 C.4 RNN·임베딩·어텐션로 이어진다.
 
 ### 출처
 - Hugging Face. *NLP Course – Tokenizers (BPE 등).* — https://huggingface.co/learn/nlp-course/chapter6
@@ -146,7 +146,7 @@ flowchart LR
 
 > 기반 논문: **Vaswani et al. (2017), "Attention Is All You Need"** — [arXiv:1706.03762](https://arxiv.org/abs/1706.03762)
 > 해설 참고: [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) · [The Annotated Transformer](https://nlp.seas.harvard.edu/annotated-transformer/) · [Lilian Weng – Attention](https://lilianweng.github.io/posts/2018-06-24-attention/)
-> 형식: 12살 요약 → 논문 수준 심화. 얕은 버전은 [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md), [C.1 큰 그림](c1-big-picture.md).
+> 형식: 12살 요약 → 논문 수준 심화. 얕은 버전은 C.8 X 랭킹 알고리듬·정리, C.1 큰 그림.
 
 ---
 
@@ -365,6 +365,14 @@ flowchart TB
 - Weng, L. (2018). *Attention? Attention!* — https://lilianweng.github.io/posts/2018-06-24-attention/
 
 _수치·공식은 논문 base 모델 기준. 짧은 인용은 출처 표기, 나머지는 재정리._
+
+---
+
+## 함께 보기
+
+- [C.1 큰 그림](c1-big-picture.md)
+- [C.3 학습 신호와 역전파](c3-learning-signal-and-backprop.md)
+- [C.8 X 랭킹 알고리듬·정리](c8-ranking-and-log.md)
 
 ---
 

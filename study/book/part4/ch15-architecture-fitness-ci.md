@@ -12,7 +12,7 @@
 
 > 용도: **정한 구조(레이어·모듈 경계·상속 규칙)를 사람의 리뷰가 아니라 빌드가 지키게 만드는 방법.** 클래스·슈퍼클래스·메서드·필드·애노테이션 단위 규칙을 ArchUnit 코드로 익힌다.
 > 기반: Ford·Parsons·Kua *Building Evolutionary Architectures*(2017, 2판 2022), ArchUnit 사용자 가이드, Spring Modulith 레퍼런스, Checkstyle ImportControl 문서.
-> 관련: 경계를 왜 거기 긋는지는 [모듈성 이론](../part3/ch11-modularity.md), 첫 소개는 [개념 노트 3-4·3-5](../part3/ch10-design-starting-point.md), 팀 크기와 구조는 [콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md), AI가 만든 코드의 검증은 [AI 시대 검증·구조 유지](../part5/ch16-1-bottleneck-moved-to-verification.md).
+> 관련: 경계를 왜 거기 긋는지는 모듈성 이론, 첫 소개는 개념 노트 3-4·3-5, 팀 크기와 구조는 콘웨이 법칙과 AI 에이전트, AI가 만든 코드의 검증은 AI 시대 검증·구조 유지.
 
 ---
 
@@ -267,7 +267,7 @@ flowchart LR
 
 글로 풀면: 규칙을 처음 걸 때 위반 300개를 기록해 두고, 그 뒤로 새로 생긴 위반만 막는다. 누가 기존 위반을 고치면 기록에서 빠지므로, 위반 수는 늘 수 없고 줄기만 한다.
 
-> 이 방식은 [운영 중인 구조 바꾸기](ch14-migration-case-studies.md)의 "구조는 유지하고 안쪽만 점진적으로 바꾼다" 전략과 같은 발상이다. 큰 리팩터링 없이 **오늘부터 더 나빠지지 않게** 만드는 게 출발점이다.
+> 이 방식은 운영 중인 구조 바꾸기의 "구조는 유지하고 안쪽만 점진적으로 바꾼다" 전략과 같은 발상이다. 큰 리팩터링 없이 **오늘부터 더 나빠지지 않게** 만드는 게 출발점이다.
 
 ---
 
@@ -403,7 +403,7 @@ quality:
 #### Q5. MSA 대신 모듈러 모놀리스를 고른 팀에게 CI 구조 검사가 왜 핵심인가?
 - **① 결론 · WHAT** MSA는 네트워크가 경계를 강제하지만, 모놀리스는 아무것도 강제하지 않아서 CI가 그 역할을 대신해야 한다.
 - **② 원리 · HOW** 같은 프로세스 안에서는 어떤 클래스든 import 할 수 있다. 구조 테스트가 "import 할 수는 있지만 하면 빌드가 깨진다"로 만든다.
-- **③ 확장 · TRADE-OFF** [콘웨이 법칙](../part3/ch12-conway-and-ai-agents.md)상 소규모 팀은 서비스 수를 감당하기 어렵다. 모놀리스 + CI 경계는 운영 부담 없이 경계만 얻는 선택이고, 나중에 떼어낼 때 그 경계가 그대로 분리선이 된다.
+- **③ 확장 · TRADE-OFF** 콘웨이 법칙상 소규모 팀은 서비스 수를 감당하기 어렵다. 모놀리스 + CI 경계는 운영 부담 없이 경계만 얻는 선택이고, 나중에 떼어낼 때 그 경계가 그대로 분리선이 된다.
 
 ---
 
@@ -422,12 +422,12 @@ quality:
 
 ### 연결 지도
 
-- 왜 그 방향으로 의존해야 하나 → [모듈성 이론](../part3/ch11-modularity.md)
-- 처음 짓는 구조 선택 → [개념 노트](../part3/ch10-design-starting-point.md)
-- 팀 크기와 구조 → [콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md)
-- AI 코드 검증 → [AI 시대 검증·구조 유지](../part5/ch16-1-bottleneck-moved-to-verification.md), [검증의 시대](../part5/ch16-2-pstack-and-merge-at-scale.md)
-- 운영 중 점진 전환 → [운영 중인 구조 바꾸기](ch14-migration-case-studies.md)
-- 코드 품질 게이트 → [Java 품질 게이트](../part5/ch17-1-testing-and-standards.md)
+- 왜 그 방향으로 의존해야 하나 → 모듈성 이론
+- 처음 짓는 구조 선택 → 개념 노트
+- 팀 크기와 구조 → 콘웨이 법칙과 AI 에이전트
+- AI 코드 검증 → AI 시대 검증·구조 유지, 검증의 시대
+- 운영 중 점진 전환 → 운영 중인 구조 바꾸기
+- 코드 품질 게이트 → Java 품질 게이트
 
 ### 출처
 
@@ -436,6 +436,17 @@ quality:
 - Spring Modulith Reference — https://docs.spring.io/spring-modulith/reference/
 - Checkstyle ImportControl — https://checkstyle.sourceforge.io/checks/imports/importcontrol.html
 - Matthew Skelton, Manuel Pais, *Team Topologies* (2019) — 팀 인지 부하와 구조
+
+---
+
+## 함께 보기
+
+- [10장 설계의 출발점](../part3/ch10-design-starting-point.md)
+- [11장 모듈성 이론](../part3/ch11-modularity.md)
+- [12장 콘웨이 법칙과 AI 에이전트](../part3/ch12-conway-and-ai-agents.md)
+- [14장 전환 사례와 판단 기준](ch14-migration-case-studies.md)
+- [16.2 pstack·3만 건 머지](../part5/ch16-2-pstack-and-merge-at-scale.md)
+- [17.1 테스트 전략과 팀 표준](../part5/ch17-1-testing-and-standards.md)
 
 ---
 

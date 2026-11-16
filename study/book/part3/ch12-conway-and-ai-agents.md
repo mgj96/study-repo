@@ -12,7 +12,7 @@
 
 > 기반: **Conway, *How Do Committees Invent?* (1968)** · **Qian et al., *ChatDev* (ACL 2024)** · **Hong et al., *MetaGPT* (ICLR 2024)** · **Zhuge et al., *GPTSwarm* (ICML 2024)** · **Zhang et al., *Cut the Crap / AgentPrune* (2024)** · **Chen et al., *IMACS: Toward an Organizational Science of Multi-Agent LLM Systems* (2026)** · **Skelton & Pais, *Team Topologies* 블로그 (2025)**
 > 형식: 30초 직관 → 근거 논문 → 원리 → 트레이드오프.
-> **선행**: 콘웨이 법칙 원형과 역콘웨이 기동은 [10장 설계의 출발점](ch10-design-starting-point.md) 3-1장. 멀티에이전트의 기반인 LLM 자체는 [C.4 RNN·임베딩·어텐션](../appendix/c4-sequence-and-attention.md).
+> **선행**: 콘웨이 법칙 원형과 역콘웨이 기동은 10장 설계의 출발점 3-1장. 멀티에이전트의 기반인 LLM 자체는 C.4 RNN·임베딩·어텐션.
 
 ---
 
@@ -35,7 +35,7 @@ agents:
   - role: reviewer
 ```
 
-**조직도가 설정 파일이 됐다.** [10장 설계의 출발점](ch10-design-starting-point.md)에서 본 **역콘웨이 기동**(원하는 구조에 맞춰 조직을 먼저 재편하기)은 인간 조직에선 대수술이지만, 에이전트 팀에선 **커밋 하나**다.
+**조직도가 설정 파일이 됐다.** 10장 설계의 출발점에서 본 **역콘웨이 기동**(원하는 구조에 맞춰 조직을 먼저 재편하기)은 인간 조직에선 대수술이지만, 에이전트 팀에선 **커밋 하나**다.
 
 그럼 콘웨이 법칙은 죽었나? **아니다 — 오히려 더 정확하게, 더 빠르게 작동한다**.이 노트는 논문들이 실제로 보여준 3단계 변화를 따라간다:
 
@@ -164,7 +164,7 @@ Team Topologies 진영은 2025년 초부터 "에이전트가 팀의 50~90%를 �
 
 ---
 
-### 5. 실무 함의 — [10장 설계의 출발점](ch10-design-starting-point.md)의 절차에 무엇이 추가되나
+### 5. 실무 함의 — 10장 설계의 출발점의 절차에 무엇이 추가되나
 
 | concept.md의 항목 | 에이전트 시대의 확장 |
 |---|---|
@@ -182,7 +182,6 @@ Team Topologies 진영은 2025년 초부터 "에이전트가 팀의 50~90%를 �
 ### 5-1. 후속 (2026-10) — 소통 경로 다음 병목은 검증이다
 
 이 노트의 결론("콘웨이 법칙은 유효하다, 소통 구조가 변수가 됐다")은 그대로다. 이후 흐름에서 달라진 한 가지: **소통 구조를 마음대로 바꿀 수 있게 되자, 막히는 곳이 "만들기"에서 "믿기"로 옮겨갔다.** pstack 같은 스킬 묶음은 1세대 멀티에이전트가 회사 조직도를 복사했던 것과 달리 "**좋은 엔지니어의 일하는 순서 + 증거 없이는 끝이라 말하지 않는다**"를 복사한다. 그리고 에이전트가 MR을 쏟아내면 **머지 처리량이 모듈 경계에 의해 결정**된다 — 콘웨이 법칙이 코드 구조를 지나 **처리량**까지 닿는 것이다.
-→ 자세히: [검증의 시대 — 콘웨이 법칙 이후, pstack, MR 3만 건 머지](../part5/ch16-2-pstack-and-merge-at-scale.md)
 
 ---
 
@@ -225,11 +224,11 @@ Team Topologies 진영은 2025년 초부터 "에이전트가 팀의 50~90%를 �
 | spec-driven | 명세 문서를 에이전트와의 주 소통 수단으로 삼는 개발 방식 |
 
 ### 연결 지도
-- **콘웨이 법칙 원형·역콘웨이 기동 (선행)**: → [10장 설계의 출발점](ch10-design-starting-point.md) 3-1장
-- **ADR·피트니스 함수 (확장되는 대상)**: → [10장 설계의 출발점](ch10-design-starting-point.md) 1-5·3-5장
-- **LLM·어텐션 (에이전트의 기반)**: → [C.4 RNN·임베딩·어텐션](../appendix/c4-sequence-and-attention.md)
-- **학습 신호·확증편향 (환각 전파의 뿌리)**: → [C.3 학습 신호와 역전파](../appendix/c3-learning-signal-and-backprop.md)
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **콘웨이 법칙 원형·역콘웨이 기동 (선행)**: → 10장 설계의 출발점 3-1장
+- **ADR·피트니스 함수 (확장되는 대상)**: → 10장 설계의 출발점 1-5·3-5장
+- **LLM·어텐션 (에이전트의 기반)**: → C.4 RNN·임베딩·어텐션
+- **학습 신호·확증편향 (환각 전파의 뿌리)**: → C.3 학습 신호와 역전파
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Conway, M. *How Do Committees Invent?* Datamation, 1968 — https://www.melconway.com/Home/Conways_Law.html
@@ -243,6 +242,16 @@ Team Topologies 진영은 2025년 초부터 "에이전트가 팀의 50~90%를 �
 - Brooks, F. *The Mythical Man-Month.* 1975 — Brooks의 법칙
 
 _짧은 인용은 출처 표기. 이 분야는 매우 빠르게 움직인다 — 2026년 기준 정리이며, 결론보다 **질문의 틀**(적용→역전→재수입)을 가져갈 것._
+
+---
+
+## 함께 보기
+
+- [10장 설계의 출발점](ch10-design-starting-point.md)
+- [16.2 pstack·3만 건 머지](../part5/ch16-2-pstack-and-merge-at-scale.md)
+- [C.3 학습 신호와 역전파](../appendix/c3-learning-signal-and-backprop.md)
+- [C.4 RNN·임베딩·어텐션](../appendix/c4-sequence-and-attention.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

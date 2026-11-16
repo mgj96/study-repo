@@ -6,7 +6,6 @@
 
 앞 절에서 데이터가 가까울수록 빠르다는 걸 봤다. 이 절은 운영체제가 그 메모리를 어떻게 나눠주고 보호하는지, 페이지·TLB·페이지 폴트가 왜 성능과 컨테이너 메모리 한계에 직결되는지를 다룬다. 끝에는 운영체제 Q&A로 장을 정리한다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -26,7 +25,6 @@ flowchart LR
 ## 딥다이브 — 가상 메모리와 페이징
 
 > Java 개발자를 위한 심층 노트. JVM 힙, GC, RSS가 왜 그렇게 움직이는지의 뿌리에는 전부 이 챕터가 있다.
-> 관련 노트: [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md) · [3.2 GC 함정과 점검](ch03-2-gc-and-review.md) · [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md)
 
 ---
 
@@ -253,7 +251,7 @@ Java에서는 이게 `MappedByteBuffer`(`FileChannel.map`) 이고, Netty·Kafka�
 
 ### 7. 왜 페이지 폴트는 캐시 히트보다 ~10만 배 느린가 — 메모리 계층과의 연결
 
-이 노트의 모든 것은 결국 **속도 계층(latency hierarchy)** 위에 있다. 대략적인 크기 감각(자세히는 [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md)):
+이 노트의 모든 것은 결국 **속도 계층(latency hierarchy)** 위에 있다. 대략적인 크기 감각(자세히는 2.1 메모리 계층과 캐시):
 
 | 접근 대상 | 대략 지연 | "1 사이클 = 1초"로 환산하면 |
 |---|---|---|
@@ -310,7 +308,7 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 
 2. **TLB/캐시 미스 폭발**: swap이 아니어도, 힙 전역을 랜덤에 가깝게 포인터 추적하면 TLB miss와 캐시 미스가 쏟아져 GC의 CPU 비용 자체가 커진다. huge page(8-3)와 지역성 좋은 GC(G1/ZGC의 region 국소성)가 이걸 완화한다.
 
-> 정리: **"GC 지연이 가끔 튄다"의 상당수는 자바가 아니라 그 아래 페이징 계층의 major fault다.** 힙을 RAM 안에 가두고(working set ⊂ RAM), swap을 억제하고, 필요하면 `AlwaysPreTouch`로 미리 물리 배정하고, huge page로 TLB 압력을 낮추는 것이 근본 처방이다. 자세한 GC 함정은 [3.2 GC 함정과 점검](ch03-2-gc-and-review.md).
+> 정리: **"GC 지연이 가끔 튄다"의 상당수는 자바가 아니라 그 아래 페이징 계층의 major fault다.** 힙을 RAM 안에 가두고(working set ⊂ RAM), swap을 억제하고, 필요하면 `AlwaysPreTouch`로 미리 물리 배정하고, huge page로 TLB 압력을 낮추는 것이 근본 처방이다. 자세한 GC 함정은 3.2 GC 함정과 점검.
 
 ---
 
@@ -350,7 +348,7 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 - 리눅스 커널 문서 / `man mmap`, `man 5 proc`(min_flt/maj_flt), Transparent Huge Pages 문서 — 실전 확인용.
 - JVM: OpenJDK Native Memory Tracking, `-XX:+AlwaysPreTouch`, `-XX:+UseLargePages`, `-XX:+UseTransparentHugePages` 관련 HotSpot 문서.
 
-> 다음 읽을거리: [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md) (캐시·지연 계층의 뿌리) · [3.2 GC 함정과 점검](ch03-2-gc-and-review.md) (여기 8-4의 실전 확장) · [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md) (OS 기초 인덱스)
+> 다음 읽을거리: 2.1 메모리 계층과 캐시 (캐시·지연 계층의 뿌리) · 3.2 GC 함정과 점검 (여기 8-4의 실전 확장) · 1장 추상화와 복잡도 (OS 기초 인덱스)
 
 ---
 
@@ -412,7 +410,16 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 - **② 원리** 동기는 호출 결과를 기다려 순서대로, 비동기는 완료를 콜백·이벤트로 나중에 받음.
 - **③ 확장** 비동기·논블로킹은 I/O 대기 동안 다른 일을 해 처리량↑(서버·게임). 대신 흐름이 복잡해 디버깅이 어렵다.
 
-_형식 참고: [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)_
+_형식 참고: E.1 역량 로드맵·코드 설명법_
+
+---
+
+## 함께 보기
+
+- [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md)
+- [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md)
+- [3.2 GC 함정과 점검](ch03-2-gc-and-review.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

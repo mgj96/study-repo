@@ -6,7 +6,6 @@
 
 서비스 사이의 모든 호출은 네트워크를 건넌다. 이 장은 지연(latency)과 대역폭(bandwidth)의 차이를 먼저 잡고, SOAP·REST·JSON·gRPC·GraphQL이 각각 어떤 문제를 풀려고 나왔는지 자바 개발자의 눈으로 비교한다. 끝에는 네트워크 Q&A가 있다.
 
-
 ### 한눈에 보기
 
 ```mermaid
@@ -48,7 +47,6 @@ flowchart TB
 - 지연 = 도로의 **길이**(편도 시간), 대역폭 = 도로의 **차선 수**.
 - 작은 데이터를 자주 주고받으면 **지연**이, 큰 데이터를 옮기면 **대역폭**이 지배한다.
 - 데이터센터 간 네트워크 왕복 ≈ 수십~수백 ms → 메모리(100ns)보다 **백만 배** 느림.
-  ([메모리 계층](../part1/ch02-1-memory-hierarchy.md))
 
 #### 2. 왕복(RTT)이 비싸다
 - 요청 1건마다 왕복 시간이 붙는다. **요청 100개 = 왕복 100번** → 지연이 누적.
@@ -71,22 +69,14 @@ flowchart TB
 
 - **API 설계**: 화면 하나에 요청 10번보다 **묶은 요청 1번**(또는 GraphQL/BFF)이 체감 빠름.
 - **프론트 성능**: 작은 파일 수십 개보다 번들링/HTTP2로 왕복을 줄임. 이미지·정적자원은 CDN.
-- **분산 시스템**: scale-out하면 노드 간 네트워크 왕복이 새 비용 → [scale-up vs out](ch09-performance-and-scale.md).
+- **분산 시스템**: scale-out하면 노드 간 네트워크 왕복이 새 비용 → scale-up vs out.
 - **LLM API 호출**: 토큰을 잘게 여러 번 요청하면 왕복이 누적 → 한 번에 충분한 context로
   보내는 게 유리(단 너무 크면 처리 지연·비용↑ — 트레이드오프).
-
-### 관련 문서
-
-- [메모리 계층과 지연시간](../part1/ch02-1-memory-hierarchy.md)
-- [Scale-up vs Scale-out](ch09-performance-and-scale.md)
-- [동시성 vs 병렬성](../part1/ch03-1-threads-and-jmm.md)
-
----
 
 ## 웹 통신·API 방식 — SOAP·REST·JSON·gRPC·GraphQL (자바 렌즈)
 
 > 관점: "SOAP 통신? JSON 통신?"이 헷갈리는 이유는 **두 축을 섞어서**다 — **① 데이터 형식**(JSON·XML)과 **② 통신 방식**(SOAP·REST…)은 다른 층이다.
-> 관련: REST 기초는 [8장 통신](ch08-communication.md) Q10 · 자바 렌즈 [A.1 Java](../appendix/a1-java.md).
+> 관련: REST 기초는 8장 통신 Q10 · 자바 렌즈 A.1 Java.
 
 ---
 
@@ -354,7 +344,16 @@ WebSocket:  연결 → ...유지...유지...유지...  서버가 전원을 계�
 - **② 원리** 자원(명사)을 URI로, 행위는 GET·POST·PUT·DELETE로 구분. 무상태(stateless) 통신.
 - **③ 확장** 직관적·표준적이라 널리 쓰이나, 복잡한 조회엔 과다/과소 요청 문제 → GraphQL 등 대안도.
 
-_형식 참고: [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)_
+_형식 참고: E.1 역량 로드맵·코드 설명법_
+
+---
+
+## 함께 보기
+
+- [2.1 메모리 계층과 캐시](../part1/ch02-1-memory-hierarchy.md)
+- [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
+- [A.1 Java](../appendix/a1-java.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

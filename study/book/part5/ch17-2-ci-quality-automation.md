@@ -12,7 +12,7 @@
 
 > 출발 질문: SonarQube·정적 분석·테스트를 CI에 걸어 두긴 했는데 **기본 설정 그대로** 쓰고 있다. 무엇을 보고 도구를 고르고, 무엇을 찾아서 튜닝해야 하나?
 > 핵심 주장: **도구는 우리 장애·리뷰·배포 데이터에서 출발해서 고른다.** 기본값은 "아무 팀에나 무난한" 값이지 "우리 팀에 맞는" 값이 아니다.
-> 관련: 도구 목록과 배선은 [품질 게이트·팀 코드 표준](ch17-1-testing-and-standards.md), 구조 규칙은 [구조를 CI로 지키기](../part4/ch15-architecture-fitness-ci.md), 테스트 층은 [테스트 전략](ch17-1-testing-and-standards.md).
+> 관련: 도구 목록과 배선은 품질 게이트·팀 코드 표준, 구조 규칙은 구조를 CI로 지키기, 테스트 층은 테스트 전략.
 
 ---
 
@@ -254,7 +254,7 @@ MyBatis는 SQL이 Java 코드가 아니라 **XML 안의 문자열**이다. 그�
 |---|---|
 | SpotBugs를 변경 모듈만 돌리는가 | 가장 무거운 단계. 전체 분석은 야간으로 옮길 수 있음 |
 | PMD 규칙 중 오탐 많은 것 | if문 규칙은 레거시에서 위반이 많아 소음이 되기 쉬움 → freeze·새 코드 기준 |
-| ArchUnit에 freeze 적용 여부 | 레거시 위반을 기록해 두고 새 위반만 막는지 ([구조를 CI로 지키기 4장](../part4/ch15-architecture-fitness-ci.md)) |
+| ArchUnit에 freeze 적용 여부 | 레거시 위반을 기록해 두고 새 위반만 막는지 (구조를 CI로 지키기 4장) |
 | Sonar `sonar.qualitygate.wait` | 게이트 실패가 파이프라인 실패로 이어지는지 |
 | 매퍼 비교에 위험 패턴 표시 | 지금은 변경 감지. WHERE 없는 UPDATE 같은 패턴 경고가 다음 단계 |
 
@@ -314,10 +314,10 @@ MyBatis는 SQL이 Java 코드가 아니라 **XML 안의 문자열**이다. 그�
 
 ### 연결 지도
 
-- 도구 목록·3겹 배선·blame 보존 → [품질 게이트·팀 코드 표준](ch17-1-testing-and-standards.md)
-- 구조 경계 규칙 (ArchUnit·freeze) → [구조를 CI로 지키기](../part4/ch15-architecture-fitness-ci.md)
-- 테스트 층 설계 → [테스트 전략](ch17-1-testing-and-standards.md)
-- AI 코드 검증 → [AI 시대 검증·구조 유지](ch16-1-bottleneck-moved-to-verification.md)
+- 도구 목록·3겹 배선·blame 보존 → 품질 게이트·팀 코드 표준
+- 구조 경계 규칙 (ArchUnit·freeze) → 구조를 CI로 지키기
+- 테스트 층 설계 → 테스트 전략
+- AI 코드 검증 → AI 시대 검증·구조 유지
 
 ### 출처
 
@@ -481,7 +481,7 @@ uses: my-org/shared-workflows/.github/workflows/ci.yml@v1
 
 ### 관련 문서
 
-- [코드베이스 분석 방법](../appendix/a3-tools-and-llm.md) — Claude Code와 작업 시 컨텍스트 전달
+- 코드베이스 분석 방법 — Claude Code와 작업 시 컨텍스트 전달
 - 실제 적용 PR: mgj96/trending-news#1
 
 ---
@@ -641,15 +641,24 @@ TEMPLATE.format(diff=fake_diff)        # → 정상 동작
 
 LLM 리뷰는 "진짜 지적 + 그럴듯한 헛소리"가 섞여 나온다 (이번엔 3개 중 2개가 헛소리).
 **검증 없이 믿으면 틀린 지식이 그대로 박힌다.** 사람이, 가능하면 직접 재현해서
-옥석을 가려야 한다. → [LLM이란 무엇인가](../appendix/c2-curriculum-and-nn-types.md)의 한계 참고.
+옥석을 가려야 한다. → LLM이란 무엇인가의 한계 참고.
 
 ---
 
 ### 관련 문서
 
-- [LLM이란 무엇인가](../appendix/c2-curriculum-and-nn-types.md) — hallucination, knowledge cutoff
-- [Reusable Workflows](ch17-2-ci-quality-automation.md)
+- LLM이란 무엇인가 — hallucination, knowledge cutoff
 - 실제 적용 PR: mgj96/trending-news#2
+
+---
+
+## 함께 보기
+
+- [15장 구조를 CI로 지키기](../part4/ch15-architecture-fitness-ci.md)
+- [16.1 병목이 검증으로](ch16-1-bottleneck-moved-to-verification.md)
+- [17.1 테스트 전략과 팀 표준](ch17-1-testing-and-standards.md)
+- [A.3 개발 도구와 LLM](../appendix/a3-tools-and-llm.md)
+- [C.2 학습 경로와 신경망 종류](../appendix/c2-curriculum-and-nn-types.md)
 
 ---
 

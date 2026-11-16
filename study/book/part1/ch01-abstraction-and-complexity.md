@@ -12,7 +12,6 @@
 
 > **목적**: "언제 어떤 자료구조/변수를 쓸지" 추론하는 힘 + **추상화의 강점과 약점**을 균형 있게 이해.
 > **관점**: 추상화는 강력하지만 공짜가 아니다. 강점과 한계를 함께 말할 수 있어야 한다. (→ trade-off 사고)
-> **관련**: [C.1 큰 그림](../appendix/c1-big-picture.md) · [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 
@@ -73,7 +72,7 @@
 | **트리(균형 BST)** | 정렬 유지 + 탐색 O(log n) | 구현 복잡 | **정렬 상태 유지 + 범위 검색** |
 | **힙(Heap)** | 최소/최대 O(1) 조회 | 전체 정렬은 아님 | 우선순위 큐, top-K |
 
-> 💧 각 구조가 **숨긴 진짜 비용**(겉보기 O(1) 함정)과 Java 클래스·import는 → [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md). "새는 추상화"(7장)의 실제 예.
+> 💧 각 구조가 **숨긴 진짜 비용**(겉보기 O(1) 함정)과 Java 클래스·import는 → 4.1 자료구조와 HashMap. "새는 추상화"(7장)의 실제 예.
 
 **빠른 판단 규칙**
 - "키로 조회가 잦다" → **해시맵**
@@ -98,7 +97,7 @@ flowchart TD
 
 *(도식 설명: '무엇을 자주 하나'로 갈라진다 — 키로 조회면 해시맵, 순서 처리면 큐/스택, 정렬·범위검색이면 트리, 최대·최소 반복이면 힙, 인덱스 접근이면 배열을 고른다.)*
 
-> ☕ **자바 클래스·import 매핑**(`ArrayList`·`HashMap`·`ArrayDeque` + import 문)은 → [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md).
+> ☕ **자바 클래스·import 매핑**(`ArrayList`·`HashMap`·`ArrayDeque` + import 문)은 → 4.1 자료구조와 HashMap.
 
 ### 5. 변수·원시 타입 선택 (언제 어떤 타입)
 
@@ -149,7 +148,7 @@ flowchart TD
 
 → "복잡함을 사람이 다룰 수 있는 **친숙한 개념으로 번역**하는 것"이 추상화다. (LLM에게 자연어로 시키는 건 추상화의 끝판.)
 
-> ⚠️ **단, 친숙함이 기계 현실을 완전히 가리진 못한다.** 예: `list.get(i)`는 O(1)처럼 친숙해 보이지만 **`LinkedList`면 O(n)** — 숨긴 비용이 샌다. 그래서 추상화는 "몰라도 되게" 해주지만, **성능·한계가 중요할 땐 아래층을 알아야** 한다. (→ 7장 새는 추상화, [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md))
+> ⚠️ **단, 친숙함이 기계 현실을 완전히 가리진 못한다.** 예: `list.get(i)`는 O(1)처럼 친숙해 보이지만 **`LinkedList`면 O(n)** — 숨긴 비용이 샌다. 그래서 추상화는 "몰라도 되게" 해주지만, **성능·한계가 중요할 땐 아래층을 알아야** 한다. (→ 7장 새는 추상화, 4.1 자료구조와 HashMap)
 
 ### 7. 추상화의 약점 — 새는 추상화 (Law of Leaky Abstractions)
 
@@ -170,7 +169,7 @@ flowchart TB
 - **TCP**: "신뢰적 연결"을 추상화하지만, 재전송이 생기면 **성능이 요동**치고 연결이 끊기기도 → 내부가 샌다.
 - **SQL**: "무엇을 원하는지"만 쓰면 되지만, 논리적으로 같은 쿼리가 **수천 배 느릴** 수 있음 → 실행계획(내부)을 알아야 함.
 - **2차원 배열 순회**: 가로/세로 순서에 따라 **캐시 미스**로 속도가 크게 다름 → 메모리 배치(내부)가 샌다.
-- **컬렉션 인터페이스**: `List.get(i)`가 `ArrayList`면 O(1), `LinkedList`면 O(n) → 같은 인터페이스라도 **내부 구현이 성능으로 샌다**. (→ [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md))
+- **컬렉션 인터페이스**: `List.get(i)`가 `ArrayList`면 O(1), `LinkedList`면 O(n) → 같은 인터페이스라도 **내부 구현이 성능으로 샌다**. (→ 4.1 자료구조와 HashMap)
 - **ORM**: 객체로 DB를 다루지만, N+1 쿼리 문제처럼 결국 **SQL**(내부)을 알아야 함.
 
 **핵심 함정**
@@ -335,7 +334,7 @@ def f(arr):              # arr 길이 n
 - **O(n²)를 못 알아본다**: 리스트 안에서 `if x in list`(선형검색)를 루프 돌면 숨은 O(n²).
   → Set/dict(O(1) 조회)로 바꾸면 O(n).
 - **빅오만 보고 안심**: 빅오가 같아도 상수·캐시가 실제 속도를 가른다.
-  → [메모리 계층](ch02-1-memory-hierarchy.md)과 함께 봐야.
+  → 메모리 계층과 함께 봐야.
 - **최선/평균/최악 혼동**: 퀵정렬은 평균 O(n log n)이나 최악 O(n²). 해시는 평균 O(1)이나 최악 O(n).
 - **작은 n에선 빅오가 무의미**: n이 작으면 O(n²)가 O(n log n)보다 빠를 수도 (상수 차이).
 
@@ -343,7 +342,7 @@ def f(arr):              # arr 길이 n
 
 시간뿐 아니라 **추가로 쓰는 메모리**도 같은 표기로 본다.
 예: 입력 외에 배열 하나 더 만들면 O(n) 공간. 재귀는 **호출 스택 깊이**가 공간 비용.
-→ 시간 vs 공간도 트레이드오프 ([트레이드오프 읽는 법](../preface/00-how-to-read.md)).
+→ 시간 vs 공간도 트레이드오프 (트레이드오프 읽는 법).
 
 ---
 
@@ -378,7 +377,7 @@ for i in range(n):
 빅오 예측대로 격차가 벌어지는가? 작은 n에서는 어떤가?
 
 **Q4.** (사고) 빅오가 같은 O(n)인데 실제 속도가 다른 예를 하나 만들어보라.
-(힌트: 배열 순회 vs 링크드리스트 순회 — [메모리 계층](ch02-1-memory-hierarchy.md))
+(힌트: 배열 순회 vs 링크드리스트 순회 — 메모리 계층)
 
 <details>
 <summary>힌트 (먼저 풀고 열기)</summary>
@@ -389,15 +388,8 @@ for i in range(n):
 
 ### 다음 단계
 
-→ [정렬](#) (예정): 왜 비교 기반 정렬은 O(n log n)이 한계인가
+→ 정렬 (예정): 왜 비교 기반 정렬은 O(n log n)이 한계인가
 → 학습 로드맵으로 돌아가기
-
-### 관련 문서
-
-- [시간복잡도·자료구조(직관·실무)](ch01-abstraction-and-complexity.md)
-- [메모리 계층과 지연시간](ch02-1-memory-hierarchy.md)
-
----
 
 ## 시간복잡도와 자료구조 — Big-O 직관과 선택 기준
 
@@ -434,7 +426,7 @@ for i in range(n):
 
 #### 3. 빅오만으로 부족한 이유 (메모리 계층)
 링크드리스트와 배열 순회는 둘 다 O(n)이지만, 배열이 **수배~수십배 빠르다**.
-포인터를 따라가면 매번 cache miss가 나기 때문. → [메모리 계층](ch02-1-memory-hierarchy.md)
+포인터를 따라가면 매번 cache miss가 나기 때문. → 메모리 계층
 "빅오가 같으면 **연속 메모리(배열) 쪽을 의심 없이 고른다**"가 실전 기본값.
 
 #### 4. 분할상환(amortized)
@@ -449,18 +441,11 @@ for i in range(n):
 - **AI에게 요청 시**: "성능 좋게"가 아니라 "이건 10만 건을 자주 검색하니 O(1) 조회 구조로"처럼
   **연산 빈도와 규모**를 주면 정확한 선택을 한다.
 
-### 관련 문서
-
-- [메모리 계층과 지연시간](ch02-1-memory-hierarchy.md)
-- [Scale-up vs Scale-out](../part2/ch09-performance-and-scale.md)
-
----
-
 ## CS 근간 — 컴퓨터는 어떻게 돌아가나 (면접 + 뿌리)
 
 > 관점: 자료구조 말고 **컴퓨터 그 자체의 뿌리**. 면접 단골이자 개념의 근간. 각 항목에 **★ = 딥다이브 우선순위** 표시. 자바 렌즈.
-> 자료구조는 [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md), GC는 [3.2 GC 함정과 점검](ch03-2-gc-and-review.md), 통신은 [8장 통신](../part2/ch08-communication.md).
-> **★ 항목엔 전용 딥다이브 노트**가 있다: [메모리 계층](ch02-1-memory-hierarchy.md) · [JMM](ch03-1-threads-and-jmm.md) · [HashMap 내부](ch04-1-data-structures-and-hashmap.md) · [가상 메모리](ch02-2-virtual-memory.md) · [B+트리 인덱스](ch04-2-btree-index.md) · [부동소수](ch04-3-floating-point.md).
+> 자료구조는 4.1 자료구조와 HashMap, GC는 3.2 GC 함정과 점검, 통신은 8장 통신.
+> **★ 항목엔 전용 딥다이브 노트**가 있다: 메모리 계층 · JMM · HashMap 내부 · 가상 메모리 · B+트리 인덱스 · 부동소수.
 >
 > 🧪 **직접 돌려보기**: 부동소수·Big-O·해시 충돌·경쟁상태를 브라우저에서 실제로 실행·측정하는 [CS 실험실](https://mgj96.github.io/study-repo/labs/cs-playground.html) (인터랙티브, 새 탭). 전체 실험 목록은 [실험실](https://mgj96.github.io/study-repo/labs/).
 
@@ -492,7 +477,6 @@ for i in range(n):
 > 외울 비율: **RAM은 L1보다 ~100배 느리고, 디스크 seek은 RAM보다 ~10만 배 느리다.** → 왜 `ArrayList`가 `LinkedList`를 실측에서 이기나(지역성), 왜 배열 순회 방향이 속도를 바꾸나가 다 여기서 나온다.
 
 **한 발 더**: 캐시는 **바이트 하나가 아니라 라인(64B) 통째로** 실어온다 → 인접 데이터를 공짜로 얻음(공간 지역성). 반대로 두 스레드가 **같은 라인의 다른 필드**를 각자 쓰면 서로의 캐시를 무효화하는 **false sharing**으로 느려진다(자바는 `@Contended`/패딩으로 방어). → 그래서 "객체 그래프(포인터 추적)"보다 "원시값 배열"이 빠르다(데이터 지향 설계).
-> ★ 딥다이브 → [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md)
 
 #### 1.3 스택 vs 힙 — 함수 호출의 기계장치
 - **스택**: 스레드마다 하나. 함수 호출 시 **스택 프레임**(반환 주소·지역 변수·인자)을 쌓고, 리턴 시 팝. 빠르고 자동 회수. 너무 깊으면 **StackOverflowError**.
@@ -519,7 +503,6 @@ for i in range(n):
 #### 2.3 가상 메모리·페이징 ★
 프로세스마다 **사설 가상 주소 공간** → MMU가 **페이지 테이블**로 물리 주소로 변환(페이지 보통 4KB, **TLB**가 캐시). 없는 페이지 참조 시 **page fault** → 디스크에서 로드. 이점: **(1) 격리·보호, (2) 물리 RAM보다 큰 메모리(스왑), (3) 단순한 프로그래밍 모델.**
 - **한 발 더**: 자바 힙도 가상 메모리 위에 있다 → GC가 힙 전체를 훑으면 **page fault**가 터질 수 있고, `-Xmx`보다 실제 상주 메모리(RSS)가 큰 것도 이 때문. thrashing(스왑 폭주)에 빠지면 시스템이 사실상 멈춘다.
-- ★ 딥다이브 → [2.2 가상 메모리와 페이징](ch02-2-virtual-memory.md)
 
 #### 2.4 동시성 ★★★ — 가장 어렵고 가장 많이 물어봄
 - **race condition**: 공유 가변 상태를 동기화 없이 접근 → `count++`(읽기-수정-쓰기)는 원자적이 아님 → 갱신 유실.
@@ -532,7 +515,6 @@ for i in range(n):
 - **한 발 더 — 왜 `volatile`만으론 부족한가**: `count++`는 읽기→+1→쓰기 3단계라, 두 스레드가 겹치면 갱신이 유실된다. `volatile`은 **가시성**만 줄 뿐 이 묶음을 원자적으로 못 만든다 → `AtomicInteger`(CAS) 또는 `synchronized` 필요.
 - **CAS(Compare-And-Swap)**: "값이 아직 A면 B로 바꿔라"를 **하드웨어가 원자적으로** 수행 → 락 없이(lock-free) 동시성. 단 **ABA 문제**(A→B→A로 되돌아오면 못 알아챔) 주의.
 - **더블 체크 락킹**: 싱글턴 지연 초기화 시 필드를 `volatile`로 안 하면 **재정렬 때문에 반쯤 만들어진 객체**가 보일 수 있다(고전 버그).
-- ★ 딥다이브 → [3.1 스레드와 JMM](ch03-1-threads-and-jmm.md)
 
 ---
 
@@ -545,7 +527,6 @@ for i in range(n):
 #### 3.2 부동소수(IEEE 754) ★ — 왜 0.1 + 0.2 ≠ 0.3
 - 실수는 `부호 × 가수 × 2^지수`. **2진법**이라 0.1은 유한 표현 불가(10진의 1/3처럼) → 반올림 오차 누적 → `0.1 + 0.2 = 0.30000000000000004`.
 - **규칙: 돈 계산에 float/double 금지 → `BigDecimal` 또는 정수(센트).** float `==` 비교 금지(epsilon 사용). `NaN != NaN`이라는 함정도.
-- ★ 딥다이브 → [4.3 부동소수 (IEEE 754)](ch04-3-floating-point.md)
 
 #### 3.3 유니코드·UTF-8 vs UTF-16
 - **ASCII**(7비트, 영어) → **Unicode**(문자→코드포인트) → **UTF-8**(가변 길이 바이트 인코딩, 웹 표준, ASCII 호환).
@@ -565,13 +546,13 @@ for i in range(n):
 | 인터넷 | IP |
 | 링크 | Ethernet·Wi-Fi |
 
-- **TCP**(연결·신뢰·순서, 웹·DB) vs **UDP**(비연결·저오버헤드, DNS·영상·게임). (→ [8장 통신](../part2/ch08-communication.md))
+- **TCP**(연결·신뢰·순서, 웹·DB) vs **UDP**(비연결·저오버헤드, DNS·영상·게임). (→ 8장 통신)
 
 ---
 
 ### 5. 복잡도·계산 이론
 
-- **Big-O**: 입력 n에 따른 증가율(상수 무시). O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ). **분할상환**(ArrayList add) 구분. (→ [1장 추상화와 복잡도](ch01-abstraction-and-complexity.md))
+- **Big-O**: 입력 n에 따른 증가율(상수 무시). O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ). **분할상환**(ArrayList add) 구분. (→ 1장 추상화와 복잡도)
 - **P vs NP** (쉽게): **P**=빨리 푼다, **NP**=빨리 **검증**한다(스도쿠 답은 즉시 확인, 풀기는 어려울 수). **NP-완전**=NP 중 최난이도(하나 빨리 풀면 다 풀림). **P=NP**?는 미해결(대부분 P≠NP로 믿음). → 언제 완벽한 알고리즘 찾기를 **멈추고 휴리스틱**으로 갈지 알려줌.
 
 ---
@@ -580,24 +561,24 @@ for i in range(n):
 
 | 토픽 | 한 줄 | 연결 |
 |------|-------|------|
-| **해싱** | 키→고정 정수, 충돌은 체이닝/개방주소 | [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) |
-| **HashMap 내부** ★ | 버킷+체이닝, 8개↑ 트리화, load 0.75 리사이즈 | [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) |
-| **캐싱·LRU** | HashMap+이중연결리스트로 O(1) | [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) |
+| **해싱** | 키→고정 정수, 충돌은 체이닝/개방주소 | 4.1 자료구조와 HashMap |
+| **HashMap 내부** ★ | 버킷+체이닝, 8개↑ 트리화, load 0.75 리사이즈 | 4.1 자료구조와 HashMap |
+| **캐싱·LRU** | HashMap+이중연결리스트로 O(1) | 4.1 자료구조와 HashMap |
 | **동시성 버그** | race·deadlock·visibility, 불변·락순서로 방어 | §2.4 |
-| **GC·메모리 누수** | 도달 가능하면 못 치움, 세대별 GC | [3.2 GC 함정과 점검](ch03-2-gc-and-review.md) |
-| **REST** | 자원 URL+HTTP 메서드, 무상태·멱등 | [8장 통신](../part2/ch08-communication.md) |
-| **DB 인덱스(B+트리)** ★ | 얕은 고차 트리로 디스크 I/O 최소(메모리 계층!) | [4.2 B+트리와 DB 인덱스](ch04-2-btree-index.md) |
+| **GC·메모리 누수** | 도달 가능하면 못 치움, 세대별 GC | 3.2 GC 함정과 점검 |
+| **REST** | 자원 URL+HTTP 메서드, 무상태·멱등 | 8장 통신 |
+| **DB 인덱스(B+트리)** ★ | 얕은 고차 트리로 디스크 I/O 최소(메모리 계층!) | 4.2 B+트리와 DB 인덱스 |
 | **ACID·트랜잭션** | 원자·일관·격리·지속, 격리수준 트레이드오프 | (DB 노트 예정) |
 
 ---
 
 ### ⭐ 시간 없으면 이것부터 (딥다이브 top 6 — 전용 노트 있음)
-1. **메모리 계층·캐시 라인** → [2.1 메모리 계층과 캐시](ch02-1-memory-hierarchy.md) — 실무 성능 1순위
-2. **JMM: `volatile` vs `synchronized`** → [3.1 스레드와 JMM](ch03-1-threads-and-jmm.md) — 가장 어렵고 최다 면접
-3. **HashMap 내부** → [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md) — 자바 내부 시그니처 질문
-4. **가상 메모리·페이징** → [2.2 가상 메모리와 페이징](ch02-2-virtual-memory.md) — OS의 마스터 추상화
-5. **B+트리 DB 인덱스** → [4.2 B+트리와 DB 인덱스](ch04-2-btree-index.md) — 자료구조 ↔ 디스크 지연 연결
-6. **부동소수 0.1+0.2** → [4.3 부동소수 (IEEE 754)](ch04-3-floating-point.md) — 작지만 즉시 실용
+1. **메모리 계층·캐시 라인** → 2.1 메모리 계층과 캐시 — 실무 성능 1순위
+2. **JMM: `volatile` vs `synchronized`** → 3.1 스레드와 JMM — 가장 어렵고 최다 면접
+3. **HashMap 내부** → 4.1 자료구조와 HashMap — 자바 내부 시그니처 질문
+4. **가상 메모리·페이징** → 2.2 가상 메모리와 페이징 — OS의 마스터 추상화
+5. **B+트리 DB 인덱스** → 4.2 B+트리와 DB 인덱스 — 자료구조 ↔ 디스크 지연 연결
+6. **부동소수 0.1+0.2** → 4.3 부동소수 (IEEE 754) — 작지만 즉시 실용
 
 ---
 
@@ -608,6 +589,22 @@ for i in range(n):
 - **부동소수(Goldberg)** — https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
 - **유니코드(Spolsky)** — https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
 - **DDIA**(인덱스·트랜잭션, Kleppmann) · **Use The Index, Luke** — https://use-the-index-luke.com/
+
+---
+
+## 함께 보기
+
+- [서문 — 이 책을 읽는 법](../preface/00-how-to-read.md)
+- [2.2 가상 메모리와 페이징](ch02-2-virtual-memory.md)
+- [3.1 스레드와 JMM](ch03-1-threads-and-jmm.md)
+- [3.2 GC 함정과 점검](ch03-2-gc-and-review.md)
+- [4.1 자료구조와 HashMap](ch04-1-data-structures-and-hashmap.md)
+- [4.2 B+트리와 DB 인덱스](ch04-2-btree-index.md)
+- [4.3 부동소수 (IEEE 754)](ch04-3-floating-point.md)
+- [8장 통신](../part2/ch08-communication.md)
+- [9장 성능과 스케일](../part2/ch09-performance-and-scale.md)
+- [C.1 큰 그림](../appendix/c1-big-picture.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 

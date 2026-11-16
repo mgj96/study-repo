@@ -11,8 +11,8 @@
 ## 딥다이브 — 트랜잭션 격리와 락: 같은 SELECT가 다른 값을 주는 이유
 
 > 기반: **ANSI SQL-92 표준** · **Berenson et al., *A Critique of ANSI SQL Isolation Levels* (SIGMOD 1995)** · **Reed, *Naming and Synchronization...* (MIT 박사논문 1978, MVCC의 기원)** · **MySQL/PostgreSQL/Oracle 공식 문서**
-> 형식: 30초 직관 → 역사 → 원리 → 트레이드오프. [5장 트랜잭션과 락](ch05-transaction-and-lock.md)의 3줄 답을 실무 깊이로 승격한 노트.
-> 관련: 인덱스가 락 범위를 정하는 원리는 [4.2 B+트리와 DB 인덱스](../part1/ch04-2-btree-index.md), JVM 쪽 낙관적 동시성은 [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md), 스프링에서의 경계는 [5장 트랜잭션과 락](ch05-transaction-and-lock.md).
+> 형식: 30초 직관 → 역사 → 원리 → 트레이드오프. 5장 트랜잭션과 락의 3줄 답을 실무 깊이로 승격한 노트.
+> 관련: 인덱스가 락 범위를 정하는 원리는 4.2 B+트리와 DB 인덱스, JVM 쪽 낙관적 동시성은 3.1 스레드와 JMM, 스프링에서의 경계는 5장 트랜잭션과 락.
 
 ---
 
@@ -112,7 +112,7 @@ David Reed의 1978년 MIT 박사논문에서 기원한 **MVCC**(다중 버전 �
 
 > **공통 교훈 하나로 수렴한다**: 어떤 구현이든 **"오래 열려 있는 트랜잭션"이 독**이다.
 > 스냅샷을 유지해줘야 하니 옛 버전을 못 지운다 → undo 고갈(Oracle), undo 비대(MySQL), VACUUM 불능(PostgreSQL).
-> [Spring 노트](ch05-transaction-and-lock.md) 5장의 "왜 짧은 트랜잭션이어야 하나(1987 Sagas)"의 저장엔진 버전이다.
+> Spring 노트 5장의 "왜 짧은 트랜잭션이어야 하나(1987 Sagas)"의 저장엔진 버전이다.
 
 ---
 
@@ -130,7 +130,7 @@ UPDATE parking SET status = 'OUT' WHERE car_no = '12가3456';
 ```
 
 > "**인덱스 안 걸었더니 느리다"보다 무서운 게 "인덱스 안 걸었더니 다 잠긴다**"다.
-> 락 경합·데드락 장애의 상당수가 실행계획 문제다 — 인덱스 구조는 [4.2 B+트리와 DB 인덱스](../part1/ch04-2-btree-index.md).
+> 락 경합·데드락 장애의 상당수가 실행계획 문제다 — 인덱스 구조는 4.2 B+트리와 DB 인덱스.
 
 #### 3-2. 갭 락 — 없는 행을 잠그는 법
 
@@ -159,7 +159,7 @@ UPDATE parking SET status = 'OUT' WHERE car_no = '12가3456';
 
 #### 3-4. 낙관적 락 — DB 버전의 CAS
 
-[3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)에서 본 CAS("기대한 값 그대로면 커밋, 아니면 재시도")의 DB 버전이 **버전 컬럼**이다:
+3.1 스레드와 JMM에서 본 CAS("기대한 값 그대로면 커밋, 아니면 재시도")의 DB 버전이 **버전 컬럼**이다:
 
 ```sql
 UPDATE parking SET status = 'OUT', version = version + 1
@@ -175,7 +175,7 @@ UPDATE parking SET status = 'OUT', version = version + 1
 | 대상 | DB 안에서 완결 | **화면 조회 후 저장** 같은 긴 흐름에도 가능 |
 
 > 마지막 줄이 실무 포인트다. "관리자 화면에서 열어두고 30분 뒤 저장" 같은 흐름은 비관적 락으론 못 지킨다(그동안 커넥션을 쥘 수 없으니). **긴 사용자 흐름 = 낙관적 락**이 기본 선택이다.
-> 재시도 전략은 [분산 정합성 노트](ch07-1-distributed-consistency.md)의 멱등성과 만난다 — 재시도가 안전하려면 그 연산이 멱등해야 한다.
+> 재시도 전략은 분산 정합성 노트의 멱등성과 만난다 — 재시도가 안전하려면 그 연산이 멱등해야 한다.
 
 ---
 
@@ -218,12 +218,12 @@ UPDATE parking SET status = 'OUT', version = version + 1
 | 버전 컬럼 | 낙관적 락 구현용 정수 컬럼. DB판 CAS |
 
 ### 연결 지도
-- **인덱스 구조 (락 범위의 결정자)**: → [4.2 B+트리와 DB 인덱스](../part1/ch04-2-btree-index.md)
-- **JVM의 CAS·낙관적 동시성 (동형 원리)**: → [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
-- **스프링에서의 트랜잭션 경계·전파**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **재시도와 멱등성**: → [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md)
-- **3줄 버전 (출발점)**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **인덱스 구조 (락 범위의 결정자)**: → 4.2 B+트리와 DB 인덱스
+- **JVM의 CAS·낙관적 동시성 (동형 원리)**: → 3.1 스레드와 JMM
+- **스프링에서의 트랜잭션 경계·전파**: → 5장 트랜잭션과 락
+- **재시도와 멱등성**: → 7.1 멱등성·Outbox·Saga
+- **3줄 버전 (출발점)**: → 5장 트랜잭션과 락
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - ANSI X3.135-1992 (SQL-92) — 격리수준 정의
@@ -239,7 +239,7 @@ _짧은 인용은 출처 표기. 락 세부 동작은 DB·버전·설정에 따�
 ## 딥다이브 — `@Transactional`은 왜 그렇게 생겼나 (프록시·전파·readOnly)
 
 > 기반: **Spring Framework Reference — Declarative Transaction Management** · **Rod Johnson, *Expert One-on-One J2EE Design and Development* (2002)** · **Garcia-Molina & Salem, *Sagas* (SIGMOD 1987)**
-> 형식: 30초 직관 → **왜 이렇게 만들어졌나** → 원리 → 트레이드오프. 락·격리수준은 [5장 트랜잭션과 락](ch05-transaction-and-lock.md), 프록시 패턴은 [A.1 Java](../appendix/a1-java.md), 학습 순서는 [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md).
+> 형식: 30초 직관 → **왜 이렇게 만들어졌나** → 원리 → 트레이드오프. 락·격리수준은 5장 트랜잭션과 락, 프록시 패턴은 A.1 Java, 학습 순서는 E.1 역량 로드맵·코드 설명법.
 
 ---
 
@@ -342,7 +342,7 @@ flowchart LR
 
 **치른 값**: **프록시를 안 거치면 아무 일도 안 일어난다.** 이게 다음 장의 함정 전부의 뿌리다.
 
-> 💡 **패턴 이름표**: 이건 GoF의 **Proxy 패턴**이다 → [A.1 Java](../appendix/a1-java.md)에 이미 "Proxy = `@Transactional`"로 정리돼 있다. 이 노트는 그 한 줄의 속을 여는 것.
+> 💡 **패턴 이름표**: 이건 GoF의 **Proxy 패턴**이다 → A.1 Java에 이미 "Proxy = `@Transactional`"로 정리돼 있다. 이 노트는 그 한 줄의 속을 여는 것.
 
 ---
 
@@ -432,7 +432,7 @@ public void pay(Order o) {
 
 **하나의 느린 외부 시스템이 전체를 끌어내리는** 전형적 경로다. 게다가 외부 호출은 **롤백이 안 된다** — DB는 되돌려도 벤더 쪽 결제는 이미 나갔다.
 
-**해결 방향**: 트랜잭션 경계를 외부 호출 **바깥**으로 빼고, 그 사이의 정합성은 **멱등성 + Outbox**로 잡는다 → [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md)
+**해결 방향**: 트랜잭션 경계를 외부 호출 **바깥**으로 빼고, 그 사이의 정합성은 **멱등성 + Outbox**로 잡는다 → 7.1 멱등성·Outbox·Saga
 
 ---
 
@@ -554,12 +554,12 @@ Garcia-Molina & Salem의 *Sagas*(SIGMOD 1987)는 **장기 실행 트랜잭션(LL
 | rollback-only | 롤백이 예약된 상태 표시. 커밋 시도 시 예외 |
 
 ### 연결 지도
-- **Proxy 패턴 자체**: → [A.1 Java](../appendix/a1-java.md)
-- **격리수준·락**: → [5장 트랜잭션과 락](ch05-transaction-and-lock.md)
-- **인덱스와 락 범위**: → [4.2 B+트리와 DB 인덱스](../part1/ch04-2-btree-index.md)
-- **프로세스가 여러 개면?**: → [6장 캐시와 분산 락](ch06-cache-and-distributed-lock.md)
-- **트랜잭션이 시스템을 넘어가면?**: → [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md)
-- **학습 순서**: → [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
+- **Proxy 패턴 자체**: → A.1 Java
+- **격리수준·락**: → 5장 트랜잭션과 락
+- **인덱스와 락 범위**: → 4.2 B+트리와 DB 인덱스
+- **프로세스가 여러 개면?**: → 6장 캐시와 분산 락
+- **트랜잭션이 시스템을 넘어가면?**: → 7.1 멱등성·Outbox·Saga
+- **학습 순서**: → E.1 역량 로드맵·코드 설명법
 
 ### 출처
 - Spring Framework Reference, *Using @Transactional* — https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html
@@ -630,7 +630,17 @@ _짧은 인용은 출처 표기. 스프링 버전에 따라 세부 동작이 달
 - **② 원리** 샤딩은 쓰기·용량 분산, 레플리케이션은 읽기 분산·가용성(장애 대비).
 - **③ 확장** 샤딩은 확장성↑이나 조인·트랜잭션 복잡, 레플리케이션은 읽기↑이나 복제 지연·정합성 이슈. 함께 쓰기도.
 
-_형식 참고: [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)_
+_형식 참고: E.1 역량 로드맵·코드 설명법_
+
+---
+
+## 함께 보기
+
+- [3.1 스레드와 JMM](../part1/ch03-1-threads-and-jmm.md)
+- [4.2 B+트리와 DB 인덱스](../part1/ch04-2-btree-index.md)
+- [7.1 멱등성·Outbox·Saga](ch07-1-distributed-consistency.md)
+- [A.1 Java](../appendix/a1-java.md)
+- [E.1 역량 로드맵·코드 설명법](../appendix/e1-roadmap-and-explain.md)
 
 ---
 
