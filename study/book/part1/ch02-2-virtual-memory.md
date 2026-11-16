@@ -22,13 +22,13 @@ flowchart LR
 
 ---
 
-## 딥다이브 — 가상 메모리와 페이징
+## 가상 메모리와 페이징
 
 > Java 개발자를 위한 심층 노트. JVM 힙, GC, RSS가 왜 그렇게 움직이는지의 뿌리에는 전부 이 챕터가 있다.
 
 ---
 
-### 0. 30초 직관 — 사물함 안내데스크(주소 통역사)
+### 2.2.0 30초 직관 — 사물함 안내데스크(주소 통역사)
 
 회사 로비에 사물함이 수백 개 있다. 그런데 당신이 받은 명함에는 "당신 사물함은 3번"이라고만 적혀 있다. 옆자리 동료의 명함에도 "당신 사물함은 3번"이라고 적혀 있다. 둘 다 3번인데 물건이 안 섞인다. 어떻게?
 
@@ -44,7 +44,7 @@ Java 렌즈로 미리 한 줄: `new byte[1<<30]` 으로 1GB를 "예약"해도, �
 
 ---
 
-### 1. 왜 가상 메모리가 존재하는가
+### 2.2.1 왜 가상 메모리가 존재하는가
 
 물리 RAM을 프로세스가 직접 만지게 하면 세 가지가 무너진다. 가상 메모리는 이 셋을 한 번에 푼다.
 
@@ -59,7 +59,7 @@ Java 렌즈로 미리 한 줄: `new byte[1<<30]` 으로 1GB를 "예약"해도, �
 
 ---
 
-### 2. 페이지와 페이지 테이블 — 주소는 어떻게 번역되는가
+### 2.2.2 페이지와 페이지 테이블 — 주소는 어떻게 번역되는가
 
 #### 2-1. 페이지(page)와 프레임(frame)
 메모리를 바이트 단위로 매핑하면 장부가 너무 커진다. 그래서 고정 크기 블록으로 자른다. 관례적으로 **4KB**(`2^12` 바이트).
@@ -113,7 +113,7 @@ Java 렌즈로 미리 한 줄: `new byte[1<<30]` 으로 1GB를 "예약"해도, �
 
 | 비트 | 의미 |
 |---|---|
-| **Valid / Present** | 이 페이지가 지금 RAM에 있나? 0이면 접근 시 page fault |
+| **Valid / Present** | 이 절가 지금 RAM에 있나? 0이면 접근 시 page fault |
 | **Read / Write / Execute** | 접근 권한. 코드 페이지는 R+X, 데이터는 R+W, 보안상 W와 X 동시 금지(W^X / NX bit) |
 | **User / Supervisor** | 유저 모드에서 접근 가능한가 (커널 페이지 보호) |
 | **Accessed (A)** | 최근에 접근됨 — 페이지 교체 알고리즘이 씀(뒤 clock 참고) |
@@ -123,7 +123,7 @@ Java 렌즈로 미리 한 줄: `new byte[1<<30]` 으로 1GB를 "예약"해도, �
 
 ---
 
-### 3. TLB — 번역 캐시
+### 2.2.3 TLB — 번역 캐시
 
 #### 3-1. TLB가 하는 일
 **TLB**(Translation Lookaside Buffer)는 MMU 안의 작은 하드웨어 캐시로, 최근에 번역한 "VPN → PFN + 권한"을 몇십~수천 개 저장한다. 안내데스크의 포스트잇이다.
@@ -143,7 +143,7 @@ TLB miss는 4단계 페이지 테이블이면 최악 4번의 메모리 접근을
 
 ---
 
-### 4. Demand Paging과 페이지 폴트
+### 2.2.4 Demand Paging과 페이지 폴트
 
 #### 4-1. 게으른 할당 (lazy allocation)
 프로세스가 메모리를 "요청"(예: `malloc`, `mmap`, JVM의 힙 예약)해도 OS는 물리 프레임을 즉시 주지 않는다. PTE만 만들어두되 **Present=0**으로 두거나 매핑만 등록한다. 실제 그 페이지를 **접근하는 순간** 하드웨어가 page fault를 일으키고, 그제서야 커널이 물리 프레임을 배정한다. 이게 **demand paging**.
@@ -170,7 +170,7 @@ TLB miss는 4단계 페이지 테이블이면 최악 4번의 메모리 접근을
 
 ---
 
-### 5. 페이지 교체와 스래싱
+### 2.2.5 페이지 교체와 스래싱
 
 RAM이 꽉 찼는데 새 프레임이 필요하면, 기존 페이지 하나를 골라 내보내야(evict) 한다. Dirty면 디스크에 되쓴 뒤(write-back), Clean이면 그냥 버린다. **누구를 내보내나?** = 페이지 교체 알고리즘.
 
@@ -217,7 +217,7 @@ RAM이 꽉 찼는데 새 프레임이 필요하면, 기존 페이지 하나를 �
 
 ---
 
-### 6. Copy-on-Write, mmap — 페이지 매핑의 응용
+### 2.2.6 Copy-on-Write, mmap — 페이지 매핑의 응용
 
 #### 6-1. Copy-on-Write (fork)
 `fork()`로 자식 프로세스를 만들 때 부모의 전체 메모리를 복사하면 느리고 낭비다(자식이 곧 `exec`하면 다 버릴 메모리). 대신:
@@ -249,9 +249,9 @@ Java에서는 이게 `MappedByteBuffer`(`FileChannel.map`) 이고, Netty·Kafka�
 
 ---
 
-### 7. 왜 페이지 폴트는 캐시 히트보다 ~10만 배 느린가 — 메모리 계층과의 연결
+### 2.2.7 왜 페이지 폴트는 캐시 히트보다 ~10만 배 느린가 — 메모리 계층과의 연결
 
-이 노트의 모든 것은 결국 **속도 계층(latency hierarchy)** 위에 있다. 대략적인 크기 감각(자세히는 2.1 메모리 계층과 캐시):
+이 절의 모든 것은 결국 **속도 계층(latency hierarchy)** 위에 있다. 대략적인 크기 감각(자세히는 2.1절):
 
 | 접근 대상 | 대략 지연 | "1 사이클 = 1초"로 환산하면 |
 |---|---|---|
@@ -270,7 +270,7 @@ Java에서는 이게 `MappedByteBuffer`(`FileChannel.map`) 이고, Netty·Kafka�
 
 ---
 
-### 8. Java 렌즈 — JVM 힙, RSS, huge page
+### 2.2.8 Java 렌즈 — JVM 힙, RSS, huge page
 
 #### 8-1. reserved vs committed (예약 vs 커밋)
 JVM은 시작 시 힙을 위해 가상 주소 공간을 **예약(reserve)** 한다. 예약은 "이 주소 범위는 내가 쓸 거야"라는 가상 공간 표시일 뿐, 물리 RAM은 아직 0바이트다. 실제로 그 페이지에 객체를 쓰기 시작하면 **커밋(commit)** 되어 물리 프레임이 demand paging으로 배정된다.
@@ -302,17 +302,17 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 트레이드오프: huge page는 예약이 크고 유연성이 낮으며, THP의 백그라운드 compaction이 예측 못 할 지연을 만들 수 있다.
 
 #### 8-4. 왜 힙 전체를 훑는 GC가 페이지 폴트를 유발하는가
-이게 이 노트의 클라이맥스다. GC 중 특히 **full GC / old 영역 마킹·컴팩션**은 힙 곳곳의 객체 그래프를 따라 포인터를 추적하며 **힙 전체를 넓게 만진다**. 여기서 두 가지가 터진다:
+이게 이 절의 클라이맥스다. GC 중 특히 **full GC / old 영역 마킹·컴팩션**은 힙 곳곳의 객체 그래프를 따라 포인터를 추적하며 **힙 전체를 넓게 만진다**. 여기서 두 가지가 터진다:
 
 1. **swap 위에 있으면 major fault 폭발**: 오랫동안 안 만진 old 영역 페이지가 커널에 의해 swap으로 내려가 있었다면, GC가 그걸 만지는 순간 하나하나가 **디스크 I/O(major fault, ms 단위)**. 힙 페이지 수만 개 × ms = stop-the-world가 수백 ms~수 초로 늘어진다. → 5-4에서 "프로덕션 JVM은 swap을 끈다"고 한 이유.
 
 2. **TLB/캐시 미스 폭발**: swap이 아니어도, 힙 전역을 랜덤에 가깝게 포인터 추적하면 TLB miss와 캐시 미스가 쏟아져 GC의 CPU 비용 자체가 커진다. huge page(8-3)와 지역성 좋은 GC(G1/ZGC의 region 국소성)가 이걸 완화한다.
 
-> 정리: **"GC 지연이 가끔 튄다"의 상당수는 자바가 아니라 그 아래 페이징 계층의 major fault다.** 힙을 RAM 안에 가두고(working set ⊂ RAM), swap을 억제하고, 필요하면 `AlwaysPreTouch`로 미리 물리 배정하고, huge page로 TLB 압력을 낮추는 것이 근본 처방이다. 자세한 GC 함정은 3.2 GC 함정과 점검.
+> 정리: **"GC 지연이 가끔 튄다"의 상당수는 자바가 아니라 그 아래 페이징 계층의 major fault다.** 힙을 RAM 안에 가두고(working set ⊂ RAM), swap을 억제하고, 필요하면 `AlwaysPreTouch`로 미리 물리 배정하고, huge page로 TLB 압력을 낮추는 것이 근본 처방이다. 자세한 GC 함정은 3.2절.
 
 ---
 
-### 9. 용어 사전
+### 2.2.9 용어 사전
 
 | 용어 | 뜻 (한 줄) |
 |---|---|
@@ -340,7 +340,7 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 
 ---
 
-### 10. 출처
+### 2.2.10 출처
 
 - **OSTEP (Operating Systems: Three Easy Pieces)**, Remzi & Andrea Arpaci-Dusseau — 무료 챕터: 주소 변환, 페이징 소개, TLB, 다단계 페이지 테이블, swapping/교체 정책. https://pages.cs.wisc.edu/~remzi/OSTEP/
   - Paging: Introduction / Faster Translations (TLBs) / Smaller Tables / Swapping: Mechanisms / Swapping: Policies 챕터.
@@ -348,7 +348,7 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 - 리눅스 커널 문서 / `man mmap`, `man 5 proc`(min_flt/maj_flt), Transparent Huge Pages 문서 — 실전 확인용.
 - JVM: OpenJDK Native Memory Tracking, `-XX:+AlwaysPreTouch`, `-XX:+UseLargePages`, `-XX:+UseTransparentHugePages` 관련 HotSpot 문서.
 
-> 다음 읽을거리: 2.1 메모리 계층과 캐시 (캐시·지연 계층의 뿌리) · 3.2 GC 함정과 점검 (여기 8-4의 실전 확장) · 1장 추상화와 복잡도 (OS 기초 인덱스)
+> 다음 읽을거리: 2.1절 (캐시·지연 계층의 뿌리) · 3.2절 (여기 8-4의 실전 확장) · 1장 (OS 기초 인덱스)
 
 ---
 
@@ -356,7 +356,6 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 
 ### CS 암기 Q&A — 운영체제(OS)
 
-> 형식: **① 결론·WHAT / ② 원리·HOW / ③ 확장·TRADE-OFF**. 외우기용. 소리 내어 3단으로 답해보기.
 
 ---
 
@@ -410,7 +409,7 @@ RSS(Resident Set Size, 실제 물리 RAM 점유)는 힙만이 아니다. `-Xmx`�
 - **② 원리** 동기는 호출 결과를 기다려 순서대로, 비동기는 완료를 콜백·이벤트로 나중에 받음.
 - **③ 확장** 비동기·논블로킹은 I/O 대기 동안 다른 일을 해 처리량↑(서버·게임). 대신 흐름이 복잡해 디버깅이 어렵다.
 
-_형식 참고: E.1 역량 로드맵·코드 설명법_
+_형식 참고: 부록 E.1_
 
 ---
 

@@ -20,11 +20,10 @@ flowchart LR
 
 ---
 
-## 기출 복기 — 이진 문자열에서 만들 수 있는 서로 다른 조합의 개수
+## E.3.1 기출 복기 — 이진 문자열에서 만들 수 있는 서로 다른 조합의 개수
 
 > 실전(HackerRank 계열)에서 만난 문제. 유형명: **Distinct Subsequences** (LeetCode 940 동형)
 > **난이도**: HackerRank **Medium** (원형 LC 940은 Hard, 이진 축소판이라 한 단계 아래) · **기업 코테 3문제 세트 기준 2번 문제(중~중상)** — "나열하지 말고 세라"는 DP 전환을 스스로 떠올려야 해서 여기서 당락이 갈린다. 부록의 자르기 변형도 같은 급(LC 1593 Medium).
-> 이 노트는 답부터 보여주지 않는다. **🤔 생각(멈춰서 스스로) → 📖 읽기(접힌 추론 열기) → ✅ 확인(검증)** 순서로 한 단계씩 진행할 것.
 
 ---
 
@@ -203,12 +202,11 @@ static void dfs(String s, int pos, Set<String> used) {
 
 ---
 
-## 기출 복기 — REST API 페이지네이션 문제 (특정 필드 최댓값 찾기)
+## E.3.2 기출 복기 — REST API 페이지네이션 문제 (특정 필드 최댓값 찾기)
 
 > 실전(HackerRank REST API 인증·기업 코테)에서 만난 유형. "fat이 최고인 항목", "평점 최고 식당", "총 골 수" 전부 **같은 템플릿 하나**다.
 > **난이도**: HackerRank **REST API Intermediate 인증** 급 (알고리즘으로 치면 Easy~Medium) · **기업 코테 기준 1번 워밍업~2번(하~중)** — 사고력이 아니라 꼼꼼함 시험이라 **준비한 사람에겐 공짜 점수, 안 한 사람에겐 0점**인 극단적 분포. 그룹 집계 변형(§3.5)까지 오면 2번 문제(중) 수준.
 > 진행 방식은 이진 조합 노트와 동일 — **🤔 생각 → 📖 읽기 → ✅ 확인** 순서로.
-> 관련: 코딩테스트 2주 로드맵 · 원리가 궁금하면 웹 통신·API
 
 ---
 
@@ -420,7 +418,7 @@ return best;
 
 ---
 
-## 유형 훈련 — Sherlock and Anagrams (애너그램 쌍 세기)
+## E.3.3 유형 훈련 — Sherlock and Anagrams (애너그램 쌍 세기)
 
 > HackerRank 실제 공개 문제 (Interview Preparation Kit · Dictionaries and Hashmaps).
 > **난이도**: HackerRank **Medium** · **기업 코테 3문제 세트 기준 2번(중)** — 이진 조합 노트와 같은 급이며, 같은 사고("직접 나열하지 말고 분류해서 세라")를 해시로 연습하는 최적의 자매 문제라 선정.
@@ -523,7 +521,7 @@ static long sherlockAnagrams(String s) {
 
 ---
 
-## 유형 훈련 — 중복 없는 가장 긴 부분문자열 (슬라이딩 윈도우)
+## E.3.4 유형 훈련 — 중복 없는 가장 긴 부분문자열 (슬라이딩 윈도우)
 
 > LeetCode 3 동형 · HackerRank 기업 코테 최다 빈출 유형 중 하나.
 > **난이도**: **Medium** · **기업 코테 3문제 세트 기준 1~2번(중)** — 슬라이딩 윈도우의 대표 관문 문제라, 이거 하나로 로드맵 D8 유형 전체의 사고를 훈련할 수 있어 선정.
@@ -631,14 +629,14 @@ O(n) 시간 · O(1) 공간(알파벳 크기 고정).
 
 ---
 
-## 치트시트 — org.json 시험장 암기 세트
+## E.3.5 치트시트 — org.json 시험장 암기 세트
 
 > REST API 유형을 풀 때 **외우고 들어가야 하는 API 표면 전부**. 시험 전날 이 한 장만 다시 볼 것.
 > 실전 배경: 정규식 파싱 시도로 시간을 잃은 경험에서 나온 정리 — **파서 API를 손가락이 기억하면 그 시간이 통째로 돌아온다.**
 
 ---
 
-### 0. 최소 암기 세트 — 이 7개면 문제가 풀린다
+### E.3.5.0 최소 암기 세트 — 이 7개면 문제가 풀린다
 
 ```java
 import org.json.*;                                  // ① 이 한 줄 (사전 설치, pom 불필요)
@@ -656,7 +654,7 @@ for (int i = 0; i < data.length(); i++) {           // ⑤ 순회는 length() �
 
 ---
 
-### 1. get vs opt — 이 구분이 예외 지옥을 가른다
+### E.3.5.1 get vs opt — 이 구분이 예외 지옥을 가른다
 
 | 상황 | `get*` 계열 | `opt*` 계열 |
 |---|---|---|
@@ -676,7 +674,7 @@ item.isNull("fat");                // 존재하지만 null인 경우 구분
 
 ---
 
-### 2. JSONArray — 헷갈리는 것만
+### E.3.5.2 JSONArray — 헷갈리는 것만
 
 ```java
 JSONArray arr = root.getJSONArray("data");
@@ -691,7 +689,7 @@ arr.getJSONArray(i);               // 중첩 배열
 
 ---
 
-### 3. 중첩 접근 — 한 줄 체이닝
+### E.3.5.3 중첩 접근 — 한 줄 체이닝
 
 ```java
 // { "user": { "rating": { "average": 4.5 } } }
@@ -709,7 +707,7 @@ double avg = (rating != null) ? rating.optDouble("average_rating", 0) : 0;
 
 ---
 
-### 4. 출력을 JSON으로 내야 할 때 (드물지만 나옴)
+### E.3.5.4 출력을 JSON으로 내야 할 때 (드물지만 나옴)
 
 ```java
 JSONObject out = new JSONObject();
@@ -720,7 +718,7 @@ System.out.println(out.toString());    // {"name":"...","total":...}
 
 ---
 
-### 5. 예외 시나리오 3개 — 시험장 디버깅 순서
+### E.3.5.5 예외 시나리오 3개 — 시험장 디버깅 순서
 
 | 증상 | 원인 | 수정 |
 |---|---|---|
@@ -732,7 +730,7 @@ System.out.println(out.toString());    // {"name":"...","total":...}
 
 ---
 
-### 6. Jackson 미니 대조표 (보일러플레이트가 Jackson으로 온 경우)
+### E.3.5.6 Jackson 미니 대조표 (보일러플레이트가 Jackson으로 온 경우)
 
 문제 템플릿이 Jackson(`ObjectMapper`)을 이미 import한 채 주어지면 갈아타지 말고 그대로:
 

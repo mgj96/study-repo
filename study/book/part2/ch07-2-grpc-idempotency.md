@@ -8,15 +8,14 @@
 
 ---
 
-## 딥다이브 — gRPC 크로스랭귀지 멱등성 가이드: Java↔C# 통신, fan-out, peer 전파
+## gRPC 크로스랭귀지 멱등성 가이드: Java↔C# 통신, fan-out, peer 전파
 
 > 기반: **gRPC 공식 문서 *Retry / Service Config*** · **gRPC 제안서 A6 *Client Retries* (재시도·헤징 설계)** · **Microsoft Learn *Transient fault handling with gRPC retries*** · **Demers et al., *Epidemic Algorithms for Replicated Database Maintenance* (PODC 1987, 가십의 원전)**
-> 형식: 시나리오 → 커넥션의 실체 → 재시도 3층 → 멱등성 구축(코드) → fan-out → peer 전파 → 체크리스트.
-> **선행**: 멱등성·Outbox의 원리는 7.1 멱등성·Outbox·Saga, gRPC가 뭔지는 8장 통신, 연결 유지 비용은 같은 문서 5장.
+> **선행**: 멱등성·Outbox의 원리는 7.1절, gRPC가 뭔지는 8장, 연결 유지 비용은 같은 문서 5장.
 
 ---
 
-### 0. 30초 직관 — "차단기 열어라"를 두 번 보내면
+### 7.2.0 30초 직관 — "차단기 열어라"를 두 번 보내면
 
 무대는 실무에서 흔한 배치다:
 
@@ -31,12 +30,12 @@
 
 여기에 문제가 하나 더 얹힌다. 중앙 서버를 **복제**하고, 게이트웨이가 **수십 개**이고, 정책 변경 하나를 **연결된 모든 프로세스에 전파(fan-out)** 해야 하며, 중앙이 끊겼을 땐 **게이트웨이끼리(peer)** 상태를 맞춰야 한다면?
 
-> 이 노트의 결론을 미리 말하면: **모든 경로(재시도·fan-out·peer 전파)가 결국 하나의 설계로 수렴한다 —
+> 이 절의 결론을 미리 말하면: **모든 경로(재시도·fan-out·peer 전파)가 결국 하나의 설계로 수렴한다 —
 > "받는 쪽의 멱등한 apply 함수 하나"를 만들고, 나머지는 전부 그 위에 얹는다.**
 
 ---
 
-### 1. 커넥션의 실체 — 채널은 소켓이 아니다
+### 7.2.1 커넥션의 실체 — 채널은 소켓이 아니다
 
 #### 1-1. 채널(Channel) = 커넥션 관리자
 
@@ -70,7 +69,7 @@ var channel = GrpcChannel.ForAddress("https://central:5001", new GrpcChannelOpti
 
 #### 1-2. keepalive가 없으면 생기는 일
 
-8장 통신 5-4장의 함정이 여기서 재현된다 — gRPC 연결은 **긴 연결**이므로 중간의 LB·방화벽·Nginx가 유휴 커넥션을 조용히 끊는다. 끊긴 걸 모르는 채 RPC를 쏘면 **첫 호출만 이상하게 실패**하는 미스터리가 된다. keepalive PING이 그 절단을 조기 감지하고 재접속시킨다. (단, 너무 짧게 잡으면 서버가 `GOAWAY too_many_pings`로 오히려 끊는다 — 서버 허용치와 맞출 것.)
+8장 5-4장의 함정이 여기서 재현된다 — gRPC 연결은 **긴 연결**이므로 중간의 LB·방화벽·Nginx가 유휴 커넥션을 조용히 끊는다. 끊긴 걸 모르는 채 RPC를 쏘면 **첫 호출만 이상하게 실패**하는 미스터리가 된다. keepalive PING이 그 절단을 조기 감지하고 재접속시킨다. (단, 너무 짧게 잡으면 서버가 `GOAWAY too_many_pings`로 오히려 끊는다 — 서버 허용치와 맞출 것.)
 
 #### 1-3. 데드라인은 전파된다
 
@@ -85,7 +84,7 @@ client.OpenGateAsync(req, deadline: DateTime.UtcNow.AddSeconds(3));  // C#
 
 ---
 
-### 2. 재시도의 3층 — "어떤 실패를 다시 보내도 되는가"
+### 7.2.2 재시도의 3층 — "어떤 실패를 다시 보내도 되는가"
 
 gRPC의 재시도는 세 층이고, 층마다 **안전 근거가 다르다**:
 
@@ -129,7 +128,7 @@ var config = new MethodConfig {
 
 ---
 
-### 3. 멱등성 구축 — 계약부터 서버 dedup까지
+### 7.2.3 멱등성 구축 — 계약부터 서버 dedup까지
 
 #### 3-1. 계약(proto)에 request_id를 넣는다
 
@@ -192,7 +191,7 @@ public void openGate(OpenGateRequest req, StreamObserver<OpenGateResponse> obs) 
 
 ---
 
-### 4. fan-out — 복제된 BE와 N개의 게이트웨이에 전파하기
+### 7.2.4 fan-out — 복제된 BE와 N개의 게이트웨이에 전파하기
 
 이제 규모를 키운다. 중앙 BE가 복제되고(인스턴스 M개), 게이트웨이가 N개다. "요금 정책 v42로 변경"을 **연결된 모든 프로세스에** 전파해야 한다.
 
@@ -235,7 +234,7 @@ public void ApplyPolicy(PolicySnapshot incoming) {
 
 ---
 
-### 5. peer 전파 — 중앙이 죽어도 현장은 돈다
+### 7.2.5 peer 전파 — 중앙이 죽어도 현장은 돈다
 
 온프렘 게이트웨이의 요구사항은 가혹하다: **중앙과 끊겨도 차는 나가야 한다.** 그렇다면 게이트웨이끼리(peer) 상태를 주고받는 경로가 필요하다.
 
@@ -284,7 +283,7 @@ flowchart TB
 
 ---
 
-### 6. 작업 체크리스트 — 순서대로
+### 7.2.6 작업 체크리스트 — 순서대로
 
 **계약**
 - [ ] proto에 `request_id`(UUID)와 `seq`(단조 버전)를 **본문 필드**로 정의
@@ -310,7 +309,7 @@ flowchart TB
 
 ---
 
-### 7. 3단 요약 (암기용)
+### 7.2.7 3단 요약 (암기용)
 
 #### Q1. gRPC 재시도를 켜면 안전한가?
 
@@ -351,11 +350,11 @@ flowchart TB
 | 결과적 일관성 | "언젠가 모두 같음". 지금 같음은 보장 안 함 |
 
 ### 연결 지도
-- **멱등성·Outbox·전진 복구 (원리 선행)**: → 7.1 멱등성·Outbox·Saga
-- **gRPC·Protobuf 기초와 연결 유지 비용**: → 8장 통신
-- **단일성 결정(분산 락)의 영역**: → 6장 캐시와 분산 락
-- **데드라인과 점유의 수학**: → 9장 성능과 스케일
-- **경계 너머의 강한 결합 (이론)**: → 11장 모듈성 이론 3-3장
+- **멱등성·Outbox·전진 복구 (원리 선행)**: 7.1절 참고
+- **gRPC·Protobuf 기초와 연결 유지 비용**: 8장 참고
+- **단일성 결정(분산 락)의 영역**: 6장 참고
+- **데드라인과 점유의 수학**: 9장 참고
+- **경계 너머의 강한 결합 (이론)**: 11장 참고 3-3장
 
 ### 출처
 - gRPC 공식 문서, *Retry* / *Service Config* — https://grpc.io/docs/guides/retry/ · https://grpc.io/docs/guides/service-config/

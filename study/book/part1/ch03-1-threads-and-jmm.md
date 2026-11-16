@@ -8,9 +8,7 @@
 
 ---
 
-## 프로세스 / 스레드 / OS 기초
-
-> 학습용 문서. 요약 → 상세 → 실무 연결 순.
+## 3.1.1 프로세스 / 스레드 / OS 기초
 
 ### 요약 (3줄)
 
@@ -51,9 +49,7 @@
 - **컨테이너/서버 사이징**: 프로세스 격리(안정) vs 스레드 공유(효율)의 트레이드오프를 의식.
 - **동시성 코드**와 직결 → 동시성 vs 병렬성.
 
-## 동시성(Concurrency) vs 병렬성(Parallelism)
-
-> 학습용 문서. 요약 → 상세 → 실무 연결 순.
+## 3.1.2 동시성(Concurrency) vs 병렬성(Parallelism)
 
 ### 요약 (3줄)
 
@@ -96,11 +92,11 @@
 - **AI에게 일 시킬 때**: "동시 처리해줘"는 모호 → "I/O 바운드라 비동기로" 또는
   "CPU 바운드라 멀티프로세스로"처럼 **작업 성격을 명시**해야 맞는 코드가 나온다.
 
-## 딥다이브 — 자바 메모리 모델 (JMM): volatile vs synchronized
+## 3.1.3 자바 메모리 모델 (JMM): volatile vs synchronized
 
 ---
 
-### 0. 30초 직관
+### 3.1.3.0 30초 직관
 
 여러 명이 회의실에서 일하는데, **각자 자기 자리 메모장**(코어 캐시)에 계산 결과를 적는다. 칠판(메인 메모리)은 공용이다. 문제는 두 가지다.
 
@@ -113,7 +109,7 @@ JMM(Java Memory Model)은 "언제 칠판에 옮기고, 언제 다시 읽으며, 
 
 ---
 
-### 1. 핵심 문제 — 왜 멀티스레드는 직관을 배신하는가
+### 3.1.3.1 핵심 문제 — 왜 멀티스레드는 직관을 배신하는가
 
 싱글스레드 프로그램에서는 컴파일러/CPU가 무슨 짓을 해도 **as-if-serial** 규칙 때문에 "코드에 쓴 순서대로 실행한 것과 같은 결과"가 보장된다. 그래서 우리는 리오더링을 신경 쓸 필요가 없었다.
 
@@ -140,7 +136,7 @@ graph LR
 
 ---
 
-### 2. happens-before — JMM의 심장
+### 3.1.3.2 happens-before — JMM의 심장
 
 JMM은 "메모리가 물리적으로 언제 동기화되는가"를 말하지 않는다. 대신 **더 추상적이고 강력한 규칙**을 준다: 두 액션 사이에 **happens-before 관계**가 성립하면, 앞 액션의 결과는 뒤 액션에게 **반드시 보인다**.
 
@@ -210,7 +206,7 @@ class Kitchen {
 
 ---
 
-### 3. `volatile` — 가시성 + 순서 보장 (단, 원자성은 아님)
+### 3.1.3.3 `volatile` — 가시성 + 순서 보장 (단, 원자성은 아님)
 
 `volatile`은 변수 하나에 대해 세 가지를 보장한다.
 
@@ -286,13 +282,13 @@ class Counter {
 
 #### volatile을 언제 쓰나
 
-- **한 스레드가 쓰고 나머지는 읽기만** 하는 상태 플래그 (아래 §7 stop 플래그).
+- **한 스레드가 쓰고 나머지는 읽기만** 하는 상태 플래그 (아래 3.1.3.7 stop 플래그).
 - 값이 **다른 변수에 의존하지 않는** 경우 (즉, 새 값이 이전 값과 무관해야 함 — 그래서 카운터엔 부적합).
 - 성능상 락보다 훨씬 가볍다. 배리어만 있고 블로킹/컨텍스트 스위치가 없다.
 
 ---
 
-### 4. `synchronized` — 상호 배제 + happens-before
+### 3.1.3.4 `synchronized` — 상호 배제 + happens-before
 
 `synchronized`는 두 가지를 동시에 준다.
 
@@ -325,7 +321,7 @@ class Counter {
 
 ---
 
-### 5. Double-Checked Locking (DCL) — volatile이 고치는 고전 버그
+### 3.1.3.5 Double-Checked Locking (DCL) — volatile이 고치는 고전 버그
 
 지연 초기화(lazy init) 싱글턴에서, 매번 락 잡기 싫어서 "락 밖에서 한 번, 락 안에서 한 번" 두 번 검사하는 패턴이다.
 
@@ -382,7 +378,7 @@ class Singleton {
 
 ---
 
-### 6. Atomic 클래스 & CAS — 락 없는 동시성
+### 3.1.3.6 Atomic 클래스 & CAS — 락 없는 동시성
 
 `java.util.concurrent.atomic`(예: `AtomicInteger`, `AtomicLong`, `AtomicReference`)은 락 없이 원자적 연산을 제공한다. 핵심 무기는 **CAS**(Compare-And-Swap)라는 CPU 명령이다.
 
@@ -428,7 +424,7 @@ top.compareAndSet(cur, next, stamp, stamp + 1); // 값+스탬프 둘 다 맞아�
 
 ---
 
-### 7. 가시성 버그 — stop 플래그가 영원히 안 멈추는 예
+### 3.1.3.7 가시성 버그 — stop 플래그가 영원히 안 멈추는 예
 
 가장 교과서적인 가시성 버그. 워커 스레드가 플래그를 보고 도는데, `volatile`이 없으면 **영원히 멈추지 않을 수 있다**.
 
@@ -458,15 +454,15 @@ class Worker extends Thread {
 }
 ```
 
-`volatile` 하나로 (1) 캐싱/호이스팅 금지 → 매 반복 최신값 확인, (2) `shutdown()`의 write가 `run()`의 read에 hb 로 보장된다. 이 플래그는 값이 이전 값에 의존하지 않는 단순 상태라서 `volatile`이 딱 맞다(§3 조건 충족).
+`volatile` 하나로 (1) 캐싱/호이스팅 금지 → 매 반복 최신값 확인, (2) `shutdown()`의 write가 `run()`의 read에 hb 로 보장된다. 이 플래그는 값이 이전 값에 의존하지 않는 단순 상태라서 `volatile`이 딱 맞다(3.1.3.3 조건 충족).
 
 ---
 
-### 8. `final` 필드 의미론 & 안전한 공개(safe publication)
+### 3.1.3.8 `final` 필드 의미론 & 안전한 공개(safe publication)
 
 `final` 필드는 JMM에서 특별 대우를 받는다. **생성자가 정상 종료되면, 그 시점에 대입된 `final` 필드의 값은 다른 스레드에게 (동기화 없이도) 올바르게 보인다** — 단, 생성 중인 객체 참조가 생성자 밖으로 새어나가지 않는 한.
 
-이것이 왜 중요한가: §5 DCL 문제의 뿌리는 "초기화 안 끝난 객체가 보이는 것"이었다. `final` 필드는 JMM이 "생성자 안의 final 필드 write는 생성자 종료 전에 완료되고, 그 이후 리오더링으로 앞당겨지지 않는다"를 **freeze 규칙**으로 보장한다. 그래서 `String`처럼 불변 객체는 데이터 레이스가 있어도 안전하게 공유된다.
+이것이 왜 중요한가: 3.1.3.5 DCL 문제의 뿌리는 "초기화 안 끝난 객체가 보이는 것"이었다. `final` 필드는 JMM이 "생성자 안의 final 필드 write는 생성자 종료 전에 완료되고, 그 이후 리오더링으로 앞당겨지지 않는다"를 **freeze 규칙**으로 보장한다. 그래서 `String`처럼 불변 객체는 데이터 레이스가 있어도 안전하게 공유된다.
 
 ```java
 final class Point {                 // 불변 객체
@@ -490,7 +486,7 @@ final class Point {                 // 불변 객체
 
 ---
 
-### 9. 데드락 — Coffman 4조건과 락 순서화
+### 3.1.3.9 데드락 — Coffman 4조건과 락 순서화
 
 데드락은 두 스레드가 서로가 쥔 락을 기다리며 영원히 멈추는 상황이다. **Coffman의 4가지 조건이 동시에 모두 성립**할 때만 발생한다.
 
@@ -525,7 +521,7 @@ void transfer(Account from, Account to, long amt) {
 
 ---
 
-### 10. 용어 구분 — race condition vs visibility vs atomicity
+### 3.1.3.10 용어 구분 — race condition vs visibility vs atomicity
 
 세 개념은 자주 뭉뚱그려지지만 **다른 문제**다.
 
@@ -539,11 +535,11 @@ void transfer(Account from, Account to, long amt) {
 
 - **가시성 문제**는 "값을 못 본다". **원자성 문제**는 "봤는데 그새 바뀐다".
 - **경쟁 상태**는 상위 개념 — 가시성 결여든 원자성 결여든, **타이밍에 따라 결과가 달라지면** 경쟁 상태다. 대표 유형이 **check-then-act**(예: DCL의 null 검사, `if (!map.containsKey(k)) map.put(k, v)`)와 **read-modify-write**(예: `x++`).
-- 중요한 오해: `volatile`로 **가시성을 고쳐도 원자성 경쟁은 그대로 남는다**(§3의 `x++`). 반대로 `synchronized`는 둘 다 잡는다. "어떤 종류의 문제인가"를 먼저 진단해야 올바른 도구를 고른다.
+- 중요한 오해: `volatile`로 **가시성을 고쳐도 원자성 경쟁은 그대로 남는다**(3.1.3.3의 `x++`). 반대로 `synchronized`는 둘 다 잡는다. "어떤 종류의 문제인가"를 먼저 진단해야 올바른 도구를 고른다.
 
 ---
 
-### 11. 실전 체크리스트 (Java 개발자용)
+### 3.1.3.11 실전 체크리스트 (Java 개발자용)
 
 - [ ] 여러 스레드가 공유하는 필드에 **동기화가 하나라도 있나**? 없으면 데이터 레이스 = 결과 미정의.
 - [ ] **읽기 쪽도** 동기화했나? write만 `synchronized`/`volatile`이고 read가 맨몸이면 가시성 깨짐.
@@ -555,7 +551,7 @@ void transfer(Account from, Account to, long amt) {
 
 ---
 
-### 12. 한눈 결정표 — plain·volatile·atomic·lock
+### 3.1.3.12 한눈 결정표 — plain·volatile·atomic·lock
 
 **문제는 2종류**: **가시성**(쓴 값이 보이나 → `volatile`) / **원자성**(복합연산에 안 끼어드나 → atomic·락).
 

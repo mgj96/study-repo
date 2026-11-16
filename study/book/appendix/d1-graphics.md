@@ -8,17 +8,11 @@
 
 ---
 
-## 컴퓨터 그래픽스 (렌더링): 상세 학습 노트
-
-> **용도**: NotebookLM 소스로 업로드해 요약·퀴즈·타임라인·개념정리에 활용.
-> **읽는 순서**: 위에서 아래로 (개념이 계단식으로 쌓이도록 배치).
-> **표기**: 한국어 설명 + (영어 용어). 각 단원 끝에 `참조` 링크. 문서 맨 끝에 전체 출처.
-> **연결**: AI 학습 노트(`../ai-ml/concept.md`)와 GPU를 공유한다 — 12단원 참고.
-> **주의**: 개념 이해용 요약. 정확한 수식·구현은 참조 원문 확인.
+## D.1.1 컴퓨터 그래픽스 (렌더링): 상세 학습 노트
 
 ---
 
-### 0. 큰 그림 — 3D 세계를 어떻게 "찍어" 화면에 담나
+### D.1.1.0 큰 그림 — 3D 세계를 어떻게 "찍어" 화면에 담나
 
 게임을 켜면 눈앞에 3D 세계가 펼쳐진다. 하지만 모니터는 결국 **납작한 픽셀 격자**일 뿐이다. 그러니 어딘가에서 누군가는 매 순간 "이 3차원 세계를, 지금 카메라 각도에서, 각 픽셀에 무슨 색으로 찍을지"를 **초당 수십 번** 계산하고 있어야 한다. 이 계산이 바로 **렌더링(rendering)** — 3D 장면(점·면·재질·빛·카메라)을 2D 픽셀 색으로 바꾸는 일이다. 사진사가 3D 세상을 필름 한 장에 담는 것과 본질이 같다.
 
@@ -58,9 +52,9 @@ flowchart LR
 
 ---
 
-## 1부. 기초 개념
+## D.1.2 1부. 기초 개념
 
-### 1. 컴퓨터 그래픽스와 렌더링이란
+### D.1.2.1 컴퓨터 그래픽스와 렌더링이란
 
 **컴퓨터 그래픽스(computer graphics)**: 컴퓨터로 이미지를 생성·조작하는 분야.
 **렌더링(rendering)**: 3D 장면 데이터(형태·재질·조명·카메라)를 입력받아 2D 이미지(픽셀 색 배열)를 만들어내는 과정.
@@ -73,7 +67,7 @@ flowchart LR
 
 `참조`: [Scratchapixel – Rendering 입문](https://www.scratchapixel.com/) · [위키백과: 렌더링](https://ko.wikipedia.org/wiki/렌더링)
 
-### 2. 3D 장면의 구성 요소
+### D.1.2.2 3D 장면의 구성 요소
 
 - **정점(vertex)**: 3D 공간의 한 점 (x, y, z). 색·법선·텍스처 좌표 등 추가 속성을 가짐.
 - **삼각형(polygon/triangle)**: 정점 3개로 이루는 면. GPU가 다루는 기본 단위(면을 삼각형으로 쪼갬).
@@ -87,7 +81,7 @@ flowchart LR
 
 `참조`: [LearnOpenGL – Hello Triangle](https://learnopengl.com/Getting-started/Hello-Triangle) · [Scratchapixel – Geometry](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/)
 
-### 3. 변환 행렬 (Model · View · Projection)
+### D.1.2.3 변환 행렬 (Model · View · Projection)
 
 3D 물체를 화면에 놓으려면 좌표를 단계적으로 변환한다. 각 변환은 **4×4 행렬**로 표현하고, 곱해서 합친다.
 
@@ -109,9 +103,9 @@ flowchart LR
 
 ---
 
-## 2부. 래스터화 파이프라인 (실시간 렌더링)
+## D.1.3 2부. 래스터화 파이프라인 (실시간 렌더링)
 
-### 4. 그래픽스 파이프라인 개요
+### D.1.3.4 그래픽스 파이프라인 개요
 
 **그래픽스 파이프라인(graphics pipeline)**: 정점 데이터가 여러 단계를 거쳐 최종 픽셀이 되는 고정된 흐름. GPU가 이 단계들을 대량 병렬로 처리한다.
 
@@ -134,7 +128,7 @@ flowchart TB
 
 `참조`: [Khronos – Rendering Pipeline Overview](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview) · [LearnOpenGL – Hello Triangle](https://learnopengl.com/Getting-started/Hello-Triangle) · [Fabian Giesen – A Trip Through the Graphics Pipeline](https://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/)
 
-### 5. 정점 셰이더 (Vertex Shader)
+### D.1.3.5 정점 셰이더 (Vertex Shader)
 
 각 정점마다 한 번씩 실행되는 작은 프로그램. 주 역할은 **MVP 변환**으로 정점의 최종 화면 위치를 계산하는 것. 그 외에 조명용 값, 텍스처 좌표 등을 다음 단계로 넘긴다.
 
@@ -146,7 +140,7 @@ flowchart TB
 
 `참조`: [LearnOpenGL – Shaders](https://learnopengl.com/Getting-started/Shaders) · [WebGL Fundamentals](https://webglfundamentals.org/)
 
-### 6. 래스터화 (Rasterization)
+### D.1.3.6 래스터화 (Rasterization)
 
 **래스터화**: 삼각형이 화면에서 덮는 픽셀들을 찾아내는 과정. 각 픽셀 후보를 **프래그먼트**(fragment)라 한다.
 
@@ -158,7 +152,7 @@ flowchart TB
 
 `참조`: [Scratchapixel – Rasterization](https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/) · [위키백과: 래스터화](https://ko.wikipedia.org/wiki/래스터화)
 
-### 7. 프래그먼트 셰이딩과 깊이 버퍼
+### D.1.3.7 프래그먼트 셰이딩과 깊이 버퍼
 
 **프래그먼트 셰이더(fragment/pixel shader)**: 각 프래그먼트(픽셀 후보)마다 실행되어 **최종 색**을 계산. 조명·텍스처·그림자 등 대부분의 "보이는 품질"이 여기서 결정된다.
 
@@ -171,7 +165,7 @@ flowchart TB
 
 `참조`: [LearnOpenGL – Depth Testing](https://learnopengl.com/Advanced-OpenGL/Depth-testing) · [Scratchapixel – Rasterization Stage](https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-stage.html)
 
-### 8. 셰이더와 GPU
+### D.1.3.8 셰이더와 GPU
 
 **셰이더(shader)**: 파이프라인의 프로그래머블 단계에서 도는 작은 프로그램. GLSL/HLSL 같은 언어로 작성.
 **GPU(그래픽 처리 장치)**: 단순 계산 코어 수천 개로 **같은 연산을 대량 데이터에 동시에**(SIMD/병렬) 수행. 픽셀·정점이 수백만 개라도 병렬로 처리.
@@ -184,9 +178,9 @@ flowchart TB
 
 ---
 
-## 3부. 조명과 셰이딩
+## D.1.4 3부. 조명과 셰이딩
 
-### 9. 조명 모델 (Lighting / Shading)
+### D.1.4.9 조명 모델 (Lighting / Shading)
 
 빛이 표면에 닿아 보이는 밝기를 근사하는 계산. 고전 **퐁 반사 모델**(Phong)은 세 성분의 합:
 
@@ -211,7 +205,7 @@ flowchart LR
 
 `참조`: [LearnOpenGL – Basic Lighting](https://learnopengl.com/Lighting/Basic-Lighting) · [위키백과: 퐁 반사 모델](https://ko.wikipedia.org/wiki/퐁_반사_모델)
 
-### 10. 텍스처 매핑 (Texture Mapping)
+### D.1.4.10 텍스처 매핑 (Texture Mapping)
 
 3D 표면에 2D 이미지(텍스처)를 입혀 디테일을 준다. 각 정점의 **UV 좌표**(텍스처 상의 위치)를 지정하면, 래스터화가 픽셀마다 보간해 알맞은 텍스처 색을 가져온다.
 
@@ -222,7 +216,7 @@ flowchart LR
 
 `참조`: [LearnOpenGL – Textures](https://learnopengl.com/Getting-started/Textures) · [Scratchapixel – Texturing](https://www.scratchapixel.com/)
 
-### 11. 물리 기반 렌더링 (PBR)
+### D.1.4.11 물리 기반 렌더링 (PBR)
 
 **PBR(Physically Based Rendering)**: 빛과 재질의 상호작용을 실제 물리 법칙에 가깝게 계산해, 어떤 조명에서도 일관되게 사실적인 결과를 내는 방식.
 
@@ -238,9 +232,9 @@ flowchart LR
 
 ---
 
-## 4부. 레이트레이싱
+## D.1.5 4부. 레이트레이싱
 
-### 12. 레이트레이싱 (Ray Tracing) 원리
+### D.1.5.12 레이트레이싱 (Ray Tracing) 원리
 
 **레이트레이싱**: 카메라(눈)에서 각 픽셀로 **광선**(ray)을 쏘아, 장면의 물체와 부딪히는 지점을 찾고, 그 지점에서 빛이 어떻게 오는지를 추적해 색을 계산한다. 빛의 물리를 직접 시뮬레이션하므로 사실적이다.
 
@@ -254,7 +248,7 @@ flowchart LR
 
 `참조`: [Ray Tracing in One Weekend (Peter Shirley, 무료)](https://raytracing.github.io/) · [Scratchapixel – Ray Tracing](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/)
 
-### 13. 실시간 레이트레이싱과 하이브리드 (RTX)
+### D.1.5.13 실시간 레이트레이싱과 하이브리드 (RTX)
 
 최근 GPU(예: NVIDIA RTX)는 광선-교차 계산을 가속하는 전용 하드웨어를 넣어 **실시간 레이트레이싱**을 가능케 했다. 다만 전부 레이트레이싱하면 여전히 무거워, 보통 **하이브리드**로 쓴다.
 
@@ -313,7 +307,7 @@ flowchart LR
   - "래스터화와 레이트레이싱을 비교 표로 정리하고 5문항 퀴즈 만들어줘"
   - "그래픽스 파이프라인 단계를 순서도처럼 설명해줘"
   - "MVP 변환을 중학생에게 설명하듯 다시 써줘"
-  - "이 노트와 AI 노트에서 GPU가 공통으로 쓰이는 이유를 요약해줘"
+  - "이 절와 AI 노트에서 GPU가 공통으로 쓰이는 이유를 요약해줘"
 
 #### NotebookLM에 소스로 직접 추가하면 좋은 링크 (복사용)
 
@@ -354,13 +348,13 @@ _작성: 2026-07 · 개념 이해용 학습 노트 (정확한 수식·구현은 
 
 ---
 
-## 자바 개발자를 위한 컴퓨터 그래픽스 — 아는 걸로 이해하기
+## D.1.6 자바 개발자를 위한 컴퓨터 그래픽스 — 아는 걸로 이해하기
 
 > 관점: 그래픽스도 **아는 Java 개념의 재배치**로 볼 수 있다. 특히 **파이프라인 = Stream, 셰이더 = 람다, GPU = parallelStream 극한, 레이트레이싱 = 재귀**.
 
 ---
 
-### 0. 한 장 요약 — 그래픽스 ↔ Java 대응표
+### D.1.6.0 한 장 요약 — 그래픽스 ↔ Java 대응표
 
 | 그래픽스 개념 | Java로 치면 | 한 줄 |
 |--------------|------------|-------|
@@ -380,7 +374,7 @@ _작성: 2026-07 · 개념 이해용 학습 노트 (정확한 수식·구현은 
 
 ---
 
-### 1. 렌더링 파이프라인 = Stream 파이프라인 (핵심)
+### D.1.6.1 렌더링 파이프라인 = Stream 파이프라인 (핵심)
 
 그래픽스 파이프라인은 데이터가 **단계를 거치며 변환**된다 — 정확히 자바 Stream이다.
 
@@ -395,11 +389,11 @@ List<Pixel> frame = mesh.vertices.stream()
 ```
 
 - 각 **단계(stage)** = `.map()` 하나. 데이터(정점→조각→픽셀)가 흐르며 모양이 바뀐다.
-- (→ D.1 컴퓨터 그래픽스 4장 파이프라인 개요와 같은 그림.)
+- (부록 D.1 참고 4장 파이프라인 개요와 같은 그림.)
 
 ---
 
-### 2. 셰이더 = 람다 콜백, GPU = parallelStream 극한
+### D.1.6.2 셰이더 = 람다 콜백, GPU = parallelStream 극한
 
 - **셰이더**는 파이프라인 단계에 **당신이 꽂는 함수**다. `Function<Vertex, Vertex>`(정점) / `Function<Fragment, Color>`(프래그먼트).
 - **GPU**는 이 함수를 **수백만 개 데이터에 동시에** 실행한다. `vertices.parallelStream().map(shader)`의 **극한판**(SIMD).
@@ -408,7 +402,7 @@ List<Pixel> frame = mesh.vertices.stream()
 
 ---
 
-### 3. 변환행렬(MVP) = 함수 합성
+### D.1.6.3 변환행렬(MVP) = 함수 합성
 
 - 모델→월드→뷰→투영은 **변환을 차례로 적용**하는 것. 자바로는 **함수 합성**:
   ```java
@@ -419,7 +413,7 @@ List<Pixel> frame = mesh.vertices.stream()
 
 ---
 
-### 4. 레이트레이싱 = 재귀
+### D.1.6.4 레이트레이싱 = 재귀
 
 - 광선을 쏘고, 물체에 **맞으면** 그 지점에서 **반사·굴절 광선을 또 쏜다** → **재귀 호출**.
   ```java
@@ -435,7 +429,7 @@ List<Pixel> frame = mesh.vertices.stream()
 
 ---
 
-### 5. 비유가 깨지는 지점 (주의)
+### D.1.6.5 비유가 깨지는 지점 (주의)
 
 - **GPU는 JVM이 아니다**: 셰이더(GLSL)는 자바처럼 JVM에서 안 돈다. **별도로 컴파일**돼 GPU에서 실행되는 **다른 언어**(C 비슷). 자바에서 문자열/파일로 넘겨 올린다.
 - **분기(if)가 비싸다**: 자바 스레드는 각자 다른 길을 가도 되지만, GPU는 **수천 코어가 보조를 맞춰** 실행(SIMD)해서 셰이더 안 `if`로 갈라지면 성능이 뚝 떨어진다(divergence). "병렬 = 공짜"가 아니다.
@@ -443,7 +437,7 @@ List<Pixel> frame = mesh.vertices.stream()
 
 ---
 
-### 6. 누가 언제 그리나 — CPU·GPU·병렬 (실행 모델)
+### D.1.6.6 누가 언제 그리나 — CPU·GPU·병렬 (실행 모델)
 
 처음 배울 때 가장 헷갈리는 부분: 그래픽은 **CPU 한 스레드가 하나씩 그리는 게 아니다.** CPU는 **명령만** 내리고, **GPU 수천 코어가 픽셀을 동시에** 칠한다.
 
@@ -478,7 +472,7 @@ flowchart LR
 
 - **왜 병렬 가능?** 픽셀 하나 계산은 **옆 픽셀과 독립**(embarrassingly parallel) → 다 동시에. 반대로 게임 로직은 순서 의존이라 CPU가 맡는다.
 - **CPU·GPU는 동시에**(비동기): CPU가 다음 프레임 준비하는 동안 GPU가 현재 프레임을 그린다. (작업을 큐에 `submit`하는 비동기 워커 풀 감각)
-- **스레드 성격 차이**: 자바 스레드 = 수십 개가 **각자 다른 일**(MIMD). GPU = 수천 개가 **전부 같은 셰이더**를 다른 픽셀에(SIMD) → 그래서 셰이더 `if` 분기가 비싸다(§5 divergence).
+- **스레드 성격 차이**: 자바 스레드 = 수십 개가 **각자 다른 일**(MIMD). GPU = 수천 개가 **전부 같은 셰이더**를 다른 픽셀에(SIMD) → 그래서 셰이더 `if` 분기가 비싸다(D.1.6.5 divergence).
 
 ---
 
