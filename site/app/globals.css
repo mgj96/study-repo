@@ -24,3 +24,12 @@ body {
   max-width: 100%;
   height: auto;
 }
+
+/* 폰에서 코드 읽기: 단어 단위로 줄바꿈 (넘어간 줄의 내어쓰기는 DocView의 Code가 맞춘다). */
+@media (max-width: 700px) {
+  .study-doc pre.astryx-code-block code {
+    font-size: 12.5px;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+}

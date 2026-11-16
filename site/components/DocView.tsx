@@ -73,6 +73,36 @@ function Mermaid({code}: {code: string}) {
   return <div className="study-mermaid" dangerouslySetInnerHTML={{__html: svg}} />;
 }
 
+// 코드 블록: 폰에서는 화면 폭에 맞춰 줄바꿈·작은 글씨, 긴 코드는 접어 둔다.
+// 언어가 없거나 text인 블록(아스키 그림·표)은 줄바꿈하면 모양이 깨지므로 옆으로 밀어 보기를 유지한다.
+function Code({code, language}: {code: string; language?: string}) {
+  const isPhone = useMediaQuery('(max-width: 700px)');
+  const isAscii = !language || language === 'text' || language === 'plaintext';
+  const wrap = isPhone && !isAscii;
+  const ref = useRef<HTMLDivElement>(null);
+  // 줄바꿈된 줄이 그 줄의 들여쓰기 위치에서 이어지도록(내어쓰기) 줄마다 여백을 맞춘다.
+  useEffect(() => {
+    ref.current?.querySelectorAll<HTMLElement>('pre code > div').forEach(line => {
+      const indent = wrap ? (line.textContent ?? '').match(/^ */)![0].length + 2 : 0;
+      line.style.paddingInlineStart = indent ? `${indent}ch` : '';
+      line.style.textIndent = indent ? `-${indent}ch` : '';
+    });
+  }, [wrap, code]);
+  return (
+    <div ref={ref}>
+    <CodeBlock
+      code={code}
+      language={language}
+      width="100%"
+      isWrapped={wrap}
+      size={isPhone ? 'sm' : 'md'}
+      isCollapsible
+      collapsibleThreshold={15}
+    />
+    </div>
+  );
+}
+
 function makeComponents(): MarkdownComponents {
   const components: MarkdownComponents = {
     math: Math,
@@ -86,7 +116,7 @@ function makeComponents(): MarkdownComponents {
           </Collapsible>
         );
       }
-      return <CodeBlock code={code} language={language} width="100%" />;
+      return <Code code={code} language={language} />;
     },
   };
   return components;
